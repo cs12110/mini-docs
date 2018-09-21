@@ -1,46 +1,35 @@
 # Stories from Quora
----
+
 &nbsp;&nbsp;翻译问答平台[Quora](https://www.quora.com)上自己喜欢的故事.如果侵犯了您的个人权益,请联系本人,本人立刻删除以及致歉.s
 
 &nbsp;&nbsp;由于本人英语水平较差,如果出现翻译错误或曲解原作者的翻译,请谅.
 
-
-
+---
 
 ## 永远不要对程序猿说什么?
+
 From:&nbsp;&nbsp;[How do I deal with ....?](What should you never say to a programmer?)
 
-
 Date: November 22 2017
-
-
 
 “I have a great idea for a startup! So we should make an app that…
 
 <insert an idea here which is already on the market/impossible to implement/really stupid/useful for only 14 people around the world>
 What do you think? Totally awesome right? So anyway, I am looking for a coder who will do the programming, shouldn’t take much time. I will be the CEO, doing the hard work, you know, talking with real people, you nerds can’t do that. How about we split the profit 80%–20%? I think it is generous!”
 
-> "关于起步项目,我有一个很好的主意.我们应该弄一个app...
+> "关于起步项目,我有一个很好的主意.我们应该弄一个 app...
 
-
-
-><这里面就是那个主意在app商店里面已经存在了/不可能去扩展的/蠢到爆炸的/全球可能只有14个人会使用的>你觉得怎么样?是不是很牛掰,很厉害? 所以,我在找一个能编程,而又不在开发中耗费很多时间的程序猿.我会成为CEO,做最艰难的工作,你知道的,和那些客户交流,你们这些死宅是做不来的.不如我们8/2分成,我8,你2?我想这是极好的!"
+> <这里面就是那个主意在 app 商店里面已经存在了/不可能去扩展的/蠢到爆炸的/全球可能只有 14 个人会使用的>你觉得怎么样?是不是很牛掰,很厉害? 所以,我在找一个能编程,而又不在开发中耗费很多时间的程序猿.我会成为 CEO,做最艰难的工作,你知道的,和那些客户交流,你们这些死宅是做不来的.不如我们 8/2 分成,我 8,你 2?我想这是极好的!"
 
 We hate that. And guess what, we can talk to people, we just don’t like to :D
 
 > 程序猿痛恨这个.你知道吗?我们可以和客户交流,只是不喜欢那样子做而已.
 
-
-
-
-
 ## 有哪一时刻发生在你生活中你觉得只会发生在电影里面的场景?
+
 From:&nbsp;&nbsp;[What is one moment in your life you thought could only happen in a movie?](https://www.quora.com/What-is-one-moment-in-your-life-you-thought-could-only-happen-in-a-movie/answers/67374227?srid=uv7Kg)
 
-
 Date: November 25 2017
-
-
 
 I was in the midst of an extremely stressful year, sudden unexpected job loss, deaths in the family, life was just a big meteor plowing me into oblivion.
 
@@ -56,7 +45,7 @@ I woke up the next afternoon in the hospital and had no clue why I was there. A 
 
 I looked around and asked the man sitting there if I knew him from somewhere. He only said that we had met the previous night. And then I suddenly realized I could not remember anything at all.
 
-> 我望向四周,问那个男人是不是我在哪里认识他(500年前是一家?).他仅仅说我们在昨晚才遇见的.然后,我意识到我不记得关于昨晚的任何事情了.
+> 我望向四周,问那个男人是不是我在哪里认识他(500 年前是一家?).他仅仅说我们在昨晚才遇见的.然后,我意识到我不记得关于昨晚的任何事情了.
 
 While trying to put the pieces together, the nurse walked in with another man. A psychiatrist.
 
@@ -68,7 +57,7 @@ To make a long story short, although I have no recollection of the journey, I ha
 
 A complete stranger saved my life, and then sat there for 15 hours just to be the one to welcome me back to the land of the living.
 
-> 一个陌生人救了我,然后他坐在那里15个小时,就为了成为欢迎我回归生活的一员.
+> 一个陌生人救了我,然后他坐在那里 15 个小时,就为了成为欢迎我回归生活的一员.
 
 A week in the hospital, some much needed temporary medication, extensive stress management and grief therapy. I am whole again and doing well.
 
@@ -76,27 +65,21 @@ A week in the hospital, some much needed temporary medication, extensive stress 
 
 That was 12 years ago. Every few months I bring security guard Ted a cup of coffee and sit on the roof of that same garage (it is now fenced in) to share a couple doughnuts and a brief conversation of gratitude. He is the most humble, kind-hearted person I have ever met.
 
-> 那是12年前.每隔几个月,我都会给保安Ted一杯咖啡,坐在同一个车库的屋顶上(现在建立了围墙)去分析一些糕点和一会怀着感激之情的交谈.Ted是我见过最谦虚,最热心的人了.
+> 那是 12 年前.每隔几个月,我都会给保安 Ted 一杯咖啡,坐在同一个车库的屋顶上(现在建立了围墙)去分析一些糕点和一会怀着感激之情的交谈.Ted 是我见过最谦虚,最热心的人了.
 
 If you are reading this, thanks Ted. Thank you for my life.
 
-> 如果你看见这个,谢谢你Ted.谢谢你为我做的一切.
+> 如果你看见这个,谢谢你 Ted.谢谢你为我做的一切.
 
 P.S. We both know I owe you so much more than coffee and a snack, but you just have be stubborn about it!
 
 > Ps 我们都知道我欠你远不止一杯咖啡和小吃,但你坚持你只要这些.
 
+## 有哪些一直都是很 cool 的东西?
 
-
-
-
-## 有哪些一直都是很cool的东西?
 From:&nbsp;&nbsp;[What will always be cool?](https://www.quora.com/What-will-always-be-cool/answer/Sean-Kernan?srid=uv7Kg)
 
-
 Date: November 26 2017
-
-
 
 Being secretly good at something and not telling anyone.
 
@@ -120,23 +103,17 @@ Boom.
 
 Humility is cool (and hot).
 
-> 谦虚是很cool的(很性感).
+> 谦虚是很 cool 的(很性感).
 
 And it never expires.
 
 > 而且这永远不会过时.
 
-
-
-
-
 ## 你今天读到最好的东西是什么?
+
 From:  [What is the best thing you read today?](https://www.quora.com/What-is-the-best-thing-you-read-today/answer/AnandBhushan-Singh?srid=uv7Kg)
 
-
 Date: November 27 2017
-
-
 
 A man married a beautiful girl. He loved her very much.
 
@@ -176,27 +153,21 @@ Moral: Some times it is good for us to act blind and ignore one another's short 
 
 May God grant us all the spirit of forgiveness, unity and togetherness.
 
-> 愿Blabla赐予我们所有关于原谅,团结和欢聚的力量.
-
-
-
-
+> 愿 Blabla 赐予我们所有关于原谅,团结和欢聚的力量.
 
 ## 收到过最好的礼物?
-From:&nbsp;&nbsp;[What is the best gift that somebody has ever received?](https://www.quora.com/What-is-the-best-gift-that-somebody-has-ever-received/answer/Kevin-Layton-2?srid=uv7Kg)
 
+From:&nbsp;&nbsp;[What is the best gift that somebody has ever received?](https://www.quora.com/What-is-the-best-gift-that-somebody-has-ever-received/answer/Kevin-Layton-2?srid=uv7Kg)
 
 Date: November 28 2017
 
+My Dad bought me a brand new Jeep Wrangler when I was 17, but the real gift was what he taught me about life by way of this car. Every month, on the first of the month, I was required to pay him 150 if I wanted to continue driving my Jeep. If I didn’t pay, I couldn’t drive my car (or “his car”, as he often reminded me, since he owned the title). My Dad was (and still is) a successful businessman, who makes a very decent living. To a 17-year old working part-time in High School, 150 was more than I usually had in my bank account, and I often struggled with the prospect of handing over 150 when the time came to pay the piper. Although it was often done begrudgingly and with much complaining, I always made sure to have 150 in his hand on the first of the month, and did so for 2 years.
 
-
-My Dad bought me a brand new Jeep Wrangler when I was 17, but the real gift was what he taught me about life by way of this car. Every month, on the first of the month, I was required to pay him  150 if I wanted to continue driving my Jeep. If I didn’t pay, I couldn’t drive my car (or “his car”, as he often reminded me, since he owned the title). My Dad was (and still is) a successful businessman, who makes a very decent living. To a 17-year old working part-time in High School, 150 was more than I usually had in my bank account, and I often struggled with the prospect of handing over 150 when the time came to pay the piper. Although it was often done begrudgingly and with much complaining, I always made sure to have 150 in his hand on the first of the month, and did so for 2 years.
-
-> 在我17岁的时候,我爸给我买了一辆新的吉普车,但真正礼物是他通过这辆车教给我的东西.每一个月,在月初,如果我想要开那辆车,我就要被要求交150美元的费用.如果我不交,我不能驾驶那辆车(或者说是他的车,就像他经常提起的那样,从他拥有那车的归属权).我爸曾经是(现在也还是)一个成功的商人,有着十分得体的生活.对于一个17岁在高中里面兼职的人,150美元通常比我在银行里面的存款还多,而我经常挣扎在把150美元交到他那里来换取一个月的驾驶权的场景.尽管这通常带来很多关于吝啬的埋怨.我得一直确保我有150美元在每个月的开始交给他,而且这样做了2年.
+> 在我 17 岁的时候,我爸给我买了一辆新的吉普车,但真正礼物是他通过这辆车教给我的东西.每一个月,在月初,如果我想要开那辆车,我就要被要求交 150 美元的费用.如果我不交,我不能驾驶那辆车(或者说是他的车,就像他经常提起的那样,从他拥有那车的归属权).我爸曾经是(现在也还是)一个成功的商人,有着十分得体的生活.对于一个 17 岁在高中里面兼职的人,150 美元通常比我在银行里面的存款还多,而我经常挣扎在把 150 美元交到他那里来换取一个月的驾驶权的场景.尽管这通常带来很多关于吝啬的埋怨.我得一直确保我有 150 美元在每个月的开始交给他,而且这样做了 2 年.
 
 The day I graduated High School, my Dad pulled me into his office at our house, and sat me down for a little chat. “Kevin” he said, extending his arm to give me a white, sealed envelope, “here is your graduation present. Although to be fair, this is technically a present from yourself.” I opened the envelope with caution, and almost started crying when I realized he just gave me $3,600 in cash, or the equivalent of 24 car payments that he had been saving for the last 2 years. Every payment I gave him went straight into this envelope, to be opened upon my graduation. By forcing me to pay him every month, he was teaching me how to save, how to manage my money, how to find and hold a job, how to be responsible. My Dad is and will forever be the best man I have ever known.
 
-> 当我高中毕业的那天,我爸把我拉到他在家中的办公室里面,然后坐下来交谈一会."Kevin",他说,把他的手伸过来递给我一个白色,密封的信封,"这个是你的毕业礼物.说句公道话,这个礼物实际是你自己送给你自己的."我小心的打开那个信封,我差点哭出来了,当我意识到他给我3600美元的现金的时候,或者等于他保存了2年,我24个月的车费.每一次我给他的钱,他都直接放到那个信封里面,为了在我毕业的时候才打开.为了强迫我每个月缴费,他是在教我怎么存钱,怎么去管理,怎么去找和保住一份工作,怎么承担责任.我爸是我认识中最好的男人.
+> 当我高中毕业的那天,我爸把我拉到他在家中的办公室里面,然后坐下来交谈一会."Kevin",他说,把他的手伸过来递给我一个白色,密封的信封,"这个是你的毕业礼物.说句公道话,这个礼物实际是你自己送给你自己的."我小心的打开那个信封,我差点哭出来了,当我意识到他给我 3600 美元的现金的时候,或者等于他保存了 2 年,我 24 个月的车费.每一次我给他的钱,他都直接放到那个信封里面,为了在我毕业的时候才打开.为了强迫我每个月缴费,他是在教我怎么存钱,怎么去管理,怎么去找和保住一份工作,怎么承担责任.我爸是我认识中最好的男人.
 
 Edit: He gave me the title for the Jeep 4 years later, as my college graduation present :)
 
@@ -204,19 +175,13 @@ Edit: He gave me the title for the Jeep 4 years later, as my college graduation 
 
 Edit #2: 20,000+ upvotes?! I’m humbled by the response and appreciate everyone’s kind words…thank you all!
 
-> 更新2: 20k+点赞?!我被你们的留言击败了,同时感谢你们每一位的热心留言.谢谢各位父老乡亲.
-
-
-
-
+> 更新 2: 20k+点赞?!我被你们的留言击败了,同时感谢你们每一位的热心留言.谢谢各位父老乡亲.
 
 ## 送给孩子的最好的礼物是什么?
+
 From:&nbsp;&nbsp;[What's the best gift parents can give to their children?](https://www.quora.com/Whats-the-best-gift-parents-can-give-to-their-children/answer/Rishi-Kaushik-5?srid=uv7Kg)
 
-
 Date: November 29 2017
-
-
 
 An email id:
 
@@ -224,29 +189,21 @@ An email id:
 
 The best gift a parent can give their child is an email id. Create an email id in your child's name, keep sending mails on a regular basis praising them on their small accomplishments they have made, let it be the 1st time they went to school or the time when they won a prize in drawing. Capture these beautiful moments and mail it to them with images, write through your heart, write what ever you want to tell the adult them. On their 18th birthday, give them the email id and password. :)
 
-> 现在能给他们孩子的最好礼物就是一个邮箱地址.用你孩子的名字创建一个邮箱地址,在他们达成小小目标的时候给他们发赞美的邮件,在他们第一天上学或者第一次因为画画拿到奖状.捕抓他们美好的瞬间,附带着照片发给他们,写一些你内心的东西,写一些你想告诉在他们长大之后的事情.在他们18岁的生日的时候,把邮箱地址和密码给他们 :")
+> 现在能给他们孩子的最好礼物就是一个邮箱地址.用你孩子的名字创建一个邮箱地址,在他们达成小小目标的时候给他们发赞美的邮件,在他们第一天上学或者第一次因为画画拿到奖状.捕抓他们美好的瞬间,附带着照片发给他们,写一些你内心的东西,写一些你想告诉在他们长大之后的事情.在他们 18 岁的生日的时候,把邮箱地址和密码给他们 :")
 
 Imagine the happiness in their face while going through those mails! Priceless!
 
 > 想象一下当他们查阅自己的邮件的时候那种幸福的表情.无价之宝!
 
-
-
-
-
 ## 哪个关于爱的故事让你泪目?
 
 From:&nbsp;&nbsp;[What are the best love stories that made you cry?](https://www.quora.com/What-are-the-best-love-stories-that-made-you-cry/answer/Swanandi-J?srid=uv7Kg)
 
-
 Date: January 02 2018
-
-
-
 
 Sameer : how many times have I told you, meghna to not to eat ice cream.
 
-> Sameer: 我告诉你多少次了,meghna不能吃冰激凌
+> Sameer: 我告诉你多少次了,meghna 不能吃冰激凌
 
 Meghna (jokingly) : who are you sir to tell me what to eat and what not to eat?
 
@@ -262,7 +219,7 @@ Meghna : yeah! Yeah! (in bragging tone)
 
 Sameer : now take this tablet for 3 days and you will be fine.
 
-> Sameer: 现在你吃3天这个药就会好了.
+> Sameer: 现在你吃 3 天这个药就会好了.
 
 —————-—————————————
 
@@ -272,7 +229,7 @@ Meghna: So what did papa say?
 
 Sameer : Marry Nisha, else he won't go for surgery. I will convince him. You don't worry.
 
-> Sameer: 娶Nisha,否则他不会去做手术.我会说服他的.不要担心.
+> Sameer: 娶 Nisha,否则他不会去做手术.我会说服他的.不要担心.
 
 Meghna : don't worry. Everything will be fine. Take care of him.
 
@@ -280,17 +237,17 @@ Meghna : don't worry. Everything will be fine. Take care of him.
 
 Sameer was lost in thoughts. He and Meghna were madly in love for 9 years. She was always there with him through his thick and thin. During his failures and success,in dark times. It was her, who gave him a new life. Loved him the most. For him, she was the one.
 
-> Sameer在思绪中迷失了.他和Meghna疯狂的爱着彼此9年了.她一直在他身边陪他度过他生命中的起落.在他的失败和成功的时候,在黑暗的时候.是她,那个给了他新生的人.最爱他的人也是她.对于他来说,她是他的唯一.
+> Sameer 在思绪中迷失了.他和 Meghna 疯狂的爱着彼此 9 年了.她一直在他身边陪他度过他生命中的起落.在他的失败和成功的时候,在黑暗的时候.是她,那个给了他新生的人.最爱他的人也是她.对于他来说,她是他的唯一.
 
 When Sameer declared his wish to marry her, his parents denied. His father suffered a heart attack. His father chose Nisha as a bride for him, who was the daughter of a rich landlord.
 
-> 当Sameer说出希望娶她的时候,她的父母反对.他爸正在遭受心脏病.他爸给他选了Nisha作为他的新娘,一个地主家的傻女儿.
+> 当 Sameer 说出希望娶她的时候,她的父母反对.他爸正在遭受心脏病.他爸给他选了 Nisha 作为他的新娘,一个地主家的傻女儿.
 
 ++++++++++++++++++++++
 
 Nisha : Hey, look Meghna. You both are making it complicated. And believe me Sameer will soon forget you once he gets married to me.
 
-> Nisha: hey,Megha,你们让事情变得复杂了.相信我,一旦Sameer和我结婚之后他就会很快忘记你了.
+> Nisha: hey,Megha,你们让事情变得复杂了.相信我,一旦 Sameer 和我结婚之后他就会很快忘记你了.
 
 Meghna : but we love…
 
@@ -303,8 +260,7 @@ Nisha :Oh Come on!! Forget this crap Meghna. You will get a very rich guy from y
 ++++++++++++++++++++++
 Surgery went successful. Nisha and Sameer got married.
 
-> 手术很成功.Nisha和Sameer结婚了.
-
+> 手术很成功.Nisha 和 Sameer 结婚了.
 
 ++++++++++++++++++++++
 
@@ -314,7 +270,7 @@ Surgery went successful. Nisha and Sameer got married.
 
 Sameer : how many times have I told you meghna to not to eat ice cream.
 
-> Sammer: 多少次我告诉你,meghna不能吃冰激凌.
+> Sammer: 多少次我告诉你,meghna 不能吃冰激凌.
 
 Meghna (jokingly) : who are you sir, to tell me what to eat and what not to eat?
 
@@ -326,7 +282,7 @@ Sameer : I am your…..
 
 Within moments he realized what he said. And there was utter silence on the dinner table. It was a college reunion. Besides Nisha (Sameer’s wife) and Vikram (meghna’s husband) kept staring.
 
-> 在这一刻他意识他要说什么.餐桌上一片沉默.这是大学的聚会.在旁边 Nisha(Sameer的老婆)和Vikram(megha的老公)盯着他们.
+> 在这一刻他意识他要说什么.餐桌上一片沉默.这是大学的聚会.在旁边 Nisha(Sameer 的老婆)和 Vikram(megha 的老公)盯着他们.
 
 Sameer : now take this tablet for 3 days and you will be fine.
 
@@ -340,22 +296,15 @@ Stubbornness and parental pride/ego devastated four lives.
 
 > 顽固的老头把四个人都给毁了.(fuck him)
 
-
-
-
-
-
 ## 怎么发现一个人是不是聪明?
-From:  [How can people spot an intelligent person?](https://www.quora.com/How-can-people-spot-an-intelligent-person/answers/68070917?srid=uv7Kg)
 
+From:  [How can people spot an intelligent person?](https://www.quora.com/How-can-people-spot-an-intelligent-person/answers/68070917?srid=uv7Kg)
 
 Date: January 03 2018
 
-
-
 There was this girl in my class (going anonymous cause she follows me on Quora) who was very intelligent.
 
-> 我们班有这么一个女孩(匿名是因为她在Quora上关注了我),一个十分聪明的女孩子.
+> 我们班有这么一个女孩(匿名是因为她在 Quora 上关注了我),一个十分聪明的女孩子.
 
 She was a social person and a mix between extravert and introvert.
 
@@ -367,7 +316,7 @@ In physics, she would spot mistakes the teacher made and would fidget in her sea
 
 She had this charm to her. She knew a lot about a lot.
 
-> 她很有魅力呀.她知道一堆的东西关于一堆东西(Harry Potter里面的Hermione,微笑)
+> 她很有魅力呀.她知道一堆的东西关于一堆东西(Harry Potter 里面的 Hermione,微笑)
 
 At first sight she doesn't seem like the smart one. She can make everyone laugh and didn't really nerd out like the other smart kids.
 
@@ -375,7 +324,7 @@ At first sight she doesn't seem like the smart one. She can make everyone laugh 
 
 One time, the class was discussing stuff and somehow came to the topic of the Center of North America. Everyone tried to guess and after everyone tried deducing she waited till everyone was quiet and said “Its a place in North Dakota called Rugby.” And proceeded to describe its origins of this place.
 
-> 一次,班里面在讨论一些东西,不知道怎样就扯到了关于南美中部的话题.每一个人都努力的去尝试,她等所有人推断结束后,然后说:"这是一个叫Rugby在North Dakota的地方."然后开始描述这个地方的来源历史.
+> 一次,班里面在讨论一些东西,不知道怎样就扯到了关于南美中部的话题.每一个人都努力的去尝试,她等所有人推断结束后,然后说:"这是一个叫 Rugby 在 North Dakota 的地方."然后开始描述这个地方的来源历史.
 
 Like I said, she knew a lot about a lot.
 
@@ -387,7 +336,7 @@ Killed her Science fair project and managed to take the laziest kids in the clas
 
 Every guy had a crush on her even though she was not as pretty as the other girls who got straight A’s. She was not a straight A student and got B’s and even C’s.
 
-> 每个人对她都有心中的老狗砰砰乱撞的时候,即使她没有其他那些全优女孩子那么漂亮.她不是全优的学生,有时候会拿到B,甚至是C.
+> 每个人对她都有心中的老狗砰砰乱撞的时候,即使她没有其他那些全优女孩子那么漂亮.她不是全优的学生,有时候会拿到 B,甚至是 C.
 
 She says she hates English class but was one of the people who scored highest on state exams.
 
@@ -399,7 +348,7 @@ All the girls were jealous of her. She didn't try to be smart like the others di
 
 I loved coding and when we sat in class, she would see me code all the time. I had a problem with a program I was working on and she asked me if she could borrow the laptop. Fixed it in 5 minutes. That was the day i realized that she was proficient in 3 programming languages. She watched me code almost all the time and never bothered to tell me.
 
-> 当我们坐在班级里面,我喜欢编程,她一直都在看我编程.有一个bug在我正在写的代码上,她问我可不可以借一下我的笔记本.然后5分钟就搞定了.就在那天,我知道她精通3门编程语言.她一直在看我编程而从来都没打搅我.(她&&编程==amazing)
+> 当我们坐在班级里面,我喜欢编程,她一直都在看我编程.有一个 bug 在我正在写的代码上,她问我可不可以借一下我的笔记本.然后 5 分钟就搞定了.就在那天,我知道她精通 3 门编程语言.她一直在看我编程而从来都没打搅我.(她&&编程==amazing)
 
 I guess thats why everyone loved her.
 
@@ -409,26 +358,19 @@ You could tell when someone is intelligent just by the way he/she acts.
 
 > 你可以通过那些人的行为来辨别他们是否聪明.
 
-
-
-
-
 ## 遇到过别人用别的语言讨论你吗?
-From:  [Have you ever caught someone talking about you in another language?](https://www.quora.com/How-can-people-spot-an-intelligent-person/answers/68070917?srid=uv7Kg)
 
+From:  [Have you ever caught someone talking about you in another language?](https://www.quora.com/How-can-people-spot-an-intelligent-person/answers/68070917?srid=uv7Kg)
 
 Date: January 04 2018
 
-
-
 I pressed the button for floor number thirteen. The only other occupants of the lift were two cute girls, who were talking to each other in a highly fake American accent.
 
-> 我按下去13楼的按钮.有两个可爱的女孩子和我在电梯里面,她们相互说着那种很假的美国口音.
+> 我按下去 13 楼的按钮.有两个可爱的女孩子和我在电梯里面,她们相互说着那种很假的美国口音.
 
 At the fifth floor, the lift stopped, the door opened, and I was surprised to see an African man standing in front of us. True that Delhi is a favorite destination of international tourists, but people of African origin are still a rare sight.
 
 > 在第五层,电梯停了,然后电梯门开了,我对一个非洲男人站在电梯门前感到惊讶.虽然新德里是国际旅客喜欢的旅游地点,但来自非洲的旅客还是很少见到的.
-
 
 The lift was again on its way.
 
@@ -460,7 +402,7 @@ I was really embarrassed. Was this my incredible India?
 
 The lift stopped. The African guy adjusted his backpack and proceeded to step out. Then suddenly, he turned around, and in impeccable Hindi, said -
 
-> 电梯停了.非洲同胞调整了一下他的背包,然后走出电梯.忽然,他转过身来,用24k纯正印度语说:
+> 电梯停了.非洲同胞调整了一下他的背包,然后走出电梯.忽然,他转过身来,用 24k 纯正印度语说:
 
 “Badsurat dil hone se to badsurat shakal hona achha hai!” (It’s better to have an ugly face than an ugly heart!)
 
@@ -472,17 +414,11 @@ And then, he was gone.
 
 The expression of utter shame and embarrassment on the girls’ faces, turned red with rage and humiliation, is something I still cherish to this day.
 
-
-
-
-
 ## 你从来没有做成什么事?
+
 From:&nbsp;&nbsp;[What is something you have never done?](https://www.quora.com/What-is-something-you-have-never-done/answer/Anagha-Manoharan?srid=uv7Kg)
 
-
 Date: January 05 2018
-
-
 
 Three encounters with one of my ex-classmates:
 
@@ -494,16 +430,15 @@ I bought a new computer after a long wait. She came home to see it. And as I tur
 
 I said I'm gonna join for M.Tech, and she responded, "Now every fool does that".
 
-> 我说我要加入M.Tech,然后她回答,"现在做这个都很傻".
+> 我说我要加入 M.Tech,然后她回答,"现在做这个都很傻".
 
 My teeth were misaligned and I wore braces for sometime to correct it. After a year, when the braces were taken off, she visited me, and her first response was, "12k just went in vain, you don't have any change."
 
-> 我的牙齿不太整齐,所以我一段时间带着牙套来纠正它.一年后,当那个牙套拿掉的时候,她来拜访我,然后她的第一句回复就是,"12k就那样子没了,看不出来你有任何变化."
+> 我的牙齿不太整齐,所以我一段时间带着牙套来纠正它.一年后,当那个牙套拿掉的时候,她来拜访我,然后她的第一句回复就是,"12k 就那样子没了,看不出来你有任何变化."
 
 Yes may be my brand new system was slow, may be MTech has become common is what she meant, may be there was no great change in me after braces. But when somebody invests on something, you cannot invalidate the whole purpose with statements like these.
 
-> 是的,或许我新版本的系统很慢,或许MTech就像她说的那样变得平常,或许在摘掉牙套之后没有太大的改变.但当某些人投资一些东西的时候,你不能用这样的语气来使整一个目的都无效.
-
+> 是的,或许我新版本的系统很慢,或许 MTech 就像她说的那样变得平常,或许在摘掉牙套之后没有太大的改变.但当某些人投资一些东西的时候,你不能用这样的语气来使整一个目的都无效.
 
 This is something I have never done. And this, I believe nobody should ever do. Stay positive, spread positivity !! :)
 
@@ -513,21 +448,15 @@ Edit: This answer was in no way intended to demean my friend's character. I don'
 
 > 更新:这个回答,我无意去贬低我朋友的身份,我不想这个答案传散开来
 
-
-
-
-
 ## 生活里面你很迟领悟到的?
-From:&nbsp;&nbsp;[What did you learn too late in life?](https://www.quora.com/What-did-you-learn-too-late-in-life/answer/Khanna-Paras?srid=uv7Kg)
 
+From:&nbsp;&nbsp;[What did you learn too late in life?](https://www.quora.com/What-did-you-learn-too-late-in-life/answer/Khanna-Paras?srid=uv7Kg)
 
 Date: January 06 2018
 
-
-
 a. Facebook/Instagram/WhatsApp/Snapchat totally waste of time. Delete all those apps from your phone and then figure out more about yourself instead of living in virtual world
 
-> facebook/Ins/WhatsApp/Snapchat全都是浪费时间的.从你的手机删除掉所有这个软件,然后去更多的发现自己来代替活在虚拟世界里面.
+> facebook/Ins/WhatsApp/Snapchat 全都是浪费时间的.从你的手机删除掉所有这个软件,然后去更多的发现自己来代替活在虚拟世界里面.
 
 b. Don’t fall in love, that’s bullshit.
 
@@ -539,7 +468,7 @@ b. Don’t fall in love, that’s bullshit.
 
 “Take care of your body because this is the only place you have to live with.”
 
->"照顾好你自己的身体,因为那时你不得不生活在的唯一地方."
+> "照顾好你自己的身体,因为那时你不得不生活在的唯一地方."
 
 Do some meditation to control your anger and thoughts.
 
@@ -559,45 +488,29 @@ Always give priorities to your family. Family always come first to rescue you.
 
 Cross 60k views & 8k upvotes never expected, thanks everyone for such an amazing response.
 
-> 从来没预想过60k的查阅和8k的点赞,谢谢各位积极的回复.
-
+> 从来没预想过 60k 的查阅和 8k 的点赞,谢谢各位积极的回复.
 
 Thanks everyone!!!!
 
 > 谢谢各位父老乡亲!!!
 
-
-
-
-
 ## 做蠢事的是什么感觉?
 
 From:&nbsp;&nbsp;[What does it feel like to be stupid?](https://www.quora.com/What-does-it-feel-like-to-be-stupid-2/answer/Becky-Lee-11?srid=uv7Kg)
 
-
 Date: January 07 2018
-
-
 
 Feels great, because you don't realize it
 
 > 自我感觉良好,因为你都没意识到你自己在做蠢事.
 
-
-
 > I'm awesome :") 傻笑
 
-
-
-
-
 ## 哪件事改变了你的性格?
+
 From:  [What incident changed your personality?](https://www.quora.com/What-incident-changed-your-personality/answer/Bruce-Farmer-2?srid=uv7Kg)
 
 Date: January 08 2018
-
-
-
 
 Years ago, I was the Chief Customs Officer on duty at a major border crossing.
 
@@ -605,11 +518,11 @@ Years ago, I was the Chief Customs Officer on duty at a major border crossing.
 
 This was post 9/11, and we were all still a little numb, anxious to somehow make a difference in the war on terrorism and to protect the homeland.
 
-> 在11月9日的报道之后,我们有点麻木,着急着想在面对恐怖袭击的战争中做一些改变来保护国土.
+> 在 11 月 9 日的报道之后,我们有点麻木,着急着想在面对恐怖袭击的战争中做一些改变来保护国土.
 
 One afternoon a man in his mid-fifties was crossing the border when his name alerted for possible ties to terrorism. The man was a naturalized U.S. citizen, having been born in a Middle-East country. During this time, our “system” was rife with false positives—folks that might have the same or similar name with a known terrorist or someone with ties to terrorism. Sometimes, they might even have the same birthday, and yet not be the suspect in question.
 
-> 一天下午,一名50多岁的男子在通过边境的时候,他的名字显示他可能恐怖袭击组织有关.这个男人是一个移民到美国的公民,在中东的国家出生.在这段时间里,我们的系统充斥着虚假的假设——那些可能与已知恐怖分子或与恐怖主义有联系的人有着相同或相似名字的人.有时,他们甚至可能是同一天生日,但不是嫌疑犯.
+> 一天下午,一名 50 多岁的男子在通过边境的时候,他的名字显示他可能恐怖袭击组织有关.这个男人是一个移民到美国的公民,在中东的国家出生.在这段时间里,我们的系统充斥着虚假的假设——那些可能与已知恐怖分子或与恐怖主义有联系的人有着相同或相似名字的人.有时,他们甚至可能是同一天生日,但不是嫌疑犯.
 
 Per our standard operating procedures (SOPs), this man was handcuffed, escorted into our secondary inspection area and subjected to a personal search.
 
@@ -621,7 +534,7 @@ Also per our SOPs, this individual was isolated for further questioning.
 
 Now, all of this was done without my personal knowledge. That’s the purpose of SOPs, so certain critical situations are all handled in a specific way, according to a specific standard, even when a supervisor is not on scene to direct operations.
 
-> 现在,在我不知情的情况下,这些全都完成了.这就是SOPs的目的,因此,某些关键的情况都是以一种特定的方式来处理的,根据一个特定的标准，,使一个主管不在现场指挥操作.
+> 现在,在我不知情的情况下,这些全都完成了.这就是 SOPs 的目的,因此,某些关键的情况都是以一种特定的方式来处理的,根据一个特定的标准，,使一个主管不在现场指挥操作.
 
 However, that’s no excuse. I was in charge, and I was responsible for the treatment this individual received.
 
@@ -629,7 +542,7 @@ However, that’s no excuse. I was in charge, and I was responsible for the trea
 
 While walking through the station, I observed this man, sitting handcuffed in an isolated area, guarded by two armed officers and waiting for an officer with specialty training to question him regarding any possible ties to terrorism. This, in and of itself, was not particularly unusual. It was also a part of our SOPs.
 
-> 当我走过警察站的时候,我观察那个男人,手铐锁着坐在单独的拘留室里面,被两个武装警察看管,等待着一名有专业训练的警官来询问他是否与恐怖主义有任何联系,这本身并不是特别不寻常.这也是我们SOPs的一部分.
+> 当我走过警察站的时候,我观察那个男人,手铐锁着坐在单独的拘留室里面,被两个武装警察看管,等待着一名有专业训练的警官来询问他是否与恐怖主义有任何联系,这本身并不是特别不寻常.这也是我们 SOPs 的一部分.
 
 What immediately struck me as unusual, however, was that this man was silently crying, tears flowing down his face. I stopped outside the isolation room and asked one of the officers to brief me on the situation, which he did.
 
@@ -665,7 +578,7 @@ I opened his wallet and emptied the contents onto the desk. “There,” he nodd
 
 I unfolded a worn piece of newsprint. It was an article that told of a small-town young man who had enlisted in the U.S. Army, only 19 years old. He had been killed in the line of duty in Iraq just a few months earlier.
 
-> 我打开那张报纸.那是一篇文章告诉一个来自小镇的年轻人应征入伍的消息,仅仅19岁.他几个月前在执勤的时候被伊斯兰恐怖组织杀害.
+> 我打开那张报纸.那是一篇文章告诉一个来自小镇的年轻人应征入伍的消息,仅仅 19 岁.他几个月前在执勤的时候被伊斯兰恐怖组织杀害.
 
 I felt a chill run down my spine as I realized the young soldier’s last name was the same as that of the man who sat, handcuffed, in front of me.
 
@@ -677,7 +590,7 @@ I felt a chill run down my spine as I realized the young soldier’s last name w
 
 I had been around. I had heard hundreds, maybe thousands of stories in my 30-plus years in Customs. Nothing had ever affected me in this way.
 
-> 我一直都在海关这边.我听过数百上千的故事,在我过去的30多年的海关生涯里面.没有一个故事能像这个那样子影响我.
+> 我一直都在海关这边.我听过数百上千的故事,在我过去的 30 多年的海关生涯里面.没有一个故事能像这个那样子影响我.
 
 “Uncuff this man,” I instructed one of the officers. “But Chief,” he objected until I cut him off with a wave of my hand.
 
@@ -697,5 +610,4 @@ Afterward he just turned back around and sat back down on the hard back chair. H
 
 He stared at me for a long moment, maybe twenty seconds. He reached out his hands towards me, and I grasped his forearms as he grasped mine. We sat and cried together, silently. The two officers looked on, clearly uncomfortable, unsure what to do.
 
-> 他盯着我看了一会,或许有20s.他把他的手伸向我,我拉住他的前臂,就像他拉住我的一样.我们站着哭了起来,沉默着.两个警官看着我们,十分不自然,又不知道能做什么.
-
+> 他盯着我看了一会,或许有 20s.他把他的手伸向我,我拉住他的前臂,就像他拉住我的一样.我们站着哭了起来,沉默着.两个警官看着我们,十分不自然,又不知道能做什么.

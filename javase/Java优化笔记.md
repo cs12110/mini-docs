@@ -1343,3 +1343,114 @@ Sub spend: 53
 ```
 
 结论: 字符串,还真的能折腾不少东西. :{
+
+## 16. 快速获取所有子文件路径
+
+自己需要获取某个文件夹下面的所有子文件的路径,但是使用单线程递归获取耗时,有点久.
+
+So,下面是一个使用空间换取时间的例子.
+
+```java
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveAction;
+
+/**
+ * 快速查找文件夹下的子文件夹
+ *
+ * <p>
+ *
+ * @author hhp 2018年9月29日
+ * @see
+ * @since 1.0
+ */
+public class QuicklyFileSeeker {
+
+	/**
+	 * 查找路径
+	 */
+	private String path;
+
+	/**
+	 *
+	 * @param path
+	 *            路径
+	 */
+	public QuicklyFileSeeker(String path) {
+		this.path = path;
+	}
+
+	/**
+	 * 返回该文件
+	 *
+	 * @return
+	 */
+	public List<String> seek() {
+		List<String> store = new ArrayList<>();
+		try {
+			ForkJoinPool pool = new ForkJoinPool();
+			pool.submit(new MyForkJoinSeeker(store, path));
+
+			// 等待子线程执行完成
+			while (!pool.isQuiescent()) {
+			}
+			pool.shutdown();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return store;
+	}
+
+	/**
+	 * 查找子文件线程
+	 *
+	 * @since 1.0
+	 */
+	class MyForkJoinSeeker extends RecursiveAction {
+
+		private static final long serialVersionUID = 1L;
+
+		private String path;
+		private List<String> store;
+
+		/**
+		 * 初始化
+		 *
+		 * @param store
+		 *            存放列表
+		 * @param path
+		 *            查找路径
+		 */
+		public MyForkJoinSeeker(List<String> store, String path) {
+			super();
+			this.store = store;
+			this.path = path;
+		}
+
+		@Override
+		protected void compute() {
+			File file = new File(path);
+			if (file != null) {
+				if (file.isFile()) {
+					store.add(file.getAbsolutePath());
+				} else {
+					File[] listFiles = file.listFiles();
+					if (null != listFiles) {
+						for (File f : listFiles) {
+							if (f.isDirectory()) {
+								// 开启子线程递归
+								invokeAll(new MyForkJoinSeeker(store, f.getAbsolutePath()));
+							} else {
+								store.add(f.getAbsolutePath());
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+```

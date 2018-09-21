@@ -1,21 +1,16 @@
-
 # Stories from Quora
----
+
 &nbsp;&nbsp;翻译问答平台[Quora](https://www.quora.com)上自己喜欢的故事.如果侵犯了您的个人权益,请联系本人,本人立刻删除以及致歉.s
 
 &nbsp;&nbsp;由于本人英语水平较差,如果出现翻译错误或曲解原作者的翻译,请谅.
 
-
+---
 
 ## 今天什么事让你开心了?
 
 From:&nbsp;&nbsp;[What made you happy today?](https://www.quora.com/What-made-you-happy-today/answer/Shilpa-Gowda?share=2b850064&srid=uv7Kg)
 
-
 Date: February 08 2018
-
-
-
 
 My 3 year old son is on Cloud nine today...So am I!!!!
 
@@ -23,7 +18,7 @@ My 3 year old son is on Cloud nine today...So am I!!!!
 
 My husband and I are working professionals who spend 10–11 hours in office with 2–3 hours in Bangalore traffic. As a family, we hardly spend time on weekdays.
 
-> 我和我的丈夫有着全职工作,每天花费10-11个小时在办公司里面,然后2-3小时花费在交通上.作为一个家庭,我们几乎在工作时间很难聚在一起.
+> 我和我的丈夫有着全职工作,每天花费 10-11 个小时在办公司里面,然后 2-3 小时花费在交通上.作为一个家庭,我们几乎在工作时间很难聚在一起.
 
 We have a son, Agasthya, who is 3 years old and goes to play school. He is dropped and picked up from school by the caretaker, and she takes care of him throughout the day until I am back from office.
 
@@ -31,7 +26,7 @@ We have a son, Agasthya, who is 3 years old and goes to play school. He is dropp
 
 One day Agasthya comes up to me with a request "Amma, will you come to school today to pick me?" I was not surprised by his request because I know how he feels when he sees his friends' parents in the school and never gets to see his. I felt bad for not doing justice to parenthood. But with a convincing tone i cuddled him and said "I will come ONE day to pick you".
 
-> 一天,A走到我身边,然后提出了请求"Mom,你今天愿意到学校接送我吗?" 我对他提出这个请求一点也不奇怪,因为我知道他看着他的朋友的父母而没看见自己的父母在的感觉.我为了我没尽到父母的责任而感到内疚.但我用说服的语气,我抱着他说:"会的,有一天,我会去接你的".(窝草,这是何等的flag,导演,导演,导演,你的...)
+> 一天,A 走到我身边,然后提出了请求"Mom,你今天愿意到学校接送我吗?" 我对他提出这个请求一点也不奇怪,因为我知道他看着他的朋友的父母而没看见自己的父母在的感觉.我为了我没尽到父母的责任而感到内疚.但我用说服的语气,我抱着他说:"会的,有一天,我会去接你的".(窝草,这是何等的 flag,导演,导演,导演,你的...)
 
 It was almost a month now, we had this discussion and I totally forgot about the promise I made to my son.
 
@@ -43,11 +38,11 @@ Today I was feeling tired to go to work and decided to take off. By this time my
 
 11.15 am today - I go to school to pick him up. I asked the watchman to send my son. Gate opens and my son comes out. He was surprised, astonished and joyous to see me waiting for him. I opened my arms to hug him, but he ran back to the gate where his teacher was standing, and with great joy, he says,
 
-> 今天早上11点,我去学校接他.我问保安我要接我的孩子.门打开之后,我的孩子走出来了.他很惊讶,吃惊和很高兴的看到我在等着他.我张开手臂抱着他,然后他竟然,又拍回去了他老师站在的那个地方,带着大大的愉悦,他说,
+> 今天早上 11 点,我去学校接他.我问保安我要接我的孩子.门打开之后,我的孩子走出来了.他很惊讶,吃惊和很高兴的看到我在等着他.我张开手臂抱着他,然后他竟然,又拍回去了他老师站在的那个地方,带着大大的愉悦,他说,
 
 "Ma'am today is ONE day. My mom has come to pick me"
 
-> "老师,老师,老师,今天是ONE day,我妈来接我回家了"
+> "老师,老师,老师,今天是 ONE day,我妈来接我回家了"
 
 and then turns towards group of his friends and repeats the same. I did never see him so happy.
 
@@ -55,30 +50,21 @@ and then turns towards group of his friends and repeats the same. I did never se
 
 Then his teacher says that ever since the last one month, the first question he asks everyday when he comes to school is " Is Today Zero day or One day?" Having no clue why he asks such a question she has always replied "Today is Zero day." Even this morning she had answered him, "Today is Zero day."
 
-> 然后他老师说,最近一个月以来,他来到学校问的第一个问题就是"今天是Zore day还是One day?",我们不知道他为什么会问这个问题,然后她一直回复是"今天是Zore day."即使在今天,她也是这么回复的,"今天是Zore day."
+> 然后他老师说,最近一个月以来,他来到学校问的第一个问题就是"今天是 Zore day 还是 One day?",我们不知道他为什么会问这个问题,然后她一直回复是"今天是 Zore day."即使在今天,她也是这么回复的,"今天是 Zore day."
 
 I had tears in my eyes realising how my son was waiting for this ONE day. All the way to home he was jumping and Singing - Today is ONE day
 
-> 意识到他是怎么等待这个One day的时候,我泪湿眼底.回家的一路上,他都在跳呀,唱呀-今天是One day
+> 意识到他是怎么等待这个 One day 的时候,我泪湿眼底.回家的一路上,他都在跳呀,唱呀-今天是 One day
 
 So innocent kids are!!!!
 
 > 多么傻的小屁孩!!!!(是呀,有保姆就比别的高出不知多少了)
 
-
-
-
-
-
-
 ## 最佳的虐狗的短句是什么?
+
 From:  [What is the best two line story between a boy and a girl?](https://www.quora.com/What-is-the-best-two-line-story-between-a-boy-and-a-girl/answer/Vishwam-Pandya-3?share=b23a81a4&srid=uv7Kg)
 
-
 Date: February 09 2018
-
-
-
 
 Girl (scared) : Have you ever done this before? I am scared.
 
@@ -92,10 +78,9 @@ This is how he changed the baby’s nappy.
 
 > 这就是他怎么替小屁孩换尿布的经过了.
 
-
 Girl (angrily) : Whom do you love more, me or her?
 
-> 女主(生气状):你究竟tmd爱谁多一点,我还是她?
+> 女主(生气状):你究竟 tmd 爱谁多一点,我还是她?
 
 Boy (sheepish smile) : Her.
 
@@ -111,7 +96,7 @@ Boy (angrily): You have taken away everything from me. I hate you.
 
 Girl (proudly): They belonged to me.
 
-> 女主(傲娇状): ta们都是我的,都是我的,草.
+> 女主(傲娇状): ta 们都是我的,都是我的,草.
 
 Her in-laws smiled at the silly fight.
 
@@ -119,26 +104,17 @@ Her in-laws smiled at the silly fight.
 
 Vishwam Pandya
 
->  Bla bla bla(I don't know what that mean is)
+> Bla bla bla(I don't know what that mean is)
 
 Edit : As per “Quora policy”, its mandatory to say, “My first 1k upvotes, yay!!!”
 
-> 更新: 作为Quora政策,我被逼去说,"这是我的第一个1k点赞的回答,窝草,窝草,感谢CCAV,感谢诺贝尔,感谢耶.tmd可能根本不存在.稣"
-
-
-
-
-
-
-
+> 更新: 作为 Quora 政策,我被逼去说,"这是我的第一个 1k 点赞的回答,窝草,窝草,感谢 CCAV,感谢诺贝尔,感谢耶.tmd 可能根本不存在.稣"
 
 ## 最让码农沮丧的是什么?
+
 From:&nbsp;&nbsp;[What is the most frustrating thing about being a computer programmer?](https://www.quora.com/What-is-the-most-frustrating-thing-about-being-a-computer-programmer/answer/Prateek-Jain-98?share=eb0f0669&srid=uv7Kg)
 
-
 Date: February 23 2018
-
-
 
 I was travelling from Moscow to New Delhi and the conversation with my fellow passenger was like this:
 
@@ -146,40 +122,33 @@ I was travelling from Moscow to New Delhi and the conversation with my fellow pa
 
 Me: I am working for XYZ company and I work as a tester.
 
-> 我: 我在xyz公司做一个测试er(死于话多系列)
+> 我: 我在 xyz 公司做一个测试 er(死于话多系列)
 
 (His TV was not working and he constantly asked the stewards for help, but they were unable to do anything. So he moves to me and said)
 
-> (ta的电视不能观看,ta叫服务员来帮助ta,但是那些服务员不能解决这个问题.所以ta向我寻求帮助,然后说)
+> (ta 的电视不能观看,ta 叫服务员来帮助 ta,但是那些服务员不能解决这个问题.所以 ta 向我寻求帮助,然后说)
 
 He: Can't you do something like they do in a Hollywood movie, just write some code, hack the system and make my TV work...?
 
-> ta: 你能不能像ta们好莱坞电影里面一样,仅仅写一些代码,黑进系统里面,然后让我的电视可以观看...?
+> ta: 你能不能像 ta 们好莱坞电影里面一样,仅仅写一些代码,黑进系统里面,然后让我的电视可以观看...?
 
 Me: You have a lot of expectation which even my managers don't have with me :P
 
 > 我: 你让我经历了即使是产品经理也没让我经历的异常 :")
 
-
-
-
-
 ## 哪一刻让你感到自豪?
 
 From:&nbsp;&nbsp;[What was that moment when you felt proud?](http://qr.ae/TbSrjJ)
 
-
 Date: February 24 2018
-
-
 
 When your Father doesn’t have to think about the price tag before buying something.
 
-> 当你老爸在买东西前,不用看价格标签的时候.(我在2元店,也这样)
+> 当你老爸在买东西前,不用看价格标签的时候.(我在 2 元店,也这样)
 
 It was their wedding anniversary (11th December 2017) me and mom had to literally force dad to buy himself a Jacket. I took him to the nearest Numero Uno store and we bought a jacket for him.
 
-> 那是他们的结婚纪念日(2017年12月11日),我和我妈逼他去买一件夹克.我把他带到附近的Numero Uno商店,然后我们为他买了一件夹克.
+> 那是他们的结婚纪念日(2017 年 12 月 11 日),我和我妈逼他去买一件夹克.我把他带到附近的 Numero Uno 商店,然后我们为他买了一件夹克.
 
 Me and Dad returned home with two shopping bags in hand. Mom looked at us and asked what’s in the second bag.
 
@@ -201,17 +170,11 @@ This one statement made my day and it will always be the proudest moment of my l
 
 > 这一个瞬间让我在这一天,同时也是我这一生中最自豪的一刻了.
 
-
-
-
-
 ## 你最喜欢的电影台词?
 
 From:  [What is your favorite line in a movie?](http://qr.ae/TbSs1R)
 
 Date: February 26 2018
-
-
 
 When Forrest Gump finds out he is a dad.
 
@@ -220,7 +183,6 @@ When Forrest Gump finds out he is a dad.
 He has a moment of panic.
 
 > 他有一会的惶恐不安.
-
 
 And asks, “Is he smart or is he.…”
 
@@ -232,11 +194,11 @@ You can already tell he is going to be an amazing dad.
 
 His “love” switch is already set to 100%, terrified Forrest Jr might inherit his challenges.
 
-> 他爱的开关已经全部打开了,害怕Forrest Jr会继承他所经历过的挑战.
+> 他爱的开关已经全部打开了,害怕 Forrest Jr 会继承他所经历过的挑战.
 
 Years later, he is talking to Jenny’s grave, in a sad but beautiful scene, where he tearfully tells her about how smart their son is and how well he is doing.
 
-> 多年后,他在Jenny的墓前诉说,在一个悲伤而又美丽的场景里面,他满脸泪水的告诉Jenny,他们的儿子有多么的聪明,他们的儿子做得多么的好.
+> 多年后,他在 Jenny 的墓前诉说,在一个悲伤而又美丽的场景里面,他满脸泪水的告诉 Jenny,他们的儿子有多么的聪明,他们的儿子做得多么的好.
 
 There was so much love in that man's heart.
 
@@ -246,17 +208,11 @@ Again, love that movie.
 
 > 重申,爱这部电影(Me 2).
 
-
-
-
-
-
 ## 别人对你做过最糟糕的事?
+
 From:&nbsp;&nbsp;[What is the most messed up thing that someone has done to you?](http://qr.ae/TgbJxx)
 
 Date: February 27 2018
-
-
 
 I wish I didn’t have to write this anonymously, but I don’t want my son to read this and know what happened.
 
@@ -274,32 +230,27 @@ My life is much better now, and I have little to no contact with my son’s fath
 
 > 我现在的生活变好了很多,而我也没和孩子的生父进行联系.我的孩子是一个有趣的年轻人,现在正在计划上大学,然后开始他的生活.他安全而又幸福,而我最后做出了那个正确的选择去离开他(前男友).
 
-
-
-
-
 ## 你能分享一个浪漫/悲伤的故事吗?
+
 From:  [Can you share a romantic/sad short story?](http://qr.ae/TU8cZ9)
 
 Date: February 28 2018
 
-
-
 "Why do you love me?" Meera asked.
 
-> "你为什么喜欢我?" Meera问.
+> "你为什么喜欢我?" Meera 问.
 
 Raj, who was reading a book, bookmarked the page which he was reading using his index finger. Then he turned to Meera and surprisingly questioned, "Sorry?"
 
-> Raj,那个正在看书的人,用拇指放在他正在看的那页纸上做标记.然后回头看着Meera和回答她那个惊讶的提问,"蛤?"
+> Raj,那个正在看书的人,用拇指放在他正在看的那页纸上做标记.然后回头看着 Meera 和回答她那个惊讶的提问,"蛤?"
 
 "I mean, just look at me, I got fat." Meera shared.
 
-> "你看,就看看我这模样,我这么胖." Meera说到.
+> "你看,就看看我这模样,我这么胖." Meera 说到.
 
 Raj heard Meera. And, he didn't even utter a single word, but smiled.
 
-> Raj听到Meera的回答.然后,他甚至没有回复一个词,但笑了.
+> Raj 听到 Meera 的回答.然后,他甚至没有回复一个词,但笑了.
 
 "Reply na." Meera asked again.
 
@@ -307,47 +258,41 @@ Raj heard Meera. And, he didn't even utter a single word, but smiled.
 
 "Okay, I will reply, but before that, tell me one thing, why do you love me?" Raj politely asked.
 
-> "好的,我会回复你的,在这之前,告诉我一件事,那你为什么喜欢我?"Raj礼貌的问道.
+> "好的,我会回复你的,在这之前,告诉我一件事,那你为什么喜欢我?"Raj 礼貌的问道.
 
 "What?" Meera raised a doubt on his question.
 
-> "蛤?" Meera带着疑问的语气对待他的问题.
+> "蛤?" Meera 带着疑问的语气对待他的问题.
 
 "I mean, I am skinny. Why do you love me?" Raj explained further and asked.
 
-> "你看,我是猴干呀.那你为什么喜欢我?" Raj解释了一下原因.
+> "你看,我是猴干呀.那你为什么喜欢我?" Raj 解释了一下原因.
 
 "I don't find you skinny." Meera answered.
 
-> "但我不觉得你胖呀." Meera回答.
+> "但我不觉得你胖呀." Meera 回答.
 
 "Exactly my point." Raj just said those three words and returned to his book.
 
-> "这也是我的答案了." Raj说出这些话之后,然后重新看回了他的书.
+> "这也是我的答案了." Raj 说出这些话之后,然后重新看回了他的书.
 
 Meera understood the answer in those words and smiled. Behind the book, a face already joined her smile.
 
-
-> Meera明白在这个回答里面的含义,然后笑了.在书后面,另一张脸也笑了.
-
-
-
-
+> Meera 明白在这个回答里面的含义,然后笑了.在书后面,另一张脸也笑了.
 
 ## 对哪些东西,你理解无能?
+
 From:&nbsp;&nbsp;[What is something you will never understand?](http://qr.ae/TU8Jnl)
 
 Date: March 01 2018
 
-
-
 One time, Boyfriend and I (had pre-booked a window and a middle seat) were travelling to Kerala.
 
-> 一次,我男票和我(订了窗边和中间的座位)正在去Kerala的旅途上.
+> 一次,我男票和我(订了窗边和中间的座位)正在去 Kerala 的旅途上.
 
 Five minutes inside the plane, the aisle next to me yet to be filled, a charming young lady approached me in perfect but accented English (we both spoke our mother tongue)
 
-> 在机内5分钟后,在我旁边的座位满了,然后一个迷人的年轻的女士靠近我,带着完美的英语口音(我和男朋友两个都带着我们自己的口音)
+> 在机内 5 分钟后,在我旁边的座位满了,然后一个迷人的年轻的女士靠近我,带着完美的英语口音(我和男朋友两个都带着我们自己的口音)
 
 Miss Charming: I have this aisle seat and would like to give you a window seat for your middle, since I am travelling with my husband.
 
@@ -387,7 +332,7 @@ Me: I don’t believe this is happening. (I call the flight attendant)
 
 Flight attendant comes and she starts ranting. I wait for her to finish so that I can tell my preference to keep my seat. The attendant does not bother to hear my part of the story but asks me with a smile ‘Ma’am, is there a problem if you swap your seat with her husband?’
 
-> 乘务员过来,然后她就开始怒吼了.我等着她叫玩,然我我才能告诉乘务员我更愿意是坐在这里.那个乘务员耐心的听了我说的,但ta笑着问我 "Ma'am,你和她的丈夫交换座位,有什么不方便的地方吗?"
+> 乘务员过来,然后她就开始怒吼了.我等着她叫玩,然我我才能告诉乘务员我更愿意是坐在这里.那个乘务员耐心的听了我说的,但 ta 笑着问我 "Ma'am,你和她的丈夫交换座位,有什么不方便的地方吗?"
 
 ‘Yes. Actually. I am travelling here with him, my boyfriend and we want to sit together.’
 
@@ -403,7 +348,7 @@ Flight attendant comes and she starts ranting. I wait for her to finish so that 
 
 The air hostess left because the flight was full and she could not move both of them next to each other anyway. She called up her husband to take the aisle next to me because she didn’t want to sit next to ‘such a disturbance’.
 
-> 空乘因为飞机满员,而且她怎么也不能把ta们两个凑在一起.她叫她的丈夫和她交换坐在我旁边的机票,因为她不想坐在"一个烦人"的旁边.
+> 空乘因为飞机满员,而且她怎么也不能把 ta 们两个凑在一起.她叫她的丈夫和她交换坐在我旁边的机票,因为她不想坐在"一个烦人"的旁边.
 
 I bet the husband was sorry for her actions. The journey was less stressful because she exchanged the seat with her husband. Boyfriend and I watched a movie together, during the journey and also a stand-up comedy. It was a great journey otherwise.
 
@@ -423,16 +368,15 @@ Even if I was travelling with my friend (not even boyfriend), I still have the r
 
 I fail to understand how can people be intentionally rude and expect to almost dictate their co-passengers, shame them for nothing and expect people to follow their instructions, as if we all are students in a class and she is the principal of the school. It is the cruel outside world, not your home where you can probably rule everybody. The outside world is no way compelled to favour you every time you travel. I remember a worse incident from a train journey where I was travelling alone. I would keep that for another time.
 
-> 我对人能特意无礼且期望以差不多命令的口吻命令你的隔壁座位的乘客,用一些无关紧要的事情来羞辱ta们,同时还指望其他人追随她的言论,就像我们还在学校的小学生一样而她就是学校的规则的事理解无能.在无边可是很残忍的,不是你的家,你也不可能对每个人都可以无礼.外边的世界不是你每次出外都能让你合心合意的.我记得另一起更糟糕的事件,在我单独出外旅行的时候.我会把它留在其他时间再说.
-
+> 我对人能特意无礼且期望以差不多命令的口吻命令你的隔壁座位的乘客,用一些无关紧要的事情来羞辱 ta 们,同时还指望其他人追随她的言论,就像我们还在学校的小学生一样而她就是学校的规则的事理解无能.在无边可是很残忍的,不是你的家,你也不可能对每个人都可以无礼.外边的世界不是你每次出外都能让你合心合意的.我记得另一起更糟糕的事件,在我单独出外旅行的时候.我会把它留在其他时间再说.
 
 EDIT: This paragraph is dedicated to rude people who choose to leave hurtful comment under mine or anybody’s answer who shares their personal life stories. I do share my personal life experiences. If you are in Quora for Wikipedia-like experience with information based knowledge, go ahead and block me right away before ranting under my answer on how I don’t write about aerospace, oceanography and mathematics. I choose to write on light-hearted topics. Many Indians do so, and so do many famous writers from USA and UK. Stop cursing Indians. Cheers.
 
-> 更新: 这个是为了那些专注于无礼的键盘侠在我或其他人分享个人经历的时候留伤害别人的留言的.我的确分享我个人的生活经历.如果你在Quora上为了和维基一样的经历和知识,那就屏蔽我,然后在我的回答下面怒吼,为什么我没写航天学,海洋学,和数学相关的东西.我选择去写这些无聊的话题.许多印度人也这么做,同时许多有名来自美国和英国的写手.停止职责印度人.欢呼.
+> 更新: 这个是为了那些专注于无礼的键盘侠在我或其他人分享个人经历的时候留伤害别人的留言的.我的确分享我个人的生活经历.如果你在 Quora 上为了和维基一样的经历和知识,那就屏蔽我,然后在我的回答下面怒吼,为什么我没写航天学,海洋学,和数学相关的东西.我选择去写这些无聊的话题.许多印度人也这么做,同时许多有名来自美国和英国的写手.停止职责印度人.欢呼.
 
 Edit 2: People who are sad because she was on her honeymoon, think about a situation where a conversation would be
 
-> 更新2: 有些因为她在度蜜月这件事而感到伤心,想想如果是如下的对话
+> 更新 2: 有些因为她在度蜜月这件事而感到伤心,想想如果是如下的对话
 
 “Hi, Would you please like to exchange your seat with my husband since we are on our honeymoon and wish to sit next to each other”
 
@@ -444,26 +388,21 @@ Edit 2: People who are sad because she was on her honeymoon, think about a situa
 
 That would have been a happy situation for all of us and a much desired civic and socially acceptable one. We are all grown up and should learn how to behave in public. I have given up the seat in my last flight to a 8-year-old girl because she wanted to sit by the window. The entire journey she kept on comparing the shape of the cloud with different animals, alphabets and what not. Such a good company. Her mother told me “My child wants to sit by the window. If you don’t mind, can you let her use the window for some part of the journey?”
 
-> 那样子是对双方都是一个很好的解决方案,而且也更能接收这种解决方案.我们都成年了,我们应该学会自己控制自己在公共地方的行为了.我在最后一次旅行中给一个8岁的小屁孩因为她想坐在窗边让了我在窗边的座位.整一个旅程,她都在把那些不同形状的白云和动物,字母来比较哪个像,哪个不像.一个很好的铜牌.她妈妈问我"我的孩子想坐在窗边,如果你不介意的话,你可以让她坐在窗边一段时间没?"
+> 那样子是对双方都是一个很好的解决方案,而且也更能接收这种解决方案.我们都成年了,我们应该学会自己控制自己在公共地方的行为了.我在最后一次旅行中给一个 8 岁的小屁孩因为她想坐在窗边让了我在窗边的座位.整一个旅程,她都在把那些不同形状的白云和动物,字母来比较哪个像,哪个不像.一个很好的铜牌.她妈妈问我"我的孩子想坐在窗边,如果你不介意的话,你可以让她坐在窗边一段时间没?"
 
 She had the seat all to herself because her mother did not think she is entitled to window seat just because her daughter wants it.
 
 > 她一直坐在窗边的座位上,因为她妈妈不理直气壮的认为她女儿因为想坐在窗边而拥有对那个座位使用的权利.
 
-
-
-
-
 ## 关于你兄弟/姐妹最好的回忆是?
+
 From:  [What is the best memory you have with your sibling?](http://qr.ae/TU8Vlm)
 
 Date: March 02 2018
 
-
-
 We were in same school and used go by the same auto. She was 4 and I was 11.
 
-> 我们读同一个学校,而且习惯一起搭乘同一辆公交去上学.她四岁,我11岁了.
+> 我们读同一个学校,而且习惯一起搭乘同一辆公交去上学.她四岁,我 11 岁了.
 
 One fine day, after getting ready for school, I had a little argument with mom over something. I was very angry and did not have milk or breakfast. My sister being the naughty one had her milk and took the sandwich along since we were late.
 
@@ -489,25 +428,19 @@ The auto driver, my dad and all the kids in the auto laughed and laughed at me.
 
 > 那公交里面,我爸和那些小屁孩全都笑了,全都在笑我...
 
-
-
-
-
-
 ## 你犯了哪些错?
+
 From:&nbsp;&nbsp;[What are the mistakes of your life?](http://qr.ae/TU8lpj)
 
 Date: March 05 2018
 
-
-
 Writing it anonymously because my mom follows me on quora.
 
-> 匿名写这个,是因为我妈在Quora上关注了我.
+> 匿名写这个,是因为我妈在 Quora 上关注了我.
 
 It was during my second year of engineering when I started smoking, At first I used to smoke only 5–7 cigarettes in a day but it started increasing, By third year I used to smoke about a pack in day. I smoked for about 3 years regularly, One night I had this cough and there was blood in it, At first I ignored it but it used to come regularly, My girlfriend once noticed blood strain on my shirt and asked how did I get that, I started to make an excuse but she got me that I was hiding something, She forced me to the nearby hospital to our college, After the reports came I was having lung cancer…It’s only been 2 weeks since I have get to know that I have this disease and my mom doesn't know about it……
 
-> 那是在我工程师学习的第二年开始吸烟的,刚开始我每天只吸5-7支烟,但往后开始增长,到第三年的时候,我已经习惯每天吸一包烟了.我吸了三年烟,一天晚上我咳的时候,看见咳出来的东西竟然有血在那里,刚开始我忽略它,因为这会变正常的,我女朋友有一次注意到在我衬衣上的血流,然后问我怎么来的,我开始编了一个借口,但她知道我为了隐藏一些东西而撒谎,她强迫我去大学附近的医院,在检查报告出来发现我有肺癌...自从知道我得肺癌到现在已经2周了,但我妈不知道.
+> 那是在我工程师学习的第二年开始吸烟的,刚开始我每天只吸 5-7 支烟,但往后开始增长,到第三年的时候,我已经习惯每天吸一包烟了.我吸了三年烟,一天晚上我咳的时候,看见咳出来的东西竟然有血在那里,刚开始我忽略它,因为这会变正常的,我女朋友有一次注意到在我衬衣上的血流,然后问我怎么来的,我开始编了一个借口,但她知道我为了隐藏一些东西而撒谎,她强迫我去大学附近的医院,在检查报告出来发现我有肺癌...自从知道我得肺癌到现在已经 2 周了,但我妈不知道.
 
 NOW I REGRET MY DECISION OF SMOKING.
 
@@ -517,16 +450,11 @@ PLEASE QUIT IT IF YOU REALLY DO.
 
 > 如果你还在吸烟,请戒烟.
 
-
-
-
-
 ## 你有哪些尴尬的经历?
+
 From:&nbsp;&nbsp;[Did you ever have a moment when you felt like dying of embarrassment?](http://qr.ae/TU8qau)
 
 Date: March 06 2018
-
-
 
 This memory is going to haunt me till I die.
 
@@ -536,7 +464,7 @@ In fact, I really did wish that I would just die when this happened to me. With 
 
 > 事实上,我确实希望我在发生这件事的时候,我就挂掉了.这就是说-
 
-I was reading the newspaper (*gasp*). Now, there was a huge ad for McDonalds on the next page. I was about to flip past it because I don’t really eat at McDonalds, but one of the coupons read “Free Small Fries” and as soon as I saw that, I asked my mom if I could go over to McDonalds and get one. I’m a sucker for free things…if you couldn’t tell already.
+I was reading the newspaper (_gasp_). Now, there was a huge ad for McDonalds on the next page. I was about to flip past it because I don’t really eat at McDonalds, but one of the coupons read “Free Small Fries” and as soon as I saw that, I asked my mom if I could go over to McDonalds and get one. I’m a sucker for free things…if you couldn’t tell already.
 
 > 我正在看报纸(叹气.gif).现在,报纸上有一个超大的麦当劳广告在另一页上面.因为我不常吃麦当劳,正要翻过这一页,但我立刻看见了一张"免费小吃"的优惠券在那,然后我问我妈,我可不可以去麦当劳领取这个.如果你现在还看不出,但我对免费的东西毫无抵抗力.
 
@@ -546,7 +474,7 @@ Obviously, I didn’t read the small print (always read the small print, kids).
 
 There’s a small McDonalds about a block away from my house, so I walked over there alone. Looking back, I am so thankful I didn’t take my siblings with me or my parents, because I just know that my family would never let me hear the end of it. They would recount this tale over every family dinner, at my wedding, and probably even at my funeral.
 
-> 在离我家一个街区的地方,有一家很少的麦当劳,所以我自己去到那里.现在回忆起来,幸好我没有带上我的老爸老妈和兄弟姐妹们,因为我知道他们会一直拿这件事来取笑我.ta们会一次又一次在家庭聚餐,我的婚礼,甚至在我的葬礼上面说这个事.
+> 在离我家一个街区的地方,有一家很少的麦当劳,所以我自己去到那里.现在回忆起来,幸好我没有带上我的老爸老妈和兄弟姐妹们,因为我知道他们会一直拿这件事来取笑我.ta 们会一次又一次在家庭聚餐,我的婚礼,甚至在我的葬礼上面说这个事.
 
 I awkwardly presented the cashier with my coupon. He took it reluctantly, shooting me a disdainful stare. “That’s it?” he said.
 
@@ -606,28 +534,21 @@ I felt my face grow hot and I suddenly wished that a hole would open up undernea
 
 Five seconds later, the same cashier marched outside and handed me my ketchup packets. “Don’t worry, ma’am, you don’t need to smile for the ketchup,” he said, smirking.
 
-> 5秒钟后,同一个收款员走到外边,然后递给我一包番茄酱."不要担心,Ma'am,你不需要笑就可以拿走这包番茄酱."他说,一脸假笑.
+> 5 秒钟后,同一个收款员走到外边,然后递给我一包番茄酱."不要担心,Ma'am,你不需要笑就可以拿走这包番茄酱."他说,一脸假笑.
 
 I guess he got the last laugh.
 
 > 我想是他笑到了最后.
 
-
-
-
-
 ## 有哪些默认的社交规则?
 
 From:&nbsp;&nbsp;[What are some unwritten social rules everyone should know?](http://qr.ae/TU86Ke)
 
-
 Date: March 07 2018
-
-
 
 When invited out to dinner, and the host is paying, watch for what he or she orders. Order something the same price, or lower. The host’s chosen price is the indicator of what he or she can comfortably pay for everyone else.
 
-> 当你被邀请外出吃饭的时候,然后是请你的那个人付款,看着ta点的菜.然后你点一些同样价格或者更低价格的食物.ta选择这个价格是一个指标,一个ta是否可以为别人支付而不会感到不爽的指标.
+> 当你被邀请外出吃饭的时候,然后是请你的那个人付款,看着 ta 点的菜.然后你点一些同样价格或者更低价格的食物.ta 选择这个价格是一个指标,一个 ta 是否可以为别人支付而不会感到不爽的指标.
 
 Updates:
 
@@ -645,19 +566,19 @@ A buffet is a simple solution a host might choose. The price per person is set, 
 
 This whole method came about in the 1950s or earlier, when it was much more polite not to be explicit about money. These days, if you can, you can say “I’m paying, but if you want something over $25, please chip in.” That way, you can order whatever you want, and everyone can know the guidelines.
 
-> 这个主意来自1950年或者更早,当不直接公布价格显得更礼貌的时候.那些日子里面,如果你可以,你说"我付款,但如果你点了超过25美元,那就AA吧."那样子,你就可以点你喜欢的任何东西,而其他人也知道你的底线在哪里.
+> 这个主意来自 1950 年或者更早,当不直接公布价格显得更礼貌的时候.那些日子里面,如果你可以,你说"我付款,但如果你点了超过 25 美元,那就 AA 吧."那样子,你就可以点你喜欢的任何东西,而其他人也知道你的底线在哪里.
 
 Obviously, this old etiquette rule has its downsides. Say everyone knows the rule. The host must order food at the price he can afford for everyone, even if he would prefer something cheaper - like maybe he likes grilled cheese or is a vegetarian or is eating only salad to lose weight.
 
-> 显然,这些旧的礼节也有着不好的一面.假设所有的人都知道这个规则.主人一定会点那些ta能提支付得起的食物给每一个人,尽管ta喜欢更便宜一点的 - 就像ta或者喜欢烤芝士或者是素食主义者,或者是仅仅为了减肥而吃沙拉.
+> 显然,这些旧的礼节也有着不好的一面.假设所有的人都知道这个规则.主人一定会点那些 ta 能提支付得起的食物给每一个人,尽管 ta 喜欢更便宜一点的 - 就像 ta 或者喜欢烤芝士或者是素食主义者,或者是仅仅为了减肥而吃沙拉.
 
 The host or hostess can inform others by saying “I’m having the X dish” before the waiter comes around to take orders. Or the host can arrange to order first, and speak loudly so everyone hears.
 
-> ta可以在服务员来取订单前,告诉其他人说"我要x盘"(特殊的意思?).或者可以先下订单,然后大声告诉其他人.
+> ta 可以在服务员来取订单前,告诉其他人说"我要 x 盘"(特殊的意思?).或者可以先下订单,然后大声告诉其他人.
 
 Of course, if the host does not say what he or she is ordering, you can’t use this rule. See several options in the comments, such as simply ordering something reasonable, or not ordering first and matching price or item for what someone else does.
 
-> 当然,如果那个主人不说ta究竟点了什么,你就不能使用这条规则了.看了一些在留言里面的选项,比如点一些合理的东西,或者不首先点餐等别人先点餐,然后参考别人点的价格点餐.
+> 当然,如果那个主人不说 ta 究竟点了什么,你就不能使用这条规则了.看了一些在留言里面的选项,比如点一些合理的东西,或者不首先点餐等别人先点餐,然后参考别人点的价格点餐.
 
 As we do get more up front about money and offers to take people out, there are options like ordering something cheaper, but telling people to go ahead and order what they like, or order up to a certain amount.
 
@@ -666,23 +587,17 @@ As we do get more up front about money and offers to take people out, there are 
 Alcohol complicates the issue. You may want to let people know that they can pay for their own, or set a one-drink limit on your own tab.
 Groups that go out regularly often have their own rules. That works very well. See some excellent options in the comments.
 
-> 酒水让这个问题更复杂.你可以让他们知道ta们可以自己的(AA),或者告诉只能喝一杯在你的准则上面.团队出去通常有他们自己的规则.那些都很好的兼容各个问题.在留言里面也看见了一些很好的解决的方法.
+> 酒水让这个问题更复杂.你可以让他们知道 ta 们可以自己的(AA),或者告诉只能喝一杯在你的准则上面.团队出去通常有他们自己的规则.那些都很好的兼容各个问题.在留言里面也看见了一些很好的解决的方法.
 
+## 17 岁,我爸妈要把我扔了
 
-
-
-
-## 17岁,我爸妈要把我扔了
 From:  [I am 17, and my parents are going to kick me out ...](http://qr.ae/TU83dr)
-
 
 Date: March 08 2018
 
-
-
 Honestly you are not alone. I was 15 turning 16 and my parents sat me down ask me what I wanted for my 16 birthday. Instead of asking for a car like a lot of kids , I said I’d like to go visit my brother in Los Angeles ( I am from Bedford NH). My brother year older than myself. My parents divorced when I was 11, and they remarried. My step mother was happy for me to go visit my brother … they said they’d buy my plane ticket there. But wouldn’t it be fun if I got a job there, saved money and flew back. Convinced me that I could spend more time with my older brother. So I agreed because I knew I had a home to cone back to. I left all my stuff just packed a few things . Once I got to Los Angeles I was given a pillow and a blanket to sleep on the floor. No problem, he says after a month I had to leave , he was going to kick me out. I said I just need time to get a job, save money and go back home. Two weeks I found a job with Wendy’s old fashioned hamburgers . I soon learned they hold two weeks pay back then I get paid after that. Three weeks pass by and my brother said I have one week left and im out. I thought this is a joke - can’t be serious …? I talked to my step mother and father and they said they had a garage sale and all my stuff was sold. Joke right - can’t be serious …?
 
-> 老铁,说实话,你不是一个人.在我15岁快满16的时候,我爸妈叫我坐下,然后问我要什么作为我16岁生日礼物.相比其他小屁孩要一辆车作为生日礼物的情况,我说我想去看一下我在拉山鸡(洛杉矶)的哥哥.我哥哥比我年长一岁.我的父母在我11岁的时候就离婚了,然后ta们各自组建个自己的家庭.我的继母对我去我哥那很开心... 他们说给我买机票到那边.如果我在那边没工作的话,那就会开心不起来了,要自己买机票飞回来.说服我说那样子我有更多的时间和我的哥哥在一起.所以我同意了,因为我知道我可以回来的.我打包了很少的几件东西,然后把大部分的东西留下来了.在我到拉山鸡之后,我只有一个枕头和睡袋,睡在地板上面.我不介意,他说在一个月后我必须离开,不然把我赶出去.我说我只需要一些时间去找一份工作,存一些钱,然后我就自己飞回去了.两个星期后,我找到一个在汉堡店里的工作.然后我才知道他们那边是两个星期才付一次薪资的.三个星期过后,我哥说我必须在一个星期内搬走.我还以为那只是一个玩笑-不会是真的吧...? 我告诉我的继母和老爸,然后他们说他们把我的东西全都卖掉了.开玩笑吧,怎么可能是真的?
+> 老铁,说实话,你不是一个人.在我 15 岁快满 16 的时候,我爸妈叫我坐下,然后问我要什么作为我 16 岁生日礼物.相比其他小屁孩要一辆车作为生日礼物的情况,我说我想去看一下我在拉山鸡(洛杉矶)的哥哥.我哥哥比我年长一岁.我的父母在我 11 岁的时候就离婚了,然后 ta 们各自组建个自己的家庭.我的继母对我去我哥那很开心... 他们说给我买机票到那边.如果我在那边没工作的话,那就会开心不起来了,要自己买机票飞回来.说服我说那样子我有更多的时间和我的哥哥在一起.所以我同意了,因为我知道我可以回来的.我打包了很少的几件东西,然后把大部分的东西留下来了.在我到拉山鸡之后,我只有一个枕头和睡袋,睡在地板上面.我不介意,他说在一个月后我必须离开,不然把我赶出去.我说我只需要一些时间去找一份工作,存一些钱,然后我就自己飞回去了.两个星期后,我找到一个在汉堡店里的工作.然后我才知道他们那边是两个星期才付一次薪资的.三个星期过后,我哥说我必须在一个星期内搬走.我还以为那只是一个玩笑-不会是真的吧...? 我告诉我的继母和老爸,然后他们说他们把我的东西全都卖掉了.开玩笑吧,怎么可能是真的?
 
 i called my relatives and they said they didn’t want to get involved. They were sorry.
 
@@ -694,11 +609,11 @@ Thats when it started hitting me. Ohmygod! Fourth week my brother dropped me off
 
 after about an hour in heat dripping in swet. I started walking to work … miles away. I walked through prostitutes, drug dealers , city tourists and some really bad looking city streets .. I finally made it to Wendy’s old fashioned hamburgers to start working. I put my luggage in the back store room. I went to work .. still in disbelief… can’t be serious …? I put on a smile and went to work. I prayed something fierce to god to make sense of this. I was literally flipping hamburgers… one girl APRIL asked me whst was going on after I had taken my break. She noticed the luggage . That’s when it hit me—this is serious im homeless. God answered my prayers .. sent me April and her family who decided to take me in. I saved money to get myself an apt. It was bedbugs and awful but it was mine. My parents my relatives my brother just disowned me…? But I had April’s family now. Eventually I moved to another place with someone I met into a house that relationship lasted some years I saved money like crazy … I saved $1000. Emergency fund in the bank. I always had a quick escape out of every situation . I trusted no one. Until I heard your post I didn’t know it could happen to others . I guess it does. Your now in my prayers
 
-> 一个小时后,被热到汗流浃背.我开始走到工作的地方...一公里远.我走过了站街的女孩,卖白粉的,城市的小痞子,和一些十分难看的街道...我最后终于走到了工作的汉堡店.我把我的行李扔在后面的仓库里面.然后去工作...还是不能相信...不会是真的吧? 我给我自己笑了笑,然后开始工作.我祈祷一些猛烈的东西,好让ta让这一切变得有意义.我是一个很渣的服务员...一个女孩APRIL在这之后问我发生了什么事,在我们休息的时候.她注意到了我的行李.就是这一会,我才确定我无家可归了.God给我的祈祷回应了...给我派来了April和她的家庭,她们决定接纳我一阵.我给自己存钱然后租了一个公寓.那里有臭虫而且很糟糕,但起码是我自己的了.我的家人刚把我抛弃了?但我现在有April的家庭了.最后我去到其他地方,在那个公寓里面我停留了数年,我像疯子一样存钱...我存了1000美元.在银行里面作为紧急资金.我总是在各种情况里面,最快的逃离.我不相信任何人.知道我看到你的发布,我才知道这些在别人身上也发生了.我想这些都发生了.你现在在我祝愿的那些人里面.
+> 一个小时后,被热到汗流浃背.我开始走到工作的地方...一公里远.我走过了站街的女孩,卖白粉的,城市的小痞子,和一些十分难看的街道...我最后终于走到了工作的汉堡店.我把我的行李扔在后面的仓库里面.然后去工作...还是不能相信...不会是真的吧? 我给我自己笑了笑,然后开始工作.我祈祷一些猛烈的东西,好让 ta 让这一切变得有意义.我是一个很渣的服务员...一个女孩 APRIL 在这之后问我发生了什么事,在我们休息的时候.她注意到了我的行李.就是这一会,我才确定我无家可归了.God 给我的祈祷回应了...给我派来了 April 和她的家庭,她们决定接纳我一阵.我给自己存钱然后租了一个公寓.那里有臭虫而且很糟糕,但起码是我自己的了.我的家人刚把我抛弃了?但我现在有 April 的家庭了.最后我去到其他地方,在那个公寓里面我停留了数年,我像疯子一样存钱...我存了 1000 美元.在银行里面作为紧急资金.我总是在各种情况里面,最快的逃离.我不相信任何人.知道我看到你的发布,我才知道这些在别人身上也发生了.我想这些都发生了.你现在在我祝愿的那些人里面.
 
 My faith in god has helped me countless times. I feel s connection with god that is always with me. Whatever you do… don’t give up. Before you are 18. Get a plan in place. Focus on you. Save money. Asking questions is good when you don’t know . I didn’t have that but I did manage to make my way. I don’t know what resources are out there for you. Research , set a plan in motion. Attend church. God does not throw you out like yesterday’s trash. God is with you always
 
-> 我相信God在很多时候都帮助我.我感到我和ta存在着联系,而ta一直在我的生变.不论你做什么,不要放弃.在你18岁之前,在一个地方准备一个计划,专注于自己.存钱.在你不知道的情况问问题是一件好事.我还没做到这些,但我的确开始往这上面走.我不知道你那边有什么资源.研究,然后开始计划.参加教会.God没有想昨天的垃圾一样把你扔在外边.ta一直在你身边.
+> 我相信 God 在很多时候都帮助我.我感到我和 ta 存在着联系,而 ta 一直在我的生变.不论你做什么,不要放弃.在你 18 岁之前,在一个地方准备一个计划,专注于自己.存钱.在你不知道的情况问问题是一件好事.我还没做到这些,但我的确开始往这上面走.我不知道你那边有什么资源.研究,然后开始计划.参加教会.God 没有想昨天的垃圾一样把你扔在外边.ta 一直在你身边.
 
 whatever you do —focus on you. I was in shock until it really hit me what was happening . Find s resource clinic where you can talk to someone about what you’re going through.
 
@@ -706,15 +621,11 @@ whatever you do —focus on you. I was in shock until it really hit me what was 
 
 My step mother just wanted my father for herself. My mother was an alcoholic and useless. My brother became both drug addict and alcoholic once he moved to Los Angeles. My relatives useless to me. I was neither a drug addict or alcoholic . I was s good decent kid. I had god.
 
-> 我的继母只想我老爸属于她自己.我妈是一个没卵用的酒鬼.我哥在他去拉山鸡的时候就变成了一个吸白粉的和酒鬼.我的亲戚对我也没卵用.我不是酒鬼也不对药物上瘾.我只是一个小学生而已.我有god.
+> 我的继母只想我老爸属于她自己.我妈是一个没卵用的酒鬼.我哥在他去拉山鸡的时候就变成了一个吸白粉的和酒鬼.我的亲戚对我也没卵用.我不是酒鬼也不对药物上瘾.我只是一个小学生而已.我有 god.
 
 Find a resource clinic quick - don’t wait . Get s plan in motion
 
 > 尽快找一个资源诊所-不要等.然后把计划启动起来.
-
-
-
-
 
 ## 有哪些你不会忘记的人?
 
@@ -722,12 +633,9 @@ From:&nbsp;&nbsp;[Who is someone you will never forget and why?](http://qr.ae/TU
 
 Date: March 09 2018
 
-
-
-
 I was 17 years old and living in Paris. One early evening I went to the café downstairs to write and spotted a guy looking at me across the bar. He looked wild and bewildered and beautiful and I went over to introduce myself.
 
-> 那一年,我17岁,活在巴黎.一个比较早的傍晚,我走到楼下的咖啡馆里面去写一点东西,然后注意到一个男人正在吧台的另一边看着我.他看起来很帅,然后我去到他那边介绍我自己.
+> 那一年,我 17 岁,活在巴黎.一个比较早的傍晚,我走到楼下的咖啡馆里面去写一点东西,然后注意到一个男人正在吧台的另一边看着我.他看起来很帅,然后我去到他那边介绍我自己.
 
 After half an hour at the bar we stepped outside, and proceeded to walk across the whole city, talking through the night.
 
@@ -749,16 +657,11 @@ He had photographed a colorful, surreal country, he said, inspired by a night he
 
 > 他给多彩,超现实的墨西哥拍照了,他说,创意来自一个在巴黎在酒吧里面自动接近他的女孩子,一起和他走过那座城市的那晚.(就像那部话痨电影:爱在黎明破晓前???)
 
-
-
-
-
 ## 今天为什么伤心了?
+
 From:  [What made you sad today?](http://qr.ae/TU8LTZ)
 
 Date: March 12 2018
-
-
 
 Today is my birthday and nobody has wished me.
 
@@ -772,22 +675,15 @@ So I decided to make my day special , I wish myself happy birthday and gift myse
 
 > 所以我决定我自己把今天变得特殊一点,我希望我自己生日快乐,然后给自己买一块巧克力作为礼物.
 
-
 Happy birthday to me once again.
 
 > 单身狗万岁!!!
-
-
-
-
 
 ## 你能告诉我一些鸡汤没?
 
 From:  [Can you tell me something inspiring?](http://qr.ae/TU80KP)
 
 Date: March 13 2018
-
-
 
 Set aside your present, and your future. Look at your past.
 
@@ -805,29 +701,23 @@ Many, many things you are sure cannot be solved actually can be, and the proof o
 
 > 很多,很多的事情,你不能确定能解决,但全都解决了,然后证明这些的,都是你自己.
 
-
-
-
-
 ## 哪件事最让你煎熬?
+
 From:  [What is the most painful thing you’ve endured?](http://qr.ae/TU8fq9)
 
 Date: March 14 2018
 
-
-
-
 Got a phone call from my partner saying my two-year-old son had found a box of sleeping pills in a friend’s bag and eaten them all (57). The hospital was literally across the road so I told her to take him and the empty box directly to the hospital. Across the road remember.
 
-> 接到一个我伴侣的电话,说我2岁的孩子把ta朋友的一盒安眠药全都吃了(57片).马路对面有一家医院,所以我告诉她立刻清空那个盒子然后把ta带去医院.记得吗,就在马路对面的医院.
+> 接到一个我伴侣的电话,说我 2 岁的孩子把 ta 朋友的一盒安眠药全都吃了(57 片).马路对面有一家医院,所以我告诉她立刻清空那个盒子然后把 ta 带去医院.记得吗,就在马路对面的医院.
 
 Took 45 mins for me to get to the hospital. She had not arrived. Rushed to the apartment to find her watching TV. I grabbed my son and the box and took him to the hospital. ( Pain : realisation his mother didn't give a shit )
 
-> 我花了45分钟然后才到医院那里.而她还没到.我急忙跑回公寓,然后发现她正在看电视.我抓起我的儿子和那个盒子就冲过去医院了.(心疼:意识到他妈一点也不在乎他)
+> 我花了 45 分钟然后才到医院那里.而她还没到.我急忙跑回公寓,然后发现她正在看电视.我抓起我的儿子和那个盒子就冲过去医院了.(心疼:意识到他妈一点也不在乎他)
 
 Turned out that one of those pills can put an adult out for eight-hours straight. The doctor explained that they dissolve in the mouth rapidly and that is where most of the absorption takes place. But my son was as bright as a button and very curious about the things going on.
 
-> 发现那些安眠药一片可以让一个成年人睡8个小时的为例.那个医生解释他们不能解决这些口服药效比较快吸收的东西.但我的儿子还跟灯泡一样灵活,还在很好奇发生了什么事.
+> 发现那些安眠药一片可以让一个成年人睡 8 个小时的为例.那个医生解释他们不能解决这些口服药效比较快吸收的东西.但我的儿子还跟灯泡一样灵活,还在很好奇发生了什么事.
 
 He further explained that what works on adults, may not work at all on children. Also that drugs are not tested on children so we have no true idea what might happen.
 
@@ -835,7 +725,7 @@ He further explained that what works on adults, may not work at all on children.
 
 So they took some blood samples, hooked him up to a monitor and I was told to wait 24 hours. Brain damage, kidney failure, liver failure, internal haemorrhage…you name it, all passed through my head. And it was all like a truck heading toward this bright, curious kid who had no idea of the monster stalking him. And there I was, unable to do a thing to stop it, impotent. Never in my life had I felt so utterly useless.
 
-> 所以他们取走了一些血样,给他戴上监控仪,然后告知我要等24小时.脑部伤害,肾脏衰竭,肝脏死亡,内出血...所有你能想到的,都一一的在我的脑海里面出现.然后这些东西好像一下就全部撞在了一个聪明,好奇的小屁孩身上,他对跟着他的野兽完全没有感觉.然而我在那里,却不能做一件事去阻止这些发生.从来没在我的人生中有过这种无助感.
+> 所以他们取走了一些血样,给他戴上监控仪,然后告知我要等 24 小时.脑部伤害,肾脏衰竭,肝脏死亡,内出血...所有你能想到的,都一一的在我的脑海里面出现.然后这些东西好像一下就全部撞在了一个聪明,好奇的小屁孩身上,他对跟着他的野兽完全没有感觉.然而我在那里,却不能做一件事去阻止这些发生.从来没在我的人生中有过这种无助感.
 
 Not a sentimental person by nature but if you had told me that jumping off the roof would have saved him, I would have asked you to show me the stairs. Seriously, I was shocked at myself at just how easy that option seemed to me if offered.
 
@@ -863,7 +753,7 @@ An eternity passed and I got so very old. He slept, laughed a little in his slee
 
 Around 7am, he awoke, eyes wide open and said: ‘Papa, j’ai faim!’ (‘Daddy, I’m hungry’). Can’t say I’ve ever heard anything so beautiful.
 
-> 在早上7点左右,他醒了,眼睛挣得很大说:"老爸,我饿了".再也没有比这句更漂亮的话了.
+> 在早上 7 点左右,他醒了,眼睛挣得很大说:"老爸,我饿了".再也没有比这句更漂亮的话了.
 
 He was finally released, fed and quite buoyed up by his adventure.
 
@@ -875,15 +765,11 @@ Back home, his mother greeted him with enthusiasm but there was an edge that tol
 
 Might have forgiven that save allowing herself to despise even her child. Her lover was welcome to her. Seventeen years later and my son is still with me. She never bothered to visit, ever.
 
-> 或许原来她为了自己甚至可以来拿自己的儿子都不顾.她的野男人喜欢她.17年后,我和我孩子都还在一起.而她从来没有探望过,一次都没.
+> 或许原来她为了自己甚至可以来拿自己的儿子都不顾.她的野男人喜欢她.17 年后,我和我孩子都还在一起.而她从来没有探望过,一次都没.
 
 BTW: Those child-proof pill-boxes. They are not. He got it open in seconds.
 
-> 顺便说一下:那些小屁孩的药盒.他们没用.他在拿到的时候就打开了.(翻译成shit一样,窝草)
-
-
-
-
+> 顺便说一下:那些小屁孩的药盒.他们没用.他在拿到的时候就打开了.(翻译成 shit 一样,窝草)
 
 ## 怎么纪念霍金?
 
@@ -891,16 +777,13 @@ From:&nbsp;&nbsp;[How will Stephen Hawking be remembered?](http://qr.ae/TU17HI)
 
 Date: March 15 2018
 
-
-
-
 One Saturday night, the physicist Stephen Hawking was talking about the universe. He was taking questions.
 
 > 一个周六晚上,物理学家史蒂芬.霍金正在讲宇宙.他正在回答问题.
 
 One of the people in audience asked, “What do you think is the cosmological effect of Zayn leaving One Direction and consequently breaking the hearts of millions of teenage girls across the world?”
 
-> 一个观众里面的人问,"你是怎么看待Zayn离开单向乐队,让全世界百万萝莉为此心碎,会产生怎样的宇宙效应?"
+> 一个观众里面的人问,"你是怎么看待 Zayn 离开单向乐队,让全世界百万萝莉为此心碎,会产生怎样的宇宙效应?"
 
 “Finally," Hawking replied, "A question about something important."
 
@@ -912,15 +795,11 @@ One of the people in audience asked, “What do you think is the cosmological ef
 
 "It would not be beyond the realms of possibility that somewhere outside of our own universe lies another different universe. And in that universe, Zayn is still in One Direction."
 
-> "这不会显得很超前,在我们宇宙外面,存在着另一些宇宙.在那些宇宙里面,Zayn还一直待在单向乐队里面"
+> "这不会显得很超前,在我们宇宙外面,存在着另一些宇宙.在那些宇宙里面,Zayn 还一直待在单向乐队里面"
 
 "This girl may like to know that in another possible universe, she and Zayn are happily married."
 
-> "这个女孩子可能想知道,在其他的宇宙里面,ta和Zayn结婚了."(Mister Hawking dead at 2018-03-10,Thank you. Sir,RIP)
-
-
-
-
+> "这个女孩子可能想知道,在其他的宇宙里面,ta 和 Zayn 结婚了."(Mister Hawking dead at 2018-03-10,Thank you. Sir,RIP)
 
 ## 人生中最惨的是什么?
 
@@ -928,11 +807,9 @@ From:&nbsp;&nbsp;[What has been the roughest moment in life?](http://qr.ae/TU1pm
 
 Date: March 19 2018
 
-
-
 When my husband caught me cheating on him. There are no excuses, it was an incredibly stupid, selfish, and insane thing to do to someone who didn’t deserve it. The person I cheated on my husband with wasn’t worth it, that’s for sure.
 
-> 当我丈夫发现我给ta带绿帽的时候.这没有借口,完全是一件愚蠢,自私,和没脑的去做了一件事去伤害那些不该伤害的人.我出轨那个男的是不值得的,这是肯定的.
+> 当我丈夫发现我给 ta 带绿帽的时候.这没有借口,完全是一件愚蠢,自私,和没脑的去做了一件事去伤害那些不该伤害的人.我出轨那个男的是不值得的,这是肯定的.
 
 After telling most of my friends and family what I did, my husband packed his bags and left. I spent a week on my couch contemplating suicide and hitting absolute rock bottom. My friends all took his side, understandably. Almost everyone I loved turned away. I fell physically sick with some sort of insane flue—the worst I’ve ever had in my life, probably from the stress.
 
@@ -944,7 +821,7 @@ I could’ve turned to the guy and tried to start fresh. New life, new boyfriend
 
 I wrote to each friend and family member who knew about this that I was going to do whatever it took to build my life back. I wrote to my husband. I begged him to come back. By some miracle… he did. We went to counselling, I went to therapy. I opened my life to my husband: no more privacy. He had access to everything, which I was completely fine with.
 
-> 我写给我的每一个知道我这件事的朋友和家庭成员,我不论付出什么都要去做,去把我的生活重建回来.我写给我的丈夫.我乞求ta能回来.神奇的是,他回来了.我们去参加辅导,我去治疗.我把我的生活敞开给我的丈夫:不再具有自己的隐私.他能连接我的任何东西,现在我也能完全接受了.
+> 我写给我的每一个知道我这件事的朋友和家庭成员,我不论付出什么都要去做,去把我的生活重建回来.我写给我的丈夫.我乞求 ta 能回来.神奇的是,他回来了.我们去参加辅导,我去治疗.我把我的生活敞开给我的丈夫:不再具有自己的隐私.他能连接我的任何东西,现在我也能完全接受了.
 
 It took a long time, but eventually my friends came back. My husband’s trust slowly began to rebuild. Years and years later, our marriage is strong-full of incredible love, respect, and trust. I look back at what I did in complete disgust. I live everyday with that heartbreak, wishing I’d never put such an amazing person through that. Although that time was dark, it was the push I needed to wake up and stop living like a selfish idiot.
 
@@ -958,22 +835,15 @@ EDIT: WOW at all the up votes! Thanks guys!
 
 > 更新: 对于你们的点赞感到惊讶.谢谢你们.
 
-
-
-
-
 ## 你怎么知道别人喜欢你?
 
 From:&nbsp;&nbsp;[How do you know when someone really loves you?](http://qr.ae/TU1IfF)
 
 Date: March 20 2018
 
-
-
-
 Years ago, I used to enjoy playing Xbox in my free time.
 
-> 早些年,我喜欢在空闲的时候玩xbox.
+> 早些年,我喜欢在空闲的时候玩 xbox.
 
 Often, my girlfriend would come and sit next to me and watch me play, cheering me on, going “AHHH” when I died or getting excited when I beat a level.
 
@@ -1011,24 +881,19 @@ But above all, I realized that I’d forgotten how much I loved her.
 
 > 在上面这些的最后,我意识到我曾竟然忘记自己有多么的爱她了.
 
-
-
-
-
 ## 人生建议?
+
 From:&nbsp;&nbsp;[Do you have one life tip for me?](http://qr.ae/TU1GUX)
 
 Date: March 21 2018
 
-
-
 The school bus comes at 6:29 sharp.
 
-> 校巴一般在6:29的时候来到这边.
+> 校巴一般在 6:29 的时候来到这边.
 
 Today however, it was late.
 
-> 今天,ta迟到了.
+> 今天,ta 迟到了.
 
 And it was freezing.
 
@@ -1040,7 +905,7 @@ Even through my hoodie, Dawn's breeze still pierced through my skin like a needl
 
 At 6:41, my friend Dave gave up and went back home.
 
-> 在6:41的时候,我的朋友Dave放弃了,然后回家了.
+> 在 6:41 的时候,我的朋友 Dave 放弃了,然后回家了.
 
 I, however, stayed.
 
@@ -1048,15 +913,15 @@ I, however, stayed.
 
 And a minute later, the bus came.
 
-> 一分钟后,那辆车来了.(如果才1分钟Dave能看到的)
+> 一分钟后,那辆车来了.(如果才 1 分钟 Dave 能看到的)
 
 Had Dave waited, he wouldn't have lost those 12 minutes he spent in the freezing darkness.
 
-> 如果Dave等待的话,ta就不会让之前在寒冷的黑暗中等待12分钟白白丢失了.
+> 如果 Dave 等待的话,ta 就不会让之前在寒冷的黑暗中等待 12 分钟白白丢失了.
 
 All because he couldn't handle one more minute.
 
-> 全都因为ta不能等多1分钟.
+> 全都因为 ta 不能等多 1 分钟.
 
 One life tip I give you is:
 
@@ -1084,36 +949,25 @@ Quitting makes you grow old.
 
 ---
 
-
-
-
 ## 你曾经见过最善良的事是什么?
+
 From:&nbsp;&nbsp;[What's the kindest thing you've ever seen?](http://qr.ae/TU1tyq)
 
 Date: March 22 2018
 
-
-
 I work at a McDonald's and every day a kid walks in to the store With a homeless man. He hands me a 10 dollar bill and gets himself a hashbrown and let's the man get what ever he wants. They both sit down and talk for 15 minutes a day. Eventually the boy and man started looking for jobs so that the man can get a job. Last week the man had an interview and ended up being a salesman. The kid came in and asked for a hashbrown sat down quietly and left. The following day he came in with a big smile on his face. I asked him why he was so happy. He said today he made a new friend, and brought a different homeless man in. Now every weekend the salesman, the boy and his new friend come to McDonald's. The difference this time, the salesman pays for all of them. It brought me to tears and I ended up learning from this boy. I have decided to donate $100 every year to my neighborhood homeless shelter(I make too little to give more). I wish to learn more and educate my self but selfnessless is something I learned in the past few months and will always be a part of me.
 
-> 我在金拱门里面工作,每天一个小屁孩带着一个流浪汉走进这里.他(小屁孩)给我10美元现金(我只能说,发达国家)然后给他自己买了一个洋芋块,然后让按个流浪汉点ta自己想要的.然后他们会坐在一起,聊15分钟左右.最后那个小屁孩和那个流浪汉开始寻找工作,那样子那个流浪汉就可以获得一份工作了.上个星期,那个流浪汉有一个面试,然后得到了一份销售员的工作.那个小屁孩走进来,点了一个洋芋块,然后静静的坐在那里,就离开了.第二天,他脸上带着大大的笑容走进来,我问他为什么这么开心.他说他今天交了一个新朋友,然后的带着另一个流浪汉进来了.然后每一周,那个销售员,小屁孩和他们的新朋友都会来这家金拱门.不同的是,现在那个销售员付他们的餐费了.这让我有点泪目,然后我从这个小屁孩身上学到要刁难东西.我决定给我附近的流浪汉收容所每年捐款100美元(我赠予得太少了).我希望去学更多的东西,来教育自己,但慷慨是我过去几个月学到的,然后这个会一直影响我.
-
+> 我在金拱门里面工作,每天一个小屁孩带着一个流浪汉走进这里.他(小屁孩)给我 10 美元现金(我只能说,发达国家)然后给他自己买了一个洋芋块,然后让按个流浪汉点 ta 自己想要的.然后他们会坐在一起,聊 15 分钟左右.最后那个小屁孩和那个流浪汉开始寻找工作,那样子那个流浪汉就可以获得一份工作了.上个星期,那个流浪汉有一个面试,然后得到了一份销售员的工作.那个小屁孩走进来,点了一个洋芋块,然后静静的坐在那里,就离开了.第二天,他脸上带着大大的笑容走进来,我问他为什么这么开心.他说他今天交了一个新朋友,然后的带着另一个流浪汉进来了.然后每一周,那个销售员,小屁孩和他们的新朋友都会来这家金拱门.不同的是,现在那个销售员付他们的餐费了.这让我有点泪目,然后我从这个小屁孩身上学到要刁难东西.我决定给我附近的流浪汉收容所每年捐款 100 美元(我赠予得太少了).我希望去学更多的东西,来教育自己,但慷慨是我过去几个月学到的,然后这个会一直影响我.
 
 A message to all of you: just because you have a good life doesn't mean you can't make other people's better.
 
 > 一条留给所有人的信息: 仅因为你有好的生活,但并不意味着你不能让别人的生活也变好.
 
-
-
-
-
 ## 和你的兄弟姐妹相处不好?
+
 From:&nbsp;&nbsp;[Did you and your siblings fight?](http://qr.ae/TU1KPK)
 
 Date: March 26 2018
-
-
-
 
 My younger sister Shannon and I used to fight like cats and dogs.
 
@@ -1125,7 +979,7 @@ She is 3 years younger than me. So I was a bit of a bully sometimes.
 
 The game changer came in my teen years. Suddenly, all her friends were attractive.
 
-> 在我10多岁的时候,情况开始改变了.突然间,她所有的朋友都变得迷人了.
+> 在我 10 多岁的时候,情况开始改变了.突然间,她所有的朋友都变得迷人了.
 
 And I found myself showing up saying, “SUP SIS. What are y’all doing?!?!?!? Wanna hang out?”
 
@@ -1133,11 +987,7 @@ And I found myself showing up saying, “SUP SIS. What are y’all doing?!?!?!? 
 
 Today, at 34 and 31 years of age, we get along just fine.
 
-> 现在,到了34和31的年级了,我们相处得,还好,应该.
-
-
-
-
+> 现在,到了 34 和 31 的年级了,我们相处得,还好,应该.
 
 ## 聪明人悲伤的一面
 
@@ -1145,33 +995,23 @@ From:  [What is the saddest truth about smart people?](http://qr.ae/TU12fz)
 
 Date: March 27 2018
 
-
-
 The smarter you are, the harder it is for you to date.
 
 > 你越聪明,你约会就会越难.
-
 
 For both men and women, intelligence is inversely related to dating. Smart people tend to be less social, more solitary, and just overall not as likely to date as less intelligent people. The smarter you are, the fewer people you date.
 
 > 对于男女双方,聪明程度和约会成反比.聪明的人不太喜欢社交,更多的肚子,然后几乎全部都是不喜欢去约见笨的人.你越聪明,你就约会越少.
 
-
 Wow. I must be a fucking genius.
 
 > 卧槽.我还真他妈的是天才.(So do I,I'm a fucking genius too)
 
-
-
-
-
 ## 那些让你心颤的句子
+
 From:  [What were the most chilling quotes ever said?](http://qr.ae/TU1Yxd)
 
 Date: March 28 2018
-
-
-
 
 “You're the antibodies kicking in as the planet fights it's fever” - Bill McKibben
 
@@ -1183,33 +1023,25 @@ Date: March 28 2018
 
 “Never interrupt your enemy when he is making a mistake.” - Napoleon Bonaparte
 
-> "绝对不要你在敌人犯错的时候,打断ta们." -Napoleon Nonaparte
+> "绝对不要你在敌人犯错的时候,打断 ta 们." -Napoleon Nonaparte
 
 “Veni, vidi, vici.” (I came, I saw, I conquered.) - Julius Caesar
 
 > "我来到,我看见了,我全都征服了" - Julius Caesar
 
-
 “I'd rather burn out than fade away” - Kurt Cobain
 
 > "每一个不起舞的日子,都是辜负" -Kurt Cobain
-
 
 “In the end, it doesn't even matter” - Chester Bennington
 
 > "在最后,这些看起来都无关紧要" - Chester Bennington
 
-
-
-
-
 ## 最酷的迟到借口
+
 From:  [What is the coolest excuse for being late to class?](http://qr.ae/TU1CTe)
 
 Date: March 29 2018
-
-
-
 
 She was washing her hair, apparently.
 
@@ -1221,11 +1053,11 @@ Adriana is a sophomore in my school and she has beautiful waist-long strawberry 
 
 Adriana is a great kid. She is not the kind who was often late to class. She never gave lame excuses like “I had a doctor’s appointment” or “my alarm didn't go off”. She also did not have issues with traffic like the other kids did.
 
-> Adriana是一个好孩子.她不是那种经常迟到的人.她从来不会给出那种掉渣的借口,像"我要去看医生" 或者 "我的闹钟没有响". 她也没有像其他小屁孩那样子的交通问题.
+> Adriana 是一个好孩子.她不是那种经常迟到的人.她从来不会给出那种掉渣的借口,像"我要去看医生" 或者 "我的闹钟没有响". 她也没有像其他小屁孩那样子的交通问题.
 
 I wanted to be understanding when she requested a late pass; after all she just spent a week away for a good cause. Adriana was helping paint a school for underprivileged children. I saw pictures of her playing and reading to the kids.
 
-> 在她迟到要进教室的时候,我想知道她为什么迟到.毕竟她只是为了一个好的原因在那边花了一个星期.Adriana在学校里面帮助那些贫困学生画画.我看见那些她和小屁孩一起读书和玩的照片.
+> 在她迟到要进教室的时候,我想知道她为什么迟到.毕竟她只是为了一个好的原因在那边花了一个星期.Adriana 在学校里面帮助那些贫困学生画画.我看见那些她和小屁孩一起读书和玩的照片.
 
 However, I needed to know why she was tardy, so I could record it on her log. “Adriana, why are you late?” Any excuse would have cut it. I expected something along the lines of my flight was delayed or I was jet lagged. But instead she said:
 
@@ -1245,32 +1077,25 @@ However, I needed to know why she was tardy, so I could record it on her log. �
 
 This was the coolest reason to get lice AND be late for school for sure.
 
-> 这就是最cool的理由了,得蚤子,然后迟到.
-
-
-
-
-
+> 这就是最 cool 的理由了,得蚤子,然后迟到.
 
 ## 你爸妈做过最牛逼的是什么?
+
 From:&nbsp;&nbsp;[What is the most badass thing your parent has ever done?](http://qr.ae/TU1FOu)
 
 Date: March 30 2018
 
-
-
 This happened during college. I was down with viral fever and had to take a break for three days. My best friend, a girl, was in constant touch via phone and she sounded dull. When asked what the problem was, she said it was nothing and I thought she worried about my health. Day 4, I return to college and I learn that a guy from a different department was teasing her (in an abusive way) and was stalking her everyday. And she, being a very reserved and not so brave, did not even tell it outside. I went and punched the mofo right on his face and broke a couple of teeth. His friends came for his help and started attacking me and my friends came in from nowhere.
 
-> 这发生在我的大学期间.在我病毒性感冒发烧的时候,我不得不请假3天休息.我最好的朋友,一个女孩子,在电话联系的时候,她听起来有些迟钝.当我问她是不是发生了什么事的时候,她说没什么,我还以为她是担心我的病情.第四天,我回到学校,然后我知道一个在其他部门的猥琐男一直戏弄她(在毫无节制的情况下),而且每一天追着她.而她呢,一直都很冷淡而且没什么勇气,也没有和别人说.我去那个猥琐男揍了一顿,打掉了他的几颗牙齿.他的朋友来帮他来打我,然后我的朋友也冒出来帮我了.
+> 这发生在我的大学期间.在我病毒性感冒发烧的时候,我不得不请假 3 天休息.我最好的朋友,一个女孩子,在电话联系的时候,她听起来有些迟钝.当我问她是不是发生了什么事的时候,她说没什么,我还以为她是担心我的病情.第四天,我回到学校,然后我知道一个在其他部门的猥琐男一直戏弄她(在毫无节制的情况下),而且每一天追着她.而她呢,一直都很冷淡而且没什么勇气,也没有和别人说.我去那个猥琐男揍了一顿,打掉了他的几颗牙齿.他的朋友来帮他来打我,然后我的朋友也冒出来帮我了.
 
 Once this gang war was done, I and that guy were taken along with our friends to the principal’s office and he started hurling scoldings one after the other. I was a bright student and was always in the good books of every professor and thus it came as a shock to everyone.
 
 > 这个群殴一旦结束,我和那些人一起被带到了校长的办公室,然后校长开始一个一个的骂.我一直以来都是小红花,在所有教授里面都是好学生的模样,然后这场打斗,让他们都震惊 了.
 
-
 They called all of our parents and my dad came. Even my friend was taken into account here and her mom was called to the college (She didn’t have a dad). Everybody - My head of the department, my principal started scolding me and gave my dad a transfer certificate to fill up for me to take me out from the current college and put me somewhere else. They also told me I had spoilt my career now due to this and for also having a relationship (typical Indian brains ya know, roam around with a girl and she is your girlfriend). My dad remained calm and filled up the form and asked if there are any more procedures to be done. The principal and HOD were stunned (they were apparently just trying to scare us) and asked him if he wasn’t worried about my future. I still remember what he said “If I was him, I would have done the same, what he did was right. No one should stand by when a woman is being harassed. I want my son to be on the front lines to stand up for any sort of injustice. I know the girl for the past 14 years and she and my son have been friends since then”.
 
-> 他们叫我们的父母来学校,然后我爸来了.尽管我的朋友也被带到了这里,然后她的老妈也被叫到学校里面(她没有爸爸).每一个人,我们部门的头头,我的校长开始责骂我,然后给我爸一个证书,让我填写,然后让我转校.他们还告诉我,在这件事之后,我tmd一生就毁了,同时拥有异性的关系(典型的印度想法,你知道,和一个女孩子玩,她就是你的女朋友了).我爸很平静的把那张单子给签了,然后问还有其他的手续没.那个校长和部门头头都呆住了(他们很明显就是想恐吓我一下)然后问我父亲,你不担心你孩子的未来吗.我始终记得我爸说的:"如果我是他,我也会这样子做的,他做的是对的.每一个人在女孩子被欺负的时候,都不应该站在一边.我希望我的孩子可以为这样的事情出头.我认识这个女孩子14年了,她和我的儿子一直都是好朋友."
+> 他们叫我们的父母来学校,然后我爸来了.尽管我的朋友也被带到了这里,然后她的老妈也被叫到学校里面(她没有爸爸).每一个人,我们部门的头头,我的校长开始责骂我,然后给我爸一个证书,让我填写,然后让我转校.他们还告诉我,在这件事之后,我 tmd 一生就毁了,同时拥有异性的关系(典型的印度想法,你知道,和一个女孩子玩,她就是你的女朋友了).我爸很平静的把那张单子给签了,然后问还有其他的手续没.那个校长和部门头头都呆住了(他们很明显就是想恐吓我一下)然后问我父亲,你不担心你孩子的未来吗.我始终记得我爸说的:"如果我是他,我也会这样子做的,他做的是对的.每一个人在女孩子被欺负的时候,都不应该站在一边.我希望我的孩子可以为这样的事情出头.我认识这个女孩子 14 年了,她和我的儿子一直都是好朋友."
 
 Everyone got a month’s suspension and the opposite team got two months suspension, except for that guy who harassed her, he voluntarily got a transfer to some other college. I came out of college as a guy with triple placement and being the highest paid recruit of that year.
 
@@ -1280,25 +1105,19 @@ When driving back home in the car, dad leans in and asks “You love her or what
 
 > 在我们坐车回家的路上,老爸问我:"你是喜欢她,还是?"
 
-Me : *Facepalm* Typical Indian parents.
+Me : _Facepalm_ Typical Indian parents.
 
 > 我:(窝草状)典型的印度父母.
 
 P.S : But dad was the best and he was right, This happened 4 years back and am now engaged to that friend of mine ;)
 
-> Ps: 但老爸是对的,这发生在4年前,然后现在我和那个女孩订婚了.
+> Ps: 但老爸是对的,这发生在 4 年前,然后现在我和那个女孩订婚了.
 
 Edit : A thousand plus upvotes. Thanks guys. Shouldn’t have gone anonymous :P My bad!
 
 > 更新: 那么多点赞.谢谢各位江湖好友.不在匿名了. 微笑脸.jpg
 
-
-
 > 我爸.
-
-
-
-
 
 ## 你有多孤独?
 
@@ -1306,16 +1125,13 @@ From:&nbsp;&nbsp;[How lonely are you?](http://qr.ae/TU1kyN)
 
 Date: April 03 2018
 
-
-
-
 I haven't had a friend since I was 15.
 
-> 从我15岁开始,我就没有朋友了.
+> 从我 15 岁开始,我就没有朋友了.
 
 I am now 21.
 
-> 而现在,我21岁了.
+> 而现在,我 21 岁了.
 
 I have never dated anybody. Never sent a nude or kissed someone.
 
@@ -1323,7 +1139,7 @@ I have never dated anybody. Never sent a nude or kissed someone.
 
 Nobody ever texts me. I don't really have any social media because there's no point; I wouldn't have any followers or likes because nobody knows me.
 
-> 没有人曾经给我发消息(10086都没?).我没真正有一个社交媒体,因为这对我毫无意义.我从来没得到过花束或者别人的喜爱,因为他们根本不认识我.
+> 没有人曾经给我发消息(10086 都没?).我没真正有一个社交媒体,因为这对我毫无意义.我从来没得到过花束或者别人的喜爱,因为他们根本不认识我.
 
 I go to college and I see people making friends or talking with one another, and it kills me. They aren't quivering with anxiety, how come I do?
 
@@ -1352,6 +1168,3 @@ People are important to have around. A life without relationships is not a life 
 03/18/18 Edit: Can't thank you all enough for the comments and upvotes and advice it really makes me feel so much better. Thank you + I'll keep trying.
 
 > 更新:不能太感谢你们所有的留言和点赞,还有建议了,这些让我感到一点温暖.谢谢,我会继续尝试的.
-
-
-

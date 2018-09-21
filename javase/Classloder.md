@@ -14,7 +14,6 @@
 
 ---
 
-
 ## 2. Java 代码
 
 ```java
@@ -55,7 +54,7 @@ sun.misc.Launcher$ExtClassLoader
 
 ---
 
-## 3. Classloder加载类
+## 3. Classloder 加载类
 
 同时可以使用`ClassLoader`来加载 Java 对象
 
@@ -99,6 +98,34 @@ com.app.MyClazzLoader@7fbe847c
 
 ---
 
-## 4.参考资料
+## 4. 小 tips
 
-a.[classloader 原理](http://blog.csdn.net/xyang81/article/details/7292380)
+在使用 classloader 的时候,偶尔会使用`Object.class.getClassloader();`会获取,但是因为加载`Object`的是`BootstrapClassloder`所以得到的为`null`;
+
+```java
+public class MyClazz {
+
+	public static void main(String[] args) {
+		ClassLoader classLoader = Object.class.getClassLoader();
+		System.out.println(classLoader);
+
+		ClassLoader appClassloader = MyClazz.class.getClassLoader();
+		System.out.println(appClassloader);
+	}
+}
+```
+
+测试结果
+
+```java
+null
+sun.misc.Launcher$AppClassLoader@18b4aac2
+```
+
+所以要用到 classloader 的时候,请使用自定义的类来获取`classloder`,那样子就不会为`null`了.
+
+---
+
+## 5.参考资料
+
+a. [classloader 原理](http://blog.csdn.net/xyang81/article/details/7292380)
