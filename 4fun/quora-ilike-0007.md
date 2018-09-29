@@ -152,3 +152,49 @@ She shakes her head. She does not want to hear me.
 The hardest thing to give up is the thing we have decided to believe.
 
 > 生命里,最难放弃的应该我们曾坚信的东西吧.
+
+## 来呀,相互变好呀.
+
+From:&nbsp; [How can we make the world a better place?](http://qr.ae/TUGyrh)
+
+Date: September 29 2018
+
+Last month, right after we graduated from Yale, my boyfriend and I spent two weeks working on a small organic farm in France.
+
+> 上个月,在我们刚才耶鲁毕业不久,我男票和我花了两周时间在法国弄了一个很小的有机农场.
+
+The owner of our farm turned out to be a tall, wiry man named Emmanuel, with a gruff smile and an easy laugh. He spoke French with his wife and kids, but he’d explain our work to us in English, occasionally pausing in the middle of a word to remember the proper pronunciation.
+
+> 发现那个农场的主人是一个很高大的,嗓音很小的叫Emmanuel的男人,带着笑得花枝乱颤,而且还很喜欢笑.他和他的妻儿说法语,但他向我们介绍我们的工作的时候是用英语的.在偶尔,断断续续的说一句话,因为要找到合适的英语单词.
+
+One time, he took us to the greenhouse and showed us spots of brown mold that had begun creeping over the leaves on the tomato plants. “Ze tomatoes get sick sometimes,” he said. “It’s a big…how do you say…a big pr…”
+
+> 有一次,他带我们去温室,然后给我们看了一小块地方,那里都有霉菌在土豆的叶子上繁殖了."这些土豆有时候会生病,"他说."这是一个大的...你们怎么说的,一个很大的..."
+
+A problem? I suggested in my mind, assuming that was the word he was looking for.
+
+> 一个问题?我内心os如是,假设这个词是他想说的.
+
+But then Emmanuel smiled and said, “Ah, project. It’s a big project.”
+
+> 但是Emmanuel笑着说,"嗯,project,一个很大的项目."
+
+With that, he gave us clippers and buckets, and showed us how to clip off certain leaves from infected tomato plants to prevent the mold from spreading.
+
+> 在那,他把钳子和篮子给我们了,然后教我们怎么从土豆上把感染的枝叶剪下来,防止那些霉菌扩散.
+
+Where I saw a problem, Emmanuel saw a project. This attitude was one he carried with him everywhere, no matter how big the problem or how difficult the solution. He worked from dawn to dusk - often heavy, backbreaking work - fixing the things that other people saw as problems.
+
+> 当我想说是一个问题的时候,Emmanuel却看见了一个工程.这就是他一直以来的态度了,不论多大的问题和多难的境地.他从早到晚,经常锄禾日当午,修复别人眼里面视为问题的东西.
+
+On my last day working for him, I asked Emmanuel why he decided to become a farmer, and he just shook his head and said, “Ah, zere are lots of people in the world these days, and zat makes a lot of hunger. It’s a big project.”
+
+> 在我最后一天在那工作的时候,我问Emmanuel为什么他决定成为一个农夫的,然后他摇了摇头说,"嗯,这世界很多的人在外边,他们制造了饥饿.这是一个很大的工程."
+
+It’s a simple thing, just a casual switch of words - but at the same time, it’s kind of profound.
+
+> 这是一件很简单的事,仅仅是转换一个概念,但是同时意义深远.
+
+Want to make the world a better place? Learn to turn problems into projects. It’s a simple way to start.
+
+> 想改变世界?学会把问题变成工程呀.这是一个简单的开头了.
