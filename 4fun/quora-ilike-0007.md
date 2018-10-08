@@ -165,7 +165,7 @@ Last month, right after we graduated from Yale, my boyfriend and I spent two wee
 
 The owner of our farm turned out to be a tall, wiry man named Emmanuel, with a gruff smile and an easy laugh. He spoke French with his wife and kids, but he’d explain our work to us in English, occasionally pausing in the middle of a word to remember the proper pronunciation.
 
-> 发现那个农场的主人是一个很高大的,嗓音很小的叫Emmanuel的男人,带着笑得花枝乱颤,而且还很喜欢笑.他和他的妻儿说法语,但他向我们介绍我们的工作的时候是用英语的.在偶尔,断断续续的说一句话,因为要找到合适的英语单词.
+> 发现那个农场的主人是一个很高大的,嗓音很小的叫 Emmanuel 的男人,带着笑得花枝乱颤,而且还很喜欢笑.他和他的妻儿说法语,但他向我们介绍我们的工作的时候是用英语的.在偶尔,断断续续的说一句话,因为要找到合适的英语单词.
 
 One time, he took us to the greenhouse and showed us spots of brown mold that had begun creeping over the leaves on the tomato plants. “Ze tomatoes get sick sometimes,” he said. “It’s a big…how do you say…a big pr…”
 
@@ -173,11 +173,11 @@ One time, he took us to the greenhouse and showed us spots of brown mold that ha
 
 A problem? I suggested in my mind, assuming that was the word he was looking for.
 
-> 一个问题?我内心os如是,假设这个词是他想说的.
+> 一个问题?我内心 os 如是,假设这个词是他想说的.
 
 But then Emmanuel smiled and said, “Ah, project. It’s a big project.”
 
-> 但是Emmanuel笑着说,"嗯,project,一个很大的项目."
+> 但是 Emmanuel 笑着说,"嗯,project,一个很大的项目."
 
 With that, he gave us clippers and buckets, and showed us how to clip off certain leaves from infected tomato plants to prevent the mold from spreading.
 
@@ -185,11 +185,11 @@ With that, he gave us clippers and buckets, and showed us how to clip off certai
 
 Where I saw a problem, Emmanuel saw a project. This attitude was one he carried with him everywhere, no matter how big the problem or how difficult the solution. He worked from dawn to dusk - often heavy, backbreaking work - fixing the things that other people saw as problems.
 
-> 当我想说是一个问题的时候,Emmanuel却看见了一个工程.这就是他一直以来的态度了,不论多大的问题和多难的境地.他从早到晚,经常锄禾日当午,修复别人眼里面视为问题的东西.
+> 当我想说是一个问题的时候,Emmanuel 却看见了一个工程.这就是他一直以来的态度了,不论多大的问题和多难的境地.他从早到晚,经常锄禾日当午,修复别人眼里面视为问题的东西.
 
 On my last day working for him, I asked Emmanuel why he decided to become a farmer, and he just shook his head and said, “Ah, zere are lots of people in the world these days, and zat makes a lot of hunger. It’s a big project.”
 
-> 在我最后一天在那工作的时候,我问Emmanuel为什么他决定成为一个农夫的,然后他摇了摇头说,"嗯,这世界很多的人在外边,他们制造了饥饿.这是一个很大的工程."
+> 在我最后一天在那工作的时候,我问 Emmanuel 为什么他决定成为一个农夫的,然后他摇了摇头说,"嗯,这世界很多的人在外边,他们制造了饥饿.这是一个很大的工程."
 
 It’s a simple thing, just a casual switch of words - but at the same time, it’s kind of profound.
 
@@ -198,3 +198,113 @@ It’s a simple thing, just a casual switch of words - but at the same time, it�
 Want to make the world a better place? Learn to turn problems into projects. It’s a simple way to start.
 
 > 想改变世界?学会把问题变成工程呀.这是一个简单的开头了.
+
+## 你是谁?
+
+From:&nbsp; [Who are you?](http://qr.ae/TUG5qR)
+
+Date: October 08 2018
+
+My name is Jessica Price and I'm a completely blind Quoran.
+
+> 我叫 Jessica(Marty 的梦中情人,笑),而我是一个完全看到的人了,在 quora 里面.
+
+I write answers using voiceover technology and help from my friends.
+
+> 我使用语言输入或者通过朋友帮忙来写这些回答.
+
+I went blind in 2008, at age 14, due to a disease called Retinitis Pigmentosa.
+
+> 我在 2008 年的时候失去了视力,那年我 14 岁,是一种叫`Retinitis Pigmentosa`的疾病导致的.
+
+I'm completely and totally blind with absolutely no light perception.
+
+> 我失去了视力和感知光线的能力.
+
+This means that I can't see any light, colours, shapes or shadows.
+
+> 这意味着我不能看见任何的光,颜色,形状,甚至是阴影了.
+
+Just pitch black darkness and nothingness, all day and every day.
+
+> 仅仅是一片漆黑,一整天都是,而且以后的每一天都是.
+
+This was the most difficult and frightening time in my life.
+
+> 那是我一生中最害怕和最困难的时光了.
+
+All of my friends abandoned me, I was horribly bullied and accused of faking blindness.
+
+> 我所有的朋友都抛弃了我,我被欺凌和被说成是假的变盲了.
+
+However, my life is much better now and I've fully accepted my blindness.
+
+> 不论怎样,我现在的生活变好了,我接受了我变盲的事实了.
+
+There are occasional days when I feel down and upset about living in complete darkness.
+
+> 有时候,我还会为自己活在一片黑暗里面而感到低沉和恼怒.
+
+But, most of the time, I'm just happy to appreciate and enjoy life using my other senses.
+
+> 但大多数时间,我开心的去感激,使用其他感官去感受生活.
+
+I'm a successful motivational speaker and use my experiences with blindness/bullying to help other people.
+
+> 我是一个话痨啦,通过讲述我面对失去视力和面对欺凌的经历去帮助别人.
+
+Now, I'm also a Quora writer with 100 answers and over 1800 followers.
+
+> 现在我是 Quora 里面的 top100 写手和有 1800 多个跟随者了.
+
+I mostly write about my struggles with blindness and bullying.
+
+> 我多数写关于我面试失去视力和面对欺凌时候的挣扎.
+
+I also share my own personal life stories and write about my other interests.
+
+> 我同时分享我自己的个人生活,回答我其他的兴趣爱好.
+
+These interests include animals, space and mountain climbing.
+
+> 那些兴趣爱好里面包括了动物啦,太空啦,和爬山之类的.
+
+Animals are my biggest passion in life and my dream job is as a zookeeper.
+
+> 动物是我最喜欢的东西了,在生活里面,而我梦想的职业就是 zookeeper(动物园员工)
+
+I have a wonderful guide dog called Maisy and two lovely cats called Molly and Cuddles.
+
+> 我有一匹可爱的导盲犬叫 Maisy 和两堆猫分别叫 Molly 和 Cuddles.
+
+I have also spent the last two years studying animals care at college.
+
+> 我也花了最近两年的时间去大学学习动物护理.
+
+This was to help me gain the qualifications needed to become a zookeeper.
+
+> 这是为了帮助我获得成为一名动物管理员所需的资格.
+
+My favourite place in the world is Australia and I've always wanted to live there.
+
+> 我最喜欢的国家就是澳大利亚啦,我一直想在那边生活来着.
+
+Australia has so many amazing animals and incredible things to do.
+
+> 澳大利亚有很多很惊奇的动物和有很多很有趣的事情可以去做.
+
+Although I can’t see anything, I'd still really enjoy my experience living in Australia.
+
+> 尽管我不能看见任何东西,但我还是会享受待在澳大利亚的感觉的.
+
+Deep down, I'd really like my sight back, so that I could fully appreciate the natural beauty of our world.
+
+> 在深处,我真的希望我的视力变好,那样子我就能亲眼看一些这个美丽的世界了.
+
+But, after many years, I've learned that true happiness is not actually something that you can see.
+
+> 但在许多年过后,我学到了那些真正让你幸福的东西,未必是你能看到的.
+
+Thank you for reading.
+
+> 谢谢阅读.
