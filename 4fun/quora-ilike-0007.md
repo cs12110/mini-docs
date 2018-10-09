@@ -308,3 +308,107 @@ But, after many years, I've learned that true happiness is not actually somethin
 Thank you for reading.
 
 > 谢谢阅读.
+
+## 说过最蠢的话?
+
+From:&nbsp; [What is the dumbest thing you have ever said in your life?](http://qr.ae/TUGb02)
+
+Date: October 09 2018
+
+I threw a piece of trash on the floor, and my friend told me to pick it up, and I said:
+
+> 我随手扔垃圾之后,一个朋友叫我捡起来,然后我说:
+
+“I'm doing someone a favor by not picking this up. If I pick it up, the janitor won't have a job.”
+
+> "我不捡起来是做好事好吧.如果捡起来,清洁工就没有工作了."
+
+I genuinely believed that if I picked up my trash, the demand for janitors would decrease. I was a stupid fucking kid.
+
+> 我之前相信如果我捡起垃圾的话,那些清洁工就会被裁员.我那时还是一个没脑的孩子呀.
+
+Little did I know that the janitor would have his job no matter what, and I was just being a complete dick by making it harder for him.
+
+> 在之后我才知道,清洁工无论怎样都会有工作的,而我白白变成了一个混蛋,还给 ta 们添麻烦了.
+
+Pick up your trash people. Don't be a dumbass like I was (am).
+
+> 捡起你的东西,垃圾.别像我一样.
+
+## 付出与收入正比?
+
+From:&nbsp; [Does hard work really pay off?](http://qr.ae/TUGb0l)
+
+Date: October 10 2018
+
+I worked over a hundred hours a week as a lawyer on multi-billion dollar mergers and acquisitions. One day, I broke down in the kitchen and started sobbing. My problem: I was making six-figures but I felt empty inside.
+
+Fast forward a few years, and I get a call that confirms everything.
+
+“Please,” the woman on the line pleaded. “It’s my only time with my son and I really need your help.”
+
+After I’d left the legal firm, I ended up founding a startup. Our mission was simple—empower freelancers with the financial tools they need to thrive.
+
+It was an easy choice. When I was freelancing myself and almost defaulted on my mortgage because of a months’ long pay cycle, I realized the system was broken.
+
+And that I couldn’t rest until I did something about it.
+
+It was a leap of faith, going from a high salary to no salary.
+
+I worked my butt off.
+
+Pitching a hundred times until we got funding, hiring the best talent I could, and constantly revisiting and perfecting our services and goals.
+
+But this time around, the harder I worked, the better I felt.
+
+During meetings with investors, I’d demo our solution by showing them you could instantly load up a debit card with money earned ahead of pay cycles.
+
+The woman that had called for help had one of our cards.
+
+But that day, no matter what we did and how hard we tried, it wouldn’t work.
+
+She was getting increasingly desperate.
+
+And I was feeling awful.
+
+“Where are you located?” I asked.
+
+“Downtown San Francisco.”
+
+We work with people all over the world and this woman was a stone’s throw away from our offices.
+
+Coincidence?
+
+Who knows.
+
+“Hold on tight,” I said. “I’ll be there in 10.”
+
+She didn’t believe me.
+
+I got in my car, stopped at the ATM to get the money she requested—I could sort things out on the system manually when I got back—and drove over to her.
+
+She was standing outside a pizza place, gaze downcast, her son clutching her hand.
+
+I didn’t have the whole story. But I could tell she was the kind of person who’s been through a lot. And it was also obvious how absolutely important this time with her kid was.
+
+“There you are,” I handed her the cash after explaining who I was. “I’m really, really sorry about this.”
+
+You should have seen how her eyes lit up.
+
+But instead of replying, she just drew me in for the biggest hug.
+
+And as I walked away, this intensely gratifying and warm feeling spread throughout my body.
+
+This was why I left a six-figure job as a lawyer.
+
+Why I kept pitching my idea even after a hundred rejections.
+
+Why I almost defaulted on my mortgage while drawing $0 salary.
+
+Because I needed to feel like I’m making a difference.
+
+Because I wanted to reach out and give back.
+
+Because when you have a calling—
+
+The only thing that feels right is to work as hard as you can to make it happen.

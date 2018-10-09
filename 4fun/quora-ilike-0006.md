@@ -1637,7 +1637,7 @@ By the way, She is now is girlfriend, BFF and going to be wife coz we've decided
 
 > 随便说一下,现在她是我的女朋友了.BFF 然后要变成我老婆了,因为我们决定下个星期去见家长了.
 
-Thanks for reading _\__
+Thanks for reading \_\_\_
 
 > 果然撒狗粮,还是很开心的.
 
