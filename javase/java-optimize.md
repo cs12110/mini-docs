@@ -1,0 +1,1235 @@
+# Java tips
+
+提高 Java 性能的小 tips.
+
+Java 性能优化, 是一门坑爹的艺术呀. 咧嘴笑.jpg
+
+_文档不定时更新_
+
+---
+
+## 1. 字符串首字母修改为小写
+
+**优化方法: 避免生成多余的对象(不仅字符串,系统优化也如是)**
+
+普通的做法使用`str.substring()`,大概如下:
+
+```java
+public static String changeFirstChar(boolean upper, String str) {
+	if (null == str || "".equals(str.trim())) {
+		return str;
+	}
+	String firstCharStr = str.substring(0, 1);
+	if (upper) {
+		firstCharStr = firstCharStr.toUpperCase();
+	} else {
+		firstCharStr = firstCharStr.toLowerCase();
+	}
+	return firstCharStr + str.substring(1);
+}
+```
+
+`Jodd`的工具类`StringUtil#changeFirstCharacterCase`里面,ta 们是这么做的:
+
+```java
+private static String changeFirstCharacterCase(boolean capitalize, String string) {
+		int strLen = string.length();
+		if (strLen == 0) {
+			return string;
+		}
+		char ch = string.charAt(0);
+		char modifiedCh;
+		if (capitalize) {
+			modifiedCh = Character.toUpperCase(ch);
+		} else {
+			modifiedCh = Character.toLowerCase(ch);
+		}
+
+		if (modifiedCh == ch) {
+			return string;
+		}
+
+		char[] chars = string.toCharArray();
+		chars[0] = modifiedCh;
+		return new String(chars);
+	}
+```
+
+测试结果如下,`Jodd`代码字符串截取快了 3 倍左右 (Jodd actually do a good job!).
+
+```java
+Test times: 1000000
+normal spend time: 135
+change spend time: 41
+```
+
+---
+
+## 2. StringBuilder 的使用
+
+在字符串的连接里面如果不涉及线程安全,那么 StringBuilder 你值得拥有.
+
+但在使用中还可以有一点小小的优化,如下:
+
+如果字符串确定长度的话,也请使用 `new StringBuilder(capacity)`
+
+```java
+public class StrBuilder {
+	public static void main(String[] args) {
+		before();
+		after();
+	}
+	/**
+	 * 循环的每一次都生成了一个StringBuilder对象
+	 */
+	private static void before() {
+		System.out.println("--- Before ---");
+		for (int index = 0; index < 5; index++) {
+			StringBuilder builder = new StringBuilder();
+			builder.append("this is").append(index);
+			System.out.println(builder);
+		}
+	}
+
+	/**
+	 * 只有一个StringBuilder对象
+	 */
+	private static void after() {
+		System.out.println("--- After ---");
+		StringBuilder builder = new StringBuilder();
+		for (int index = 0; index < 5; index++) {
+			builder.setLength(0);
+			builder.append("this is").append(index);
+			System.out.println(builder);
+		}
+	}
+
+}
+```
+
+---
+
+## 3. 字符串截取
+
+在现实生产环境里面,经常遇到要到某个字符串进行截取的情况.一般也是使用`split()`,但如果是简单的获取,还有更好的做法.
+
+普通做法如下:
+
+```java
+@Test
+public void testArr() throws Exception {
+	String str = "a,b,c,d,e";
+	long start = System.currentTimeMillis();
+	String[] arr = null;
+	for (int index = 0; index < 100000; index++) {
+		arr = str.split(",");
+		String a = arr[0];
+		// doSomething with a
+	}
+
+	long end = System.currentTimeMillis();
+
+	System.out.println("Arr spend: " + (end - start));
+}
+```
+
+简单优化:
+
+```java
+@Test
+public void testSub() throws Exception {
+	String str = "a,b,c,d,e";
+	long start = System.currentTimeMillis();
+
+	int buond = 0;
+	for (int index = 0; index < 100000; index++) {
+		buond = str.indexOf(",");
+		if (buond != -1) {
+			String a = str.substring(0, buond);
+			// doSomething with a
+		}
+	}
+
+	long end = System.currentTimeMillis();
+
+	System.out.println("Sub spend: " + (end - start));
+}
+```
+
+测试结果
+
+```java
+Arr spend: 565
+Sub spend: 53
+```
+
+结论: 字符串,还真的能折腾不少东西. :{
+
+---
+
+## 4. List 初始化
+
+哈,List 里面的根本组成就是`Object[] values`.如果在初始化,不进行长度的控制,默认长度初始化为`10`,那么在 add 新的元素的时候,当数组长度达到(size+1>length)的时候,就会按照`length*1.5`倍来增长数组.也就是在默认初始化的情况下:
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class LengthOfList {
+	public static void main(String[] args) {
+		List<Integer> list = new ArrayList<>();
+		for (int index = 0; index < 11; index++) {
+			list.add(index);
+		}
+		System.out.println(list.size());
+	}
+}
+```
+
+执行这个之后的数组长度为 15,有后面 4 个元素为`null`
+
+如果使用`new ArrayList(int capacity)`来初始化,情况得以改善
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class LengthOfList {
+	public static void main(String[] args) {
+		List<Integer> list = new ArrayList<>(11);
+		for (int index = 0; index < 11; index++) {
+			list.add(index);
+		}
+		System.out.println(list.size());
+	}
+}
+```
+
+执行之后,list 里面的 values 长度为 11,而不是 15.
+
+可能 11 个长度太小没什么影响,那么请想象一下 100w 或者 100 个并发,每个并发使用 1w 长度的数组,这样子就省下不少空间了.
+
+所以,在明确长度的情况下,请使用`new ArrayList(int capacity)`来构造 List.
+
+---
+
+## 5. 反射的简单优化
+
+在 Java 里面,反射真的是一个有趣的家伙.当然这个优化一次执行可能就是快几百毫秒,几乎感觉不出来.如果在大循环里面,每次快几百毫秒,那么整一个就快了,好多,好多,好多了.
+
+为加快 Java 的反射执行速度,而不整那么多幺娥子,那么我们做一个简单的优化.
+
+把相关需要反射的东西,在一次执行后,缓存到内存中,下一次获取直接从缓存中获取.
+
+```java
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * 反射工具类
+ *
+ * <p>
+ *
+ * @author cs1210 2018年3月1日下午4:11:35
+ *
+ */
+public class ReflectUtil {
+
+	/**
+	 * 保存对象缓存Map
+	 */
+	private static final Map<String, Object> objectCache = new ConcurrentHashMap<String, Object>();
+
+	/**
+	 * 保存Class缓存Map
+	 */
+	private static final Map<String, Class<?>> classCache = new ConcurrentHashMap<String, Class<?>>();
+
+	/**
+	 * 实例化对象
+	 *
+	 * @param clazz
+	 *            对象Class
+	 * @return T
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T newInstance(Class<?> clazz) {
+		Object target = objectCache.get(clazz.getName());
+		try {
+			if (null == target) {
+				target = clazz.newInstance();
+				objectCache.put(clazz.getName(), target);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return (T) target;
+	}
+
+	/**
+	 * 实例化对象
+	 * @param className 类名称(必须是完整的路径,如: x.y.z)
+	 * @return
+	 */
+	public static <T> T get(String className) {
+		try {
+			Class<?> clazz = classCache.get(className);
+			if (clazz == null) {
+				clazz = Class.forName(className);
+				classCache.put(className, clazz);
+			}
+			return newInstance(clazz);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+}
+```
+
+测试代码
+
+```java
+/**
+ * 测试代码
+ *
+ * <p>
+ *
+ * @author cs12110 2018年3月1日下午4:21:21
+ *
+ */
+public class MyObj {
+
+	private String id;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public static void main(String[] args) {
+		long start = System.currentTimeMillis();
+		for (int index = 0; index < 1000000; index++) {
+			MyObj object = ReflectUtil.get(MyObj.class.getName());
+			object.getId();
+		}
+		long end = System.currentTimeMillis();
+		System.out.println((end - start));
+	}
+}
+```
+
+在不使用缓存的情况下,执行耗时: 484ms
+
+在使用缓存的情况下,执行耗时: 24 ms
+
+可以看出,这个优化的效果还是很可观的,而且循环越大,缓存的效果越明显.
+
+---
+
+## 6. Class.forName 和 ClassLoader 的区别
+
+在使用数据库连接的时候,一般会调用`Class.forName(driverName)`来注册数据库连接驱动.
+
+`Class.forName`和`ClassLoader.loadClass`都是用来加载类的.它们之间有什么区别?
+
+**主要区别: class.forName 加载的时候,会执行 class 里面的静态代码块代码.而 classloader 加载就不执行静态代码块里面的代码**
+
+```java
+/**
+ * 静态代码块类
+ *
+ * <p>
+ *
+ * @author cs12110 2018年4月10日上午9:09:40
+ *
+ */
+public class StaticBlockClazz {
+
+	static {
+		System.out.println("This is static method in StaticBlockClazz");
+	}
+
+	public StaticBlockClazz() {
+		System.out.println("This is StaticBlockClazz()");
+	}
+
+}
+```
+
+测试类
+
+```java
+/**
+ * 测试classLoader和class.forName的区别
+ *
+ * <p>
+ *
+ * @author cs12110 2018年4月10日上午9:11:17
+ *
+ */
+public class JustLittleTest {
+
+	public static void main(String[] args) {
+		System.out.println("----- Start ------");
+		classLoader(StaticBlockClazz.class.getName());
+		classForName(StaticBlockClazz.class.getName());
+		System.out.println("----- End ------");
+
+	}
+
+	private static void classLoader(String clazz) {
+		try {
+			ClassLoader loader = JustLittleTest.class.getClassLoader();
+			loader.loadClass(clazz);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void classForName(String clazz) {
+		try {
+			Class.forName(clazz);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+首先测试`ClassLoader`
+
+```java
+----- Start ------
+----- End ------
+```
+
+测试`class.forName`
+
+```
+----- Start ------
+This is static method in StaticBlockClazz
+----- End ------
+```
+
+上面的结论是通过的,那么为什么导致这样子?
+
+据说在调用`newInstance()`的方法,生成对象的时候才会执行静态代码块里面的东西.而`ClassLoader`仅仅是把`.class`文件加载到 jvm 而没有执行`newInstance()`的操作,而`Class.forName`是会默认调用`newInstance()`的操作,具体还需要去看**Jdk**代码才清楚
+
+---
+
+## 7. 运行栈信息的使用
+
+还是来自`Jodd`里面的日志模块,这个项目太牛掰了.
+
+```java
+/**
+ * 获取运行信息
+ *
+ * <p>
+ *
+ * @author cs12110 2018年4月20日下午6:24:28
+ *
+ */
+class StackInfo {
+
+	/**
+	 * 返回调用这个方法class字符串
+	 *
+	 * 格式为: className(被裁剪).方法名称:行号
+	 *
+	 * @return
+	 */
+	protected String getCallerClass() {
+		Exception exception = new Exception();
+		StackTraceElement[] stackTrace = exception.getStackTrace();
+		for (StackTraceElement stackTraceElement : stackTrace) {
+			String className = stackTraceElement.getClassName();
+			if (className.equals(this.getClass().getName())) {
+				continue;
+			}
+			return shortenClassName(className) + '.' + stackTraceElement.getMethodName() + ':'
+					+ stackTraceElement.getLineNumber();
+		}
+		return "N/A";
+	}
+
+	/**
+	 * 获取类名称
+	 *
+	 * 类名前面的包名,只保留第一个字母
+	 *
+	 * @param className
+	 *            className
+	 * @return String
+	 */
+	protected String shortenClassName(final String className) {
+		int lastDotIndex = className.lastIndexOf('.');
+		if (lastDotIndex == -1) {
+			return className;
+		}
+		StringBuilder shortClassName = new StringBuilder(className.length());
+		int start = 0;
+		while (true) {
+			shortClassName.append(className.charAt(start));
+			int next = className.indexOf('.', start);
+			if (next == lastDotIndex) {
+				break;
+			}
+			start = next + 1;
+			shortClassName.append('.');
+		}
+		shortClassName.append(className.substring(lastDotIndex));
+		return shortClassName.toString();
+	}
+}
+```
+
+测试类:
+
+```java
+public class TestGithub {
+	public static void main(String[] args) {
+		StackInfo git = new StackInfo();
+		System.out.println(git.getCallerClass());
+	}
+}
+```
+
+测试结果:
+
+```java
+t.TestGithub.main:7
+```
+
+---
+
+## 8. 内省
+
+在 JAVA 里面,可以使用反射获取到`class` 里面的信息.除了使用反射,我们这里提供另外一种方式获取`class`里面的各种属性.这个就是: `Introspector`[,ɪntrə(ʊ)'spektər]内省
+
+```java
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.MethodDescriptor;
+import java.beans.PropertyDescriptor;
+
+/**
+ * 内省
+ *
+ * <p>
+ *
+ * @author cs12110 2018年4月25日上午11:28:58
+ *
+ */
+public class MyIntrospector {
+	public static void main(String[] args) {
+		getMethodDescriptor(MyBean.class);
+		getPropertiesDescriptor(MyBean.class);
+	}
+
+	/**
+	 * 获取方法描述
+	 *
+	 * @param clazz
+	 *            方法描述
+	 */
+	private static void getMethodDescriptor(Class<?> clazz) {
+		try {
+			/*
+			 * java内置内省器
+			 */
+			BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
+			MethodDescriptor[] methodDescArr = beanInfo.getMethodDescriptors();
+
+			for (MethodDescriptor mtd : methodDescArr) {
+				System.out.println(mtd);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * 获取类里面声明的属性(会存在一个class的属性,混进了不得了的东西???)
+	 *
+	 * @param clazz
+	 *            class对象
+	 */
+	private static void getPropertiesDescriptor(Class<?> clazz) {
+		try {
+			/*
+			 * java内置内省器
+			 */
+			BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
+			PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+
+			for (PropertyDescriptor pdsc : propertyDescriptors) {
+				System.out.println("\n");
+				System.out.println(pdsc);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}
+
+class Bean {
+	private Integer id;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+}
+
+class MyBean extends Bean {
+	private String beanName;
+	private String value;
+	// 省略getter/setter
+}
+```
+
+测试结果
+
+```java
+java.beans.MethodDescriptor[name=getClass; method=public final native java.lang.Class java.lang.Object.getClass()]
+java.beans.MethodDescriptor[name=setBeanName; method=public void cn.rojao.def.MyBean.setBeanName(java.lang.String)]
+java.beans.MethodDescriptor[name=setId; method=public void cn.rojao.def.Bean.setId(java.lang.Integer)]
+java.beans.MethodDescriptor[name=wait; method=public final void java.lang.Object.wait() throws java.lang.InterruptedException]
+java.beans.MethodDescriptor[name=notifyAll; method=public final native void java.lang.Object.notifyAll()]
+java.beans.MethodDescriptor[name=getId; method=public java.lang.Integer cn.rojao.def.Bean.getId()]
+java.beans.MethodDescriptor[name=getBeanName; method=public java.lang.String cn.rojao.def.MyBean.getBeanName()]
+java.beans.MethodDescriptor[name=notify; method=public final native void java.lang.Object.notify()]
+java.beans.MethodDescriptor[name=wait; method=public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException]
+java.beans.MethodDescriptor[name=hashCode; method=public native int java.lang.Object.hashCode()]
+java.beans.MethodDescriptor[name=getValue; method=public java.lang.String cn.rojao.def.MyBean.getValue()]
+java.beans.MethodDescriptor[name=wait; method=public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException]
+java.beans.MethodDescriptor[name=equals; method=public boolean java.lang.Object.equals(java.lang.Object)]
+java.beans.MethodDescriptor[name=setValue; method=public void cn.rojao.def.MyBean.setValue(java.lang.String)]
+java.beans.MethodDescriptor[name=toString; method=public java.lang.String java.lang.Object.toString()]
+
+java.beans.PropertyDescriptor[name=beanName; propertyType=class java.lang.String; readMethod=public java.lang.String cn.rojao.def.MyBean.getBeanName(); writeMethod=public void cn.rojao.def.MyBean.setBeanName(java.lang.String)]
+
+java.beans.PropertyDescriptor[name=class; propertyType=class java.lang.Class; readMethod=public final native java.lang.Class java.lang.Object.getClass()]
+
+java.beans.PropertyDescriptor[name=id; propertyType=class java.lang.Integer; readMethod=public java.lang.Integer cn.rojao.def.Bean.getId(); writeMethod=public void cn.rojao.def.Bean.setId(java.lang.Integer)]
+
+java.beans.PropertyDescriptor[name=value; propertyType=class java.lang.String; readMethod=public java.lang.String cn.rojao.def.MyBean.getValue(); writeMethod=public void cn.rojao.def.MyBean.setValue(java.lang.String)]
+```
+
+结论: 可以获取到类里面的各种东西.
+
+---
+
+## 9.数据导入优化
+
+需求: 用户界面导入文件,按行读取文件内容,并把内容插入数据库.
+
+- 普通模式: 使用`IO`读取内容,对每一行数据进行处理插入数据.
+- 优化版本 1: 使用`jdbc`批处理功能,减少数据在网络上传输的时间.
+- 优化版本 2: 采用队列方法,一个线程负责读取文件内容放置队里,开启其他线程处理队列里面的内容+`jdbc`批处理.
+
+测试文本:`all.txt`,为 100 行的数据文本.
+
+### 9.1 普通处理
+
+```java
+package com.pkgs;
+
+import java.io.File;
+import java.io.RandomAccessFile;
+
+public class Simple {
+
+	public static void main(String[] args) {
+		Simple simple = new Simple();
+		long start = System.currentTimeMillis();
+		try {
+			File file = new File("d://all.txt");
+			RandomAccessFile access = new RandomAccessFile(file, "r");
+			String line = null;
+			while (null != (line = access.readLine())) {
+				simple.processLine(line);
+			}
+			access.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		long end = System.currentTimeMillis();
+		System.out.println(Simple.class + " spend times: " + (end - start));
+	}
+
+	private void processLine(String line) {
+		try {
+			// 每条数据处理,大概耗时5毫秒
+			Thread.sleep(5);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+测试结果
+
+```java
+class com.pkgs.Simple spend times: 504
+```
+
+### 9.2 优化版本代码
+
+自定义队列代码
+
+```java
+package com.pkgs;
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+/**
+ * TODO: 本地线程
+ *
+ * @author cs12110 create at: 2019/1/20 20:53
+ * Since: 1.0.0
+ */
+public class MemQueue {
+    /**
+     * 队列
+     */
+    private static final BlockingQueue<Object> BLOCK_QUEUE = new LinkedBlockingQueue<>();
+
+    /**
+     * 结束标志
+     */
+    private static volatile boolean isFinish = false;
+
+    /**
+     * 新增消息
+     *
+     * @param value 值
+     */
+    public static void put(Object value) {
+        try {
+            BLOCK_QUEUE.put(value);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 消费消息
+     *
+     * @return object
+     */
+    public static Object pop() {
+        return BLOCK_QUEUE.poll();
+    }
+
+    public static boolean isIsFinish() {
+        return isFinish;
+    }
+
+    public static void setIsFinish(boolean isFinish) {
+        MemQueue.isFinish = isFinish;
+    }
+}
+```
+
+```java
+package com.pkgs;
+
+import java.io.File;
+import java.io.RandomAccessFile;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+/**
+ * TODO: 文件导入优化
+ *
+ * @author cs12110 create at: 2019/1/20 20:56
+ * Since: 1.0.0
+ */
+public class Optimize {
+
+    private final static int THREAD_NUM = 5;
+
+    private final static ExecutorService service = Executors.newFixedThreadPool(THREAD_NUM);
+
+    public static void main(String[] args) {
+        long start = System.currentTimeMillis();
+        service.submit(new MyReader());
+
+        /*
+         *使用countdownLatch监测线程池里面的子线程是否全部执行完成
+         */
+        CountDownLatch latch = new CountDownLatch(THREAD_NUM);
+        for (int index = 0; index < THREAD_NUM; index++) {
+            service.submit(new MyConsumer(latch, "t" + index));
+        }
+
+        try {
+            latch.await();
+        } catch (Exception e) {
+            //do nothing
+        }
+
+        long end = System.currentTimeMillis();
+
+
+        System.out.println("Optimize spend: " + (end - start));
+    }
+
+    /**
+     * 读取文件内容到queue
+     */
+    static class MyReader implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("Provider is running");
+            try {
+                File file = new File("d://all.txt");
+                RandomAccessFile access = new RandomAccessFile(file, "r");
+                String line;
+                while (null != (line = access.readLine())) {
+                    MemQueue.put(line);
+                }
+                access.close();
+                System.out.println("Provider is done");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                MemQueue.setIsFinish(true);
+            }
+        }
+    }
+
+    /**
+     * 消费者,消费queue消息
+     */
+    static class MyConsumer implements Runnable {
+        private CountDownLatch latch;
+        private String threadName;
+
+        public MyConsumer(CountDownLatch latch, String threadName) {
+            super();
+            this.latch = latch;
+            this.threadName = threadName;
+        }
+
+        @Override
+        public void run() {
+            long start = System.currentTimeMillis();
+            int num = 0;
+            while (true) {
+                Object msg = MemQueue.pop();
+                if (msg == null && MemQueue.isIsFinish()) {
+                    break;
+                }
+                if (null != msg) {
+                    processLine(String.valueOf(msg));
+                    num++;
+                }
+            }
+            long end = System.currentTimeMillis();
+            System.out.println(threadName + "is done, get msg: " + num + ",spend times: " + (end - start));
+            latch.countDown();
+        }
+
+        private void processLine(String line) {
+            try {
+                // 每条数据处理,大概耗时5毫秒
+                Thread.sleep(5);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+测试结果
+
+```java
+Provider is running
+Provider is done
+t1is done, get msg: 21,spend times: 119
+t4is done, get msg: 17,spend times: 129
+t0is done, get msg: 18,spend times: 125
+t2is done, get msg: 22,spend times: 124
+t3is done, get msg: 22,spend times: 123
+Optimize spend: 166
+```
+
+总结:该方法能提高数据的处理速度(差不多 5 倍),但也消耗更大的资源和提高了程序的复杂性. ~~要怎么使用,请参考具体生产环境~~
+
+---
+
+## 10. 接口设计
+
+至今,都还记得,这种疼.狗日的接口设置,太膨胀了,这怪谁?当然怪自己了.
+
+在之前项目的接口里面,有如下接口
+
+```java
+BusVod selectById(Integer id);
+
+BusVod selectByCode(String code);
+
+BusVod findOneById(Integer id);
+```
+
+这三个接口可以合成一个接口的. :{
+
+```java
+BusVod selectOne(BusVod search);
+```
+
+下次要记得了,含泪点赞.
+
+---
+
+## 11. 时间处理
+
+在 Java 里面经常使用`SimpleDateFormat`来做时间的格式化,但这个东西线程不安全.
+
+下面这代码有异常的. :"}
+
+```java
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+Callable<Date> task = new Callable<Date>() {
+    public Date call() throws Exception {
+        return dateFormat.parse("2018-08-14 15:00:00");
+    }
+};
+
+ExecutorService exec = Executors.newFixedThreadPool(5);
+List<Future<Date>> results = new ArrayList<Future<Date>>();
+for (int i = 0; i < 10; i++) {
+    results.add(exec.submit(task));
+}
+//exec.shutdown();
+// 输出结果
+for (Future<Date> result : results) {
+    try {
+        System.out.println(result.get());
+    } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    } catch (ExecutionException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+}
+```
+
+有两种解决方法: 第一个是每一条线程都 new 一个 SimpleDateFormat 来玩.
+
+另一种是使用 Calendar.
+
+```java
+Calendar instance = Calendar.getInstance();
+StringBuilder date = new StringBuilder();
+date.append(instance.get(Calendar.YEAR)).append("-");
+
+/*
+ * 0为1月,所以+1
+ */
+int month = Calendar.MONTH + 1;
+date.append(month < 10 ? "0" + month : month).append("-");
+
+int day = instance.get(Calendar.DAY_OF_MONTH);
+date.append(day < 10 ? "0" + day : day).append(" ");
+
+date.append(instance.get(Calendar.HOUR_OF_DAY)).append(":");
+date.append(instance.get(Calendar.MINUTE)).append(":");
+date.append(instance.get(Calendar.SECOND));
+
+return date.toString();
+```
+
+代码增加了一点,但在线程安全的情况下,Calendar 还比 SimpleDateFormat 快一点.
+
+---
+
+## 12. 快速获取子文件路径
+
+自己需要获取某个文件夹下面的所有子文件的路径,但是使用单线程递归获取耗时,有点久.
+
+So,下面是一个使用空间换取时间的例子.
+
+```java
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveAction;
+
+/**
+ * 快速查找文件夹下的子文件夹
+ *
+ * <p>
+ *
+ * @author cs12110 2018年9月29日
+ * @see
+ * @since 1.0
+ */
+public class QuicklyFileSeeker {
+
+	/**
+	 * 查找路径
+	 */
+	private String path;
+
+	/**
+	 *
+	 * @param path
+	 *            路径
+	 */
+	public QuicklyFileSeeker(String path) {
+		this.path = path;
+	}
+
+	/**
+	 * 返回该文件
+	 *
+	 * @return
+	 */
+	public List<String> seek() {
+		List<String> store = new ArrayList<>();
+		try {
+			ForkJoinPool pool = new ForkJoinPool();
+			pool.submit(new MyForkJoinSeeker(store, path));
+
+			// 等待子线程执行完成
+			while (!pool.isQuiescent()) {
+			}
+			pool.shutdown();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return store;
+	}
+
+	/**
+	 * 查找子文件线程
+	 *
+	 * @since 1.0
+	 */
+	class MyForkJoinSeeker extends RecursiveAction {
+
+		private static final long serialVersionUID = 1L;
+
+		private String path;
+		private List<String> store;
+
+		/**
+		 * 初始化
+		 *
+		 * @param store
+		 *            存放列表
+		 * @param path
+		 *            查找路径
+		 */
+		public MyForkJoinSeeker(List<String> store, String path) {
+			super();
+			this.store = store;
+			this.path = path;
+		}
+
+		@Override
+		protected void compute() {
+			File file = new File(path);
+			if (file != null) {
+				if (file.isFile()) {
+					store.add(file.getAbsolutePath());
+				} else {
+					File[] listFiles = file.listFiles();
+					if (null != listFiles) {
+						for (File f : listFiles) {
+							if (f.isDirectory()) {
+								// 开启子线程递归
+								invokeAll(new MyForkJoinSeeker(store, f.getAbsolutePath()));
+							} else {
+								store.add(f.getAbsolutePath());
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+```
+
+---
+
+## 13. 加载外部 jar
+
+生产场景:项目 a 提交接口给项目 b -> 项目 b 实现这个接口后打包成 jar -> 放置特定文件夹 -> 项目 a 自定加载使用项目 b 实现的接口.
+
+解决方案:使用自定义的`classloader`来加载实体类,然后实例化.
+
+**实现自定义 classloader**
+
+```java
+import java.net.URL;
+import java.net.URLClassLoader;
+
+/**
+ * URL classloder
+ *
+ *
+ * <p>
+ *
+ * @author cs12110 2018年10月16日
+ * @see
+ * @since 1.0
+ */
+public class PluginClassLoader extends URLClassLoader {
+
+	/**
+	 * URL
+	 *
+	 * @param urls
+	 */
+	public PluginClassLoader(URL[] urls) {
+		super(urls);
+	}
+
+	public PluginClassLoader(URL[] urls, ClassLoader parent) {
+		super(urls, parent);
+	}
+
+	/**
+	 * 新增jar包
+	 *
+	 * @param url
+	 *            jar的url地址
+	 */
+	public void addJar(URL url) {
+		this.addURL(url);
+	}
+}
+```
+
+实现`InstanceBuilder`
+
+```java
+import java.io.File;
+import java.net.URL;
+
+/**
+ * 获取实体类
+ *
+ *
+ * <p>
+ *
+ * @author cs12110 2018年10月16日
+ * @see
+ * @since 1.0
+ */
+public class InstanceBuilder {
+
+	private File file = null;
+
+	private static PluginClassLoader pluginClassLoader = null;
+
+	static {
+		initClassLoader();
+	}
+
+	/**
+	 * 构造方法
+	 *
+	 * @param jarPath
+	 *            jar文件路径,为绝对路径,如:<code>/home/dev/biplugin-jars/outside.jar</code>
+	 * @param className
+	 *            加载类名称,如<code>com.plugin.BiSourceImpl</code>
+	 */
+	public InstanceBuilder(String jarPath) {
+		if (pluginClassLoader == null) {
+			initClassLoader();
+		}
+		file = new File(jarPath);
+		if (!isLegalJarFile()) {
+			throw new RuntimeException("Jar[" + jarPath + "] isn't a legal jar file.");
+		}
+	}
+
+	/**
+	 * 构造PluginClassLoader
+	 */
+	public static void initClassLoader() {
+		URL[] urls = new URL[]{};
+		pluginClassLoader = new PluginClassLoader(urls);
+	}
+
+	/**
+	 * 判断Jar文件是否合法
+	 *
+	 * @return boolean
+	 */
+	private boolean isLegalJarFile() {
+		if (!file.exists()) {
+			return false;
+		}
+		if (!file.isFile()) {
+			return false;
+		}
+		if (!file.getName().endsWith(".jar")) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 创建实体类
+	 *
+	 * @return T
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T get(String className) {
+		try {
+			pluginClassLoader.addJar(file.toURI().toURL());
+			Class<?> clazz = pluginClassLoader.loadClass(className);
+			return (T) clazz.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+}
+```
+
+**测试类**
+
+```java
+import com.func.BiSource;
+public class SuperInvoke {
+	public static void main(String[] args) {
+		String jarPath = "D:\\Mydoc\\biplugin\\biplugin-outside.jar";
+		String className = "com.plugin.BiSourceImpl";
+
+		InstanceBuilder builder = new InstanceBuilder(jarPath);
+		BiSource target = builder.get(className);
+		target.say("窝草");
+	}
+}
+```
+
+```java
+窝草
+class com.plugin.BiSourceImpl say: 窝草
+```

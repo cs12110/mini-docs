@@ -323,26 +323,22 @@ redis7004='/opt/dev/redis/redis7004/'
 redis7005='/opt/dev/redis/redis7005/'
 
 cd $redis7000
-redis-server $redis7000/redis.conf &
-
+nohup redis-server $redis7000/redis.conf &
 
 cd $redis7001
-redis-server $redis7001/redis.conf &
-
+nohup redis-server $redis7001/redis.conf &
 
 cd $redis7002
-redis-server $redis7002/redis.conf &
-
+nohup redis-server $redis7002/redis.conf &
 
 cd $redis7003
-redis-server $redis7003/redis.conf &
-
+nohup redis-server $redis7003/redis.conf &
 
 cd $redis7004
-redis-server $redis7004/redis.conf &
+nohup redis-server $redis7004/redis.conf &
 
 cd $redis7005
-redis-server $redis7005/redis.conf &
+nohup redis-server $redis7005/redis.conf &
 ```
 
 赋予脚本可执行权限:`chmod +x redis-startup.sh`
@@ -573,26 +569,26 @@ redis7004='/opt/dev/redis/redis7004/'
 redis7005='/opt/dev/redis/redis7005/'
 
 cd $redis7000
-redis-server $redis7000/redis.conf &
+nohup redis-server $redis7000/redis.conf &
 
 
 cd $redis7001
-redis-server $redis7001/redis.conf &
+nohup redis-server $redis7001/redis.conf &
 
 
 cd $redis7002
-redis-server $redis7002/redis.conf &
+nohup redis-server $redis7002/redis.conf &
 
 
 cd $redis7003
-redis-server $redis7003/redis.conf &
+nohup redis-server $redis7003/redis.conf &
 
 
 cd $redis7004
-redis-server $redis7004/redis.conf &
+nohup redis-server $redis7004/redis.conf &
 
 cd $redis7005
-redis-server $redis7005/redis.conf &
+nohup redis-server $redis7005/redis.conf &
 ```
 
 ---
@@ -629,10 +625,321 @@ e6582b8a34f6b510e8c417202e9fec3e71abcfbc 10.10.2.233:7000 myself,master - 0 0 42
 
 ---
 
-## 8. 参考资料
+## 8. Redis集群节点操作
+
+Q: 老板,我们弄完了集群,还要弄什么呀?
+
+A: 嗯,那就增删改查吧....
+
+
+现在集群的信息为
+
+```sh
+10.10.1.200:7000> cluster nodes
+0658bf3806f8640b34a05c2628c6ecd855f84295 10.10.1.200:7002@17002 master - 0 1550819339563 3 connected 10923-16383
+8c4b6bed23639a66d2c896675b8931ef60e69bd4 10.10.1.200:7003@17003 slave 8c2245b455fe26e77152abe3350def7f91657bf7 0 1550819336000 4 connected
+407718d2b8acd21e39d4fd98620658e6a64c55c0 10.10.1.200:7004@17004 slave 0658bf3806f8640b34a05c2628c6ecd855f84295 0 1550819337000 5 connected
+79c5fbf226faf0be4b07bf5dc17f368a46f5f194 10.10.1.200:7000@17000 myself,master - 0 1550819337000 1 connected 0-5460
+bab6121bcd7cb794824b8cc718bc5c565d4daf41 10.10.1.200:7005@17005 slave 79c5fbf226faf0be4b07bf5dc17f368a46f5f194 0 1550819339000 6 connected
+8c2245b455fe26e77152abe3350def7f91657bf7 10.10.1.200:7001@17001 master - 0 1550819338551 2 connected 5461-10922
+```
+
+### 8.1 添加节点
+
+添加:`10.10.1.200:7006`节点
+
+
+修改`redis7006`的配置文件如下,并启动该节点.
+
+```sh
+[root@hadoop200 redis]# vim redis7006/redis.conf
+# 一定要是该服务器的ip
+bind 10.33.1.200
+
+# reids端口号
+port 7006
+
+# 开启集群模式
+cluster-enabled yes
+
+# pid文件名称
+pidfile /var/run/redis_7006.pid
+
+[root@hadoop200 redis]# cd redis7006
+[root@hadoop200 redis7006]# nohup redis-server ./redis.conf  & 
+```
+
+添加该节点到集群
+
+```sh
+[root@hadoop200 src]# ./redis-trib.rb add-node 10.10.1.200:7006 10.10.1.200:7000
+>>> Adding node 10.10.1.200:7006 to cluster 10.10.1.200:7000
+>>> Performing Cluster Check (using node 10.10.1.200:7000)
+M: 79c5fbf226faf0be4b07bf5dc17f368a46f5f194 10.10.1.200:7000
+   slots:0-5460 (5461 slots) master
+   1 additional replica(s)
+M: 0658bf3806f8640b34a05c2628c6ecd855f84295 10.10.1.200:7002
+   slots:10923-16383 (5461 slots) master
+   1 additional replica(s)
+S: 8c4b6bed23639a66d2c896675b8931ef60e69bd4 10.10.1.200:7003
+   slots: (0 slots) slave
+   replicates 8c2245b455fe26e77152abe3350def7f91657bf7
+S: 407718d2b8acd21e39d4fd98620658e6a64c55c0 10.10.1.200:7004
+   slots: (0 slots) slave
+   replicates 0658bf3806f8640b34a05c2628c6ecd855f84295
+S: bab6121bcd7cb794824b8cc718bc5c565d4daf41 10.10.1.200:7005
+   slots: (0 slots) slave
+   replicates 79c5fbf226faf0be4b07bf5dc17f368a46f5f194
+M: 8c2245b455fe26e77152abe3350def7f91657bf7 10.10.1.200:7001
+   slots:5461-10922 (5462 slots) master
+   1 additional replica(s)
+[OK] All nodes agree about slots configuration.
+>>> Check for open slots...
+>>> Check slots coverage...
+[OK] All 16384 slots covered.
+>>> Send CLUSTER MEET to node 10.10.1.200:7006 to make it join the cluster.
+[OK] New node added correctly.
+```
+
+重新查看集群信息,可以看出`10.10.1.200:7006`已加入集群.
+
+```sh
+[root@hadoop200 src]# redis-cli -c -h 10.10.1.200 -p 7000 cluster nodes
+0658bf3806f8640b34a05c2628c6ecd855f84295 10.10.1.200:7002@17002 master - 0 1550820103000 3 connected 10923-16383
+8c4b6bed23639a66d2c896675b8931ef60e69bd4 10.10.1.200:7003@17003 slave 8c2245b455fe26e77152abe3350def7f91657bf7 0 1550820102000 4 connected
+89e05856d0f0c2939ee01a149a169e09af7365f9 10.10.1.200:7006@17006 master - 0 1550820103558 0 connected
+407718d2b8acd21e39d4fd98620658e6a64c55c0 10.10.1.200:7004@17004 slave 0658bf3806f8640b34a05c2628c6ecd855f84295 0 1550820101535 5 connected
+79c5fbf226faf0be4b07bf5dc17f368a46f5f194 10.10.1.200:7000@17000 myself,master - 0 1550820100000 1 connected 0-5460
+bab6121bcd7cb794824b8cc718bc5c565d4daf41 10.10.1.200:7005@17005 slave 79c5fbf226faf0be4b07bf5dc17f368a46f5f194 0 1550820100526 6 connected
+8c2245b455fe26e77152abe3350def7f91657bf7 10.10.1.200:7001@17001 master - 0 1550820104568 2 connected 5461-10922
+```
+
+重要: **新增进来的节点有可能是master或者slave**.
+
+#### 8.1.1 节点->master
+
+节点变成主节点,将集群中的某些哈希槽移动到新节点里面,新节点就成为主节点了.
+
+```sh
+[root@hadoop200 src]# ./redis-trib.rb reshard 10.10.1.200:7000
+>>> Performing Cluster Check (using node 10.10.1.200:7000)
+M: 79c5fbf226faf0be4b07bf5dc17f368a46f5f194 10.10.1.200:7000
+   slots:0-5460 (5461 slots) master
+   1 additional replica(s)
+M: 0658bf3806f8640b34a05c2628c6ecd855f84295 10.10.1.200:7002
+   slots:10923-16383 (5461 slots) master
+   1 additional replica(s)
+S: 8c4b6bed23639a66d2c896675b8931ef60e69bd4 10.10.1.200:7003
+   slots: (0 slots) slave
+   replicates 8c2245b455fe26e77152abe3350def7f91657bf7
+M: 89e05856d0f0c2939ee01a149a169e09af7365f9 10.10.1.200:7006
+   slots: (0 slots) master
+   0 additional replica(s)
+S: 407718d2b8acd21e39d4fd98620658e6a64c55c0 10.10.1.200:7004
+   slots: (0 slots) slave
+   replicates 0658bf3806f8640b34a05c2628c6ecd855f84295
+S: bab6121bcd7cb794824b8cc718bc5c565d4daf41 10.10.1.200:7005
+   slots: (0 slots) slave
+   replicates 79c5fbf226faf0be4b07bf5dc17f368a46f5f194
+M: 8c2245b455fe26e77152abe3350def7f91657bf7 10.10.1.200:7001
+   slots:5461-10922 (5462 slots) master
+   1 additional replica(s)
+[OK] All nodes agree about slots configuration.
+>>> Check for open slots...
+>>> Check slots coverage...
+[OK] All 16384 slots covered.
+
+# 转移1000个槽
+How many slots do you want to move (from 1 to 16384)? 1000
+
+# 这个为新节点的nodeId值
+What is the receiving node ID? 89e05856d0f0c2939ee01a149a169e09af7365f9
+Please enter all the source node IDs.
+  Type 'all' to use all the nodes as source nodes for the hash slots.
+  Type 'done' once you entered all the source nodes IDs.
+
+# 输入all
+Source node #1:all
+...
+    Moving slot 329 from 79c5fbf226faf0be4b07bf5dc17f368a46f5f194
+    Moving slot 330 from 79c5fbf226faf0be4b07bf5dc17f368a46f5f194
+    Moving slot 331 from 79c5fbf226faf0be4b07bf5dc17f368a46f5f194
+    Moving slot 332 from 79c5fbf226faf0be4b07bf5dc17f368a46f5f194
+
+# 输入yes
+Do you want to proceed with the proposed reshard plan (yes/no)? yes
+....
+```
+
+重新查看节点信息
+
+```sh
+[root@hadoop200 src]# redis-cli -c -h 10.10.1.200 -p 7000 cluster nodes
+0658bf3806f8640b34a05c2628c6ecd855f84295 10.10.1.200:7002@17002 master - 0 1550820989494 3 connected 11256-16383
+8c4b6bed23639a66d2c896675b8931ef60e69bd4 10.10.1.200:7003@17003 slave 8c2245b455fe26e77152abe3350def7f91657bf7 0 1550820988474 4 connected
+89e05856d0f0c2939ee01a149a169e09af7365f9 10.10.1.200:7006@17006 master - 0 1550820987000 7 connected 0-332 5461-5794 10923-11255
+407718d2b8acd21e39d4fd98620658e6a64c55c0 10.10.1.200:7004@17004 slave 0658bf3806f8640b34a05c2628c6ecd855f84295 0 1550820988000 5 connected
+79c5fbf226faf0be4b07bf5dc17f368a46f5f194 10.10.1.200:7000@17000 myself,master - 0 1550820986000 1 connected 333-5460
+bab6121bcd7cb794824b8cc718bc5c565d4daf41 10.10.1.200:7005@17005 slave 79c5fbf226faf0be4b07bf5dc17f368a46f5f194 0 1550820986000 6 connected
+8c2245b455fe26e77152abe3350def7f91657bf7 10.10.1.200:7001@17001 master - 0 1550820986000 2 connected 5795-10922
+```
+
+到这里,一个master节点就添加完了.
+
+
+#### 8.1.2 节点->slave
+
+Q: 如果我们想把新增的节点当做某一个节点的从节点,该怎么做呀?
+
+A: sir, this way.
+
+用新的节点`10.10.1.200:7007`节点测试.
+
+```sh
+[root@hadoop200 redis7007]# src/redis-trib.rb add-node 10.10.1.200:7007 10.10.1.200:7000
+>>> Adding node 10.10.1.200:7007 to cluster 10.10.1.200:7000
+>>> Performing Cluster Check (using node 10.10.1.200:7000)
+M: 79c5fbf226faf0be4b07bf5dc17f368a46f5f194 10.10.1.200:7000
+   slots:333-5460 (5128 slots) master
+   1 additional replica(s)
+M: 0658bf3806f8640b34a05c2628c6ecd855f84295 10.10.1.200:7002
+   slots:11256-16383 (5128 slots) master
+   1 additional replica(s)
+S: 8c4b6bed23639a66d2c896675b8931ef60e69bd4 10.10.1.200:7003
+   slots: (0 slots) slave
+   replicates 8c2245b455fe26e77152abe3350def7f91657bf7
+M: 89e05856d0f0c2939ee01a149a169e09af7365f9 10.10.1.200:7006
+   slots:0-332,5461-5794,10923-11255 (1000 slots) master
+   0 additional replica(s)
+S: 407718d2b8acd21e39d4fd98620658e6a64c55c0 10.10.1.200:7004
+   slots: (0 slots) slave
+   replicates 0658bf3806f8640b34a05c2628c6ecd855f84295
+S: bab6121bcd7cb794824b8cc718bc5c565d4daf41 10.10.1.200:7005
+   slots: (0 slots) slave
+   replicates 79c5fbf226faf0be4b07bf5dc17f368a46f5f194
+M: 8c2245b455fe26e77152abe3350def7f91657bf7 10.10.1.200:7001
+   slots:5795-10922 (5128 slots) master
+   1 additional replica(s)
+[OK] All nodes agree about slots configuration.
+>>> Check for open slots...
+>>> Check slots coverage...
+[OK] All 16384 slots covered.
+>>> Send CLUSTER MEET to node 10.10.1.200:7007 to make it join the cluster.
+[OK] New node added correctly.
+
+# 配置从节点为哪个master的从节点
+[root@hadoop200 redis7007]# redis-cli -c -h 10.10.1.200 -p 7007 cluster replicate 8c2245b455fe26e77152abe3350def7f91657bf7
+OK
+
+# 获取集群信息,可以看出从节点设置成功
+[root@hadoop200 redis7007]# redis-cli -c -h 10.10.1.200 -p 7007 cluster nodes
+79c5fbf226faf0be4b07bf5dc17f368a46f5f194 10.10.1.200:7000@17000 master - 0 1550822921488 1 connected 333-5460
+8c4b6bed23639a66d2c896675b8931ef60e69bd4 10.10.1.200:7003@17003 slave 8c2245b455fe26e77152abe3350def7f91657bf7 0 1550822920000 2 connected
+8c2245b455fe26e77152abe3350def7f91657bf7 10.10.1.200:7001@17001 master - 0 1550822920468 2 connected 5795-10922
+407718d2b8acd21e39d4fd98620658e6a64c55c0 10.10.1.200:7004@17004 slave 0658bf3806f8640b34a05c2628c6ecd855f84295 0 1550822922508 3 connected
+89e05856d0f0c2939ee01a149a169e09af7365f9 10.10.1.200:7006@17006 master - 0 1550822918000 7 connected 0-332 5461-5794 10923-11255
+0658bf3806f8640b34a05c2628c6ecd855f84295 10.10.1.200:7002@17002 master - 0 1550822921000 3 connected 11256-16383
+bab6121bcd7cb794824b8cc718bc5c565d4daf41 10.10.1.200:7005@17005 slave 79c5fbf226faf0be4b07bf5dc17f368a46f5f194 0 1550822920000 1 connected
+447ad9e653456a05494ecd34f0c673d563dffb98 10.10.1.200:7007@17007 myself,slave 8c2245b455fe26e77152abe3350def7f91657bf7 0 1550822920000 0 connected
+```
+
+### 8.2 删除节点
+
+如果删除的节点是**从节点(slave)**,请使用如下命令
+
+```sh
+[root@hadoop200 redis7007]# src/redis-trib.rb del-node 10.10.1.200:7000 447ad9e653456a05494ecd34f0c673d563dffb98
+>>> Removing node 447ad9e653456a05494ecd34f0c673d563dffb98 from cluster 10.10.1.200:7000
+>>> Sending CLUSTER FORGET messages to the cluster...
+>>> SHUTDOWN the node.
+[2]+  Done                    nohup redis-server ./redis.conf
+[root@hadoop200 redis7007]# redis-cli -c -h 10.10.1.200 -p 7007 cluster nodes
+Could not connect to Redis at 10.10.1.200:7007: Connection refused
+[root@hadoop200 redis7007]# redis-cli -c -h 10.10.1.200 -p 7000 cluster nodes
+0658bf3806f8640b34a05c2628c6ecd855f84295 10.10.1.200:7002@17002 master - 0 1550823124325 3 connected 11256-16383
+8c4b6bed23639a66d2c896675b8931ef60e69bd4 10.10.1.200:7003@17003 slave 8c2245b455fe26e77152abe3350def7f91657bf7 0 1550823125000 4 connected
+89e05856d0f0c2939ee01a149a169e09af7365f9 10.10.1.200:7006@17006 master - 0 1550823125334 7 connected 0-332 5461-5794 10923-11255
+407718d2b8acd21e39d4fd98620658e6a64c55c0 10.10.1.200:7004@17004 slave 0658bf3806f8640b34a05c2628c6ecd855f84295 0 1550823123000 5 connected
+79c5fbf226faf0be4b07bf5dc17f368a46f5f194 10.10.1.200:7000@17000 myself,master - 0 1550823123000 1 connected 333-5460
+bab6121bcd7cb794824b8cc718bc5c565d4daf41 10.10.1.200:7005@17005 slave 79c5fbf226faf0be4b07bf5dc17f368a46f5f194 0 1550823120283 6 connected
+8c2245b455fe26e77152abe3350def7f91657bf7 10.10.1.200:7001@17001 master - 0 1550823126345 2 connected 5795-10922
+```
+
+
+如果删除的节点是**主节点(master)**,请使用如下命令
+
+```sh
+[root@hadoop200 redis7007]# src/redis-trib.rb reshard 10.10.1.200:7000
+>>> Performing Cluster Check (using node 10.10.1.200:7000)
+M: 79c5fbf226faf0be4b07bf5dc17f368a46f5f194 10.10.1.200:7000
+   slots:0-5794,10923-11255 (6128 slots) master
+   1 additional replica(s)
+M: 0658bf3806f8640b34a05c2628c6ecd855f84295 10.10.1.200:7002
+   slots:11256-16383 (5128 slots) master
+   1 additional replica(s)
+S: 8c4b6bed23639a66d2c896675b8931ef60e69bd4 10.10.1.200:7003
+   slots: (0 slots) slave
+   replicates 8c2245b455fe26e77152abe3350def7f91657bf7
+M: 89e05856d0f0c2939ee01a149a169e09af7365f9 10.10.1.200:7006
+   slots: (1000 slots) master
+   0 additional replica(s)
+S: 407718d2b8acd21e39d4fd98620658e6a64c55c0 10.10.1.200:7004
+   slots: (0 slots) slave
+   replicates 0658bf3806f8640b34a05c2628c6ecd855f84295
+S: bab6121bcd7cb794824b8cc718bc5c565d4daf41 10.10.1.200:7005
+   slots: (0 slots) slave
+   replicates 79c5fbf226faf0be4b07bf5dc17f368a46f5f194
+M: 8c2245b455fe26e77152abe3350def7f91657bf7 10.10.1.200:7001
+   slots:5795-10922 (5128 slots) master
+   1 additional replica(s)
+[OK] All nodes agree about slots configuration.
+>>> Check for open slots...
+>>> Check slots coverage...
+[OK] All 16384 slots covered.
+
+# 移除7006的所有槽的数据
+How many slots do you want to move (from 1 to 16384)? 1000
+
+# 接受槽master为7000端口的master
+What is the receiving node ID? 79c5fbf226faf0be4b07bf5dc17f368a46f5f194
+Please enter all the source node IDs.
+  Type 'all' to use all the nodes as source nodes for the hash slots.
+  Type 'done' once you entered all the source nodes IDs.
+
+# 7006的nodeId
+Source node #1:89e05856d0f0c2939ee01a149a169e09af7365f9
+Source node #2:done
+...
+# 输入yes
+Do you want to proceed with the proposed reshard plan (yes/no)? yes
+...
+```
+
+移除数据之后,删除该节点
+
+```sh
+[root@hadoop200 redis7007]# src/redis-trib.rb del-node 10.10.1.200:7000 89e05856d0f0c2939ee01a149a169e09af7365f9
+>>> Removing node 89e05856d0f0c2939ee01a149a169e09af7365f9 from cluster 10.10.1.200:7000
+>>> Sending CLUSTER FORGET messages to the cluster...
+>>> SHUTDOWN the node.
+[1]+  Done                    nohup redis-server ./redis.conf  (wd: /opt/soft/redis-cluster/redis-7006)
+(wd now: /opt/soft/redis-cluster/redis-7007)
+[root@hadoop200 redis7007]# redis-cli -c -h 10.10.1.200 -p 7000 cluster nodes
+0658bf3806f8640b34a05c2628c6ecd855f84295 10.10.1.200:7002@17002 master - 0 1550823697676 3 connected 11256-16383
+8c4b6bed23639a66d2c896675b8931ef60e69bd4 10.10.1.200:7003@17003 slave 8c2245b455fe26e77152abe3350def7f91657bf7 0 1550823697000 4 connected
+407718d2b8acd21e39d4fd98620658e6a64c55c0 10.10.1.200:7004@17004 slave 0658bf3806f8640b34a05c2628c6ecd855f84295 0 1550823697000 5 connected
+79c5fbf226faf0be4b07bf5dc17f368a46f5f194 10.10.1.200:7000@17000 myself,master - 0 1550823696000 8 connected 0-5794 10923-11255
+bab6121bcd7cb794824b8cc718bc5c565d4daf41 10.10.1.200:7005@17005 slave 79c5fbf226faf0be4b07bf5dc17f368a46f5f194 0 1550823696000 8 connected
+8c2245b455fe26e77152abe3350def7f91657bf7 10.10.1.200:7001@17001 master - 0 1550823698693 2 connected 5795-10922
+```
+
+---
+## 9. 参考资料
 
 a. [Reids官网](https://redis.io/topics/cluster-tutorial)
 
 b. [Gem redis](https://rubygems.org/gems/redis/versions/3.3.3)
 
 c. [CSDN博客](http://blog.csdn.net/yulei_qq/article/details/51957463)
+
+d. [Redis集群添加/删除节点](https://www.cnblogs.com/huxinga/p/6637253.html)

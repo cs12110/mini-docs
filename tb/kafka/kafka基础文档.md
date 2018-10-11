@@ -6,7 +6,9 @@ Apache kafka 是消息中间件的一种(如 RabbitMQ).
 
 ## 1. kafka 简介
 
-关于`Message Queue`例子:
+基础概念你我他.
+
+### 1.1 Mq
 
 假设消费者在处理鸡蛋时噎住了(消费者系统 down),生产者还在生产鸡蛋,那新生产的鸡蛋就丢失了.
 
@@ -22,39 +24,48 @@ Apache kafka 是消息中间件的一种(如 RabbitMQ).
 >
 > broker: kafka 的篮子
 
+### 1.2 Kafka
+
+那么 kafka 具有哪些优势呢?
+
+- 时间复杂度为 O(1)的方式提供消息持久化能力,即使对 TB 级以上数据也能保证常数时间的访问性能
+- 高吞吐率,即使在非常廉价的商用机器上也能做到单机支持每秒 100K 条消息的传输
+- 支持 Kafka Server 间的消息分区,及分布式消费,同时保证每个 partition 内的消息顺序传输
+- 同时支持离线数据处理和实时数据处理
+
 ---
 
 ## 2. kafka 安装
 
-1.启动 kafka 自带的 zookeeper
+## 2.1 启动 kafka 自带的 zookeeper
+
+注意: **如果使用另外的 zookeeper 集群,请忽略这一步,同时请把配置文件里面的 zookeeper 连接地址修改为自己的 zookeeper 集群地址即可.**
 
 ```sh
 [dev@aya kafka_2.12-1.0.0]$ bin/zookeeper-server-start.sh config/zookeeper.properties &
 ```
 
-2.启动 kafka
+### 2.2 启动 kafka
 
 ```sh
 [dev@aya kafka_2.12-1.0.0]$ bin/kafka-server-start.sh  config/server.properties
 ```
 
-3.创建 topic
+### 2.3 创建 topic
 
 ```sh
 [dev@aya kafka_2.12-1.0.0]$ bin/kafka-topics.sh  --create --zookeeper 10.10.2.70:2181 --replication-factor 1 --partitions 1 --topic test
 Created topic "test".
-[dev@aya kafka_2.12-1.0.0]$
 ```
 
-4.查看创建的 topic
+### 2.4 查看创建的 topic
 
 ```sh
 [dev@aya kafka_2.12-1.0.0]$ bin/kafka-topics.sh  --list --zookeeper 10.10.2.70:2181
 test
-[dev@aya kafka_2.12-1.0.0]$
 ```
 
-5.发送消息
+### 2.5 发送消息
 
 ```sh
 [dev@aya kafka_2.12-1.0.0]$ bin/kafka-console-producer.sh --broker-list 10.10.2.70:9092 --topic test
@@ -63,7 +74,7 @@ test
 >^C  --> ctrl+c退出
 ```
 
-6.消费消息
+### 2.6 消费消息
 
 ```sh
 [dev@aya kafka_2.12-1.0.0]$ bin/kafka-console-consumer.sh  --zookeeper 10.10.2.70:2181 --topic test --from-beginning
@@ -191,10 +202,8 @@ Hello world
 
 ### 4.1 创建队列
 
-创建消息队列: `adv_success_mq`
-
 ```sh
-hadoop231:/opt/kafka/kafka_2.12-0.10.2.0/bin # ./kafka-topics.sh --create --zookeeper hadoop233:2181,hadoop234:2181,hadoop235:2181 --replication-factor 2 --partition 1 --topic adv_success_mq
+hadoop231:/opt/kafka/kafka_2.12-0.10.2.0/bin # ./kafka-topics.sh --create --zookeeper hadoop233:2181,hadoop234:2181,hadoop235:2181 --replication-factor 2 --partitions 1 --topic adv_success_mq
 ```
 
 ### 4.2 显示队列
@@ -230,19 +239,55 @@ hadoop233:/opt/hadoop/zookeeper-3.4.9/bin # ./zkCli.sh
 [zk: localhost:2181(CONNECTED) 1] rmr /admin/delete_topics
 ```
 
+### 4.4 修改 partitions
+
+注意: **partitions 的数量只能单调递增.**
+
+```sh
+^C[root@bi141 kafka_2.11-2.1.0]# bin/kafka-topics.sh --describe --zookeeper 10.10.1.141:2181 --topic streaming_topic
+Topic:streaming_topic	PartitionCount:2	ReplicationFactor:2	Configs:
+	Topic: streaming_topic	Partition: 0	Leader: 1	Replicas: 1,2	Isr: 1,2
+	Topic: streaming_topic	Partition: 1	Leader: 2	Replicas: 2,0	Isr: 2,0
+[root@bi141 kafka_2.11-2.1.0]# bin/kafka-topics.sh --zookeeper 10.10.1.141 --alter --partitions 5 --topic streaming_topic
+WARNING: If partitions are increased for a topic that has a key, the partition logic or ordering of the messages will be affected
+Adding partitions succeeded!
+[root@bi141 kafka_2.11-2.1.0]# bin/kafka-topics.sh --describe --zookeeper 10.10.1.141:2181 --topic streaming_topic
+Topic:streaming_topic	PartitionCount:5	ReplicationFactor:2	Configs:
+	Topic: streaming_topic	Partition: 0	Leader: 1	Replicas: 1,2	Isr: 1,2
+	Topic: streaming_topic	Partition: 1	Leader: 2	Replicas: 2,0	Isr: 2,0
+	Topic: streaming_topic	Partition: 2	Leader: 0	Replicas: 0,2	Isr: 0,2
+	Topic: streaming_topic	Partition: 3	Leader: 1	Replicas: 1,2	Isr: 1,2
+	Topic: streaming_topic	Partition: 4	Leader: 2	Replicas: 2,0	Isr: 2,0
+[root@bi141 kafka_2.11-2.1.0]#
+```
+
 ---
 
 ## 5. Java 整合 kafka
 
-Java 对 Kafka 说: 你喊呀,喊破喉咙都没人来救你的.
+WARNING: **注意创建消费者队列时 partitions 和客户端消费的情况**.
 
-### 5.1 maven 依赖
+该程序实现: 一个生产者/多个消费者的生产模式,请知悉.
+
+### 5.1 创建消息队列
+
+创建测试的消息队列: <u>请必须注意队列的 topic partitions 是否符合创建的数量</u>.
+
+```sh
+[root@bi141 kafka_2.11-2.1.0]# bin/kafka-topics.sh --create --zookeeper 10.10.1.141:2181,10.10.1.142:2181,10.10.1.143:2181 --replication-factor 2 --partitions 2 --topic streaming_topic
+[root@bi141 kafka_2.11-2.1.0]# bin/kafka-topics.sh --describe --zookeeper 10.10.1.141:2181 --topic streaming_topic
+Topic:streaming_topic	PartitionCount:2	ReplicationFactor:2	Configs:
+	Topic: streaming_topic	Partition: 0	Leader: 1	Replicas: 1,2	Isr: 1,2
+	Topic: streaming_topic	Partition: 1	Leader: 2	Replicas: 2,0	Isr: 2,0
+```
+
+### 5.2 maven 依赖
 
 ```xml
 <dependency>
-	<groupId> org.apache.kafka</groupId>
-	<artifactId> kafka_2.10</artifactId>
-	<version> 0.8.0</version>
+	<groupId>org.apache.kafka</groupId>
+	<artifactId>kafka_2.10</artifactId>
+	<version>0.8.0</version>
 </dependency>
 
 <dependency>
@@ -264,203 +309,353 @@ Java 对 Kafka 说: 你喊呀,喊破喉咙都没人来救你的.
 		</exclusion>
 	</exclusions>
 </dependency>
+
+<dependency>
+	<groupId>org.projectlombok</groupId>
+	<artifactId>lombok</artifactId>
+	<version>1.18.4</version>
+</dependency>
+
+<!-- fastjson -->
+<dependency>
+	<groupId>com.alibaba</groupId>
+	<artifactId>fastjson</artifactId>
+	<version>1.2.30</version>
+</dependency>
 ```
 
-### 5.2 常量配置文件`Conf.java`
+### 5.3 配置类
 
 ```java
-package com.mq;
+package com.pkgs.conf;
 
 /**
- *
- * 常用配置文件
+ * 配置类
  * <p>
+ * <p/>
  *
- * @author 3306 2017年11月8日
- * @see
- * @since 1.0
+ * @author cs12110 created at: 2019/2/14 13:40
+ * <p>
+ * since: 1.0.0
  */
-public class Conf {
+public class KafkaConf {
 
-	/**
-	 * zookeeper地址
-	 */
-	public static final String ZOOKEEPER_HOST = "10.10.2.70:2181";
+    public static final String ZOOKEEPER_URL = "10.10.1.141:2181,10.10.1.142:2181,10.10.1.143:2181";
 
-	/**
-	 * 用户组Id
-	 */
-	public static final String GROUP_ID = "kafka";
+    public static final String GROUP_ID = "streaming";
 
-	/**
-	 * 使用topic
-	 */
-	public static final String TOPIC0 = "replication-topic";
+    public static final String STREAMING_TOPIC_NAME = "streaming_topic";
 
-	/**
-	 * kafka服务器地址
-	 */
-	public static final String KAFKA_SERVER = "10.10.2.70:9092";
+    public static final String KAFKA_SERVER_URL = "10.10.1.141:20000,10.10.1.141:20001,20.10.1.141:20002";
 
 }
 ```
 
-### 5.3 消息生产类
+### 5.4 实体类
 
 ```java
-package com.mq;
+package com.pkgs.entity;
 
-import java.util.Properties;
+import com.alibaba.fastjson.JSON;
+import lombok.Data;
 
+/**
+ * student
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/2/14 14:22
+ * <p>
+ * since: 1.0.0
+ */
+
+@Data
+public class StudentEntity {
+
+    private Integer id;
+
+    private String name;
+
+    private String date;
+
+    private float score;
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
+}
+```
+
+### 5.5 线程工具类
+
+```java
+package com.pkgs.util;
+
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
+/**
+ * Thread util
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/2/15 9:19
+ * <p>
+ * since: 1.0.0
+ */
+public class ThreadUtil {
+
+
+    public static ExecutorService buildConsumerExecutor(int threadNum) {
+        return new ThreadPoolExecutor(
+                threadNum,
+                threadNum,
+                0,
+                TimeUnit.SECONDS,
+                new LinkedBlockingDeque<>(threadNum),
+                new MyThreadFactory("consumer-pool")
+        );
+    }
+
+    public static ExecutorService buildAppExecutor() {
+        int threadNum = 4;
+
+        return new ThreadPoolExecutor(
+                threadNum,
+                threadNum,
+                0,
+                TimeUnit.SECONDS,
+                new LinkedBlockingDeque<>(threadNum),
+                new MyThreadFactory("mq-pool")
+        );
+    }
+
+    public static class MyThreadFactory implements ThreadFactory {
+
+        private String prefixName;
+        private AtomicInteger counter = new AtomicInteger(1);
+
+        MyThreadFactory(String prefixName) {
+            this.prefixName = prefixName;
+        }
+
+        @Override
+        public Thread newThread(Runnable r) {
+            String name = prefixName + "-" + counter.getAndIncrement();
+            return new Thread(r, name);
+        }
+    }
+
+}
+```
+
+### 5.6 消息生产者
+
+```java
+package com.pkgs.worker;
+
+import com.pkgs.conf.KafkaConf;
+import com.pkgs.entity.StudentEntity;
 import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+import java.util.function.Supplier;
+
 /**
- * 消息生成类
+ * 消息提供者
+ * <p/>
  *
+ * @author cs12110 created at: 2019/2/14 13:47
  * <p>
- * detailed comment
- *
- * @author huanghuapeng 2017年11月8日
- * @see
- * @since 1.0
+ * since: 1.0.0
  */
-public class MqProducer implements Runnable {
+public class MqProvider implements Runnable {
 
-	private String topic;
-	private Producer<Integer, String> producer;
+    private String topicName;
 
-	public MqProducer(String topic) {
-		Properties props = new Properties();
-		props.put("serializer.class", "kafka.serializer.StringEncoder");
-		props.put("metadata.broker.list", Conf.KAFKA_SERVER);
+    public MqProvider(String topicName) {
+        this.topicName = topicName;
+    }
 
-		this.topic = topic;
+    @Override
+    public void run() {
+        Properties props = new Properties();
+        props.put("serializer.class", "kafka.serializer.StringEncoder");
+        props.put("metadata.broker.list", KafkaConf.KAFKA_SERVER_URL);
+        Producer<String, String> producer = new Producer<>(new ProducerConfig(props));
 
-		producer = new Producer<Integer, String>(new ProducerConfig(props));
-	}
+        int index = 0;
+        int times = 5;
+        while (index++ < times) {
 
-	public void run() {
-		int msgIndex = 1;
-		try {
-			while (true) {
-				String msg = "sending message" + (msgIndex++);
-				System.out.println("Producer:" + msg);
+            StudentEntity stu = buildStu(index);
 
-				producer.send(new KeyedMessage<Integer, String>(topic, msg));
+            // 指定key,发布到不同的分区里面去.
+            KeyedMessage<String, String> message = new KeyedMessage<>(topicName, "" + index, stu.toString());
+            producer.send(message);
+        }
+    }
 
-				Thread.sleep(500);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
-	}
+    private static Supplier<String> dateSupplier = () -> {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss,SSS");
+        return sdf.format(new Date());
+    };
 
+    private static StudentEntity buildStu(int id) {
+        // 构建消息体
+        StudentEntity stu = new StudentEntity();
+        stu.setId(id);
+        stu.setName("name" + id);
+        stu.setDate(dateSupplier.get());
+        return stu;
+    }
 }
 ```
 
-### 5.4 消息消费类
+### 5.7 消息消费者
 
 ```java
-package com.mq;
+package com.pkgs.worker;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
+import com.pkgs.conf.KafkaConf;
+import com.pkgs.util.ThreadUtil;
 import kafka.consumer.Consumer;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
+import kafka.message.MessageAndMetadata;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.ExecutorService;
 
 /**
- * 消息生成类
+ * 消费者
+ * <p/>
  *
+ * @author cs12110 created at: 2019/2/14 13:58
  * <p>
- * detailed comment
- *
- * @author huanghuapeng 2017年11月8日
- * @see
- * @since 1.0
+ * since: 1.0.0
  */
 public class MqConsumer implements Runnable {
 
-	private String topic;
-	private ConsumerConnector consumer;
+    private String topicName;
 
-	public MqConsumer(String topic) {
-		this.topic = topic;
-		consumer = Consumer.createJavaConsumerConnector(buildConsumerConf());
-	}
+    /**
+     * topic的分区数量
+     */
+    private static final int PARTITION_NUM = 2;
 
-	private static ConsumerConfig buildConsumerConf() {
-		Properties props = new Properties();
+    public MqConsumer(String topicName) {
+        this.topicName = topicName;
+        consumer = Consumer.createJavaConsumerConnector(buildConsumerConf());
+    }
 
-		props.put("zookeeper.connect", Conf.ZOOKEEPER_HOST);
-		props.put("group.id", Conf.GROUP_ID);
-		props.put("zookeeper.session.timeout.ms", "40000");
-		props.put("zookeeper.sync.time.ms", "200");
-		props.put("auto.commit.interval.ms", "1000");
 
-		return new ConsumerConfig(props);
+    private ConsumerConnector consumer;
 
-	}
 
-	public void run() {
+    private ConsumerConfig buildConsumerConf() {
+        Properties props = new Properties();
 
-		Map<String, Integer> topicCountMap = new HashMap<String, Integer>();;
+        props.put("zookeeper.connect", KafkaConf.ZOOKEEPER_URL);
+        props.put("group.id", KafkaConf.GROUP_ID);
+        props.put("group.name", "streaming-consumer");
+        props.put("zookeeper.session.timeout.ms", "40000");
+        props.put("zookeeper.sync.time.ms", "200");
+        props.put("auto.commit.interval.ms", "1000");
 
-		topicCountMap.put(topic, 1);
+        return new ConsumerConfig(props);
+    }
 
-		Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer
-				.createMessageStreams(topicCountMap);
+    @Override
+    public void run() {
+        // 注意数量为partition的数量
+        Map<String, Integer> topicCountMap = new HashMap<>(1);
+        topicCountMap.put(topicName, PARTITION_NUM);
 
-		KafkaStream<byte[], byte[]> stream = consumerMap.get(topic).get(0);
+        Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
+        List<KafkaStream<byte[], byte[]>> streams = consumerMap.get(topicName);
 
-		ConsumerIterator<byte[], byte[]> iterator = stream.iterator();
+        // 创建消费线程池
+        ExecutorService executor = ThreadUtil.buildConsumerExecutor(PARTITION_NUM);
+        for (final KafkaStream<byte[], byte[]> stream : streams) {
+            executor.submit(new ConsumerThread(stream));
+        }
+    }
 
-		try {
-			while (iterator.hasNext()) {
-				System.out.println(
-						"Consumer: " + new String(iterator.next().message()));;
-				try {
-					Thread.sleep(1000);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
+    static class ConsumerThread implements Runnable {
+        private KafkaStream<byte[], byte[]> stream;
+
+        ConsumerThread(KafkaStream<byte[], byte[]> stream) {
+            this.stream = stream;
+        }
+
+        @Override
+        public void run() {
+            ConsumerIterator<byte[], byte[]> it = stream.iterator();
+            while (it.hasNext()) {
+                MessageAndMetadata<byte[], byte[]> mam = it.next();
+                System.out.println(Thread.currentThread().getName() + ": partition[" + mam.partition() + "],"
+                        + "offset[" + mam.offset() + "], " + new String(mam.message()));
+            }
+        }
+    }
 }
 ```
 
-### 5.5 测试类
+### 5.7 测试类
 
 ```java
-package com.mq;
+package com.pkgs;
 
-public class TestMq {
+import com.pkgs.conf.KafkaConf;
+import com.pkgs.util.ThreadUtil;
+import com.pkgs.worker.MqConsumer;
+import com.pkgs.worker.MqProvider;
 
-	public static void main(String[] args) {
-		Thread producer = new Thread(new MqProducer(Conf.TOPIC0));
-		Thread consumer = new Thread(new MqConsumer(Conf.TOPIC0));
+import java.util.concurrent.ExecutorService;
 
-		producer.start();
-		consumer.start();
-	}
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/2/14 13:40
+ * <p>
+ * since: 1.0.0
+ */
+public class KafkaApp {
 
+    public static void main(String[] args) {
+        ExecutorService service = ThreadUtil.buildAppExecutor();
+        service.submit(new MqProvider(KafkaConf.STREAMING_TOPIC_NAME));
+        service.submit(new MqConsumer(KafkaConf.STREAMING_TOPIC_NAME));
+    }
 }
 ```
+
+测试结果
+
+```java
+consumer-pool-2: partition[0],offset[2], {"date":"20190215102634,707","id":2,"name":"name2","score":0.0}
+consumer-pool-1: partition[1],offset[3], {"date":"20190215102613,528","id":1,"name":"name1","score":0.0}
+consumer-pool-2: partition[0],offset[3], {"date":"20190215102634,713","id":4,"name":"name4","score":0.0}
+consumer-pool-1: partition[1],offset[4], {"date":"20190215102634,711","id":3,"name":"name3","score":0.0}
+consumer-pool-1: partition[1],offset[5], {"date":"20190215102634,714","id":5,"name":"name5","score":0.0}
+```
+
+总结: 从测试结果可以看出,有两个线程消费队列里面的消息.
 
 ---
 
 ## 6. 参考资料
 
-a. [CSDN 博客](http://blog.csdn.net/hmsiwtv/article/details/46960053)
+a. [Kafka 基础教程](http://blog.csdn.net/hmsiwtv/article/details/46960053)
+
+b. [Kafka 队列 partitions 与 Consumer 的关系](https://www.jianshu.com/p/6233d5341dfe)

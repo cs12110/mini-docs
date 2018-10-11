@@ -4,17 +4,38 @@
 
 被虐,但也所获匪浅.
 
+---
+
+## 优秀博客
+
+- [JVM内存划分](https://blog.csdn.net/antony9118/article/details/51375662)
+- [Java内存模型](https://blog.csdn.net/javazejian/article/details/72772461)
+- [Spring启动流程](https://blog.csdn.net/moshenglv/article/details/53517343)
+- [Mybatis源码阅读](https://blog.csdn.net/u011676300/article/details/82904713)
+- [Socket通信原理](https://www.cnblogs.com/itfly8/p/5844803.html)
+- [SQL优化](https://blog.csdn.net/jie_liang/article/details/77340905)
+- [Java设计模式](http://www.runoob.com/design-pattern/design-pattern-tutorial.html)
+
+- [Spring源码阅读](http://www.cnblogs.com/fangjian0423/p/springMVC-directory-summary.html)
+- [MyBatis源码阅读](https://blog.csdn.net/nmgrd/article/details/54608702)
+
+Q: 数据库建立索引的规则是什么?
+
+---
+
+## JVM加载机制
+
+当写好一个Java程序之后,不是管是CS还是BS应用,都是由若干个`.class`文件组织而成的一个完整的Java应用程序.当程序在运行时,即会调用该程序的一个入口函数来调用系统的相关功能,而这些功能都被封装在不同的class文件当中,所以经常要从这个class文件中要调用另外一个class文件中的方法,如果另外一个文件不存在的,则会引发系统异常.而程序在启动的时候,并不会一次性加载程序所要用的所有class文件,而是根据程序的需要,通过Java的类加载机制(ClassLoader)来动态加载某个class文件到内存当中的,从而只有class文件被载入到了内存之后,才能被其它class所引用. 
+
+**所以ClassLoader就是用来动态加载class文件到内存当中用的.**
 
 
-## 1. JVM加载机制
 
-大家都知道,当我们写好一个Java程序之后,不是管是CS还是BS应用,都是由若干个.class文件组织而成的一个完整的Java应用程序,当程序在运行时,即会调用该程序的一个入口函数来调用系统的相关功能,而这些功能都被封装在不同的class文件当中,所以经常要从这个class文件中要调用另外一个class文件中的方法,如果另外一个文件不存在的,则会引发系统异常.而程序在启动的时候,并不会一次性加载程序所要用的所有class文件,而是根据程序的需要,通过Java的类加载机制(ClassLoader)来动态加载某个class文件到内存当中的,从而只有class文件被载入到了内存之后,才能被其它class所引用.所以ClassLoader就是用来动态加载class文件到内存当中用的. 
+### JVM的ClassLoader
 
+**BootStrap ClassLoader**:称为启动类加载器,是Java类加载层次中最顶层的类加载器,负责加载JDK中的核心类库,如:rt.jar,resources.jar,charsets.jar等.
 
-
-### 1.1 JVM的ClassLoader
-
-**BootStrap ClassLoader**:称为启动类加载器,是Java类加载层次中最顶层的类加载器,负责加载JDK中的核心类库,如:rt.jar,resources.jar,charsets.jar等,可通过如下程序获得该类加载器从哪些地方加载了相关的jar或class文件:
+可通过如下程序获得该类加载器从哪些地方加载了相关的jar或class文件:
 
 ```java
 URL[] urls = sun.misc.Launcher.getBootstrapClassPath().getURLs();
@@ -46,41 +67,40 @@ C:\Program Files\Java\jdk1.6.0_22\jre\lib\resources.jar;C:\Program Files\Java\jd
 
 **App ClassLoader**:称为系统类加载器,负责加载应用程序classpath目录下的所有jar和class文件.
 
-
-
 注意: 除了Java默认提供的三个ClassLoader之外,用户还可以根据需要定义自已的ClassLoader,而这些自定义的ClassLoader都必须继承自java.lang.ClassLoader类,也包括Java提供的另外二个ClassLoader(Extension ClassLoader和App ClassLoader)在内,但是Bootstrap ClassLoader不继承自ClassLoader,因为它不是一个普通的Java类,底层由C++编写,已嵌入到了JVM内核当中,当JVM启动后,Bootstrap ClassLoader也随着启动,负责加载完核心类库后,并构造Extension ClassLoader和App ClassLoader类加载器.
 
-
-
-### 1.2 双亲委托
+### 双亲委托
 
 **原理介绍**
 
-ClassLoader使用的是**双亲委托模型**来搜索类的,每个ClassLoader实例都有一个父类加载器的引用(不是继承的关系,是一个包含的关系),虚拟机内置的类加载器(Bootstrap ClassLoader)本身没有父类加载器,但可以用作其它ClassLoader实例的的父类加载器.当一个ClassLoader实例需要加载某个类时,它会试图亲自搜索某个类之前,先把这个任务委托给它的父类加载器,这个过程是由上至下依次检查的,首先由最顶层的类加载器Bootstrap ClassLoader试图加载,如果没加载到,则把任务转交给Extension ClassLoader试图加载,如果也没加载到,则转交给App ClassLoader 进行加载,如果它也没有加载得到的话,则返回给委托的发起者,由它到指定的文件系统或网络等URL中加载该类.如果它们都没有加载到这个类时,则抛出ClassNotFoundException异常.否则将这个找到的类生成一个类的定义,并将它加载到内存当中,最后返回这个类在内存中的Class实例对象.
+ClassLoader使用的是 **双亲委托模型** 来搜索类的,每个ClassLoader实例都有一个父类加载器的引用(不是继承的关系,是一个包含的关系),虚拟机内置的类加载器(Bootstrap ClassLoader)本身没有父类加载器,但可以用作其它ClassLoader实例的的父类加载器.当一个ClassLoader实例需要加载某个类时,它会试图亲自搜索某个类之前,先把这个任务委托给它的父类加载器,这个过程是由上至下依次检查的,首先由最顶层的类加载器Bootstrap ClassLoader试图加载,如果没加载到,则把任务转交给Extension ClassLoader试图加载,如果也没加载到,则转交给App ClassLoader 进行加载,如果它也没有加载得到的话,则返回给委托的发起者,由它到指定的文件系统或网络等URL中加载该类.如果它们都没有加载到这个类时,则抛出ClassNotFoundException异常.否则将这个找到的类生成一个类的定义,并将它加载到内存当中,最后返回这个类在内存中的Class实例对象.
 
  
 
-**为什么要使用双亲委托这种模型呢？**
+**为什么要使用双亲委托这种模型呢?**
 
-因为这样可以**避免重复加载**,当父亲已经加载了该类的时候,就没有必要子ClassLoader再加载一次.考虑到安全因素,我们试想一下,如果不使用这种委托模式,那我们就可以随时使用自定义的String来动态替代java核心api中定义的类型,这样会存在非常大的安全隐患,而双亲委托的方式,就可以避免这种情况,因为String已经在启动时就被引导类加载器(Bootstrcp ClassLoader)加载,所以用户自定义的ClassLoader永远也无法加载一个自己写的String,除非你改变JDK中ClassLoader搜索类的默认算法.
+因为这样可以 **避免重复加载**,当父亲已经加载了该类的时候,就没有必要子ClassLoader再加载一次.考虑到安全因素,我们试想一下,如果不使用这种委托模式,那我们就可以随时使用自定义的String来动态替代java核心api中定义的类型,这样会存在非常大的安全隐患,而双亲委托的方式,就可以避免这种情况,因为String已经在启动时就被引导类加载器(Bootstrcp ClassLoader)加载,所以用户自定义的ClassLoader永远也无法加载一个自己写的String,除非你改变JDK中ClassLoader搜索类的默认算法.
 
  
 
-**但是JVM在搜索类的时候,又是如何判定两个class是相同的呢？**
+**但是JVM在搜索类的时候,又是如何判定两个class是相同的呢?**
 
-​JVM在判定两个class是否相同时,不仅要判断两个类名是否相同,而且要判断是否由同一个类加载器实例加载的.只有两者同时满足的情况下,JVM才认为这两个class是相同的.就算两个class是同一份class字节码,如果被两个不同的ClassLoader实例所加载,JVM也会认为它们是两个不同class.比如网络上的一个Java类org.classloader.simple.NetClassLoaderSimple,javac编译之后生成字节码文件NetClassLoaderSimple.class,ClassLoaderA和ClassLoaderB这两个类加载器并读取了NetClassLoaderSimple.class文件,并分别定义出了java.lang.Class实例来表示这个类,对于JVM来说,它们是两个不同的实例对象,但它们确实是同一份字节码文件,如果试图将这个Class实例生成具体的对象进行转换时,就会抛运行时异常java.lang.ClassCaseException,提示这是两个不同的类型.现在通过实例来验证上述所描述的是否正确:
-
-
+​JVM在判定两个class是否相同时,不仅要判断两个类名是否相同,而且要判断是否由同一个类加载器实例加载的.只有两者同时满足的情况下,JVM才认为这两个class是相同的.就算两个class是同一份class字节码,如果被两个不同的ClassLoader实例所加载,JVM也会认为它们是两个不同class.比如网络上的一个Java类org.classloader.simple.NetClassLoaderSimple,javac编译之后生成字节码文件NetClassLoaderSimple.class,ClassLoaderA和ClassLoaderB这两个类加载器并读取了NetClassLoaderSimple.class文件,并分别定义出了java.lang.Class实例来表示这个类,对于JVM来说,它们是两个不同的实例对象,但它们确实是同一份字节码文件,如果试图将这个Class实例生成具体的对象进行转换时,就会抛运行时异常java.lang.ClassCaseException,提示这是两个不同的类型.现在通过实例来验证上述所描述的是否正确.
 
 
+---
 
-## 2. HashMap相关
 
-### 2.1 HashMap的增长
+## HashMap相关
+
+### HashMap的增长
 
 在Java 8 之前,HashMap和其他基于map的类都是通过链地址法解决冲突,它们使用单向链表来存储相同索引值的元素.在最坏的情况下,这种方式会将HashMap的get方法的性能从O(1)降低到O(n).为了解决在频繁冲突时hashmap性能降低的问题,Java 8中使用平衡树来替代链表存储冲突的元素.这意味着我们可以将最坏情况下的性能从O(n)提高到O(logn).
+
 在Java 8中使用常量TREEIFY_THRESHOLD来控制是否切换到平衡树来存储.目前,这个常量值是8,这意味着当有超过8个元素的索引一样时,HashMap会使用树来存储它们.
+
 这一改变是为了继续优化常用类.大家可能还记得在Java 7中为了优化常用类对ArrayList和HashMap采用了延迟加载的机制,在有元素加入之前不会分配内存,这会减少空的链表和HashMap占用的内存.
+
 这一动态的特性使得HashMap一开始使用链表,并在冲突的元素数量超过指定值时用平衡二叉树替换链表.不过这一特性在所有基于hash table的类中并没有,例如Hashtable和WeakHashMap.
 目前,只有ConcurrentHashMap,LinkedHashMap和HashMap会在频繁冲突的情况下使用平衡树.
 
@@ -117,13 +137,13 @@ HashMap的快速高效,使其使用非常广泛.其原理是,调用hashCode()和
 
 虽然是一个小小的改进,但意义重大:
 
-1.O(n)到O(logn)的时间开销.
+- a. O(n)到O(logn)的时间开销.
 
-2.如果恶意程序知道我们用的是Hash算法,则在纯链表情况下,它能够发送大量请求导致哈希碰撞,然后不停访问这些key导致HashMap忙于进行线性查找,最终陷入瘫痪,即形成了拒绝服务攻击(DoS).
+- b. 如果恶意程序知道我们用的是Hash算法,则在纯链表情况下,它能够发送大量请求导致哈希碰撞,然后不停访问这些key导致HashMap忙于进行线性查找,最终陷入瘫痪,即形成了拒绝服务攻击(DoS).
 
 
 
-### 2.2 HashMap和HashSet的区别
+### HashMap和HashSet的区别
 
 | hashMap实现的是map接口                                                      | hashSet实现的是set接口                  |
 | --------------------------------------------------------------------------- | --------------------------------------- |
@@ -135,7 +155,7 @@ HashMap的快速高效,使其使用非常广泛.其原理是,调用hashCode()和
 
 
 
-### 2.3 HashMap和HashTable的区别
+### HashMap和HashTable的区别
 
 HashTable:
 
@@ -151,7 +171,7 @@ HashMap把Hashtable的contains方法去掉了,改成containsvalue和containsKey.
 
 
 
-### 2.4 LinkedHashMap
+### LinkedHashMap
 
 在HashMap里边,put进去的元素,取出来是无序的,如果要保证有序,那么可以使用LinkedHashMap.
 
@@ -186,7 +206,7 @@ null:null
 
 
 
-### 2.5 HashTable和ConcurrentHashMap的区别
+### HashTable和ConcurrentHashMap的区别
 
 **为什么我们需要ConcurrentHashMap和CopyOnWriteArrayList**
 
@@ -198,9 +218,7 @@ ConcurrentHashMap和CopyOnWriteArrayList保留了线程安全的同时,也提供
 
 **ConcurrentHashMap和Hashtable的区别**
 
-Hashtable和ConcurrentHashMap有什么分别呢？它们都可以用于多线程的环境,但是当Hashtable的大小增加到一定的时候,性能会急剧下降,因为迭代时需要被锁定很长的时间.因为ConcurrentHashMap引入了分割(segmentation),不论它变得多么大,仅仅需要锁定map的某个部分,而其它的线程不需要等到迭代完成才能访问map.简而言之,**在迭代的过程中,ConcurrentHashMap仅仅锁定map的某个部分,而Hashtable则会锁定整个map**.
-
-
+Hashtable和ConcurrentHashMap有什么分别呢?它们都可以用于多线程的环境,但是当Hashtable的大小增加到一定的时候,性能会急剧下降,因为迭代时需要被锁定很长的时间.因为ConcurrentHashMap引入了分割(segmentation),不论它变得多么大,仅仅需要锁定map的某个部分,而其它的线程不需要等到迭代完成才能访问map.简而言之,**在迭代的过程中,ConcurrentHashMap仅仅锁定map的某个部分,而Hashtable则会锁定整个map**.
 
 
 
@@ -211,9 +229,10 @@ b. HashTable的put和get方法都是同步方法,  而ConcurrentHashMap的get�
 
 但是ConcurrentHashMap不能替代HashTable,因为两者的迭代器的一致性不同的,hash table的迭代器是强一致性的,而concurrenthashmap是弱一致的. ConcurrentHashMap的get,clear,iterator 都是弱一致性的.
 
+---
 
 
-## 3. 线程池的使用
+## 线程池的使用
 
 执行流程:  **创建coresize的初始线程 ->coresize全部已执行,新进任务放进等待队列 -> 队列已满 -> 开启线程数至maxsize -> 还执行不过来,进行策略拒绝.**
 
@@ -249,11 +268,11 @@ BlockingQueue<Runnable> workQueue,RejectedExecutionHandler handler);
 ```java
 TimeUnit.DAYS; //天
 TimeUnit.HOURS; //小时
-TimeUnit.MINUTES;    //分钟
-TimeUnit.SECONDS;    //秒
+TimeUnit.MINUTES; //分钟
+TimeUnit.SECONDS; //秒
 TimeUnit.MILLISECONDS; //毫秒
 TimeUnit.MICROSECONDS; //微妙
-TimeUnit.NANOSECONDS;//纳秒
+TimeUnit.NANOSECONDS; //纳秒
 ```
 
 
@@ -282,23 +301,23 @@ ThreadPoolExecutor.CallerRunsPolicy;
 ```
 
 
+---
 
 
 
+## Java里面的异常体系 
 
-## 4. Java里面的异常体系 
-
-### 4.1 Java异常体系
+### Java异常体系
 
 Java异常体系如下:
 
 ![1535693252798](imgs/exception.png)
 
-### 4.2 基础概念
+### 基础概念
 
 **Error与Exception**
 
-Error是程序无法处理的错误,比如OutOfMemoryError,ThreadDeath等.这些异常发生时,Java虚拟机(JVM)一般会选择线程终止.        Exception是程序本身可以处理的异常,这种异常分两大类运行时异常和非运行时异常.程序中应当尽可能去处理这些异常.       
+Error是程序无法处理的错误,比如OutOfMemoryError,ThreadDeath等.这些异常发生时,Java虚拟机(JVM)一般会选择线程终止.Exception是程序本身可以处理的异常,这种异常分两大类运行时异常和非运行时异常.程序中应当尽可能去处理这些异常.       
 
 
 
@@ -312,19 +331,19 @@ Error是程序无法处理的错误,比如OutOfMemoryError,ThreadDeath等.这些
 throw关键字是用于方法体内部,用来抛出一个Throwable类型的异常.如果抛出了检查异常,则还应该在方法头部声明方法可能抛出的异常类型.该方法的调用者也必须检查处理抛出的异常.如果所有方法都层层上抛获取的异常,最终JVM会进行处理,处理也很简单,就是打印异常消息和堆栈信息.如果抛出的是Error或RuntimeException,则该方法的调用者可选择处理该异常.有关异常的转译会在下面说明.throws关键字用于方法体外部的方法声明部分,用来声明方法可能会抛出某些异常.仅当抛出了检查异常,该方法的调用者才必须处理或者重新抛出该异常.当方法的调用者无力处理该异常的时候,应该继续抛出,而不是囫囵吞枣一般在catch块中打印一下堆栈信息做个勉强处理.
 
 
+---
 
 
+## Wait和Sleep的区别
 
-## 5. Wait和Sleep的区别
+sleep 是线程类(Thread)的方法,导致此线程暂停执行指定时间,给执行机会给其他线程,但是监控状态依然保持,到时后会自动恢复.调用sleep 不会释放对象锁.
+wait 是Object 类的方法,对此对象调用wait 方法导致本线程放弃对象锁,进入等待此对象的等待锁定池,只有针对此对象发出notify 方法(或notifyAll)后本线程才进入对象锁定池准备获得对象锁进入运行状态.
 
-sleep 是线程类(Thread)的方法，导致此线程暂停执行指定时间，给执行机会给其他线程，但是监控状态依然保持，到时后会自动恢复。调用sleep 不会释放对象锁。
-wait 是Object 类的方法，对此对象调用wait 方法导致本线程放弃对象锁，进入等待此对象的等待锁定池，只有针对此对象发出notify 方法(或notifyAll)后本线程才进入对象锁定池准备获得对象锁进入运行状态。
+- 这两个方法来自不同的类分别是Thread和Object
 
-1. 这两个方法来自不同的类分别是Thread和Object
+- 最主要是sleep方法没有释放锁,而wait方法释放了锁,使得其他线程可以使用同步控制块或者方法.
 
-2. 最主要是sleep方法没有释放锁，而wait方法释放了锁，使得其他线程可以使用同步控制块或者方法。
-
-3. wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用(使用范围)
+- wait,notify和notifyAll只能在同步控制方法或者同步控制块里面使用,而sleep可以在任何地方使用(使用范围)
 
 ```java
 synchronized(x){
@@ -333,19 +352,20 @@ synchronized(x){
 }
 ```
 
-4. sleep必须捕获异常，而wait，notify和notifyAll不需要捕获异常
+- sleep必须捕获异常,而wait,notify和notifyAll不需要捕获异常
 
-sleep方法属于Thread类中方法，表示让一个线程进入睡眠状态，等待一定的时间之后，自动醒来进入到可运行状态，不会马上进入运行状态，因为线程调度机制恢复线程的运行也需要时间，一个线程对象调用了sleep方法之后，并不会释放他所持有的所有对象锁，所以也就不会影响其他进程对象的运行。但在sleep的过程中过程中有可能被其他对象调用它的interrupt(),产生InterruptedException异常，如果你的程序不捕获这个异常，线程就会异常终止，进入TERMINATED状态，如果你的程序捕获了这个异常，那么程序就会继续执行catch语句块(可能还有finally语句块)以及以后的代码。
+sleep方法属于Thread类中方法,表示让一个线程进入睡眠状态,等待一定的时间之后,自动醒来进入到可运行状态,不会马上进入运行状态,因为线程调度机制恢复线程的运行也需要时间,一个线程对象调用了sleep方法之后,并不会释放他所持有的所有对象锁,所以也就不会影响其他进程对象的运行.但在sleep的过程中过程中有可能被其他对象调用它的interrupt(),产生InterruptedException异常,如果你的程序不捕获这个异常,线程就会异常终止,进入TERMINATED状态,如果你的程序捕获了这个异常,那么程序就会继续执行catch语句块(可能还有finally语句块)以及以后的代码.
 
-注意sleep()方法是一个静态方法，也就是说他只对当前对象有效，通过t.sleep()让t对象进入sleep，这样的做法是错误的，它只会是使当前线程被sleep 而不是t线程
+注意sleep()方法是一个静态方法,也就是说他只对当前对象有效,通过t.sleep()让t对象进入sleep,这样的做法是错误的,它只会是使当前线程被sleep 而不是t线程
 
-wait属于Object的成员方法，一旦一个对象调用了wait方法，必须要采用notify()和notifyAll()方法唤醒该进程;如果线程拥有某个或某些对象的同步锁，那么在调用了wait()后，这个线程就会释放它持有的所有同步资源，而不限于这个被调用了wait()方法的对象。wait()方法也同样会在wait的过程中有可能被其他对象调用interrupt()方法而产生.
+wait属于Object的成员方法,一旦一个对象调用了wait方法,必须要采用notify()和notifyAll()方法唤醒该进程;如果线程拥有某个或某些对象的同步锁,那么在调用了wait()后,这个线程就会释放它持有的所有同步资源,而不限于这个被调用了wait()方法的对象.wait()方法也同样会在wait的过程中有可能被其他对象调用interrupt()方法而产生.
 
 
+---
 
-## 6. Mybatis缓存
+## Mybatis缓存
 
-### 6.1 **延迟加载**
+### 延迟加载
 
 resultMap中的association和collection标签具有延迟加载的功能.
 
@@ -366,14 +386,19 @@ lazyLoadingEnabled,aggressiveLazyLoading
 
 
 
-### 6.2 **查询缓存**
+### 查询缓存
 
-**Mybatis的一级缓存**是指SqlSession.一级缓存的作用域是一个SqlSession.Mybatis默认开启一级缓存.
+**Mybatis的一级缓存**是指SqlSession.
+
+一级缓存的作用域是一个SqlSession.Mybatis默认开启一级缓存.
+
 在同一个SqlSession中,执行相同的查询SQL,第一次会去查询数据库,并写到缓存中;第二次直接从缓存中取.当执行SQL时两次查询中间发生了增删改操作,则SqlSession的缓存清空.
 
  
 
-**Mybatis的二级缓存**是指mapper映射文件.二级缓存的作用域是同一个namespace下的mapper映射文件内容,多个SqlSession共享.Mybatis需要手动设置启动二级缓存.
+**Mybatis的二级缓存**是指mapper映射文件.
+
+二级缓存的作用域是同一个namespace下的mapper映射文件内容,多个SqlSession共享.Mybatis需要手动设置启动二级缓存.
 
 在同一个namespace下的mapper文件中,执行相同的查询SQL,第一次会去查询数据库,并写到缓存中;第二次直接从缓存中取.当执行SQL时两次查询中间发生了增删改操作,则二级缓存清空.
 
@@ -409,9 +434,9 @@ SqlSession执行insert,update,delete等操作commit后会清空该SQLSession缓�
 
  
 
-### 6.3 **缓存设置**
+### 缓存设置
 
-1,  在核心配置文件SqlMapConfig.xml中加入以下内容(开启二级缓存总开关):
+在核心配置文件SqlMapConfig.xml中加入以下内容(开启二级缓存总开关):
 
 cacheEnabled设置为 true
 
@@ -419,7 +444,7 @@ cacheEnabled设置为 true
 
   
 
-2,在映射文件中,加入以下内容,开启二级缓存:
+在映射文件中,加入以下内容,开启二级缓存:
 
 ![](imgs/wKiom1WIJHGj-78eAACCk6Tv9vs396.jpg)
 
@@ -444,11 +469,14 @@ cacheEnabled设置为 true
 ![](imgs/wKioL1WIJvXykyTeAACdJiTWDLM099.jpg)
 
 
+---
+
+## Mysql
 
 
-## 7. SQL组合索引
+### 组合索引
 
-联合索引又叫复合索引.对于复合索引:Mysql从左到右的使用索引中的字段,一个查询可以只使用索引中的一部份,但只能是最左侧部分.例如索引是key index(a,b,c). 可以支持[a],[a,b],[a,c] ,[a,b,c] 4种组合进行查找,但不支持 b,c进行查找 .当最左侧字段是常量引用时,索引就十分有效.
+联合索引又叫复合索引.对于复合索引:Mysql从左到右的使用索引中的字段,一个查询可以只使用索引中的一部份,但只能是最左侧部分.例如索引是key index(a,b,c). 可以支持[a],[a,b],[a,c] ,[a,b,c] 4种组合进行查找,但不支持 b,c进行查找.当最左侧字段是常量引用时,索引就十分有效.
 
 假设有表结构如下
 
@@ -480,11 +508,49 @@ select * from abc where a ='1' and b='1';
 select * from abc where b='1' and c ='1';
 ```
 
+### 乐观锁与悲观锁
 
+悲观锁与乐观锁是两种常见的资源并发锁设计思路,也是并发编程中一个非常基础的概念.本文将对这两种常见的锁机制在数据库数据上的实现进行比较系统的介绍.
 
-## 8. 动态代理和Cglib的区别
+**悲观锁(Pessimistic Lock)**
 
-### 8.1 基础知识
+悲观锁的特点是先获取锁,再进行业务操作,即"悲观"的认为获取锁是非常有可能失败的,因此要先确保获取锁成功再进行业务操作.通常所说的"一锁二查三更新"即指的是使用悲观锁.通常来讲在数据库上的悲观锁需要数据库本身提供支持,即通过常用的select ... for update操作来实现悲观锁.当数据库执行select for update时会获取被select中的数据行的行锁,因此其他并发执行的select for update如果试图选中同一行则会发生排斥(需要等待行锁被释放),因此达到锁的效果.select for update获取的行锁会在当前事务结束时自动释放,因此必须在事务中使用.
+
+这里需要注意的一点是不同的数据库对select for update的实现和支持都是有所区别的,例如oracle支持select for update no wait,表示如果拿不到锁立刻报错,而不是等待,mysql就没有no wait这个选项.另外mysql还有个问题是select for update语句执行中所有扫描过的行都会被锁上,这一点很容易造成问题.因此如果在mysql中用悲观锁务必要确定走了索引,而不是全表扫描.
+
+**乐观锁(Optimistic Lock)**
+
+乐观锁的特点先进行业务操作,不到万不得已不去拿锁.即"乐观"的认为拿锁多半是会成功的,因此在进行完业务操作需要实际更新数据的最后一步再去拿一下锁就好.
+
+乐观锁在数据库上的实现完全是逻辑的,不需要数据库提供特殊的支持.一般的做法是在需要锁的数据上增加一个版本号,或者时间戳,然后按照如下方式实现：
+
+```java
+SELECT data AS old_data, version AS old_version FROM ...;
+
+// 根据获取的数据进行业务操作,得到new_data和new_version
+UPDATE SET data = new_data, version = new_version WHERE version = old_version
+
+if (updated row > 0) {
+    // 乐观锁获取成功,操作完成
+} else {
+    // 乐观锁获取失败,回滚并重试
+}
+
+```
+
+乐观锁是否在事务中其实都是无所谓的,其底层机制是这样：在数据库内部update同一行的时候是不允许并发的,即数据库每次执行一条update语句时会获取被update行的写锁,直到这一行被成功更新后才释放.因此在业务操作进行前获取需要锁的数据的当前版本号,然后实际更新数据时再次对比版本号确认与之前获取的相同,并更新版本号,即可确认这之间没有发生并发的修改.如果更新失败即可认为老版本的数据已经被并发修改掉而不存在了,此时认为获取锁失败,需要回滚整个业务操作并可根据需要重试整个过程.
+
+**总结**
+
+乐观锁在不发生取锁失败的情况下开销比悲观锁小,但是一旦发生失败回滚开销则比较大,因此适合用在取锁失败概率比较小的场景,可以提升系统并发性能
+
+乐观锁还适用于一些比较特殊的场景,例如在业务操作过程中无法和数据库保持连接等悲观锁无法适用的地方
+
+---
+
+## 动态代理和Cglib的区别
+
+### 基础知识
 
 Spirng的AOP的动态代理实现机制有两种,分别是:
 
@@ -510,11 +576,11 @@ CGLib动态代理
 
 
 
-### 8.2 两者对比
+### 两者对比
 
 **比较:**
 
-JDK动态代理是**面向接口**,在创建代理实现类时比CGLib要快,创建代理速度快.
+JDK动态代理是 **面向接口**,在创建代理实现类时比CGLib要快,创建代理速度快.
 
 CGLib动态代理是通过字节码底层继承要代理类来实现(如果被代理类被final关键字所修饰,那么抱歉会失败),在创建代理这一块没有JDK动态代理快,但是运行速度比JDK动态代理要快.
 
@@ -525,26 +591,27 @@ CGLib动态代理是通过字节码底层继承要代理类来实现(如果被�
 如果要被代理的对象不是个实现类那么,Spring会强制使用CGLib来实现动态代理.
 
 
+---
 
 
 
-## 9. 消息队列对比
+## 消息队列对比
 
 
-
-### 9.1 主流消息队列对比
+主流消息队列对比
 
 ![](imgs/messagequeue.png)
 
 
 
+---
 
 
-## 10. Spring请求过程和注解区别
+## Spring请求过程和注解区别
 
 
 
-### 10.1 Spring请求响应过程
+### Spring请求响应过程
 
 请求如下图所示
 
@@ -552,7 +619,7 @@ CGLib动态代理是通过字节码底层继承要代理类来实现(如果被�
 
 
 
-### 10.2 获取ApplicationContext
+### 获取ApplicationContext
 
 在项目中,经常遇到这样的问题:有些类需要使用new来创建对象,但是类中需要使用spring容器中定义的bean,此时无法通过spring的自动注入来注入我们需要使用的bean.所以需要手动的从spring容器中获取bean.要获取bean必须先获取到ApplicationContext对象,有以下方式可以获取该对象.
 
@@ -616,9 +683,9 @@ public class ApplicationContextUtil implements ApplicationContextAware {
 
 
 
-### 10.3 @Autowired 与 @Resource
+### @Autowired 与 @Resource
 
-年初刚加入到现在的项目时,在使用注解时我用的@Resource.后来,同事:你怎么使用@Resource注解？我:使用它有错吗？同事:没错,但是现在都使用@Autowired.我:我研究一下.
+年初刚加入到现在的项目时,在使用注解时我用的@Resource.后来,同事:你怎么使用@Resource注解?我:使用它有错吗?同事:没错,但是现在都使用@Autowired.我:我研究一下.
 
 在大学,学习J2EE实训时一直使用的是@Resource注解,后来我就养成习惯了.现在对这两个注解做一下解释:
 
@@ -784,7 +851,7 @@ public class SequenceServiceImpl implements SequenceService {
 
 
 
-### 10.4 BeanFactory与FactoryBean
+### BeanFactory与FactoryBean
 
 区别:BeanFactory是个Factory,也就是IOC容器或对象工厂,FactoryBean是个Bean.在Spring中,所有的Bean都是由BeanFactory(也就是IOC容器)来进行管理的.但对FactoryBean而言,这个Bean不是简单的Bean,而是一个能生产或者修饰对象生成的工厂Bean,它的实现与设计模式中的工厂模式和修饰器模式类似
 
@@ -813,6 +880,7 @@ public interface BeanFactory {
 ```
 
 **FactoryBean**
+
 一般情况下,Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean,在某些情况下,实例化Bean过程比较复杂,如果按照传统的方式,则需要在<bean>中提供大量的配置信息.配置方式的灵活性是受限的,这时采用编码的方式可能会得到一个简单的方案.Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口,用户可以通过实现该接口定制实例化Bean的逻辑.
 FactoryBean接口对于Spring框架来说占用重要的地位,Spring自身就提供了70多个FactoryBean的实现.它们隐藏了实例化一些复杂Bean的细节,给上层应用带来了便利.从Spring3.0开始,FactoryBean开始支持泛型,即接口声明改为FactoryBean<T>的形式
 
@@ -825,11 +893,17 @@ public interface FactoryBean<T> {
 }
 ```
 
- 在该接口中还定义了以下3个方法:
-TgetObject():返回由FactoryBean创建的Bean实例,如果isSingleton()返回true,则该实例会放到Spring容器中单实例缓存池中;
-booleanisSingleton():返回由FactoryBean创建的Bean实例的作用域是singleton还是prototype;
-`Class<T>getObjectType()`:返回FactoryBean创建的Bean类型.
+该接口中还定义了以下3个方法:
+
+- T getObject():返回由FactoryBean创建的Bean实例,如果isSingleton()返回true,则该实例会放到Spring容器中单实例缓存池中;
+
+- boolean isSingleton():返回由FactoryBean创建的Bean实例的作用域是singleton还是prototype;
+
+- Class<T> getObjectType():返回FactoryBean创建的Bean类型.
+
+
 当配置文件中`<bean>`的class属性配置的实现类是FactoryBean时,通过getBean()方法返回的不是FactoryBean本身,而是FactoryBean#getObject()方法所返回的对象,相当于FactoryBean#getObject()代理了getBean()方法.
+
 例:如果使用传统方式配置下面Car的`<bean>`时,Car的每个属性分别对应一个`<property>`元素标签.
 
 ```java
@@ -904,15 +978,16 @@ public   class  CarFactoryBean  implements  FactoryBean<Car>  {
 
 
 **区别**
+
 BeanFactory是个Factory,也就是IOC容器或对象工厂,FactoryBean是个Bean.在Spring中,所有的Bean都是由BeanFactory(也就是IOC容器)来进行管理的.但对FactoryBean而言,这个Bean不是简单的Bean,而是一个能生产或者修饰对象生成的工厂Bean,它的实现与设计模式中的工厂模式和修饰器模式类似.
 
 
 
 
 
-### 10.5 @Component与@Service区别
+### @Component与@Service区别
 
-在spring集成的框架中,注解在类上的`@Component`,`@Repository`,`@Service`等注解能否被互换？或者说这些注解有什么区别？
+在spring集成的框架中,注解在类上的`@Component`,`@Repository`,`@Service`等注解能否被互换?或者说这些注解有什么区别?
 
 引用spring的官方文档中的一段描述:
 
@@ -926,12 +1001,12 @@ BeanFactory是个Factory,也就是IOC容器或对象工厂,FactoryBean是个Bean
 
 就如上文所说的,`@Repository`早已被支持了在你的持久层作为一个标记可以去自动处理数据库操作产生的异常(译者注:因为原生的java操作数据库所产生的异常只定义了几种,但是产生数据库异常的原因却有很多种,这样对于数据库操作的报错排查造成了一定的影响;而Spring拓展了原生的持久层异常,针对不同的产生原因有了更多的异常进行描述.所以,在注解了`@Repository`的类上如果数据库操作中抛出了异常,就能对其进行处理,转而抛出的是翻译后的spring专属数据库异常,方便我们对异常进行排查处理).
 
-| 注解        | 含义                                        |
+| 注解        |                    含义                     |
 | ----------- | :-----------------------------------------: |
 | @Component  | 最普通的组件,可以被注入到spring容器进行管理 |
-| @Repository | 作用于持久层                                |
-| @Service    | 作用于业务逻辑层                            |
-| @Controller | 作用于表现层(spring-mvc的注解)              |
+| @Repository |                作用于持久层                 |
+| @Service    |              作用于业务逻辑层               |
+| @Controller |       作用于表现层(spring-mvc的注解)        |
 
 回答2
 
@@ -980,17 +1055,18 @@ public @interface ScheduleJob {...}
 * 用这些注解对应用进行分层之后,就能将请求处理,义务逻辑处理,数据库操作处理分离出来,为代码解耦,也方便了以后项目的维护和开发.
 
 
+---
 
+## Spring事务和传播机制
 
-## 11. Spring事务和传播机制
-
-### 11.1 事务的嵌套概念
+### 事务的嵌套概念
 
 所谓事务的嵌套就是两个事务方法之间相互调用.spring事务开启 ,或者是基于接口的或者是基于类的代理被创建(**注意一定要是代理,不能手动new 一个对象,并且此类(有无接口都行)一定要被代理——spring中的bean只要纳入了IOC管理都是被代理的**).所以在同一个类中一个方法调用另一个方法有事务的方法,事务是不会起作用的.
 
 Spring默认情况下会对运行期例外(RunTimeException),即uncheck异常,进行事务回滚.
 
 如果遇到checked异常就不回滚.
+
 如何改变默认规则:
 
 1. 让checked例外也回滚:在整个方法前加上 `@Transactional(rollbackFor=Exception.class)`
@@ -1001,7 +1077,7 @@ Spring默认情况下会对运行期例外(RunTimeException),即uncheck异常,�
 
 上面三种方式也可在xml配置
 
-### 11.2 spring事务传播属性
+### spring事务传播属性
 
 在 spring的 TransactionDefinition接口中一共定义了六种事务传播属性:
 
@@ -1121,7 +1197,7 @@ c. Connection.getMetaData().supportsSavepoints() 必须为 true, 即 jdbc drive 
 
 
 
-### 11.3 Log Service配置事务传播
+### Log Service配置事务传播
 
 不管业务逻辑的service是否有异常,Log Service都应该能够记录成功,通常有异常的调用更是用户关心的.Log Service如果沿用业务逻辑Service的事务的话在抛出异常时将没有办法记录日志(事实上是回滚了).所以希望Log Service能够有独立的事务.日志和普通的服务应该具有不同的策略.Spring 配置文件transaction.xml:
 
@@ -1167,9 +1243,9 @@ c. Connection.getMetaData().supportsSavepoints() 必须为 true, 即 jdbc drive 
 ​																 																		 													
 如上面的Spring配置文件所示,日志服务的事务策略配置为propagation="REQUIRES_NEW",告诉Spring不管上下文是否有事务,Log Service被调用时都要求一个完全新的只属于Log Service自己的事务.通过该事务策略,Log Service可以独立的记录日志信息,不再受到业务逻辑事务的干扰.
 
+---
 
-
-## 12. Spring IOC和AOP的应用 
+## Spring IOC和AOP的应用 
 
 IOC:IOC,另外一种说法叫DI(Dependency Injection),即依赖注入.它并不是一种技术实现,而是一种设计思想.在任何一个有实际开发意义的程序项目中,我们会使用很多类来描述它们特有的功能,并且通过类与类之间的相互协作来完成特定的业务逻辑.这个时候,每个类都需要负责管理与自己有交互的类的引用和依赖,代码将会变的异常难以维护和极度的高耦合.而IOC的出现正是用来解决这个问题,我们通过IOC将这些相互依赖对象的创建.协调工作交给Spring容器去处理,每个对象只需要关注其自身的业务逻辑关系就可以了.在这样的角度上来看,获得依赖的对象的方式,进行了反转,变成了由spring容器控制对象如何获取外部资源(包括其他对象和文件资料等等).
 
@@ -1216,3 +1292,63 @@ Spring 切面可以应用5种类型的通知:
 >类加载期:切面在目标加载到JVM时被织入.这种方式需要特殊的类加载器(class loader)它可以在目标类被引入应用之前增强该目标类的字节码.
 >
 >运行期: 切面在应用运行到某个时刻时被织入.一般情况下,在织入切面时,AOP容器会为目标对象动态地创建一个代理对象.SpringAOP就是以这种方式织入切面的.
+
+---
+
+## RPC与Rest
+
+接口调用通常包含两个部分,序列化和通信协议.常见的序列化协议包括json,xml,hession,protobuf,thrift,text,bytes等;通信比较流行的是http,soap,websockect,RPC通常基于TCP实现,常用框架例如dubbo,netty,mina,thrift
+
+**两种接口**
+
+> Rest:严格意义上说接口很规范,操作对象即为资源,对资源的四种操作(post,get,put,delete),并且参数都放在URL上,但是不严格的说Http+json,Http+xml,常见的http api都可以称为Rest接口.
+>
+> Rpc:我们常说的远程方法调用,就是像调用本地方法一样调用远程方法,通信协议大多采用二进制方式
+
+
+**http vs 高性能二进制协议**
+
+http相对更规范,更标准,更通用,无论哪种语言都支持http协议.如果你是对外开放API,例如开放平台,外部的编程语言多种多样,你无法拒绝对每种语言的支持,相应的,如果采用http,无疑在你实现SDK之前,支持了所有语言,所以,现在开源中间件,基本最先支持的几个协议都包含RESTful.
+
+RPC协议性能要高的多,例如Protobuf,Thrift,Kyro等,(如果算上序列化)吞吐量大概能达到http的二倍.响应时间也更为出色.千万不要小看这点性能损耗,公认的,微服务做的比较好的,例如,netflix,阿里,曾经都传出过为了提升性能而合并服务.如果是交付型的项目,性能更为重要,因为你卖给客户往往靠的就是性能上微弱的优势.
+
+RESTful你可以看看,无论是Google,Amazon,netflix(据说很可能转向grpc),还是阿里,实际上内部都是采用性能更高的RPC方式.而对外开放的才是RESTful.
+
+
+Rest 调用及测试都很方便,Rpc就显得有点麻烦,但是Rpc的效率是毋庸置疑的,所以建议在多系统之间采用Rpc,对外提供服务,Rest是很适合的
+duboo在生产者和消费者两个微服务之间的通信采用的就是Rpc,无疑在服务之间的调用Rpc更变现的优秀
+
+
+
+Rpc在微服务中的利用
+
+1. RPC 框架是架构微服务化的首要基础组件,它能大大降低架构微服务化的成本,提高调用方与服务提供方的研发效率,屏蔽跨进程调用函数(服务)的各类复杂细节
+
+
+2. RPC 框架的职责是: 让调用方感觉就像调用本地函数一样调用远端函数,让服务提供方感觉就像实现一个本地函数一样来实现服务
+
+![](imgs/20170107161455853.jpg)
+
+
+**RPC的好处**
+
+RPC 的主要功能目标是让构建分布式计算(应用)更容易,在提供强大的远程调用能力时不损失本地调用的语义简洁性. 为实现该目标,RPC 框架需提供一种透明调用机制让使用者不必显式的区分本地调用和远程调用.
+
+服务化的一个好处就是,不限定服务的提供方使用什么技术选型,能够实现大公司跨团队的技术解耦. 
+
+如果没有统一的服务框架,RPC框架,各个团队的服务提供方就需要各自实现一套序列化,反序列化,网络框架,连接池,收发线程,超时处理,状态机等"业务之外"的重复技术劳动,造成整体的低效.所以,统一RPC框架把上述"业务之外"的技术劳动统一处理,是服务化首要解决的问题
+
+
+**几种协议**
+
+Socket使用时可以指定协议Tcp,Udp等;
+
+RIM使用Jrmp协议,Jrmp又是基于TCP/IP;
+
+RPC底层使用Socket接口,定义了一套远程调用方法;
+
+HTTP是建立在TCP上,不是使用Socket接口,需要连接方主动发数据给服务器,服务器无法主动发数据个客户端;
+
+Web Service提供的服务是基于web容器的,底层使用http协议,类似一个远程的服务提供者,比如天气预报服务,对各地客户端提供天气预报,是一种请求应答的机制,是跨系统跨平台的.就是通过一个servlet,提供服务出去.
+
+hessian是一套用于建立web service的简单的二进制协议,用于替代基于XML的web service,是建立在rpc上的,hessian有一套自己的序列化格式将数据序列化成流,然后通过http协议发送给服务器.
