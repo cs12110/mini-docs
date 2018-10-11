@@ -335,80 +335,150 @@ Pick up your trash people. Don't be a dumbass like I was (am).
 
 > 捡起你的东西,垃圾.别像我一样.
 
-## 付出与收入正比?
+## 能孤独终老吗?
 
-From:&nbsp; [Does hard work really pay off?](http://qr.ae/TUGb0l)
+From:&nbsp; [Do we need friends in life?](http://qr.ae/TUGO0k)
 
 Date: October 10 2018
 
-I worked over a hundred hours a week as a lawyer on multi-billion dollar mergers and acquisitions. One day, I broke down in the kitchen and started sobbing. My problem: I was making six-figures but I felt empty inside.
+This is Isaac Newton.
 
-Fast forward a few years, and I get a call that confirms everything.
+> 来,来,来,这个就是牛顿了.
 
-“Please,” the woman on the line pleaded. “It’s my only time with my son and I really need your help.”
+He was… an asshole.
 
-After I’d left the legal firm, I ended up founding a startup. Our mission was simple—empower freelancers with the financial tools they need to thrive.
+> ta 是一个操蛋的人.
 
-It was an easy choice. When I was freelancing myself and almost defaulted on my mortgage because of a months’ long pay cycle, I realized the system was broken.
+And a loner.
 
-And that I couldn’t rest until I did something about it.
+> 同时也是一个孤独的人.
 
-It was a leap of faith, going from a high salary to no salary.
+He had no wife, no girlfriends, several dozen enemies and a non-existent social life.
 
-I worked my butt off.
+> ta 没有老婆啦,没有女朋友啦,还有一吨的反对者和一个没有社交的生活.
 
-Pitching a hundred times until we got funding, hiring the best talent I could, and constantly revisiting and perfecting our services and goals.
+He had just ONE friend his entire life.
 
-But this time around, the harder I worked, the better I felt.
+> ta 在生命里面,只有一个朋友.
 
-During meetings with investors, I’d demo our solution by showing them you could instantly load up a debit card with money earned ahead of pay cycles.
+In college, he found a guy named John Wickins.
 
-The woman that had called for help had one of our cards.
+> 在大学的时候,ta 认识了一个叫 John Wickins 的人.
 
-But that day, no matter what we did and how hard we tried, it wouldn’t work.
+Their friendship sparked when both of them bumped into each other while taking walks. It turned out, both were fed up with their loudmouth roommates, so they decided to move in together.
 
-She was getting increasingly desperate.
+> ta 们之间友谊的火花在 ta 们相处间迸发.发现,ta 们两个都受够了各自叽叽喳喳的室友,所以 ta 们决定住在一起算了.
 
-And I was feeling awful.
+Over the years, they studied together and despite Isaac’s weirdness, Wickins put up with him. He became a caring figure, always making sure Newton ate and slept properly.
 
-“Where are you located?” I asked.
+> 些许年过去了,ta 们在一起学习啦,憎恨 Iassc 的命运了,Wickins 也忍受下来了.ta 成为了一个会照顾人的人,一直确保牛顿不会饿肚子和睡得安稳一点.
 
-“Downtown San Francisco.”
+Their discussions largely revolved around academia - a common interest. And Wickins found himself helping Newton with his crazy experiments from time to time.
 
-We work with people all over the world and this woman was a stone’s throw away from our offices.
+> 他们的讨论主要围绕着学术界 - 一个共同的兴趣,Wickins 发现自己一直以来经常帮助牛顿做他的疯狂实验.
 
-Coincidence?
+But it wasn’t to last.
 
-Who knows.
+> 但这些都没能走到最后.
 
-“Hold on tight,” I said. “I’ll be there in 10.”
+There’s speculation that Newton and Wickins had a major falling out years later, and it’s not an unfounded suspicion.
 
-She didn’t believe me.
+> 有一种推测就是牛顿和 Wickins 在一些年后大吵了一架,这不是毫无根据的猜测.
 
-I got in my car, stopped at the ATM to get the money she requested—I could sort things out on the system manually when I got back—and drove over to her.
+Newton was cold, callous, rude and generally didn’t have much time for people until he needed them.
 
-She was standing outside a pizza place, gaze downcast, her son clutching her hand.
+> 牛顿是一个冷漠的,无情的,粗鲁的而且平常除了需要被人否则老死不相往来的人.
 
-I didn’t have the whole story. But I could tell she was the kind of person who’s been through a lot. And it was also obvious how absolutely important this time with her kid was.
+After Wickins left, he never spoke of Newton again. It’s a bit strange since most people would’ve liked to say they’ve known a famous/influential guy.
 
-“There you are,” I handed her the cash after explaining who I was. “I’m really, really sorry about this.”
+> 在 Wickins 离开之后,ta 从没提起过牛顿.这有点奇怪,因为大部分的人都喜欢结交有名的人.
 
-You should have seen how her eyes lit up.
+But there’s nothing. He didn’t even mention he knew Newton to his own son.
 
-But instead of replying, she just drew me in for the biggest hug.
+> 但 ta 什么也没提起,就连自己的儿子也没曾透露.
 
-And as I walked away, this intensely gratifying and warm feeling spread throughout my body.
+After he left, Newton realized just how much work Wickins had selflessly been doing for his laboratory.
 
-This was why I left a six-figure job as a lawyer.
+> 在 ta 离开后,牛顿意识到 Wickins 为 ta 的实验室做了多少的牺牲.
 
-Why I kept pitching my idea even after a hundred rejections.
+Still, all he did was find a new assistant.
 
-Why I almost defaulted on my mortgage while drawing $0 salary.
+> 但 ta 所做的,仅仅是招了一个新的实验助手.
 
-Because I needed to feel like I’m making a difference.
+And that was the end of the friendship.
 
-Because I wanted to reach out and give back.
+> 这就是 ta 们友谊的尽头了.
 
-Because when you have a calling—
+The only one he ever had.
 
-The only thing that feels right is to work as hard as you can to make it happen.
+> ta 唯一的一段友谊.
+
+Some people aren’t cut out for friends.
+
+> 有一些人脱离人群.
+
+They can’t stand other people and other people can’t stand them.
+
+> ta 们不能忍受和其他人待在一起,其他人也不能忍受 ta.
+
+They should just lock themselves in rooms and make themselves useful.
+
+> ta 们就把自己所在屋子里面,做着自己的事情.
+
+It’s best for everyone.
+
+> 这对每一个人都好呀.
+
+Newton didn’t exactly have an easy or a fun life. It was riddled with hardship, tragedy, loss and little joy.
+
+> 牛顿没有一个轻松愉悦的生活.到处都是撞壁,悲剧,迷失和仅有的一点快乐.
+
+But he did end up famous.
+
+> 但 ta 的确出名了.
+
+And, as the eternal debate between enjoying life in the present moment versus working to have an eternal impact on Earth rages on, we must think for ourselves.
+
+> 而且,在活在当下享受生活,还是造福地球这种争论下,我们需要结合自身来考虑.
+
+What life do we want?
+
+> 我们想要什么样的生活?
+
+You don’t “need” friends.
+
+> 你不必需要朋友.
+
+They’re not essential like air or water. But they do have benefits and drawbacks, like most things.
+
+> ta 们不是想水和空气一样的生活基础物质.但 ta 们都有着各自的缺点和有点,就像其他的东西一样.
+
+You choose the life you want to lead.
+
+> 你选择你要的生活.
+
+I’ve chosen mine.
+
+> 我选择我的.
+
+## 成功的最基础技巧是什么?
+
+From:&nbsp; [What is the most fundamental skill for success in life?](http://qr.ae/TUGWd1)
+
+Date: October 11 2018
+
+A renowned author once visited Yale to speak at an event for young aspiring writers. At the end, she opened the floor for questions.
+
+> 一个有名的作家有一次来到 Yela 演讲,为了激励那些年轻的作家.在最后,ta 公开提问的环节.
+
+One student, hoping to learn how to write a bestseller, asked, “What’s the trick to becoming a successful writer?”
+
+> 一个学生,希望知道怎样才能写出大卖的书,问道,"成为成功的作家有哪些方法没?"
+
+The author replied, “The application of the ass to the chair.”
+
+> 那个作者回答说,"一个关于 ass 和 chair 的史书呀."
+
+If you want to succeed in life, one of the most fundamental skills you’ll need is the discipline to make yourself sit down and work for it.
+
+> 如果你想要一个成功的人生,最基础的技巧就是你需要坐下来,并开始为之努力.
