@@ -1,10 +1,16 @@
-# Hadoop
+# Hadoop 安装文档
 
 在单个节点安装伪分布式`hadoop`集群
 
+---
+
 ## 1. 用户免密码登录
 
-`ssh`配置用户免密码登录
+Q: 如果服务器 1 的 hadoop 用户能免密码登录服务器 2 的 dev 用户该怎么办?
+
+A: 登录服务器 1 的 hadoop 用户,使用`ssh-keygen`生成公钥 -> 获取该公钥 -> 粘贴到服务器 2 的 dev 用户的 home 目录的`.ssh/authorized_keys`文件 -> 设置`.ssh/authorized_keys`权限设置为 600 -> 在服务器 1 的 hadoop 用户使用 ssh dev@服务器 2 就免密码了
+
+**如果没有`.ssh/`文件夹,则使用`ssh-keygen -t rsa -P ""`生成,并自己创建`authorized_keys`文件.**
 
 ### 1.1 生成秘钥
 
@@ -219,3 +225,7 @@ drwxrwxrwx   - dev supergroup          0 2017-11-22 01:49 /mapreduce/demo
 ## 5. 参考资料
 
 a. [hadoop 入门教程](http://blog.csdn.net/hitwengqi/article/details/8008203)
+
+b. [hadoop 集群安装](https://www.cnblogs.com/xuxy03/p/5922047.html)
+
+c. [hadoop 集群动态增加节点](https://blog.csdn.net/sheng119/article/details/78854117)
