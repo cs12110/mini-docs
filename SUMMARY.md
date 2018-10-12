@@ -21,6 +21,7 @@
 - [数据库](db/README.md)
   - [Sql 优化基础](db/Mysql性能优化.md)
   - [Mysql 备份与恢复](db/Mysql备份与恢复.md)
+  - [Mysql 读写分离](db/Mysql之读写分离.md)
   - [Redis 集群安装](db/Redis-install.md)
   - [Redis 数据备份](db/Redis数据备份.md)
 

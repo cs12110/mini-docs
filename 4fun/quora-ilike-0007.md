@@ -482,3 +482,113 @@ The author replied, “The application of the ass to the chair.”
 If you want to succeed in life, one of the most fundamental skills you’ll need is the discipline to make yourself sit down and work for it.
 
 > 如果你想要一个成功的人生,最基础的技巧就是你需要坐下来,并开始为之努力.
+
+## 为人父母,你不应该对小屁孩说什么?
+
+From:&nbsp; [As a parent, what should you never say to a teenager?](http://qr.ae/TUGifT)
+
+Date: October 12 2018
+
+Mom: You can tell me anything. I promise I won't scold you or judge you, I promise.
+
+> Mom:你可是告诉我全部东西呀.我保证我不会骂你和评判你的,我绝壁保证.
+
+Kid: “Umm. I'm a little gay, I think. I flunked my recent English test. Also, umm-”
+
+> kid:"好吧,我是 gay 呀.我把英语考试弄砸了.同时,还有-"
+
+Mom: _a little stoicly_ “Go on.”
+
+> Mom: (忍了一下) "继续往下说"
+
+Kid: “A little sad. Yeah.”
+
+> Kid:"有点小悲伤呀.大概就是这样子"
+
+Mom: _takes a deeeeeeeep breath_ “Listen, honey. It's just a phase. No. You aren't gay. You are a girl. You can't like girls. It's a sin! And how could you fail your English test?! I'm so disappointed in you. You're grounded till you raise your grade. SNAP OUT OF IT!”
+
+> Mom:(深吸一口气)"听着,小屁孩.这些都是青春期而已.不会的,你不是 gay.你是女孩子呀,你不能喜欢女孩子.这是罪来的.然后你 tmd 怎么会把英语考试弄砸?我对你很失望.你被禁足到你考过为止.重新振作起来."
+
+Do you know what a parent should never do or say?
+
+> 你知道作为一个父母最不应该说什么吗?
+
+Make empty promises to their kid. You know, I was once in the shoes of the kid I was talking about. My mom promised that she would never judge me, so I told her the truth. The fact that I'm not straight (and possibly never will be one), the fact that I'm struggling with year 3 and I barely passed my first half with a class position of 21/41 (I was usually top 15 in my lower years, so getting a 21 really hit me hard).
+
+> 对 ta 们的小屁孩承诺.你知道的,我曾经历上面说到的那个小屁孩的那种情况.我妈承诺不会评判我的,所以我告诉她真相.事实上我是弯的(而且可能孤独终老),我挣扎在年级三里面,而且我差点就跪在 21/41 的考试上了(在低年级的时候,通常我是 top15,所以在 21 的时候,这对我的打击很大)
+
+She lied.
+
+> ta 说谎了.
+
+I got screamed at for almost an hour before she stormed out of my room and slammed the door in my face.
+
+> 我在她摔门而出之前,我被怒吼了差不多一个小时.
+
+Not to make me sound like an ungrateful brathole, but my little trust in her vanished that moment.
+
+> 虽然这样子说有点孩子气,但是那一刻,我对 ta 的信任,丧失了.
+
+Tl;Dr: Don't promise your kid something and not fulfil it.
+
+> 警告: 不要向你的小屁孩承诺你做不到的东西.
+
+Mom: How much did you get for your Algebra test?
+
+> Mom:你在 Algebra 测试里面成绩多少?
+
+Me: 69/80 (actual score, LMAO).
+
+> Me: 69/80(真实的成绩)
+
+Mom: That is... _calculates in her brain_ around 85%. _takes out her phone calculator to check score_ Ah, 86. You know your cousin from [XXX school] got 96 for his Algebra finals? And here you are, getting a pathetic 86.
+
+> Mom: 这大概是..`先在脑里计算一下` 85%,`然后拿出手机确定一下`嗯,86.你知道阿姨的谁拿到了 96 分没?然后你只拿到了 86 分.
+
+Me: The paper is really hard...-
+
+> 我:那试卷太难了....
+
+Mom: And Tommy, you know, the kid you used to call dumb?
+
+> Mom: Tommy,你知道吧,你经常说 ta 很笨的那个小屁孩
+
+Me: I didn't call him dumb, you did.
+
+> 我: 我没有,我不是,别瞎说.你说人家笨而已.
+
+Mom: Whatever, it's the same. Anyway, he got 100 for his Algebra test. What are you doing in class?!?
+
+> Mom:哎呀,都差不多啦.ta 在 Algebra 测试里面拿了 100 分,你在学校都干了啥呀?
+
+Me: _thinks about the times I scribbled down notes_ _also thinks about the times I fell asleep or doodled in class_ Um. I wrote notes and more notes.
+
+> 我: `想起了那些我记下笔记,想起那些我觉得很困的场景`嗯,我记笔记呀,而且记了很多.
+
+Mom: Then why are you getting lower than your cousin and Tommy? Are you that slow? Even your other…
+
+> Mom: 然后你就比你表 x 和 Tommy 低了?你这么笨吗?尽管你其他...
+
+Me: _Hopes that she'll be done talking soon_
+
+> 我: `希望她说一会就好了`
+
+Mom: Aunt Rachel's daughter, you know, Isabelle, got a 90 for Algebra. Is it that difficult to become one of those hardworking, smart kids? How useless can you be?
+
+> Mom: Rachel 阿姨的女儿,你认识的吧,Isabelle 也拿到了 90 分.成为学霸真的那么难吗?你怎么那么没用?
+
+I mean, how difficult is it for parents not to compare us with other kids? I hear this on a regular basis, yeah, close to every other single ever since my first half results were out. I know, all parents — Maybe I overstated, most parents want the best for their kid.
+
+> 我知道,作为一个父母一定要别人家的孩子比较吗?我经常听到这些东西.自从我第一次测试的成绩出来之后,我就经常听到.我知道所有的父母-或许我有点夸大,大多数的父母都希望 ta 的孩子能得到最好的.
+
+But comparing a kid to another kid who got a better grade isn't the way. It's even worse when you insult your kid, calling them “stupid” and “dumb.”
+
+> 但和其他的小屁孩对比不是提高成绩的套路呀.这比羞辱小孩还恶心一点,叫 ta 们`傻逼`和`笨蛋`.
+
+Tl;Dr: Comparing your kids to others isn't fine. Calling them names makes things worse.
+
+> 总结: 和别家小屁孩对比是不好的事.给 ta 们外号更坏了.
+
+I rest my case.
+
+> 我说完了.
