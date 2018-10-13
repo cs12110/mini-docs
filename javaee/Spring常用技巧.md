@@ -121,3 +121,405 @@ public class ServiceExecTimeCalculateInteceptor {
     }
 }
 ```
+
+---
+
+## 2. Aop 与多注解
+
+在一个被拦截的方法上有多个注解,这个的执行是怎样子的?
+
+### 2.1 自定义注解
+
+```java
+package com.fei.springboot.annotation;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Anno1 {
+
+}
+```
+
+```java
+package com.fei.springboot.annotation;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Anno2 {
+
+}
+```
+
+### 2.2 切面
+
+```java
+package com.fei.springboot.aop;
+
+import java.lang.reflect.Method;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class Anno1Aspect {
+
+	private Logger logger = LoggerFactory.getLogger(Anno1Aspect.class);
+
+	@Pointcut("@annotation(com.fei.springboot.annotation.Anno1)")
+	public void logPointCut() {
+
+	}
+
+	@Around("logPointCut()")
+	public Object cut(ProceedingJoinPoint joinPoint) throws Throwable {
+
+		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+		Method method = signature.getMethod();
+
+		logger.info("proceed:{}#{}", joinPoint.getTarget().getClass().getName(), method.getName());
+		logger.info("执行判断方法");
+		Object value = joinPoint.proceed();
+
+		logger.info("return:{}", value);
+
+		return value;
+	}
+
+}
+```
+
+```java
+package com.fei.springboot.aop;
+
+import java.lang.reflect.Method;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class Anno2Aspect {
+
+	private Logger logger = LoggerFactory.getLogger(Anno2Aspect.class);
+
+	@Pointcut("@annotation(com.fei.springboot.annotation.Anno2)")
+	public void logPointCut() {
+
+	}
+
+	@Around("logPointCut()")
+	public Object cut(ProceedingJoinPoint joinPoint) throws Throwable {
+		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+		Method method = signature.getMethod();
+
+		logger.info("proceed:{}#{}", joinPoint.getTarget().getClass().getName(), method.getName());
+		logger.info("执行判断方法");
+		Object value = joinPoint.proceed();
+
+		logger.info("return:{}", value);
+		return "I'm aspect2," + value;
+	}
+
+}
+```
+
+### 2.3 业务类
+
+```java
+package com.fei.springboot.service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.fei.springboot.annotation.Anno1;
+import com.fei.springboot.annotation.Anno2;
+
+@Service
+public class AnnoService {
+
+	private Logger logger = LoggerFactory.getLogger(AnnoService.class);
+
+	@Anno1
+	@Anno2
+	public String say(String msg) {
+		logger.info("Say:{}", msg);
+
+		return "haiyan";
+	}
+}
+```
+
+### 2.4 测试类
+
+```java
+package test.pkgs;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.fei.springboot.RwApp;
+import com.fei.springboot.service.AnnoService;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = RwApp.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@EnableAutoConfiguration
+public class AnnoTest {
+	@Autowired
+	private AnnoService service;
+
+	@Test
+	public void test() {
+		service.say("hello");
+	}
+
+}
+```
+
+### 2.5 测试结果
+
+```java
+2018-10-13 13:41:25 INFO  c.fei.springboot.aop.Anno1Aspect:30 - proceed:com.fei.springboot.service.AnnoService#say
+2018-10-13 13:41:25 INFO  c.fei.springboot.aop.Anno1Aspect:31 - 执行判断方法
+2018-10-13 13:41:25 INFO  c.fei.springboot.aop.Anno2Aspect:30 - proceed:com.fei.springboot.service.AnnoService#say
+2018-10-13 13:41:25 INFO  c.fei.springboot.aop.Anno2Aspect:31 - 执行判断方法
+2018-10-13 13:41:25 INFO  c.f.s.service.AnnoService:18 - Say:haiyan
+2018-10-13 13:41:25 INFO  c.fei.springboot.aop.Anno2Aspect:34 - return:hello haiyan
+2018-10-13 13:41:25 INFO  c.fei.springboot.aop.Anno1Aspect:34 - return:I'm aspect2,hello haiyan
+```
+
+执行流程: Anno1Aspect -> Anno2Aspect -> Service -> Anno2Aspect -> Anno1Aspect.
+
+**Service 里面的方法只会被调用一次.相当于链式的调用**
+
+---
+
+## 3. Spring 事务问题
+
+在 Spring 里面事务也是切面进行管理的.但是 aop 有一个比较坑爹的地方.
+
+基于上面的代码,我们来模拟一下这个坑爹的场景.
+
+### 3.1 业务类
+
+```java
+package com.fei.springboot.service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.fei.springboot.annotation.Anno1;
+import com.fei.springboot.annotation.Anno2;
+
+@Service
+public class FreakService {
+
+	private Logger logger = LoggerFactory.getLogger(AnnoService.class);
+
+	@Anno1
+	public String anno1(String msg) {
+		logger.info("anno1:{}", msg);
+
+		return "anno1 " + msg;
+	}
+
+	@Anno2
+	public String anno2(String msg) {
+		logger.info("anno2:{}", msg);
+		return "anno2 " + msg;
+	}
+
+	/**
+	 * 注意这个方法
+	 *
+	 * @param msg
+	 * @return
+	 */
+	@Anno2
+	public String freak(String msg) {
+		return anno1(msg);
+	}
+
+}
+```
+
+### 3.2 测试类
+
+```java
+package test.pkgs;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.fei.springboot.RwApp;
+import com.fei.springboot.service.FreakService;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = RwApp.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@EnableAutoConfiguration
+public class FreakTest {
+	@Autowired
+	private FreakService service;
+
+	@Test
+	public void testAnno() {
+		service.anno1("haiyan");
+		service.anno2("haiyan");
+	}
+
+	@Test
+	public void testFreak() {
+		service.freak("3306");
+	}
+}
+```
+
+### 3.3 测试结果
+
+**测试 testAnno**
+
+```java
+2018-10-13 14:01:52 INFO  c.fei.springboot.aop.Anno1Aspect:30 - proceed:com.fei.springboot.service.FreakService#anno1
+2018-10-13 14:01:52 INFO  c.fei.springboot.aop.Anno1Aspect:31 - 执行判断方法
+2018-10-13 14:01:52 INFO  c.f.s.service.AnnoService:17 - anno1:haiyan
+2018-10-13 14:01:52 INFO  c.fei.springboot.aop.Anno1Aspect:34 - return:anno1 haiyan
+2018-10-13 14:01:52 INFO  c.fei.springboot.aop.Anno2Aspect:30 - proceed:com.fei.springboot.service.FreakService#anno2
+2018-10-13 14:01:52 INFO  c.fei.springboot.aop.Anno2Aspect:31 - 执行判断方法
+2018-10-13 14:01:52 INFO  c.f.s.service.AnnoService:24 - anno2:haiyan
+2018-10-13 14:01:52 INFO  c.fei.springboot.aop.Anno2Aspect:34 - return:anno2 haiyan
+```
+
+**测试 testFreak**
+
+```java
+2018-10-13 13:55:23 INFO  c.fei.springboot.aop.Anno2Aspect:30 - proceed:com.fei.springboot.service.FreakService#freak
+2018-10-13 13:55:23 INFO  c.fei.springboot.aop.Anno2Aspect:31 - 执行判断方法
+2018-10-13 13:55:23 INFO  c.f.s.service.AnnoService:17 - anno1:3306
+2018-10-13 13:55:23 INFO  c.fei.springboot.aop.Anno2Aspect:34 - return:anno1 3306
+```
+
+注意:**freak 调用 anno1 的时候,切面 Anno1Aspect 没有生效.**
+
+产生原因:因为 freak 里面采用的是`this.anno1(msg)`方法,而不是被 spring aop 代理的代理类.
+
+详细原因请参考该 blog:[spring aop 类内部调用不拦截原因及解决方案](https://blog.csdn.net/dream_broken/article/details/72911148)
+
+### 3.4 解决方案
+
+通过`ApplicationContext`重新获取代理的类来执行.
+
+```java
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
+
+@Component
+public class SpringContextUtil implements ApplicationContextAware{
+	private static ApplicationContext applicationContext = null;
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		if(SpringContextUtil.applicationContext == null){
+			SpringContextUtil.applicationContext = applicationContext;
+		}
+
+	}
+	public static ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
+	public static Object getBean(String name){
+		 ApplicationContext ctx = getApplicationContext();
+		return ctx.getBean(name);
+	}
+	public static <T> T getBean(Class<T> clazz){
+		return getApplicationContext().getBean(clazz);
+	}
+}
+```
+
+```java
+package com.fei.springboot.service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.fei.springboot.annotation.Anno1;
+import com.fei.springboot.annotation.Anno2;
+import com.fei.springboot.util.SpringContextUtil;
+
+@Service
+public class FreakService {
+
+	private Logger logger = LoggerFactory.getLogger(AnnoService.class);
+
+	@Anno1
+	public String anno1(String msg) {
+		logger.info("anno1:{}", msg);
+
+		return "anno1 " + msg;
+	}
+
+	@Anno2
+	public String anno2(String msg) {
+		logger.info("anno2:{}", msg);
+		return "anno2 " + msg;
+	}
+
+	/**
+	 * 注意这个方法
+	 *
+	 * @param msg
+	 * @return
+	 */
+	@Anno2
+	public String freak(String msg) {
+		return SpringContextUtil.getBean(this.getClass()).anno1(msg);
+	}
+
+}
+```
+
+重新测试,测试结果
+
+```java
+2018-10-13 14:10:27 INFO  c.fei.springboot.aop.Anno2Aspect:30 - proceed:com.fei.springboot.service.FreakService#freak
+2018-10-13 14:10:27 INFO  c.fei.springboot.aop.Anno2Aspect:31 - 执行判断方法
+2018-10-13 14:10:27 INFO  c.fei.springboot.aop.Anno1Aspect:30 - proceed:com.fei.springboot.service.FreakService#anno1
+2018-10-13 14:10:27 INFO  c.fei.springboot.aop.Anno1Aspect:31 - 执行判断方法
+2018-10-13 14:10:27 INFO  c.f.s.service.AnnoService:18 - anno1:3306
+2018-10-13 14:10:27 INFO  c.fei.springboot.aop.Anno1Aspect:34 - return:anno1 3306
+2018-10-13 14:10:27 INFO  c.fei.springboot.aop.Anno2Aspect:34 - return:anno1 3306
+```
+
+Spring AOP 丧尽天良.
