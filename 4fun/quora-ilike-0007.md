@@ -519,7 +519,7 @@ Make empty promises to their kid. You know, I was once in the shoes of the kid I
 
 She lied.
 
-> ta 说谎了.
+> ta 骗我.
 
 I got screamed at for almost an hour before she stormed out of my room and slammed the door in my face.
 
@@ -592,3 +592,65 @@ Tl;Dr: Comparing your kids to others isn't fine. Calling them names makes things
 I rest my case.
 
 > 我说完了.
+
+## 结婚后,ta 有什么改变了?
+
+From:&nbsp; [In what ways has your spouse changed after getting married?](http://qr.ae/TUGZXe)
+
+Date: October 13 2018
+
+This is going to be fun. But let me tell you, its more like what I thought she was like and how she actually is…
+
+> 这就有点意思了.搬好小板凳,这更像是我以为她是那样子的,可是她实际是....
+
+When we first met through parents, she looked like a shy girl next door. She was smiling and feeling awkward a lot. After we got married and a little more comfortable, she walks around house naked, has 0 level of shyness.
+
+> 我们是通过相亲时遇见的,她像一个害羞的邻家女孩.她很多时候都尴尬的笑着.在我们婚后,我们相处更舒服一点之后,她可能裸着待在房子里面,害羞级别为 0.
+
+I thought I was getting cold feet. She was being forced. Turned out she had insisted to her parents that she wanted to get married, like literally told them in a complete sentence, ‘Dad, I want to get married. I don't have any boyfriend right now. Search a groom for me.’ I'm not even exaggerating, her parents tell this story all the time.
+
+> 我还以为我会被打入冷宫.她被逼和我结婚.后来发现是她坚持要结婚的,就像告诉她父母这样子的话,'Dad,我要结婚.但我现在没有男朋友.你们找一个麻瓜给我吧.'我甚至一点夸大都没有,她的父母一直在说着这个故事.
+
+I thought she didn't like talking. WRONG. She NEVER shuts up. If she does, I'll wake up. Lol, I've started to enjoy it.
+
+> 我以为她不喜欢和人说话.我错了,她从来没停过.如果她停下来了,我会笑醒的.嗯,我会开始享受那段她不说话的时间.
+
+She's frigid. WRONG. Once comfortable, she's a freak.
+
+> 她很高冷的.我又错了.一旦相处熟悉了,她就会变成变态了.
+
+She's so slow and, unhappy person. Wrong. She is hyperactive and becomes happy just about at nothing.
+
+> 她迟钝而且一脸不开心的样子.我又错了.她可是很活跃然后偶尔为一些不存在的东西而开心.
+
+She doesn't like me. Big time wrong. Turned out, she has liked me since day 1. She loves me.
+
+> 她不喜欢我.又错了.后来发现,她从看见我就喜欢我了.她是爱我的.
+
+She'll probably never fight or argue. Wrong. Loveeess to argue, though I don't like to admit it much, she's usually right about things. And people too.
+
+> 她充不争吵.又错了.最喜欢和别人杠了,虽然我不想承认,但大部分都是她是对的.和其他人也是.
+
+Is probably passive aggressive. Wrong. Tells me when things bother her, almost immediately.
+
+> 可能会很被动.但我又错了.如果有什么事她看不过眼,会立马告诉我.
+
+Is dumb. Wrong. She's really smart.
+
+> 她很笨啦.tmd 又错了.实际上她很聪明.
+
+She does not feel much. Wrong. All of her emotions are intense.
+
+> 她很冷漠啦.错了.她的感情是很强烈的.
+
+Is very serious. Wrong. Very very wrong. Can't go on a day without lame jokes. Lame jokes are lifeline to her. She knows they are lame but loves it.
+
+> 非常严肃的啦.错了,错得一塌糊涂.如果一天没看那些冷笑话,她就过不下去.冷笑话是她的生命线.她知道那些很没脑,但是很喜欢那些冷笑话.
+
+As for the changes, she hasn't changed much. Can motherhood be included? Anyways, it suits her well.
+
+> 对于改变来说,她没改变太多.包括成为孩子 ta 妈吗?总的来说,她做得很好了.
+
+She's staying at her parents place with our boy. I miss her. Its been just a day though. I guess, I'll call now.
+
+> 她现在和孩子待在她父母那边.我想她了,都已经去了一天了.我想,我现在该打电话给她了.

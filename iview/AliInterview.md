@@ -4,7 +4,7 @@
 
 被虐,但也所获匪浅.
 
-
+---
 
 ## 1. JVM加载机制
 
@@ -71,7 +71,7 @@ ClassLoader使用的是**双亲委托模型**来搜索类的,每个ClassLoader�
 ​JVM在判定两个class是否相同时,不仅要判断两个类名是否相同,而且要判断是否由同一个类加载器实例加载的.只有两者同时满足的情况下,JVM才认为这两个class是相同的.就算两个class是同一份class字节码,如果被两个不同的ClassLoader实例所加载,JVM也会认为它们是两个不同class.比如网络上的一个Java类org.classloader.simple.NetClassLoaderSimple,javac编译之后生成字节码文件NetClassLoaderSimple.class,ClassLoaderA和ClassLoaderB这两个类加载器并读取了NetClassLoaderSimple.class文件,并分别定义出了java.lang.Class实例来表示这个类,对于JVM来说,它们是两个不同的实例对象,但它们确实是同一份字节码文件,如果试图将这个Class实例生成具体的对象进行转换时,就会抛运行时异常java.lang.ClassCaseException,提示这是两个不同的类型.现在通过实例来验证上述所描述的是否正确:
 
 
-
+---
 
 
 ## 2. HashMap相关
@@ -202,8 +202,6 @@ Hashtable和ConcurrentHashMap有什么分别呢？它们都可以用于多线程
 
 
 
-
-
 a. HashTable的线程安全使用的是一个单独的全部Map范围的锁,ConcurrentHashMap抛弃了HashTable的单锁机制,使用了锁分离技术,使得多个修改操作能够并发进行,只有进行SIZE()操作时ConcurrentHashMap会锁住整张表.
 
 
@@ -211,6 +209,7 @@ b. HashTable的put和get方法都是同步方法,  而ConcurrentHashMap的get�
 
 但是ConcurrentHashMap不能替代HashTable,因为两者的迭代器的一致性不同的,hash table的迭代器是强一致性的,而concurrenthashmap是弱一致的. ConcurrentHashMap的get,clear,iterator 都是弱一致性的.
 
+---
 
 
 ## 3. 线程池的使用
@@ -282,7 +281,7 @@ ThreadPoolExecutor.CallerRunsPolicy;
 ```
 
 
-
+---
 
 
 
@@ -312,19 +311,19 @@ Error是程序无法处理的错误,比如OutOfMemoryError,ThreadDeath等.这些
 throw关键字是用于方法体内部,用来抛出一个Throwable类型的异常.如果抛出了检查异常,则还应该在方法头部声明方法可能抛出的异常类型.该方法的调用者也必须检查处理抛出的异常.如果所有方法都层层上抛获取的异常,最终JVM会进行处理,处理也很简单,就是打印异常消息和堆栈信息.如果抛出的是Error或RuntimeException,则该方法的调用者可选择处理该异常.有关异常的转译会在下面说明.throws关键字用于方法体外部的方法声明部分,用来声明方法可能会抛出某些异常.仅当抛出了检查异常,该方法的调用者才必须处理或者重新抛出该异常.当方法的调用者无力处理该异常的时候,应该继续抛出,而不是囫囵吞枣一般在catch块中打印一下堆栈信息做个勉强处理.
 
 
-
+---
 
 
 ## 5. Wait和Sleep的区别
 
-sleep 是线程类(Thread)的方法，导致此线程暂停执行指定时间，给执行机会给其他线程，但是监控状态依然保持，到时后会自动恢复。调用sleep 不会释放对象锁。
-wait 是Object 类的方法，对此对象调用wait 方法导致本线程放弃对象锁，进入等待此对象的等待锁定池，只有针对此对象发出notify 方法(或notifyAll)后本线程才进入对象锁定池准备获得对象锁进入运行状态。
+sleep 是线程类(Thread)的方法,导致此线程暂停执行指定时间,给执行机会给其他线程,但是监控状态依然保持,到时后会自动恢复.调用sleep 不会释放对象锁.
+wait 是Object 类的方法,对此对象调用wait 方法导致本线程放弃对象锁,进入等待此对象的等待锁定池,只有针对此对象发出notify 方法(或notifyAll)后本线程才进入对象锁定池准备获得对象锁进入运行状态.
 
 1. 这两个方法来自不同的类分别是Thread和Object
 
-2. 最主要是sleep方法没有释放锁，而wait方法释放了锁，使得其他线程可以使用同步控制块或者方法。
+2. 最主要是sleep方法没有释放锁,而wait方法释放了锁,使得其他线程可以使用同步控制块或者方法.
 
-3. wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用(使用范围)
+3. wait,notify和notifyAll只能在同步控制方法或者同步控制块里面使用,而sleep可以在任何地方使用(使用范围)
 
 ```java
 synchronized(x){
@@ -333,15 +332,16 @@ synchronized(x){
 }
 ```
 
-4. sleep必须捕获异常，而wait，notify和notifyAll不需要捕获异常
+4. sleep必须捕获异常,而wait,notify和notifyAll不需要捕获异常
 
-sleep方法属于Thread类中方法，表示让一个线程进入睡眠状态，等待一定的时间之后，自动醒来进入到可运行状态，不会马上进入运行状态，因为线程调度机制恢复线程的运行也需要时间，一个线程对象调用了sleep方法之后，并不会释放他所持有的所有对象锁，所以也就不会影响其他进程对象的运行。但在sleep的过程中过程中有可能被其他对象调用它的interrupt(),产生InterruptedException异常，如果你的程序不捕获这个异常，线程就会异常终止，进入TERMINATED状态，如果你的程序捕获了这个异常，那么程序就会继续执行catch语句块(可能还有finally语句块)以及以后的代码。
+sleep方法属于Thread类中方法,表示让一个线程进入睡眠状态,等待一定的时间之后,自动醒来进入到可运行状态,不会马上进入运行状态,因为线程调度机制恢复线程的运行也需要时间,一个线程对象调用了sleep方法之后,并不会释放他所持有的所有对象锁,所以也就不会影响其他进程对象的运行.但在sleep的过程中过程中有可能被其他对象调用它的interrupt(),产生InterruptedException异常,如果你的程序不捕获这个异常,线程就会异常终止,进入TERMINATED状态,如果你的程序捕获了这个异常,那么程序就会继续执行catch语句块(可能还有finally语句块)以及以后的代码.
 
-注意sleep()方法是一个静态方法，也就是说他只对当前对象有效，通过t.sleep()让t对象进入sleep，这样的做法是错误的，它只会是使当前线程被sleep 而不是t线程
+注意sleep()方法是一个静态方法,也就是说他只对当前对象有效,通过t.sleep()让t对象进入sleep,这样的做法是错误的,它只会是使当前线程被sleep 而不是t线程
 
-wait属于Object的成员方法，一旦一个对象调用了wait方法，必须要采用notify()和notifyAll()方法唤醒该进程;如果线程拥有某个或某些对象的同步锁，那么在调用了wait()后，这个线程就会释放它持有的所有同步资源，而不限于这个被调用了wait()方法的对象。wait()方法也同样会在wait的过程中有可能被其他对象调用interrupt()方法而产生.
+wait属于Object的成员方法,一旦一个对象调用了wait方法,必须要采用notify()和notifyAll()方法唤醒该进程;如果线程拥有某个或某些对象的同步锁,那么在调用了wait()后,这个线程就会释放它持有的所有同步资源,而不限于这个被调用了wait()方法的对象.wait()方法也同样会在wait的过程中有可能被其他对象调用interrupt()方法而产生.
 
 
+---
 
 ## 6. Mybatis缓存
 
@@ -444,7 +444,7 @@ cacheEnabled设置为 true
 ![](imgs/wKioL1WIJvXykyTeAACdJiTWDLM099.jpg)
 
 
-
+---
 
 ## 7. SQL组合索引
 
@@ -480,7 +480,7 @@ select * from abc where a ='1' and b='1';
 select * from abc where b='1' and c ='1';
 ```
 
-
+---
 
 ## 8. 动态代理和Cglib的区别
 
@@ -525,19 +525,20 @@ CGLib动态代理是通过字节码底层继承要代理类来实现(如果被�
 如果要被代理的对象不是个实现类那么,Spring会强制使用CGLib来实现动态代理.
 
 
+---
 
 
 
 ## 9. 消息队列对比
 
 
-
-### 9.1 主流消息队列对比
+主流消息队列对比
 
 ![](imgs/messagequeue.png)
 
 
 
+---
 
 
 ## 10. Spring请求过程和注解区别
@@ -980,7 +981,7 @@ public @interface ScheduleJob {...}
 * 用这些注解对应用进行分层之后,就能将请求处理,义务逻辑处理,数据库操作处理分离出来,为代码解耦,也方便了以后项目的维护和开发.
 
 
-
+---
 
 ## 11. Spring事务和传播机制
 
@@ -1167,7 +1168,7 @@ c. Connection.getMetaData().supportsSavepoints() 必须为 true, 即 jdbc drive 
 ​																 																		 													
 如上面的Spring配置文件所示,日志服务的事务策略配置为propagation="REQUIRES_NEW",告诉Spring不管上下文是否有事务,Log Service被调用时都要求一个完全新的只属于Log Service自己的事务.通过该事务策略,Log Service可以独立的记录日志信息,不再受到业务逻辑事务的干扰.
 
-
+---
 
 ## 12. Spring IOC和AOP的应用 
 
@@ -1216,3 +1217,63 @@ Spring 切面可以应用5种类型的通知:
 >类加载期:切面在目标加载到JVM时被织入.这种方式需要特殊的类加载器(class loader)它可以在目标类被引入应用之前增强该目标类的字节码.
 >
 >运行期: 切面在应用运行到某个时刻时被织入.一般情况下,在织入切面时,AOP容器会为目标对象动态地创建一个代理对象.SpringAOP就是以这种方式织入切面的.
+
+---
+
+## 13. RPC与Rest
+
+接口调用通常包含两个部分,序列化和通信协议.常见的序列化协议包括json,xml,hession,protobuf,thrift,text,bytes等;通信比较流行的是http,soap,websockect,RPC通常基于TCP实现,常用框架例如dubbo,netty,mina,thrift
+
+**两种接口**
+
+> Rest:严格意义上说接口很规范,操作对象即为资源,对资源的四种操作(post,get,put,delete),并且参数都放在URL上,但是不严格的说Http+json,Http+xml,常见的http api都可以称为Rest接口.
+>
+> Rpc:我们常说的远程方法调用,就是像调用本地方法一样调用远程方法,通信协议大多采用二进制方式
+
+
+**http vs 高性能二进制协议**
+
+http相对更规范,更标准,更通用,无论哪种语言都支持http协议.如果你是对外开放API,例如开放平台,外部的编程语言多种多样,你无法拒绝对每种语言的支持,相应的,如果采用http,无疑在你实现SDK之前,支持了所有语言,所以,现在开源中间件,基本最先支持的几个协议都包含RESTful.
+
+RPC协议性能要高的多,例如Protobuf,Thrift,Kyro等,(如果算上序列化)吞吐量大概能达到http的二倍.响应时间也更为出色.千万不要小看这点性能损耗,公认的,微服务做的比较好的,例如,netflix,阿里,曾经都传出过为了提升性能而合并服务.如果是交付型的项目,性能更为重要,因为你卖给客户往往靠的就是性能上微弱的优势.
+
+RESTful你可以看看,无论是Google,Amazon,netflix(据说很可能转向grpc),还是阿里,实际上内部都是采用性能更高的RPC方式.而对外开放的才是RESTful.
+
+
+Rest 调用及测试都很方便,Rpc就显得有点麻烦,但是Rpc的效率是毋庸置疑的,所以建议在多系统之间采用Rpc,对外提供服务,Rest是很适合的
+duboo在生产者和消费者两个微服务之间的通信采用的就是Rpc,无疑在服务之间的调用Rpc更变现的优秀
+
+
+
+Rpc在微服务中的利用
+
+1. RPC 框架是架构微服务化的首要基础组件,它能大大降低架构微服务化的成本,提高调用方与服务提供方的研发效率,屏蔽跨进程调用函数(服务)的各类复杂细节
+
+
+2. RPC 框架的职责是: 让调用方感觉就像调用本地函数一样调用远端函数,让服务提供方感觉就像实现一个本地函数一样来实现服务
+
+![](imgs/20170107161455853.jpg)
+
+
+**RPC的好处**
+
+RPC 的主要功能目标是让构建分布式计算(应用)更容易,在提供强大的远程调用能力时不损失本地调用的语义简洁性. 为实现该目标,RPC 框架需提供一种透明调用机制让使用者不必显式的区分本地调用和远程调用.
+
+服务化的一个好处就是,不限定服务的提供方使用什么技术选型,能够实现大公司跨团队的技术解耦. 
+
+如果没有统一的服务框架,RPC框架,各个团队的服务提供方就需要各自实现一套序列化,反序列化,网络框架,连接池,收发线程,超时处理,状态机等“业务之外”的重复技术劳动,造成整体的低效.所以,统一RPC框架把上述“业务之外”的技术劳动统一处理,是服务化首要解决的问题
+
+
+**几种协议**
+
+Socket使用时可以指定协议Tcp,Udp等;
+
+RIM使用Jrmp协议,Jrmp又是基于TCP/IP;
+
+RPC底层使用Socket接口,定义了一套远程调用方法;
+
+HTTP是建立在TCP上,不是使用Socket接口,需要连接方主动发数据给服务器,服务器无法主动发数据个客户端;
+
+Web Service提供的服务是基于web容器的,底层使用http协议,类似一个远程的服务提供者,比如天气预报服务,对各地客户端提供天气预报,是一种请求应答的机制,是跨系统跨平台的.就是通过一个servlet,提供服务出去.
+
+hessian是一套用于建立web service的简单的二进制协议,用于替代基于XML的web service,是建立在rpc上的,hessian有一套自己的序列化格式将数据序列化成流,然后通过http协议发送给服务器.
