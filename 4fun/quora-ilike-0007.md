@@ -654,3 +654,83 @@ As for the changes, she hasn't changed much. Can motherhood be included? Anyways
 She's staying at her parents place with our boy. I miss her. Its been just a day though. I guess, I'll call now.
 
 > 她现在和孩子待在她父母那边.我想她了,都已经去了一天了.我想,我现在该打电话给她了.
+
+## 英国首相牛逼,还是印度总理牛逼一点?
+
+From:&nbsp; [Who is more powerful, Narendra Modi or Theresa May?](https://www.quora.com/Who-is-more-powerful-Narendra-Modi-or-Theresa-May/answers/98438280)
+
+Date: October 15 2018
+
+Obviously Modi. Recently a dog died near my house. Someone ran over her. My good neighbor was like “In Modi's rule even a dog is not safe". I don't think anybody in the UK would expect their PM to be accountable for a dog's death in their neighborhood. That's the effect of MODI. Apparently MODI is like god because people expect him to be omnipresent and blame him for any mishap that happens around them.
+
+> 肯定是 Modi(印度总理).最近我邻居的狗挂掉了.有人走到 ta 那里.我那邻居说"在 Modi 定律连狗都是不安全的".我不因为英国的政府会对某个人的狗挂掉而负责.但 Modi 会影响这个.很明显 Modi 就像 CPU 一样的存在,因为人们接受 ta 的无处不在,然后为了自己身边任何一点不好的事发生而责怪 ta.
+
+## 如何让世界变得更好?
+
+From:&nbsp; [How can we make the world a better place?](http://qr.ae/TUGJG7)
+
+Date: October 15 2018
+
+“Why don’t you high five a different person every day for a month?” one of my engineers challenged me.
+
+> "为什么不和别人击掌一个月呢?"一个工程师改变的我.
+
+He’d always make fun of my month-long challenges. I did the ketogenic diet, worked out every day, and meditated every morning—among other things.
+
+> ta 一定在取笑我的一个月挑战.我每天都健身啦,在早上冥思一会啦.
+
+So I accepted.
+
+> 所以我接受了这个挑战.
+
+On the 1st day, I high fived my wife.
+On the 2nd day, I high fived my CTO.
+On the 3rd day, I high fived my neighbor.
+
+> 第一天,我和我老婆击掌.
+> 第二天,我和 CTO 击掌
+> 第三条,我和邻居击掌
+
+Things got interesting when I ran out of people I knew to high five.
+
+> 当我走出去想和别人击掌的时候,事情开始变得有趣了起来.
+
+I’d stop strangers in the street and say something like, “Oh man, that’s a sweet dog!” and “Hey, I’m loving that jacket!”
+
+> 我会叫一个陌生人停下脚步,然后说一些,"wow,这个狗真甜(笑)"或者"我很喜欢你的外套呀!"
+
+I felt vulnerable putting my hand up and smiling. There was no assurance that they’d high five me back. We live in a society where mistrust is the norm.
+
+> 我自觉的笑着然后伸出我的手.我能确保 ta 们一定会回应我的击掌.我们活在一个不相信任的世界里面.
+
+But 9 cases out of 10, the other person would high five me. Their face would break into a smile, and we’d share this moment of electric joy that would never have happened between two strangers otherwise.
+
+> 但 9/10 的是,那些人会和我击掌.ta 们会笑着,然后我们分享着本来不该存在两个陌生人之间触电的瞬间.
+
+It was amazing.
+
+> 这有点小确幸.
+
+They walked away with a little extra bounce in their step.
+
+> ta 们带着小小的兴奋继续 ta 们的脚步.
+
+And so did I.
+
+> 我也一样.
+
+Who knows what such ripples of happiness can create?
+
+> 谁知道会有什么样的幸福的涟漪出现呢?
+
+I realized that we’ve got a chronic deficit of kindness.
+
+> 我发现我们对善意还远远不足.
+
+And that working on it one high five a time—
+
+> 如果解决从每一次击掌开始...
+
+Is not a bad way of tipping the scales.
+
+> 这对于减少善意的赤字也不是一个坏的方法.
