@@ -63,6 +63,8 @@ normal spend time: 135
 change spend time: 41
 ```
 
+---
+
 ## 2. 使用设计模式
 
 在项目中,有一个功能:校验一条日志,返回`LogCheckResult`对象
@@ -193,6 +195,8 @@ public class LogCheckResult {
 }
 ```
 
+---
+
 ## 3. List 初始化
 
 哈,List 里面的根本组成就是`Object[] values`.如果在初始化,不进行长度的控制,默认长度初始化为`10`,那么在 add 新的元素的时候,当数组长度达到(size+1>length)的时候,就会按照`length*1.5`倍来增长数组.也就是在默认初始化的情况下:
@@ -236,6 +240,8 @@ public class LengthOfList {
 可能 11 个长度太小没什么影响,那么请想象一下 100w 或者 100 个并发,每个并发使用 1w 长度的数组,这样子就省下不少空间了.
 
 所以,在明确长度的情况下,请使用`new ArrayList(int capacity)`来构造 List.
+
+---
 
 ## 4. 反射的简单优化
 
@@ -352,6 +358,8 @@ public class MyObj {
 
 可以看出,这个优化的效果还是很可观的,而且循环越大,缓存的效果越明显.
 
+---
+
 ## 5. Class.forName 和 ClassLoader 的区别
 
 在使用数据库连接的时候,一般会调用`Class.forName(driverName)`来注册数据库连接驱动.
@@ -441,6 +449,8 @@ This is static method in StaticBlockClazz
 
 据说在调用`newInstance()`的方法,生成对象的时候才会执行静态代码块里面的东西.而`ClassLoader`仅仅是把`.class`文件加载到 jvm 而没有执行`newInstance()`的操作,而`Class.forName`是会默认调用`newInstance()`的操作,具体还需要去看**Jdk**代码才清楚
 
+---
+
 ## 6. `Function<K,V>`的使用
 
 在`Jodd`的项目代码里面看见了一个使用`Function<K,V>`的地方,觉得很好奇.所以测试了一下.
@@ -487,6 +497,8 @@ class MyClazz {
 	}
 }
 ```
+
+---
 
 ## 7. 运行栈信息的使用
 
@@ -571,6 +583,8 @@ public class TestGithub {
 ```java
 t.TestGithub.main:7
 ```
+
+---
 
 ## 8. 内省
 
@@ -703,6 +717,8 @@ java.beans.PropertyDescriptor[name=value; propertyType=class java.lang.String; r
 
 结论: 可以获取到类里面的各种东西.
 
+---
+
 ## 9. 线程池的使用
 
 在现实场景中,有些地方需要用到多线程,但不推荐使用 new Thread 这种方法来创建新的线程,线程多的时候,JVM 在维护线程和 CPU 切换上面都要耗费大量的资源.所以推荐使用线程池.
@@ -819,6 +835,8 @@ class issue.pool.MyRun[3] is running
 class issue.pool.MyRun[4] is running
 After all the task done, you can do anything you want.
 ```
+
+---
 
 ## 10.文件导入数据的优化
 
@@ -1059,6 +1077,8 @@ class com.pkgs.Optimize spend: 10026
 
 总结:在上述的测试数据里面,该方法能提高数据的处理速度(差不多 5 倍),但也消耗更大的资源和提高了程序的复杂性.要怎么使用,请参考具体生成环境.
 
+---
+
 ## 11. 接口设计
 
 至今,都还记得,这种疼.
@@ -1082,6 +1102,8 @@ BusVod selectOne(BusVod search);
 ```
 
 下次要记得了,含泪点赞.
+
+---
 
 ## 12. 时间处理
 
@@ -1144,6 +1166,8 @@ return date.toString();
 ```
 
 代码增加了一点,但在线程安全的情况下,Calendar 还是比 SimpleDateFormat 快一点.
+
+---
 
 ## 13. 动态代理
 
@@ -1246,6 +1270,8 @@ public class StopwatchAop implements InvocationHandler {
 }
 ```
 
+---
+
 ## 14. StringBuilder 的使用
 
 在字符串的连接里面如果不涉及线程安全,那么 StringBuilder 你值得拥有.
@@ -1287,6 +1313,8 @@ public class StrBuilder {
 
 }
 ```
+
+---
 
 ## 15. 字符串截取
 
@@ -1343,6 +1371,8 @@ Sub spend: 53
 ```
 
 结论: 字符串,还真的能折腾不少东西. :{
+
+---
 
 ## 16. 快速获取所有子文件路径
 
@@ -1453,4 +1483,165 @@ public class QuicklyFileSeeker {
 	}
 
 }
+```
+
+---
+
+## 17. 加载外部 jar
+
+生产场景:项目 a 提交接口给项目 b -> 项目 b 实现这个接口后打包成 jar -> 放置特定文件夹 -> 项目 a 自定加载使用项目 b 实现的接口.
+
+解决方案:使用自定义的`classloader`来加载实体类,然后实例化.
+
+**实现自定义 classloader**
+
+```java
+import java.net.URL;
+import java.net.URLClassLoader;
+
+/**
+ * URL classloder
+ *
+ *
+ * <p>
+ *
+ * @author hhp 2018年10月16日
+ * @see
+ * @since 1.0
+ */
+public class PluginClassLoader extends URLClassLoader {
+
+	/**
+	 * URL
+	 *
+	 * @param urls
+	 */
+	public PluginClassLoader(URL[] urls) {
+		super(urls);
+	}
+
+	public PluginClassLoader(URL[] urls, ClassLoader parent) {
+		super(urls, parent);
+	}
+
+	/**
+	 * 新增jar包
+	 *
+	 * @param url
+	 *            jar的url地址
+	 */
+	public void addJar(URL url) {
+		this.addURL(url);
+	}
+}
+```
+
+实现`InstanceBuilder`
+
+```java
+import java.io.File;
+import java.net.URL;
+
+/**
+ * 获取实体类
+ *
+ *
+ * <p>
+ *
+ * @author hhp 2018年10月16日
+ * @see
+ * @since 1.0
+ */
+public class InstanceBuilder {
+
+	private File file = null;
+
+	private static PluginClassLoader pluginClassLoader = null;
+
+	static {
+		initClassLoader();
+	}
+
+	/**
+	 * 构造方法
+	 *
+	 * @param jarPath
+	 *            jar文件路径,为绝对路径,如:<code>/home/dev/biplugin-jars/outside.jar</code>
+	 * @param className
+	 *            加载类名称,如<code>com.plugin.BiSourceImpl</code>
+	 */
+	public InstanceBuilder(String jarPath) {
+		if (pluginClassLoader == null) {
+			initClassLoader();
+		}
+		file = new File(jarPath);
+		if (!isLegalJarFile()) {
+			throw new RuntimeException("Jar[" + jarPath + "] isn't a legal jar file.");
+		}
+	}
+
+	/**
+	 * 构造PluginClassLoader
+	 */
+	public static void initClassLoader() {
+		URL[] urls = new URL[]{};
+		pluginClassLoader = new PluginClassLoader(urls);
+	}
+
+	/**
+	 * 判断Jar文件是否合法
+	 *
+	 * @return boolean
+	 */
+	private boolean isLegalJarFile() {
+		if (!file.exists()) {
+			return false;
+		}
+		if (!file.isFile()) {
+			return false;
+		}
+		if (!file.getName().endsWith(".jar")) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 创建实体类
+	 *
+	 * @return T
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T get(String className) {
+		try {
+			pluginClassLoader.addJar(file.toURI().toURL());
+			Class<?> clazz = pluginClassLoader.loadClass(className);
+			return (T) clazz.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+}
+```
+
+**测试类**
+
+```java
+import com.func.BiSource;
+public class SuperInvoke {
+	public static void main(String[] args) {
+		String jarPath = "D:\\Mydoc\\biplugin\\biplugin-outside.jar";
+		String className = "com.plugin.BiSourceImpl";
+
+		InstanceBuilder builder = new InstanceBuilder(jarPath);
+		BiSource target = builder.get(className);
+		target.say("窝草");
+	}
+}
+```
+
+```java
+窝草
+class com.plugin.BiSourceImpl say: 窝草
 ```
