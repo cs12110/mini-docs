@@ -6,2533 +6,1639 @@
 
 ---
 
-## 权力游戏台词
+## 今天什么让你难过了?
 
-From:&nbsp;&nbsp;[What is the greatest quote from a Game of Thrones character?](http://qr.ae/TU1M0C)
+From:&nbsp; [What made you cry with sadness today?](http://qr.ae/TUTDBc)
 
-Date: April 04 2018
+Date: May 28 2018
 
-**Tywin Lannister**
+That’s saying something for me, since I didn’t even cry when my father died. Or my sister. Or when my kids were born. I honestly don’t remember the last time an actual tear came out of my eye because of sadness. It’s not that I lack emotion… it’s that crying isn’t how my emotions manifest themselves.
 
-“A lion doesn’t concern himself with the opinion of the sheep.”
+> 对于我来说,自从我父亲去世,或者我妹妹去世,或者我的小屁孩出生,我都没哭过了.我确实不记得我最后一次哭是什么时候了.这不是我无情...但哭泣,从来都不是我表达情绪的方式.
 
-> 狮子从来不关心那些有想法的羊.
+Anyway, I was definitely sadder than I’ve been in a long time today.
 
-“The greatest fools are often more clever than the men who laugh at them.”
+> 不论如何,我今天比之前有点伤心.
 
-> 那个最蠢的人也通常比取笑他的人聪明.
+For a stupid, selfish reason too. I know it’s a stupid, selfish reason. No need to tell me that in the comments. I know I need to get the hell over it and stop with the self-pity.
 
-**Prince Oberyn**
+> 为了一个愚蠢的,自私的理由.我知道这是没脑的,所以不需要在留言里面说出来了.我知道我需要 tmd 去停止自怜.
 
-“it is a big and beautiful world. Most of us live and die in the same corner where we were born and never get to see any of it. I don’t want to be most of us.”
+Today, I learned, via a friend’s Facebook post, that one of my childhood friends and neighbors passed away over night. But that’s not even the reason I’m sad.
 
-> 这是一个美丽又宏大的世界.而我们之间的大多数人,只活在了 ta 出生的那块地方,而没有去见过这个世界.我不想成为这样的人.
+> 今天,我通过 facebook 的推送知道,一个我童年住在隔壁的朋友去世了.但这不是让我伤心的理由.
 
-**Tyrion Lannister**
+He and I were friends in elementary school, mainly because he lived close by and I was allowed to walk to his house. But, in middle school, he started hanging with the “cool kids” and didn’t have time for me.
 
-“When you tear out a man's tongue, you are not proving him a liar, you're only telling the world that you fear what he might say.”
+> 他和我在小学里面是朋友,大部分原因是因为我们住得近,我能进到他的家里面.但在中学的时候,他开始和那些杀马特混了,而不和我在一起玩了.
 
-> 当你扯到那个人的舌头的时候,你并没有证明 ta 是说谎了,你只是告诉别人你害怕 ta 接下来要说的东西.
+A lot of my elementary school friends did that in middle school… suddenly didn’t want to be seen hanging out with me.
 
-“Never forget what you are, for surely the world will not. Make it your strength. Then it can never be your weakness. Armour yourself in it, and it will never be used to hurt you.”
+> 大部分我小学的同学,在中学也这么干了...突然间都不想和我玩了.
 
-> 永远不要忘记你是谁,同时这个世界不会忘记你是谁的.让 ta 成为你的力量,那样就永远不会是你的软肋了.让 ta 成为你的盔甲,那样就永远不会伤害你了.
+Anyway, a couple of years later, when we were both juniors in high school, I found out that he was dating my crush. I found out from her, actually. She mentioned his name, and I was like, “Joe? Yes. I know him. He lives near me.” That’s when I learned that my crush lived near me too, and she became friends with Joe right around the time he quit hanging out with me. She told me that she and Joe had been fooling around ever since middle school, but they weren’t “exclusive” until recently. They’d done everything a couple could do together.
 
-“I will hurt you for this.A day will come when you think you're safe and happy and your joy will turn to ashes in your mouth.And you will know the debt is paid.”
+> 些许年后,当我们都上高中的时候,我发现他正在和我喜欢的女孩子在交往.实际上,我从她那里发现的.她提起他的名字,而我就像,"Joe?是的.我知道他.他就住在我附近".这就是我知道我喜欢的那个女孩子也住在我附近,然后在 Joe 不和我玩的那会,她成为了他的一个朋友.她说他们两个从初中起就开始瞎混了,但他们不排外直到最近.他们做了狗男女一切可以做的东西.
 
-> 我会为这个报仇的.当你觉得你安全和开心的那天,你的幸福会在你的面前变为灰烬.然后,你才会醒悟,这就是你要付出的代价.
+When I moved to college, I lost touch with all but my closest two friends from high school. They’d tell me bits and pieces of what everyone else was up to, but I didn’t really reconnect with my old classmates until I got Facebook four years ago, some 16 years post-graduation.
 
-**Arya Stark**
+> 当我开始上大学的时候,我除了两个最亲近的朋友,其他的失去了联系.从他们之间我知道其他的一些人零碎的消息.但我没和那些老同学联系,知道我四年前开通了 facebook,完成了一共 16 年的学业后.
 
-“All halls lead somewhere. Where there is a way in, there is a way out. Fear cuts deeper than swords.”
+I learned through mutual friends that Joe had gone down a very bad path… drugs, failed relationships, run-ins with the law, etc… He was on Facebook too, and we’d sometimes both comment on a mutual friend’s post, but I never friended him. I didn’t have anything to say to him.
 
-> 所有的走廊都会通向某一个地方.那里有一条路进来,那里就有一条路出去.害怕比剑造成更深的伤痕.
+> 我从一些朋友之间得知 Joe 走上了一条不归路...毒品,感情破裂,打官司等...他也在 facebook 上面,我们偶尔会在共有的朋友上面留言,但我从来没有加他.我没有什么东西可以对他说的了.
 
-“Not everyone who spoke you friendly was really your friend.”
+So, all day today, our mutual Facebook friends have been posting pictures of him from high school. There have been dozens of pictures from parties, prom, football games, etc… I recognize most of the people in the pictures. Some of them were nice to me in high school (including my crush, who’s hanging all over him in many of the pictures), but most of them just ignored me in high school.
 
-> 不是所有说你友善的人都是你的朋友.
+> 所以,一整天依赖,我们的 facebook 朋友推送一些从他高中以来的照片.那里有一堆的照片,来自聚会,舞会,足球比赛...我认得大部分在照片里面的人.有些人在高中里面对我还是挺好的(包括我喜欢的那个女孩子,那个一直和他闲逛的女孩子),但他们都忽视我.
 
-**Cersei Lannister**
+And that’s what made me sad… seeing all of the pictures from high school of my friends having fun and going to things, knowing that I was never invited to any of those things. I could tell where the pictures were taken. I could tell what year they were taken.
 
-“For those who sit on throne, the truth is what they make it.”
+> 然而这些让我有点小伤心.看见这些来自高中的照片,看着他们寻乐,然后为某些事感兴趣,知道我从来没被邀请到这些里面.我甚至可以说出这些照片在哪里照的,在哪一年照的.
 
-> 事实是做在王座上的那些人捏造的.
+“Oh. That’s the student parking lot. It looks like our senior year. It looks like school just got out. They look like they’re having a blast, hanging out by Joe’s car. I’ll bet, if the camera angle were a little wider, you’d see me walking towards my car. I remember them hanging out by his car a lot. They’d see me walk to my car, and never say anything to me unless I said hello to them first. They never once asked me to hang out with them.”
 
-“What good is power, if you can’t protect the ones you love.”
+> "Oh,这就是那些学生停留最多的地方.看起来像是我们的早年时光.看起来就像刚才学校出来.他们看起来朝气蓬勃,和 Joe 的汽车一起出去玩.我想,那些镜头有点奇怪,你可以看见我自己静悄悄的走过那辆车.我记得他们一直在那辆车旁边闲逛,从来没对我说过什么,除非我自己先打招呼.他们从来也没叫我和他们一起出去玩."
 
-> 如果不能保护自己爱的人,那权力有什么好处?
+I know what I was going through those years… the isolation and feeling forgotten… To know that, while they were doing all of those fun, normal high school things, I was probably at home, alone, wasting away those young, care-free years.
 
-## 生命里最好的感觉是什么?
+> 我知道这些年我经历了什么....那些孤独和被遗忘....在他们做着那些高中该做的寻乐的时候,我可能自己待在家里面,浪费掉了那些年,那些最好的年华.
 
-From:  [What are some of the best feelings in life?](http://qr.ae/TU1Our)
+The pictures just brought to the forefront of my mind some feelings I’d been trying to forget, and it got to me a little today.
 
-Date: April 08 2018
+> 那些照片把我尝试忘记的东西,重新唤起来了,这让我今天有点小伤心.
 
-When I was a child, I frequently wetted the bed.
+OK. Matt’s pity-party is over. Thanks for listening.
 
-> 在我小的时候,我经常尿床.
+> 好的,Matt's 自我可怜结束了,谢谢查看.
 
-My parents tried everything they knew to make me stop this. I drank less water. I set alarms to wake up in the middle of the night. I was taken to a doctor.
+## 30 多岁的工程师是尽头了吗?
 
-> 我的父母尝试过 ta 们知道的各种方法来让我不尿床.我喝更少的水.我设置半夜起来的闹钟.我甚至去看过医生.
+From:&nbsp;[Is software development really a dead-end job after age 35-40?](http://qr.ae/TUTlEi)
 
-Nothing worked.
+Date: May 29 2018
 
-> 但都没有起作用.
+I am a 64-year-old software engineer who has worked for Apple, Adobe, eBay, Microsoft, VMware, Cisco, FileMaker, XO Communications, 2Wire, Egnyte, Nexsan, and two other start-ups. I have been laid off five times in my career. I always find another job within 3 to 4 weeks — even during a recession. I have had my job outsourced to India or China four times: especially in the last eight years. Nonetheless, there is always another employment opportunity waiting afterwards.
 
-But I was not affected by it until a few of my relatives stepped in.
+> 我是一个 64 岁的软件工程师了,曾在 Apple,Adobe,eBay,Microsofy,Cisco,FileMaker,XO comuncations, 2Wire,Egnyte,Nexsan,和其他两家创业公司工作过.我 5 次离职都能在 3 到 4 周内找到下一份工作,即使在经济衰退的时候.我把我的工作外包给印度和中国四次:特别是最后这 8 年时间里面.尽管这样子,其他地方都总有招聘的机会.
 
-> 我甚至都没有受到任何影响,知道一些我们的亲戚介入.
+I love what I do. I’m still doing it; and, I have no immediate plans to stop doing it. Moreover, I am good at it. That’s not so much because I am a genius but rather because I have been doing software development for a really long time and I learned from my mistakes. In fact, there is no wide-spread computer language I can’t program in. Nor is there any OS platform I am not comfortable working on. And, besides the U.S., I have also worked overseas in Apple’s factories in China and Ireland. Besides English, I’ve learned to speak (poorly) Spanish and Italian, and I can manage about a ten phrases in Mandarin.
 
-When they came to know of this, they started giving ideas to my parents. However, none of those ideas were encouraging.
+> 我喜欢我的工作.而且我现在都还在做着,我没有计划去不做这件事.更多的是,我擅长这个.这不是因为我是天才,而是因为我做软件工程师已经非常久了,而我也在填坑中学到了东西.事实上,我并不会太多的编程语言.如果那里有任何的系统平台要开发,我应该不能很好的适应.同时,因为美国的原因,我需要在海外的苹果公司工作,在中国或者以色列.我会英语,还学习了西班牙和意大利语言,而且我能使用十句官方语言.
 
-> 当 ta 们知道我尿床这件事之后,ta 们开始给我的父母出主意,但没有一个主意取得成效.
+I have managed to do all this while successfully being married for 40 years, raised two adult children (one who is a Netflix software engineer), and I now have five grandchildren. According to the last Social Security report I receive annually from the government, my total lifetime income to date is: $3,042,040; and, I’m not done yet.
 
-He must be sick. He must have contracted some serious illness. Did you check with X doctor? You better do something about this otherwise you would regret later on in life.
+> 我已经成功维持我的婚姻 40 年了,抚养小屁孩(一个在 Netflix 里面做软件工程师),然后现在我有 5 个孙子.每年我从政府里面得到最后一份社会保险报告,我的收入到今天是:$3042040;而且我还在收入都还没终止.
 
-> 他一定是病了.他一定被什么严重的疾病缠身.你们照了 x 光吗?你最好去照一下,不然你以后会后悔的.
+Having said all this, it is very much true that age discrimination and outsourcing is rampant in the Silicon Valley. Before age 45, I had a better than average chance of getting a job after a single interview. Now, at age 64, it takes me about ten interviews before I get the next job. Even then I sometimes have to work as a contractor without benefits. And, I have even learned to tolerate being interviewed by arrogant and entitled young preppies, most whom think they are somehow better than me even though they haven’t accomplished one tenth of what I have, nor have my superb academic credentials. (I have a B.S. in Civil Engineering and a M.S. in Computer Science from Texas A&M University — the latter at the top of my class.)
 
-Gradually yet steadily, this started affecting my mental well-being. I started questioning myself.
+> 说了这些东西,这是因为这个年龄在硅谷里面确实比较尴尬.在 45 岁前,我每一个面试都能收到 offer,而在 64 岁的时候,我可能面试 10 次才能拿到一个 offer.甚至有时候,我还要签订毫无价值的合约.而且,我还得在面试的时候,忍受那些高傲的小屁孩,他们觉得比我厉害,甚至连我十分之一的成就都没达到,或者有我的学历那么厉害.(我有社会工程学位和计算机学位,这些科目我都很优秀.)
 
-> 逐渐的变得稳定,这开始影响我的精神状态了.我开始询问我自己.
+So, the answer to your question is: NO, software development is most certainly not a dead end job! It is a great job. Does it get tougher to get your next job as you get older? Oh hell yes. But, so what! If you love it as I do nothing but death or poor health can stop you. All it takes is a determination.
 
-Momma, is everything fine with me? Do I have some disease? Are you and dad hiding something from me? Will I die?
+> 所以,对于你的提问,我的答案是: 不是的,软甲开发绝对不是一件有尽头的工作.这是很好的一份工作,随着你年龄的增长,你的工作变难的没?是的,变难了.但那又怎样.如果你像我一样喜欢这份工作,只有挂掉或者健康问题才能停止你.这些都看你自己的决心而已.
 
-> 老妈,我没病吧?是不是我有病?你和老爸是不是藏着什么东西没告诉我?我会挂掉吗?
+Never give up!
 
-My appetite dwindled drastically, as if someone had flicked the switch. I slept fewer hours. I wetted my bed more than ever.
+> 不要放弃呀.
 
-> 我的食量开始急速下降,就像某个人转换了某一个开关一样.我睡几个小时.尿床越来越严重.
+## 你会害怕在公共场合跳舞吗?
 
-Every time I woke up wet, I would look around in horror, to check if someone saw me, run to the washroom with the wet trouser and the mattress, put the wet clothes into the washing machine, and come back to sleep.
+From: [Are you afraid to dance in public?](http://qr.ae/TUT6GL)
 
-> 每次,我尿床醒来,我带着惊恐打量的周围,看是不是某些人看见我了,把裤子和床垫拿到卫生间里面,把那些尿湿的衣物放进洗衣机里面,然后再回去睡.(27 年前,有洗衣机,不是一般人呀)
+Date: May 30 2018
 
-The trauma was real. It was unforgiving. It was reverberating.
+No, but my kids are afraid I’ll dance in public.
 
-> 那是一种确确实实的创伤.不可原谅的.同时反反复复.
+> 不会,但我的小屁孩会害怕我在公共场合跳舞. 笑哭脸.jpg
 
-I disgusted myself whenever I wetted the bed. I hid this from my parents. I did not want them to be revolted by my shameful behavior.
+## 人生金条戒律
 
-> 我对每一次尿床的自己都感到厌恶.这些我都不让我的父母知道.我不想 ta 们被我的羞耻行为感到厌恶.
+From: [What is your one golden rule in life?](http://qr.ae/TUT6G0)
 
-This affected my very persona.
+Date: May 30 2018
 
-> 这影响到我的人格.
+No Procrastination: Just do it now.
 
-At times, I felt so repulsed about myself that I wanted to peel my skin off, and chisel out every muscle in my body.
+> 不要延迟: 立刻就做.
 
-> 时常,我对我自己感到很厌恶,甚至我想扯掉自己的皮肤,把我的每一块肌肉都挖掉.
+Clean the house as I go rather than wait for it to boil over.
 
-My family was quick to sense the red flags.
+> 在我走开的时候清理好房间,而不是里面变坏了才清理.
 
-> 我的家庭很快就意识到这个严重性了.
+Study a little each day rather than all at once.
 
-While my father was busy consulting people to get a solution for this, my mom had other ideas.
+> 每天学一点点比一次全学完好.
 
-> 在我老爸忙着去咨询别人这种问题的解决方法的时候,我老妈有了其他的想法.
+Workout today, not tomorrow.
 
-She bought a new mattress. It had pictures of pigeons on it.
+> 今天的事,不要留给明天.
 
-> 她买了新的床垫.上面有着企鹅的图案.
+I make lists of things that need to be done daily, monthly, yearly.
 
-That night when I came to my room, the cot was new. The mattress was new. I loved the pigeons.
+> 我有一张需要今天完成的,这个月完成的,和今年要完成的列表.
 
-> 那晚,我走到我的房间,那床是新的.被单是新的,而且我喜欢企鹅.
+I find ways to reward myself for not procrastinating. Food, movies, Quora, whatever.
 
-Just like those regular nights, with a heavy heart, I asked her “Momma, are you ashamed of me because I wet my bed?”
+> 我会给自己不拖延一点奖励.零食,电影,Quora,或者其他的.
 
-> 就像其他平常的夜晚一样,带着沉重的心情,我问她"老妈,因为我的尿床,你们感到羞耻吗?"
+Procrastination can literally ruin your life. Just do it now. Don’t think about it.
 
-My voice was trembling a bit.
+> 拖延会毁坏你的生活.Just do it now.想都不要想太多.
 
-> 我的声音有些发抖.
+Now is always better than later.
 
-“No way, darling. It is absolutely normal. Your relatives are idiots. They do not know what they are talking about. Come to me, let me sing for you,” she said, as she put on her glasses, and pulled out a book from the shelf.
+> 现在,一直比以后好.
 
-> "不是这样的,儿砸.这很正常的.你的亲戚都是傻屌.他们甚至都不知道他们说的是什么.来这里,我给你高歌一曲,"在她带上她眼镜的时候,这样子说到,然后从架子上面拿下一本书.
+## 不得不说的
 
-That night, she sang “What a Wonderful World” to me.
+From: [What is something you want to "get off your chest"?](http://qr.ae/TUTByD)](http://qr.ae/TUT6G0)
 
-> 那一晚,她唱了"What a wonderful world"给我听.
+Date: May 31 2018
 
-But something was different that night.
+The incident that I am going to describe, has completely broken me from within.
 
-> 但那一晚,有些事,开始变得不一样了.
+> 我将要叙述的事情,是把我完全毁坏的一件事.
 
-I looked deeper into her eyes, listening to her unmethodical voice and incongruent pitch. I observed a raging battle in her calm eyes.
+One fine day, I was returning from college in one of the AC BMTC Volvo buses. For those of you who don’t know, the Volvo buses have this large space in the middle where there are pull down seats for the handicapped. However, regular passengers are allowed to use these when there are no handicapped people on the bus.
 
-> 我看着她的眼睛,听着她跑调的歌.我在她平静的眼里面,看见了一场战争.
+> 一个挺好的日子,我搭乘 AC BMTC 公交回学校.对于那些你不太了解的人,那些 Volvo 公交中间有一块很大的空地有座位留给残疾人的,普通人也可以坐在那上面,在公交上没有残疾人的时候.
 
-I was too young to interpret much but I was sure I saw rough tides. I sensed a tempest.
+So I was sitting on of these seats, and then this girl walks into the bus, an astounding arrogance in her gait. The bus was crowded and all seats were occupied. She scanned the bus, and her eyes fell upon me, the prey.
 
-> 我那会太年轻,解释不了太多,但我的确看见了一个坎坷的潮汐.我感到暴风雨.
+> 所以我坐在那些椅子上面,然后那个女的上车了,用夸张傲慢的步态走着.公交很挤,所有座位都坐人了.她看了一眼公交,然后她眼睛定在我这里,tmd 捕猎者.
 
-As the song was edging to the end, I was almost asleep. She made me lie comfortable, fixed the mattress firmly, and nudged me gently.
+SHE: Excuse me, can you please get up?
 
-> 在那首歌快结束的时候,我差不多睡着了.她让我睡下,整理那些床单,然后把我的衣服脱掉.
+> 她: 打搅一下,请问你可以起来吗?
 
-My half-closed eyes responded vaguely. “Yes, Momma,” I asked.
+Me: May I know why ma’am?
 
-> 我半掩着的眼睛,迷糊的回应着,"老妈",我问.
+> 我: 我可以知道为什么吗?
 
-With an absolute calmness and relaxed cadence, She said “Ben, do you see this pigeon here?” she pointed out at one of the pigeons in the mattress. And she continued “…his name is Titus. You know what, he is here to watch you. If you wet the bed, you will wet him and he will peck(she said bite) your candle.”
+SHE: Well, I’m a woman
 
-> 在她平静和放松的语气下,她说"Ben,你看见那只在这的企鹅吗?"她指着被单上面的一只企鹅说.然后她继续说道'它的名字叫 Titus.你知道吗,它在这里看着你.如果你尿床,你会尿湿它,它就会把你的小 jj 咬掉.'
+> 她: 我是女孩呀.
 
-Caressing my forehead, she said that with a naughty chuckle and a truthful voice. She sounded real.
+ME: I’m sorry ma’am, but how is that a handicap? The rules state that I am to give up the seat only for a handicapped person.
 
-> 摸了一下我的前额,她说这些带着顽皮的轻笑和确切的语气.听起来,好像是真的.
+> 我: 不好意思,女孩子怎么就是残疾的了?规则说我可以只为残疾人让座.
 
-“Really Momma?” With widened eyes, I looked at the pigeon, touched it with my little fingers, brushed its body, and went to bed, watchfully.
+SHE: Well any gentleman would give up his seat for a lady
 
-> "真的?"带着惊恐的眼睛.我看着那个企鹅,用手指去摸着它,划过它的身体,然后看着它,我爬进被窝里面.
+> 她: 任何一个绅士都会为女生让座的.
 
-Mom kissed my forehead and left the room, turning off the lights, smiling at me from the doorway.
+ME(Too tired to argue): Well, sorry. I’m not a gentleman, I’m a rustic rural. I know no chivalry, am purely selfish and hence shall not give up my seat.
 
-> 我妈吻着我的额头,然后走出房间,关掉灯光,在走廊对我笑了一下.
+> 我(有点厌烦): 不好意思,我不是绅士.我刚进城,我不知道什么骑士精神,是一个完全自私的人,因此我不会给你让座的.
 
-I do not know the science behind what she said.
+She had a disgusted look and chuckled to myself. However, after a few minutes she turned around and deposited a tight slap on my cheek. “You bastard, how dare you grope my butt?” she yelled, in a blood curdling scream.
 
-> 我不知道她说的,有什么科学依据在后面.
+> 她用恶心的眼神望了我一下.不论怎样,几分钟后,她回头,然后一巴掌打在我的脸上,"死流氓,你怎么可以摸我的 butt?" 她喊叫着,撕心裂肺一般.
 
-I stopped wetting.
+I stood up seething with anger, the blood rushing to my face. My fists clenched, ready to punch the living daylights out of her. However a few more women from the bus approached me and started yelling at me and they all slapped me as well. Soon it was total chaos, guys, girls, the conductor everyone started abusing me and hurting me. I was vastly outnumbered. Someone even threw a bottle at me, and it cut my lip, the scar of which, will remain for life. Soon, the bus stopped, and I was thrown out.
 
-> 但我停止尿床了.
+> 我愤怒的站起来,那些血从留下我的脸庞.我握紧拳头,准备去把她打出屎来.然而公交上的另几个女的,靠近我,全都吵我喊着,同时扇巴掌.一会后,全都吵起来了,女的,男的,售票员全都开始打我.我寡不敌众.有个人甚至把水杯摔向我,打破了我的嘴唇,那条疤痕,这辈子都不能好了.然后那公交停住了,我被扔出了公交.(现实中的狩猎)
 
-I am 27 now.
+I reached home bleeding, humiliated and destroyed.I decided not to go to college for 2 days. Well, it can’t get any worse right? Wrong!
 
-> 我现在 27 岁了.
+> 我流着血回家,感到羞辱和被毁了.我决定我那两天不去学校.好吧,这不能更坏了,对吧? 你 tmd 又错了.
 
-Two weeks ago, a friend and I were shopping in Abu Dhabi and I found a mattress in a shop.
+There were a few girls from my college, who were on that bus and they spread the news like wildfire. When I went to college 2 days later, he called me to his office and issued a letter of suspension for 2 months. I tried my best to reason with him, that I was being falsely accused, but he would hear none of it. I walked out of his room, to the gates of my college through the lawns, where students saw me and started yelling “ molester molester”. My friends cut off all contact with me, my parents disowned me and my girlfriend broke up with me
 
-> 两个星期前,我和我朋友在 Abu Dhabi 购物,然后在一家商店里面发现了一条床单.
+> 那公交上面有几个来自我们学校的女孩子,然后在学校散布着这条消息.等我两天后去到学校的时候,他(辅导员之类的吧)叫我到他的办公室,提交一份检讨,然后停学两个月.我尝试给他解释,我是被冤枉的,但他一句也没听.我走出他的办公室,穿过草地走到校门外边,那里有一些学生在喊着"电车痴汉".我的朋友和我断绝了联系,我的父母和我断绝关系,我的女朋友也和我分手了.
 
-It had some beautiful pigeons on it.
+All of this for what? Because I didn’t give my seat to that over- entitled, fucking feminazi bitch! I swear to GOD, if I see her again, I will murder her.
 
-> 那上面有一些漂亮的企鹅.
+> 这些全都是为了什么?仅仅是因为我没给一个狗娘养的让座而已.我向 CPU 发誓,如果我再看见她,我会把她干掉的.
 
-I stopped, walked into the shop, picked the mattress up, and sat on a sofa nearby. As I got lost in my memories, I realized how fast I had grown up.
+This is my story- how I went from being a cheerful, gregarious, intelligent person to a self-destructive, depressed wreck.
 
-> 我留步,然后走进那家商店,拿起那条被单,坐在旁边的沙发上面.我在我的回忆里面,迷路了,意识到我长大得有些突然.
+> 这就是我的故事了- 这就是我从一个好人变成人的故事了.
 
-The pigeons looked almost the same. Same mattress. Same purpose. I was no longer afraid of it, though.
+## 树洞
 
-> 而这些企鹅看起来和之前一样.同样的床单,同样的用途.但我不再害怕了,我想.
+From: [What is a secret which you would not tell anybody in real life, but would on Quora using anonymity?](http://qr.ae/TUTjAE)
 
-I smiled, looking at the pigeon, running my fingers over its beak. The man asked “would you like to see more varieties of this, Sir?”
+Date: June 01 2018
 
-> 笑着,我望向那些企鹅,手指在 ta 的嘴甲上游走.那个售货员问"你想看更多的被单吗?"
+I wish to die right now.
 
-“No, I am buying this,” I said, still smiling. He looked a bit puzzled, smiled hesitantly, and walked away.
+> 我希望我现在就挂掉了.
 
-> "不用了,我要买这个,"我回答,带着诡异的微笑.他看起来有些疑惑,尴尬的笑了一下,然后走开了.
+This won’t be a confession, rather than a story.
 
-I called my mom and told her I had a surprise for her.
+> 这不是一个忏悔,更像是一个故事.
 
-> 我打电话给我妈,然后告诉她,我有一个惊喜给她.
+I am 19 yo medical aspirant who, like 13 lac other students, took up the NEET examination yesterday.
 
-“What is that, Ben?” she asked curiously. “Check your whatsapp, Momma,” I said, as I clicked a photo of the mattress and sent it to her.
+> 我是一个 19 岁的医学生,就是其他的 13 个一样.昨天考完了 NEET 测试.
 
-> "那是什么,Ben?"她好奇的问道."看一下你的 whats,老妈,"我说,在我把那张被单的照片发给她的时候.
+Now, right from the start, I was always a good student. Kind of like the teacher’s favorite, center of classmates’ jealousy. And hence, everyone seems to be expecting a lot from me. Like, a lot.
 
-She called me immediately.
+> 现在,从一开始起,我一直都是一个五道杠.老师里面最喜欢的孩子,班里最被妒忌的那个.因此,每个人都对我期望很多,是很多的那种很多.
 
-> 她立刻给我打了电话.
+It’s good to know sometimes, that people think of you as that good. But at times, it’s suffocating.
 
-We spoke for about ten minutes. We spoke of my bed-wetting times. We laughed hard.
+> 有时候,这是好的,那些人认为你是优秀的.但一直以来,这有点令人窒息.
 
-> 我们说了大概十分钟.我们说起我的尿床时光.笑得支离破碎.
+So yes, I studied hard for a year and was all set to take up the examination. I was confident of getting a good college. But of course, as faith would have it, I messed up. Big time.
 
-The last minute was, however, largely silent.
+> 是的,我努力学习是为了通过考试.我有信心可以考到好的大学.当然,理所当然的会考上的,但我混乱了.大部分时间.
 
-> 最后的时刻,不知为何,沉默如同 Java 的 bridge pattern.
+Started off easy, wasted lots of time on Biology, had a major panic attack, messed up Physics AND Chemistry. And before I knew it, the exam ended. I went numb. All of those late night study sessions, those tears, practicing questions when others were partying. All in vain. I came back home, told everything to Mom and guess what? Her reaction?
 
-She paused a while, set her throat right, and said “I was too busy raising you that I have forgotten that you are no more a baby now. Are you really 27, Ben?”
+> 从简单的开始,我浪费了太多时间在生物,出现大姨妈,错过了物理和化学.在我意识到之前,考试就结束了.我被惊呆了.那些所有的熬夜复习,那些眼泪,那些练习的问题.全都不见了.我回到家,告诉我妈发生了什么,你猜发生了什么?我妈的反应?
 
-> 她停止了一下,端正了一下语气,然后说"我忙着带大你们,我甚至都忘记你都不是小孩子了.你现在真的 27 岁了吗,Ben?"
+Slap! Slap! Slap!
 
-To me, this is the best feeling.
+> 狂扇巴掌.gif
 
-> 对于我,这就是最好的感觉了.
+It felt like my cheek just cut open. Her eyes were burning, hideous expressions. She started yelling at me and slapping me all over. I couldn’t hear her. I couldn’t hear anything. It was all coming down on me, but I didn’t know what to do. All of the times when she praised me, loved me for the good ranks, good marks were flashing before my eyes. I didn’t even try to stop her. I couldn’t. Finally when she stopped, she went straight to her room and started crying.
 
-I do not know what to call this feeling.
+> 这就像把我胸口切开了一样.她眼露怒火,可怕的表情.开始对着我吼,抽打我.我都听不见她了.我甚至听不见任何的东西.那一刻的悲凉,让我不知所措.一直以来为了好成绩她赞扬我,爱我,对我好的场景闪过我的脑海.我甚至没想去躲闪她.我不能.最后当她停止的时候,她直接走到她自己的房间里面哭了.
 
-> 我不知道这种感觉叫什么.
+My entire body had marks. I locked myself up and cried my heart out. I don’t know when sleep evaded. But I just woke up and now am writing this answer.
 
-## 编程七宗死罪
+> 我的身体都有伤痕.我锁起来,哭的一塌糊涂.我都不知道什么时候睡着了.但我现在醒过来,然后写下这条答案.
 
-From:  [What are the 7 deadly sins of programming](http://qr.ae/TU1UuQ)
+For every parent reading this, is this why you raise us? Is this why you bring us stuff, love us and care for us? For a set of numbers on a sheet of paper? Are we nothing else to you?
 
-Date: April 09 2018
+> 为每一个看到这个回答的家长,这就是你抚养我们的原因吗(不是的,人没有义务去爱另一个人的)?这就是给我们东西和爱我们的原因吗?为了那些成绩单上面的数字?还是我们对你来说一钱不值?
 
-a. Using spaces instead of tabs. You should always, always use tabs, not spaces.
+We are not that naive to not understand the sacrifices you made for us. But that does not give you the right to kick us when we are down. We understand your position. But shouldn’t you be a little more understanding towards us?
 
-> 使用 space 代替 tab.你应该一直,一直,一直使用 tab,而不是空格.(pythoner?)
+> 我们没蠢到不明白你给我们造成的伤害.但这并不意味在我让你失望的时候,你有权利去打我.我们知道你们的情况.但你们也应该多少了解一下我们吗?
 
-b. Not using auto-formatting. Forget all that tabs/spaces rubbish, what’s wrong with you — auto-format your code and then people won’t have to look at your weird ideas about brackets and spaces.
+I don’t know why I am even writing this. I have lost it now. My body still aches and I don’t even have anyone to tell that I am hurt.
 
-> 没有使用自动格式化.忘记所有关于 tab/space 的废话,你错在哪里?格式化你的代码,然后那些人就不会被你奇怪的括弧和空格给迷糊了.
+> 我不知道为什么我写下这些.我失去了东西现在.我的身体还很疼,我甚至没有任何倾诉的人.
 
-c. Using IDEs, which have features such as auto-formatting and nicely-coloured buttons. All code should be written in vi or Emacs, thus ensuring the purity of the programming experience.
+## 在学校做过最机智的是什么?
 
-> 使用 IDEs,特别是那种有自动格式化代码功能的和代码高亮按钮的 IDEs.所有的代码应该在 vi 或者 emacs 上面写,那些才能确保纯粹的代码质感.
+From: [What is the sneakiest thing you did in school?](http://qr.ae/TUTfhZ)
 
-d. Not using IDEs. No-one wants to pay for all the time it’s going to take you to type things that you could have done at the click of a button, or scroll up and down using some ridiculous key combination invoked using LISP.
+Date: June 04 2018
 
-> 不使用 IDEs.没有人会一直愿意花时间去写一个按钮就能完成的事,或者通过一些奇怪的按键动上下来组合使用 LISP.
+In high school, I had a teacher that was horrible at grading papers. Ms. Poole loved assigning homework, but hated marking it. She would collect my hard work on time and more often than not, fail to return it back.
 
-e. Failing to learn C and C++. It’s really important to learn the two absolute essential languages. You think Java is just as good? Fine, write me a real-time control system for racing cars in Java and I’ll believe you.
+> 高中的时候,我有一个老师不喜欢给作业打分.Ms Poole 喜欢布置作业,但不喜欢给它们评分.她经常把我们的作业收起来,但不会给回我们.
 
-> 学不好 C 和 C++.学习两门基本的语言是很重要的.你觉得 java 很好?好的,给我用 java 写一个实时的赛车管理系统,那么我会相信你说的.
+When she did, it came back filthy. I once had a paper marked with yellow highlighter and a second smeared with spaghetti sauce. Another time, she gave all the class their papers back, except mine, then said I never handed it in.
 
-f. Learning C or C++ when you could be using something modern like Java instead. Admit it — all your schedules involving C or C++ overrun by five years. And even then the software turns out to have critical flaws that Java would not even have allowed you to create.
+> 如果她发回来了,作业变得很脏.有一次我的作业被黄色的污迹覆盖住了,而第二块污迹就是意大利面的酱汁.还有一次,他把全班的作业都发回来了,除了我的,然后就说我的作业没提交.
 
-> 在你使用其他高级语言入 java 来写东西的,使用 c 或者 c++来代替.承认吧,你没用过 c 或 c++起码超过 5 年了.甚至发现你的程序里面有着严重的 bug,那种 java 根本就不允许你创建的 bug.
+But I did. That time at least.
 
-g. Overrunning the end of an array.
+> 但我交了,至少在那一次.
 
-> 数组越界访问.
+It was year 2000 and computers were becoming a thing. So Ms. Poole announced that from then on, all essays were to be typed and submitted on floppy disks. I knew it was because she didn’t want to make proper red pen corrections.
 
-## 你感受到最大的文化差异?
+> 在 2000 年的时候,电脑已经出现了.所以 Ms Poole 从那时开始宣布,所有的作文必须是电脑写的,然后使用软盘提交.我知道她只是不想去对文章进行修改而已.
 
-From:  [What is the biggest culture shock you have ever faced?](http://qr.ae/TU19IY)
+It was senior year; I had senioritis and was also sick of Ms. Poole’s sloppiness. So I decided to hand in a blank floppy disk for my first soft copy assignment. I labeled it with my name, just like she instructed, and turned in a brand new disk.
 
-Date: April 10 2018
+> 我已经是老油条了.我对 Ms Poole 的敷衍感到恶心.所以我决定提交一张空的软盘来应付我的第一次软件 copy 任务.我写上了我的名字,就像他命令的那样子,然后提交上去.
 
-I worked in Japan for 6 months. There, I met a girl who’s also from Croatia. We became really close friends. Besides her, I also met a Japanese guy who became our best friend there. We were going out together, having fun, talking a lot, and giving each other advice.
+I planned on telling Ms. Poole that it must have been a glitch or a wrong one when she found the disk empty. Few days later, she gave it back and posted the grades on the board. I thought I failed since I didn’t hear back from her.
 
-> 我在日本工 6 个月.那里,我认识了一个和我来自同一个地方克罗地亚的女孩子.我们成为了很好的朋友.通过她,我还认识了一个日本的男孩,在那里也成为了我的好友.我们一起出去玩,寻找乐趣,无话不谈,然后给各自一些其他的建议.
+> 如果她发现软盘是空的话,我打算告诉她那是软盘的问题.几天之后,她把软盘给回来,然后把成绩公布在黑板上.自从我没听她提起,我以为我会被识破的.
 
-One day, he came to us and told us he wants to bring us to meet his family (which he haven’t seen for over a year). We were in shock. And honored, at the same time. We agreed.
+I didn’t fail.
 
-> 一天,他来到我们这边,和我们说,他想带我们去见他的家庭(那个他一年多都没回去过的家).我们有些震惊.同时感到一种荣幸,在同一时间.所以,我们同意了.
+> 我没失败.
 
-The two of us met him around 5pm. He told us, before we go to meet his family, he has a surprise for us. He took us to a place where you can rent a kimono, they did our hair, we choose a kimono we liked and were ready to go.
+I got a B. I suspected that Ms. Poole did not go through the disks. So I kept my mouth shut and handed in another blank floppy for the second assignment. I got a B+. I did the same on the third and fourth.
 
-> 我们两个在差不多 17:00 的时候遇到他.他告诉我们,在我们去见他的家庭前,他给我们准备了一个惊喜.他带我们去一个可以租借和服的地方,然后整理我们的发型,我们选择我们喜欢的和服,然后准备过去.
+> 我拿到了 B.我怀疑她连看都没看那些软盘.所以我默默的提交着空白的软盘给第二次左右.我得到了 B+.我在第三次作业和第四次作业也这么做了.
 
-I can’t explain how special both of us felt. He knew how much we wanted to wear a kimono, and he made our wish come true - although we never asked for it.
+She said my fifth paper was great.
 
-> 我不能解释在我们出发的时候有多特殊.他知道我们有多想穿上和服,然后他让我们的愿望成真了-尽管我们从来没有去请求过.
+> 她说我的第五次作业写得很好.
 
-We were set to go. Excited. Thrilled. On our way, he started telling us the story about his relationship with his parents. It was complex. He was so nervous, shaking, thinking this dinner will be a total disaster. We calmed him down a bit.
+Except it wasn’t.
 
-> 我们准备出发了.有点小激动.还是有点小激动.在路上,他开始告诉我们关于他和他父母之间关系的故事.有点复杂.他有点不安,抖动着,想这次晚餐一定会成为一场灾难的.我们让他平静了一点.
+> 除非我根本没写啦. 笑哭脸.jpg
 
-We came in front of the house. The two of us were practicing our Japanese greetings, because his family didn’t speak English. We knew some basic Japanese, but definitely not enough to hold a conversation. We were also a little bit nervous.
+There was no fifth paper on that floppy disk. There was nothing on it actually.
 
-> 我们来到他们家的门前.我们两个练习这我们日式礼仪,因为他们家庭不说英语.我们只知道一些基本的日语,但绝对不能应对一场对话的.我们也有点紧张.
+> 那根本都没第五次作业在软盘里面.那根本什么都没有.
 
-We rang the bell. His mom opened and saw the two of us bowing and greeting her in our kimonos. I can’t find words to explain how happy she was seeing us like that. It was the most genuine smile I’d seen in a long time.
+I never had to work on another assignment for Ms. Poole’s class again. All she got from me was an empty floppy disk for the remainder of the semester.
 
-> 我们按下门铃.他的母亲来开门,然后看见我们穿着和服在鞠躬.我不能找到形容她看到我们这种礼仪有多开心的模样.她脸上带着我很久都没见过的诚恳的笑容了.
+> 然后我再也不做 Ms poole 的作业了.大半个学年,她从我这里拿到的只是一张空白的软盘.
 
-After meeting all of his family (mom, step dad, 2 sisters and a brother-in-law), we sat and started eating and chatting a little bit.
+I got a A- for my final grade in English that year
 
-> 在认识他所有的家庭成员(mom,继父,2 个姐妹,和一个堂兄),我们坐在一起吃饭和交谈.
+> 在最后的考试里面,我拿到了 A-.
 
-Dinner was delicious, so I (insecurely) said “Oishii”, meaning delicious.
+## 医生对你说过最没脑的是什么?
 
-> 晚餐很美味,所以我(不确定)说了"Osihii",表示美味.
+From: [What’s the most unprofessional thing a doctor has said to you?](http://qr.ae/TUp7Ig)
 
-His mom said “UKUSNO”. What? That’s Croatian for delicious. My friend and I looked at each other and started laughing in confusion.
+Date: June 05 2018
 
-> 他妈妈说"UKUSNO".窝草?这是克罗地亚里面美味的意思.我和我的朋友看着彼此,然后迷惑的笑了.(好尴尬)
+When I was 19, I went on a date that ended very, very badly. He got drunk and raped me.
 
-That’s when his mum picked up a notebook she held behind her. Opened it and showed us Croatian words that she and her husband were practicing for us.
+> 那一年,我 19. 我去了一个很糟糕的约会,非常糟糕的约会.ta 喝醉了,然后强奸了我.
 
-> 当他母亲拿起放在她身后的一个本子.打开然后给我们展示她和她丈夫为我们练习的克罗地亚单词.
+My best friend drove me to the ER, where I was put into a backless gown and told to wait for the doctor. So my friend consoled me while we waited two hours for the doctor to show up.
 
-The notebook was full: dobro veče (_good evening)_, kako si (*how are you), *kako se zoveš (_what’s your name), etc._
+> 我的好朋友把我送到医院里头,我穿着一件露背的黑色睡袍在那里等医生.所以我朋友在等那个医生两个小时的时间内,不断安慰我.
 
-> 那本子上面全是: 下午好呀,你过得怎样,你的名字叫啥呢
+He comes in and takes a long look at my friend. She and her boyfriend were quite passionate, for lack of a better term. Her neck was covered in hickeys.
 
-I was speechless. The two of them came that day from work, probably tired and they found time (besides preparing us an amazing dinner) to learn some Croatian.
+> ta 来到之后,给我朋友意味深长的一看.她和他的男朋友好激情,在好的方面.她的脖子留着唇印.
 
-> 我词穷了.他们两个下班回来,可能很累了,还要找时间(在为我们准备丰富的晚餐之外)还去学了一些克罗地亚语言.
+Then he looks at me, and asks my friend ‘Are you sure you weren’t the one that was raped?’ And he laughs.
 
-I don’t think many people would do it. I didn’t even think about learning something new in Japanese to prepare myself for this dinner… but they did.
+> 然后他看着我,问我的朋友"你确定你不是被性侵的那个?",然后他就笑了.
 
-> 我想大部分的人都做不到这个.我都没在日本学一些新的东西来为这个晚餐准备...但他们做了.
+My friends jaw dropped and she proceeded to tell him what an ass he was. I couldn’t stop crying.
 
-A little bit later, his sister (she left the room for some time) came back and gave us the drawings she made of both of us. These drawings were beautiful. And we were again surprised. We couldn’t thank them enough. I couldn’t remember the last time I felt so good, or laughed as much as I did with them. The energy that night, the kindness of these people, the relief in our friend’s eyes when he realized that this dinner is everything he needed, it just can’t be described.
+> 我朋友下巴都惊掉了,然后她控诉他是多么的垃圾.我都停不住哭.
 
-> 一会后,他的妹妹(她离开这个房间一会了)回来,然后给我们她画出来的画像.那些画都很漂亮.我们再次被惊喜到了.我们不知道怎么感谢他们.我甚至不记得上一次感觉这么好事什么时候了,或者和他们一起笑了那么多.那一晚的能量,那些人的善良,解开了我朋友眼里的隔阂.他意识到那个晚餐几乎有他所有想要的,这些我都没办法描述出来.
+They called in a female doctor to do my rape kit after that. I wouldn’t let the first doctor put a finger on me.
 
-I don’t think I will ever see people who are as nice and polite as Japanese. It definitely made me a better person.
+> 然后他们叫了一个女医生来做我的性侵检查.我连一只手指也不会给那个狗男人碰了.(坏人,并不因为自己的职业变好)
 
-> 我想我再也不会遇见想日本人那样子好而又礼貌的人了.这让我成为了更好的人.
+## 好心分手?
 
-## 电影的女孩和现实有什么差别
+From: [Why did you break up with your partner?](http://qr.ae/TUpR3d)
 
-From:  [What is the difference between girls in movies and in real life?](http://qr.ae/TU1ixn)
+Date: June 06 2018
 
-Date: April 11 2018
+Because he never cheated on me.
 
-**a.**
+> 因为他从来没欺骗我.
 
-**Girl in movies :** Studies last night and becomes topper.
+Don’t judge. Let me explain.
 
-**Girls in real :** Studies last night and hardly pass or might fail or can get good numbers
+> 先不要下结论,请允许我解释一下.
 
-> 电影中: 考前一晚才复习,然后成为最牛逼的那个
->
-> 现实中: 考前一晚才复习,然后可能艰难飘过,或者挂掉,或者有一个好分数.
+I met this wonderful, kind, loving and extremely good looking guy when I was 19 and he was 20. We met during our undergraduation and there were just sparks. We dated for 3 months before making it official. We had 4 years of wonderful togetherness, bliss and happiness. After our graduation, he got a job at a top software firm in India while I went abroad for my masters.
 
-**b.**
+> 那年我 19,我遇到了一个很帅而又很好的 20 岁的男孩子.我们在大学那段时间认识的,擦出一点小火花.在交往 3 个月后,我们才公布我们的恋情.我们有了四年的美好时光,开心且幸福,他得到一个印度最牛逼软件公司的 offer 在我去国外留学的时候.
 
-**Girl in movies :** If parents came to know that daughter has boyfriend , No problem
+The first 2 years was wonderful. I flew down to India when I could and he came over to visit me once too. But an year into working, we weren’t able to make a lot of time for each other.
 
-**Girls in real :** If parents came to know that daughter has boyfriend , problems begin .
+> 刚开始的 2 年里面都还好.我有时飞回去印度,在我能飞回去的时候,然后他来过我这边一次.但我进入工作一年后,我们不能给彼此抽出时间来了.
 
-> 电影中: 如果父母知道女儿有一个男票,那没什么问题.
->
-> 现实中: 如果父母知道女儿有一个男票,现在问题才刚刚开始.
+But neither of us talked about breaking up nor taking a break. We understood the situations were so and decided to live with. But at the same time, there was a distance that we didn’t know how to handle.
 
-**c.**
+> 但我们都没有提分手什么的.我们知道我们之间的情况,然后谁都没说什么,就这样相处下去.与此之间,我们知道我们之间存在了我们不可逾越的距离了.
 
-**Girls in movies :** are real, helping and have good heart.
+The biggest problem was he wasn’t keen on coming to US and I was in a situation where it was necessary for me to be here. Both of us had valid reasons and we didn’t know how to work around them.
 
-**Girls in real :** not **all** are real, helping and have good heart.
+> 最大的问题是他不能来英国,而我又因为自己的情况必须在英国.我们都有一堆理由还坚持自己的立场,我们真不知道怎么解决这些问题.
 
-> 电影中: 真实,乐于助人还有一副好心肠.
->
-> 现实中: 不是所有都是真的,乐于助人和有一副好心肠.
+A couple of months later, I was working on a project when I got a call from an Unknown number. It was his friend calling to talk to me. My heart raced wondering something bad had happened to my boyfriend and I excused myself and went to the stairs. I still remember seeing a crumpled paper on the stair I was sitting on and me looking at what was written on it. It had the letters ‘Fact…’ on them. I called him back and asked him if boyfriend was alright. He didn’t say anything for a couple of seconds and later on told me that he was. I was confused. Why was he calling me then. Then he proceeded to tell the story. Boyfriend(lets call him X) met a girl(Y) in a office. She was extrememly nice and very talkative. They quickly became friends. She was also there when he needed help numerous times and vice versa. The friend told me some more details that I would not like to share here as it is personal to her. Infact I remember X mentioning her a couple of times to me as well. At this point my heart was racing and I felt like I knew what was coming. Y fell in love with X and proposed him. Even though X looked like he had feelings he never even spoke to her after the proposal. He shut himself off from anyone who even tried talking about her.
 
-**d.**
+> 几个月后,我在工作的时候接到一个陌生电话.这是他一个朋友打来的.我还在紧张是不是他出现了什么事,我找到借口出去,然后走到楼梯间.我还记得我坐在楼梯间里面,看着的那些破皱的纸张上面写着什么.那上面有"Fact...".我打电话回去,问那个人是不是我男朋友发生什么事了.在刚开始他沉默了一会,然后说男朋友的确发生了一些事.我有点疑惑.那为什么他不打给我.然后那个朋友开始讲述了事件的经过.男朋友(那就叫 X 吧)在公司遇到了一个女孩子(Y).那个女孩子很好而且还是话痨.他们很快就成为了朋友.每一次他需要帮助的时候,她都在他身边.那个朋友告诉了更多一些详细的东西,那些不想在这里分享的东西.事实上,我记得 x 也在我这里提起她几次.在这一刻,我还是颤抖,就像我知道会是这样的一样.y 喜欢 x,然后去追求他.尽管 x 看起来有点感觉,但在她表白后,他不和她再说话了.他把每一个和她谈话的人都拉黑了.
 
-**Girls in movies :** Wants to become dancer, singer and pianist and becomes dancer, singer and pianist.
+The friend just said ‘SO..’ and stopped it there. I knew what he was asking me. I just said I will talk to him later and cut the call. At that moment I felt betrayed. I know boyfriend didn’t cheat on me. But for a moment I felt jealous. I cried sitting on the stairs and didn’t know what to do. I wanted to end it for his sake so that he could move on but I was also selfish and didn’t want a change in my life. Then I called X and asked him about her. He was shocked that I knew about it and then started sobbing quietly. It broke my heart. I knew our relationship was long over. I knew there was nothing I could offer him now. I also knew he was in love with her. I asked him if he kissed her. He said never. At that moment I knew what I had to do. He would never cheat on me. He would tie himself to me his entire life even if we never meet each other again just because of the fact that he promised me.
 
-**Girls in real :** Wants to become dancer, singer and pianist and becomes what their parents want them to be
+> 那个朋友仅仅说"那么....."我知道他在向我请求什么.我只是说我会和 x 迟点聊一下,然后就挂断了电话.在那一刻,我感到了背叛.我知道我男朋友没有欺骗我.但那一刻,我有点妒忌.我坐在楼梯上面不知所措的哭着.为了他好,我喜欢结束我们的恋情,那样子他就可以往前走了,但我又是很自私的一个人,我不喜欢我的人生改变.我知道我们之前早就完了.我已经不能再为他做些什么了.我也知道他喜欢 y.我问他有没有吻过 y.他说没有.那一刻,我知道我要做什么了.他从来没骗过我.他因为对我的诺言会把人生绑起来,尽是我们不再见面.
 
-> 电影中: 想成为一个舞者,歌手或者钢琴演奏家,然后就会成为舞者,歌手或者钢琴师.
->
-> 现实中: 想成为一个舞者,歌手或者钢琴演奏家,然后成为 ta 们父母想让 ta 们成为的人.
+And I couldn’t let him do that. Even though I knew our relationship had run its course , I did love him. SO I set him free. He tried to talk to me. He tried to convince me. He tried to reason a lot with me. He said that he didn’t love her. But I could sense in his words that he was in love with her. I asked him to not contact me for sometime and move on with his life.
 
-**e.**
+> 我不能让他这样子做.尽管我知道我们的感情最终走上了末路,我的确喜欢他.所以我让他自由了.他尝试去和我聊天.他尝试去说服我.他尝试很多的理由让我不要走.他说他不爱她.但我能感到他的语气里面,他的确喜欢她的.我让他不要在联系我了,然后继续过自己的生活.
 
-**Girls in movies :** wear what they want.
+Its been 4 years since that day. Today he is married to her. He got married last week. It took me a lot of time to get over him. Probably because I was so used to having him in my life.
 
-**Girls in real :** Society decides what they should wear.
+> 到现在,已经是四年前的事了.今天他和那个女孩子已经结婚了.他上个星期就结婚了.这让我不知所措.大概,是因为在过去,我都习惯有他在我生命里面了.
 
-> 电影中: 穿她们自己喜欢的.
->
-> 现实中: 社会决定她们能应该穿什么.
+But today I m completely over him. I sent him an email wishing him all the luck in his life. That I’m happy for him and that he was a very lucky man for having found such a beautiful soul.
 
-**f.**
+> 但今天我总算跨过去了.我给他发了一封邮件,希望他余生幸福.我对他能找到那么好的另一半感到高兴.
 
-**Girls in movies :** are usually rich.
+He replied - I ALWAYS was lucky. Thank you for everything.
 
-**Girls in real :** are poor, middle - class and rich.
+> 他回复道 - 我一直都很幸运. Thank you for everythin.(最后面这句是作者自己写给自己的吧,我想)
 
-> 电影中: 一般都很有钱
->
-> 现实中: 穷的,中产或者有钱.
+## 难忘的事件?
 
-**g.**
+From: [What's the most incredible coincidence that ever happened to you?](http://qr.ae/TUp1di)
 
-**Girls in movies :** when they wake up their hair looks like combed.
+Date: June 07 2018
 
-**Girls in real :** hair are matted.
+My best friend died 15 months ago of ovarian cancer in a hospital following surgery to have it removed. We were friends for over three decades. I went to be with her on her deathbed. She didn’t say much, but we had a few very good conversations in the days before she passed that I will never forget.
 
-> 电影中: 当她们化妆的时候,她们的头发看起来和精致.
->
-> 现实中: 她们的头发都很枯燥.
+> 我最好的朋友,在 15 个月前因为子宫癌在医院做摘除手术的时候去世了.我们做朋友已经 30 年了.我也去到她床位那里.她没有说很多的话,在她去世前的日子里面,我们有一些我永远也不会忘记的交谈.
 
-**i.**
+The plan was that she would have chemotherapy following her surgery, and while I sat there with her, she suddenly said to me, “You know, with the chemo I'm going to lose my hair.” I replied, “It doesn't matter, you will always be beautiful to me.” She smiled back.
 
-**Girls in movies :** Have their first love as last love.
+> 计划是在她手术之后还要进行化疗,在我坐在她身边的时候,她突然和我说,"在化疗的时候,我会掉光我的头发."我回答说,"没关系的,你在我眼里一直都那么漂亮." 她给了我一个大大的微笑.
 
-**Girls in real :** Honestly, **TRUE LOVE ** rarely exists.
+She knew that her cancer was stage IV. The doctor said she also had two spots on her liver. Metastases. It actually turned out to be many more, eight or ten. She was very weak, as if close to death, but there is always that little glimmer of hope. One day when I sat with her, a nurse came into the room. Friends and family had decided it was best not to tell her just how many spots she had on her liver. It would only make a bad situation worse. The nurse did what she needed to do and suddenly blurted out to my friend something like, “And your liver is full of spots!” I could have just slapped the nurse in the face! My friend looked much more worried than before. You could see she was very affected by the nurse’s thoughtless comment. I think she gave up right there and then, she lived only a few more days.
 
-> 电影中: 与初恋白头偕老.
->
-> 现实中: 说实话,真爱几乎不存在.
+> 她知道她的癌症已经是晚期了.那医生说她的肝脏还有感染的斑点.癌症转移.最后然后那里有更多,8 个或者 10 个感染点.她已经很虚弱了,但那里始终有着渺茫的希望.有一天,我坐在她旁边,护士走到病房里面.朋友和她的家人都决定不要告诉她,她的肝脏有多少感染.这只会让现在的情况更糟糕.那个护士做完了要做的事后,然后对我的朋友说,"你的肝脏全是感染的斑点了".我应该一巴掌打死那个护士的.我朋友看起来比往常更担忧了.你可以看见她被护士的话影响有多大.我想,那会她就放弃了,她还存活了几天.
 
-**j.**
+My dear friend passed only two hours after I left her. I would have liked to stay, but I was too exhausted. I had to go home to sleep. I think she wanted it that way. The next day, I came to say goodbye. Even though her body was there, the room felt empty, as if her spirit had already left.
 
-**Girls in movies :** are slim
+> 我的朋友在我离开的两个小时后去世了.我想留在那里,但我已经筋疲力尽了.我必须回家睡一觉.我想她也想我回去的.第二天,我去和她说永别.尽管她的身体还在那里,但那个房间感觉已经被清空,就像她精神早就离开了一样.
 
-**Girls in real :** Thin, fat, healthy, slim, little fluffly , etc, etc, …
+I traveled home. I was in a daze. I didn’t care whether or not the airplane crashed, I just wanted to be where she was.
 
-> 电影中: 很苗条
->
-> 现实中: 瘦的,肥的,健康的,苗条的,小炸毛的,等等,等等.....
+> 我回到家.我有点茫然.我不在是不是坠机什么的,我只想去她去的地方.
 
-**k.**
+And this is where it gets weird.
 
-**Girls in movies :** what they speak is always right.
+> 然后事情变得奇怪了起来.
 
-**Girls in real :** They are human,they also make mistakes.
+Two weeks after her death, I got this intuitive feeling to put my finger deep into my vagina after a shower — and I suddenly found this lump about two cm or one inch! Cancer???! I decided not to fret, just called the doctor’s office for an appointment. The doctor could not find the lump, but sent me for a colonoscopy. I also saw a gynecologist. He said, “This is disconcerting, I don’t want to let this one go.”
 
-> 电影中: 她们说的都是对的.(玛丽苏看多了吧,姐?)
->
-> 现实中: 她们也是人,也会犯错的.
+> 在她去世的两周后,我有知觉在洗澡后我检查了一下我的子宫,我突然间发现一个 2 厘米或者一寸大的团块.癌症??? 我不能去烦躁,打电话预约医生.那个医生不能找到那个团块,但给我结镜检查.我同时还去看了妇科.他说,"这有点令人不安,我会好好检查这个的."
 
-**l.**
+Long story short, it WAS a malignant tumor, in my colon. What I didn’t say before is that my friend had surgery not only to her reproductive organ, but also to her colon, which required resection.
 
-**Girls in movies :** are **only **fair skinned.
+> 长话短说,在我的结肠里面有一个恶性的肿瘤.我前面没说的是,我朋友在手术的时候步进切除了她的生殖器官,同时也对结肠进行了处理.
 
-**Girls in real:** All types of skin colour (suggested by [Sai Ram Sagar](https://www.quora.com/profile/Sai-Ram-Sagar) )
+When I was told about my own cancer, I also learned that my liver was also affected, that I had two spots on my liver. Same thing as my friend had been told only three months before.
 
-> 电影中: 都是皮肤白净的.
->
-> 显示中: 各种颜色的(Sai Ram Sagar 的建议)
+> 当我被告知我患有癌症的时候,我同时知道我的肝脏也受到了感染,那里有 2 个阴影在我的肝脏上面.就和我朋友三个月前的情况一模一样.
 
-## 你什么时候意识到你成年了?
+As I was trying to take in this news, my doctor continued to say that I also needed radiation and chemotherapy. “And count on losing your hair.” Another deja vu. I was thinking back on what my friend had said about losing her hair, the memory was still fresh in my mind.
 
-From:  [When did you realize you were an adult?](http://qr.ae/TU1eof)
+> 在我尝试接受这个事实的时候,我的医生告诉我要进行放射治疗和化学治疗."这会掉光我的头发的."我回想起我朋友说她掉发的场景,那些场景还历历在目.
 
-Date: April 12 2018
+I started my treatment last August and went through a sh\*tload of side effects and still am 3/4th year later. I was in the hospital four times, for a total of two weeks. Two surgeries.
 
-I was 15 yrs old. I had the worst argument with my father. It became violent. I ran away from my dad in my pjs outside in the snow, to escape him. I ran around the house and then across two lawns, banged on my Aunt & Uncle’s front door (who lived 1/2 acre away) and begged them to let me in. At first, my Uncle (my dad’s youngest brother), refused. I continued running around as my dad was still chasing me in their yard! My Aunt finally reasoned with my Uncle and opened a side door to let me in, slamming it and locking the door against my dad. There I was, shaking, legs and bare feet almost purple from the cold snow that I had run in and my pjs were soaking wet, dripping on her kitchen floor. My face was a bright red, blotchy mess of tears, anger and frustration. My Aunt gasped as she noticed some burnt hair and redness on the side of my face. I realized later, he had singed my hair when he had grabbed me and pulled my face toward the stove. My Aunt took me to the bathroom to put me into a hot bath and then to find some borrowed clothes to wear from my cousin, Karen. I realized then I had bruises on my arms, legs and hands. I heard my dad and my uncle arguing loudly outside. I shuddered, thinking that I was not ever going to live with him and his drunken abuse anymore and I was now “on my own”. I grew up in that moment.
+> 在上一年八月开始了我的治疗,在后面的日子里面熬过一系列的不良反应.我在两周里面进医院四次,2 次手术.
 
-> 那年,我 15.我和我爸进行了一次恶劣的争吵.然后就发展成了暴力.为了逃离他,我穿着 pjs(I don't what it is)走在雪地里面.我绕着屋子走了一下,然后穿过 2 块草地,敲响我婶再和叔叔的前门(离我们住的地方不远),求 ta 们让我进去躲避一下.最初,我叔叔(我爸的最小的那个弟弟),是拒绝的.在他们的院子里面,我还给我爸追着.婶仔让叔叔讲道理一点,然后打开旁门让我进去躲避,甩上门,锁紧来不让我爸进来.我在那里,颤抖着,腿和脚都差不多因为天气冷而变得暗紫色,然后我把浸湿的 pjs 脱在他们的厨房地板上面.我的脸颊很红,到处都是伤疤和眼泪,愤怒和挫折.我的婶仔在看见我烧焦的头发和脸颊旁边的红斑后一声叹息.后面我才记得,他抓住我,把我往火炉里面扔的时候,烧掉了我的头发.我婶仔把我带到浴室,给我放了一缸热水,然后把我表哥 Karen 的衣服借给我穿.我看到我的手臂,脚和手上面都是伤疤.我听到我爸和叔叔在外边大声争吵.我颤抖着,想着我再也不能和那个酗酒的人住在一起了,而我只有我自己了.那一块,我就知道我成年了.(村上春树:人都是在一瞬间老的)
+I think it was my friend who told me from the other side that I was sick. I really had no idea I had cancer.
 
-## 最尴尬的是什么事?
+> 我想这是我那个朋友托梦告诉我也病了.我之前都不知道我有癌症.
 
-From:  [What’s the most embarrassing thing you have done in a relationship?](http://qr.ae/TU1cIk)
+I understand everything that my friend went through because I lived through it too. It’s like I continued the journey where she left off.
 
-Date: April 13 2018
+> 我明白了我朋友的处境,也同时自己经历过了.看来,我还得继续她还没完成的旅程了.
 
-The reason for going anonymous is that I don't know how would my husband react to this thing going public.
+I am a spiritualist, I believe in an afterlife. I also believe that humans are given exit points to leave this life, but I chose not to. I'm still here. I don't know if I survive this, but I hope I do. That is my goal. My friend has given me the strength to fight.
 
-> 我匿名是因为我不知道这件事公开之后,我老公会有怎样的反应.
+> 我是唯心论的人,我相信 after life(来生?).我同时也相信每个人的一生都有一个退出的电,而我选择了不退出.我还在这里.我不知道能不能活下去,但我希望我可以.这也是我的目标.我的朋友给了我去抗战的力量.
 
-But then, this thing gives relationship goals. So here I go.
+## After life?
 
-> 不过,这件事也给我们关系一个目标.所以,下面我来说说.
+From: [Have you ever had an experience that made you believe in the afterlife or spirit world?](http://qr.ae/TUppdG)
 
-I had a fairly good pregnancy. But during the delivery, because my baby's head was quite large I had to get an episiotomy done. For those who have no idea about this, it's a cut made between vagina and anus to make the vaginal opening bigger so that the baby's head can pass.
+Date: June 08 2018
 
-> 我怀孕的情况很好. 但在生孩子的时候,因为我的小屁孩的头太大,我不得不进行外阴切开手术.对于那些不知道这个是什么说明一下,这个手术在阴道和肛门间切开,让阴道变得更大一点,好让那个小屁孩的头部通过.
+My friend group consisted of a trio, and we were inseparable.
 
-So well if you are grossed out, don't read further.
+> 我的朋友圈里面包含了一个三人组,然后我们三个形影不离.
 
-> 如果现在都让你吐了,那么请非战斗人员撤离.
+About 2 years ago, one of our trio got diagnosed with cancer. He put up a really strong fight, but passed away about 6 months ago.
 
-Anyway, because of that I had a lot of stiches and the pain was intense especially after a 20 hour labour.
+> 在 2 年前,其中一个人被诊断为癌症.他很顽强的和癌症抗争,但还是在 6 个月前去世了.
 
-> 继续,因为这个手术我缝补了很多针,这个疼在生产的 20 小时后特别明显.
+That night, I had a dream. The 3 of us were on a public bus, sitting and talking. We sat back and laughed at all the crazy things we had done, especially the things the one that passed did. Towards the very end of the dream he leaned in and said “thank you guys for being my friends. I couldn’t have asked for anything better.”
 
-The doctor advised I should take rest and shouldn't exert myself. And the first pee and the stool would be painful.
+> 那晚,我做了一个梦.我们三个在一辆公交车上面,坐在一起相互交谈这.我们坐在公交车后面,笑着我们之间做过疯狂的事,特别是去世的那个朋友之间做过的疯狂的事.在梦快结束的时候,他靠着椅子说,"谢谢你们作为我的朋友,我不能要求更多了."
 
-> 那医生建议我要休息,自己不要乱动.在第一泡尿的时候,应该会很痛苦.
+I woke up, and didn’t give it a ton of thought. I wasn’t surprised I had a dream about him, he had just passed away the day before. I did question why we were on a public bus. Interestingly enough, none of us had never ridden a bus together in our entire friendship.
 
-When I had the urge to pass stool, I went and sat in the bathroom. The pain was unbearable, a little less than labour though. I cried and screamed.
+> 我醒来,然后也没怎么留意这个梦.我对梦到他觉得并不意外,他一天前才刚刚去世.我的确对我们在公交车有点疑惑.因为我们三个从来没有一起坐过公交车.
 
-> 当我需要忍不住要上厕所的时候,我坐在卫生间里面.那种疼简直不能忍,就比生小屁孩的时候减轻不了多少.我哭了,并且喊叫着.
+I met up with my other friend that day, and it was a very somber time. Until I mentioned the dream I had the night before. My friend turned pale as a ghost. He had had the exact same dream. The 3 of us on the bus talking.
 
-The door was unlocked( I had passed out when I had went to pee after the delivery. So husband ordered me to not lock the door) and my husband knocked on it.
+> 我那天和另一个朋友聚了一下,我们之间都很沉闷.直到我提到我昨晚的那个梦.我朋友忽然脸色苍白.他有着同样的一个梦.我们三个在公交车上交谈.
 
-> 那门没有被锁住(我在我生完小屁孩之后上厕所晕倒了.所以我老公要我不能锁住门)然后我老公敲了一下门.
+We went back and forth to make sure the other wasn’t lying. We traded off walking the other one through the dream. It was identical. We had both had the same dream, word for word. Location, subjects of conversation, everything.
 
-“Is it too painful?” He asked through the door.
+> 我们要确保对方没有撒谎.我们相互给对方叙述了各自的梦境.两个梦竟然一模一样.我们做了同一个梦,对话,地点,谈论的东西,任何东西都一样.
 
-> "是不是太疼了"他隔着门问.
+At that moment, this Agnostic got a pretty big dash of religion in his body.
 
-Clutching my stomach I managed to say a yes.
+> 在那一刻,宗教的东西在一个不可知论的人的身体里面翻江倒海.
 
-> 我捂住肚子,准备说是的.
+## 海军陆战队打架怎样?
 
-A few seconds later, the door opened and husband gave his hands for me to hold.
+From: [How tough is a Navy SEAL in a street fight?](http://qr.ae/TUptPJ)
+Date: June 11 2018
 
-> 一会后,那堵门打开了,然后我老公把他的手给我拉着.
+There was always this stupid question people asked when they found out my dad was a SEAL.
 
-I looked up to find him sitting on a chair with his hands stretched out to me.
+> 自从 ta 们发现我爸是海豹突击队之后,问了一些很蠢的问题.
 
-> 我抬头看见他坐在一张椅子上面,把他的手极力的伸向我.
+“So can he like, kill someone with one finger?”
 
-“We are in this together. At every stage.” He said.
+> "所以,他可以,可以用一根手指干掉别人?"
 
-> "无论在哪里,我们在一起"他说.
+Yeah, he can.
 
-‘It's gross.” I said.
+> 是的,他可以.
 
-> "这就有点恶心了."我说.
+By pulling the trigger.
 
-“It's not. I can't even imagine if I would be able to endure the amount of pain you have gone through. The least I can do is support you. Give me your hand. You can do it.” He wiped the perspiration off my face and gave me strength.
+> 扣下扳机的时候.
 
-> "我拒绝承认.我都不能想象,如果是我的话,是否能承受你经历过的这些痛苦.我最后能做的就是支持你了.给你的手我.你可以做到的."他把我脸上的汗水抹掉,然后拉我起来.
+They train to win gun fights. Not street fights.
 
-Tears streaming down my cheeks I held his hand and passed the strenuous test.
+> ta 们受训是为了打赢武器交火,而不是在街头打架.
 
-> 泪流满脸,我拉住他的手,然后通过了这次艰难的测试.
+## 程序猿有哪些不爽的地方?
 
-It was embarrassing then, but now when I think of it, it was full of love.
+From: [What's something that sucks about being a software engineer?](http://qr.ae/TUpt4X)
+Date: June 11 2018
 
-> 在那时觉得这很尴尬,但现在我看起来,那全都是爱呀.
+Here’s my top 10 list:
 
-If you go past something like this in a relationship, you have a one amazing companion for life. And nothing else matters.
+> 排名前 10 的 sucks:
 
-> 如果你和你的另一半经历一些和我差不多的事,那么你有一个完好的人生伴侣.而其他的,则是没关紧要的单身狗而已.(在知乎上看见一个同样的,不知道是不是同一个作者.)
+Everyone thinks that what you do is “just typing”
 
-## 什么时候你才真正成功了?
+> 每个人以为你只是打字的.
 
-From:  [When have you truly “made it” in life?](http://qr.ae/TU1VlP)
+No one understands binary
 
-Date: April 16 2018
+> 没人知道二进制.
 
-When you don’t want what you don’t have.
+Those are the main ones.
 
-> 你不想要你没有的东西的时候.(珍惜你拥有的)
+> 他们都是这样的.
 
-## 白人的坏处是什么?
+## 人的哪些品质被严重低估了?
 
-From:  [What's something that sucks about being white?](http://qr.ae/TU1DCg)
+From: [What is the single most underrated trait a person can have?](http://qr.ae/TUpvKC)
+Date: June 12 2018
 
-Date: April 17 2018
+Back when I was a student in university, there was a guy in my class named Sima.
 
-I’m not White; in fact, I’m a Black male. But there is one thing I really wish people would stop doing to Whites: I am sick and tired of my White friends feeling as if they have to walk on eggshells around me. I am a grown man who needs no coddling or protection, and I tell people this all the time.
+> 回到我的大学时代,我有一个男同学叫 Sima.
 
-> 我不是白人.事实上,我是一个黑肤色的女性.但有一件事,我真的希望,那些肤色不同的朋友,在我身旁的时候,不用像如履薄冰一样的和我们相处.我是一个成年的人,不需要溺爱和保护,而这些我一直在告诉我的朋友.
+Sima was really funny. In my opinion, he was one of the funniest people I’ve ever met.
 
-But what makes them feel this way in the first place?
+> Sima 是一个很有趣的人.我认为,他是我遇到最有趣的人之一.
 
-> 但是从什么地方开始,他们开始对我们有不同的想法?
+There are some comedians who spend hours and hours every single day writing content in hopes of building up a reputation, but Sima was the kind of guy who randomly said the right thing at the right time, and the entire classroom would blow up in euphoric laughter.
 
-Honestly, I think it’s because Whites (especially straight, White males) seem to be the only group safe for everyone to attack. And that’s just dead wrong. We’re so caught up with being “inclusive”, which is a good thing, but it seems we’ve made a mistake: we felt as if we had to identify some “bad guy” or “enemy” who was responsible for all the evils in this world. And, since Caucasians are the majority in this country, I guess we had to pin it on them.
+> 那些喜剧演员每天花费大量的时间去写段子,好建立他们自己的名望,但 Sima 是那种在不经意间就在合适的时间做了合适的事的人,然后整一间教室都笑了.
 
-> 说实话,我想这是因为那些白人(特别是那些强壮的男性)看起来是众人攻击的团体里面最安全的那个.然而这个是 tmd 的全是错的.我们计较与`包含` ,这是一件好事,但是我们也犯了一个错误:我们觉得我们必须去鉴定一些`坏人` 或者`敌人` ,他们要为这个世界所有错事承担后果.然后,从白种人在这个国界占大部分的时候,我觉得我们要用图针把他们钉出来一样.
+There wasn’t a time when you’d look at Sima, and would not see a smile on his face. He was also the kind of guy to go talk to, the quiet kid in the corner when everyone else would just kind of assume the reason that no one was sitting with him was because there was something wrong with him.
 
-Look, not all Whites are the same (just as not all Blacks are the same). But, when you start blaming all this crap on a particular group *en masse, *don’t be surprised when members of that group start feeling as if their backs were against the wall and start fighting back. Is this the F-ing “racial harmony” we were wanting?
+> 如果你望向 Sima,你会发现他每一刻都是在笑的.他还是那种和待在角落里面同学交谈的人,那些安静的同学,即使没有任何不正常的地方也有人不想和他们相处的同学.
 
-> 你知道的,不是所有的白人都是同一个品性的(就像不是所有的黑人也是同一个品性的一样).但当你开始因为一个特殊的个体而去责备所有人的时候,当其他人开始感觉你触碰到他们底线而开始反击,你就不要感到惊讶了.这就是我们想要的那个操蛋的`种族和谐` 吗?
+I didn’t really hear a lot about him, but the guy had a pure heart. One of the things which shocked me the most was one time when we were talking about WWII, and I said that I hoped Adolf Hitler was rotting in hell.
 
-It’s wrong when you stereotype or discriminate against me, and it’s just as wrong when you do it to the White gentleman beside me. I know I **HATE **being judged by some stupid-assed, blanket racial stereotype, so I know exactly how it must feel when some of my White friends get the same treatment.
+> 我没太了解他,但他的确有善良的内心.给我最深的一次震惊的是在我们讨论二战的时候,我说希特勒应该在地狱里面受罚.
 
-> 当你用陈腔滥调和歧视来对待我的时候这是错的,就像你对我旁边那个白人绅士做也一样是错的.我知道我根据一些蠢事,种族论调去评判,所以我很清楚当我的一些不同肤色的朋友受到同样不公平对待时的感觉.
+He then went on to tell me that I was wrong for saying such a thing. He said no soul deserves to go through eternal torment. He said that it was the worst crime you could ever impose on someone, and that it was even worse than all the genocide which Hitler was responsible for. Sima was also Jewish, that’s what shocked me the most about the way he looked at things.
 
-How about we just start judging each other as *individuals? *Good God, is it really that difficult?
+> 然后他走到我旁边,告诉我说这种事是错的.他说没有灵魂要为自己的罪行而一直被惩罚的.这是你能给别人加上最坏的罪行了,这甚至比希特勒的种族屠杀更加坏.Sima 还是犹太人,他看待事物的方式让我感到吃惊.
 
-> 为什么我们不是根据每个人来判断各自,而不是肤色?窝草,这些真的那么难吗?
+The thing about Sima was that none of us really knew anything about him. As much as all of us loved him, he was just “there”. None of us knew him, he didn’t know any of us. I would never see him at any parties or get togethers. I wouldn’t even see him in the city after class.
 
-## 内向的人怎么享受生活?
+> 关于 Sima,我们没有一个人了解他.就算我们所有人都喜欢他,他就在那里.但是我们没有一个人了解他,他也没有了解我们任一个.我从没看见他出现在聚会或者团体活动里面.在下课之后,我甚至没在城市里面见过他.
 
-From: [How do introverts enjoy life?](http://qr.ae/TU1l7x)
+One day, an armed gunman ran into our class with a pistol and started firing rounds. I believe it hit one kid in the shoulder, but before he could do any more damage, Sima jumped out of his seat and lunged at him. They wrestled for a couple of seconds, and then the gunman shot Sima in the stomach as he tried to pull the gun away from him. Literally everyone in the classroom had jumped up to attack the gunman before he could harm anyone else, and we disarmed him.
 
-Date: April 18 2018
+> 那天,一个持枪 er 跑进我们的教室,然后开始扫射.我相信有一个小屁孩的肩膀被子弹打中了,但在他能造成更大的伤害的时候,Sima 从他的座位里面跳起来,直接跑向他.他们纠缠了一会,在 Sima 尝试推开那个持枪者的时候,那个持枪的人在 Sima 的腹部开了一枪.一会之后,在那个持枪人还没伤害其他人之前,班上所有的人都跳起来,跑去袭击那个持枪的人,我们收缴了他的枪.
 
-This is how I celebrated my 26th birthday,
+Sima saved all of us. I froze when the gunman walked into the room, but Sima fearlessly attacked him.
 
-Took off from office.
+> Sima 救了我们全部人.我在持枪人走进教室的那会都被惊呆了,但 Sima 勇敢的去抵抗他.
 
-Booked afternoon show(single ticket) for Fukrey movie.
+I watched Sima lay on the floor with blood gushing out of the bullet wound in his stomach, he gasped for a couple of breaths, and then died right before our eyes.
 
-Post movie I had a KFC lunch meal.
+> 我看着 Sima 躺在教室的地板上,血从他的伤口处涌出来.他气若游丝的喘了一会,然后他就在我们眼前离去了.
 
-In the evening, few friends(very very close) surprised me with a cake. I am still wondering how did they come to know about it. (I have hidden my birthday in all social profiles. I even remove my DoB from my resume before sharing it to my friends)
+I instantly fell to the floor, and I put my fingers on his neck to check the pulse.
 
-Next day, in office I told I was out of city.
+> 我立刻趴在地板上,把我的手指放在他的脖子上,检查他的脉搏.
 
-> 我 26 岁的生日是怎么庆祝的?
+I felt nothing.
 
-> 请假一天.
+> 但我一点也没感受到他的脉搏.
 
-> 订一张在午后的电影票.
+Then I rolled up his sleeve to check the pulse on his wrist, and what I saw scarred me for life…
 
-> 啃着肯德基看电影.
+> 然后我卷起他的衣袖,检查他手腕处的脉搏,然后我看见了我一生中最恐怖的画面...
 
-> 在傍晚的时候,几个亲近的朋友会用蛋糕给我庆祝.我一直好奇 ta 们是怎么知道我的生日的.(我把生日在所有的社交软件上隐藏掉了.我甚至从我的简历移除 DOB(date of birthday)了).
+He had cuts and scars all over his arm. I didn’t believe my eyes. It was as if he had been tearing apart his arm with a knife on a daily basis. I was surprised I had never noticed it before. His arm was literally like one giant scar.
 
-> 第二天,在办公室里面,我告诉他们我只是出去了一趟.
+> 他的手臂全都是切割的伤疤.我都不敢相信我看见的东西.那就像他每天都用刀在他手臂上划的痕迹.我很惊讶,为什么我之前一点也没留意到.他的手臂完全就像一个大的伤疤.
 
-This is how in celebrated 2014 new year,
+After class, the authorities searched his apartment while looking for evidence, and they found his diary which they gave to my professor as a sign of courtesy the next day.
 
-I got one quarter of whisky and 1 plate of chicken lollypop while returning home to office.
+> 在课后,政府人员搜查了他的公寓,寻找证据,然后他们发现了他的日志,他们第二天就礼貌的转交给我们的教授了.
 
-I played songs on my laptop.
+Apparently, Sima had no family. Sima had no friends. Sima studied during the day, and worked for hours and hours of manual labor for the rest of the day.
 
-Then I started enjoying my company.
+> 显然,Sima 没有家庭.Sima 没有朋友,Sima 在学校的这一段时间,他需要每天都繁重的工作.
 
-> 这是我庆祝 2014 新年的时候.
+Sima was alone, depressed, and he was also suicidal. He literally wrote in his diary almost everyday of the self-harm which he had been committing on his body. Cutting his wrists, punching himself in stomach, banging his head against the wall, the list goes on…
 
-> 在下班回家的时候,我买了一杯威士忌,还有一碟鸡米花.
+> Sima 孤独而又忧郁,同时也自杀了.他最近写他的日志写到他每天都会自残.割腕,击打自己的胃部,以头抢地,一系列的自残行为....
 
-> 打开电脑里面的歌曲.
+He wrote that he drank himself to sleep every night.
 
-> 然后我开始享受只有我自己的陪伴了.
+> 他写到他必须每晚喝酒才能睡着.
 
-This is how I celebrated my first salary(July 2011)
+He wrote in his diary that he was just hoping that he would die, but he just couldn’t bring himself to commit suicide.
 
-Was eagerly waiting whole day for salary to be credited.
+> 他在日志写到他希望他自己可以挂掉,但他自己又不能够自杀.
 
-Kept on logging to bank account every hour to check updated balance.
+So when the gunman came into our classroom, he didn’t hesitate to lunge himself into a certain death to save all of us.
 
-Returned back from office. Was bit sad as i did not have a broadband connection back home.
+> 所以,当那个持枪人出现在我们教室的时候,他一点也没迟疑就冲向了他,为了保护我们而让自己给干掉.
 
-Was surprised(since it was first experience with bank) and happy at same time to get sms for salary credited.
+He just wanted everyone to be happy. He had nothing to live for, and none of us even knew. Judging by the way he acted, we all thought he must have been living a great life for him to be so happy all the time. But no. He was actually the most miserable person in the classroom.
 
-Went to nearby ice cream parlour and treated myself.
+> 他只是想其他人开心一点.他连活下去的依靠都没有,然而我们没有一个知道.在他之前的行为来看,我们以为他有着不错的生活,一直以来都很幸福.但没有呀.他才是我们班里面最悲惨的那个人.
 
-Since last 2.5 years I am enjoying my own company in a 1bhk flat. I prepare meal for myself and keep treating myself with gifts on occasions.
+He was in no way underrated because the heavens simply would not allow such a selfless person’s story to go untold. He was only underrated when he was alive.
 
-> 这是我庆祝我第一份薪资的时候(2011 年 7 月)
->
-> 一整天都在等待工资到账的那一刻.
->
-> 几乎每一个小时都会登录进去查看余额.
->
-> 下班回去之后.有点小伤心的是,我在房子里面没有宽带.
->
-> 有点小惊喜的是(这是我第一次去实体银行),然后很高兴的从工资卡里面拿出钱来.
->
-> 走到最近的冰激凌商店里面,款待我自己.
->
-> 在后面的 2 年半时间里面,我享受自己待在公寓里面.我给我自己准备了肉和偶尔买一些礼物给自己.
+> 他不会被人低估的,因为我们不允许他的故事就这样沉默了.他只有在他活着的时候被低估了.
 
-Well I am an introvert.
+It taught me to stop trying to be alpha. It taught me to stop trying to be rich. It taught me to stop trying to be the “winner” in life.
 
-We don’t need a company to enjoy
+> 这让我不再去争取都头头.让我停止去变有钱.让我停止尝试去当人生赢家.
 
-We can cut down on external noise and and know what keeps us happy
+Because if it wasn’t for Sima, I probably would not have even been in the race…
 
-Our plans generally work out as we don’t depend on others
+> 但如果不是 Sima 的话,我可能早就挂掉了.
 
-We keep ourself busy in some active which gives us pleasure, eg Reading, cooking, painting, etc
+There are no winners or losers in life. Sima taught me to just live your life and try to see the best in people. I think every single person in my classroom changed that day for the better. Sima was a martyr unlike anyone else I have ever heard of. And I have seen a lot of bloodshed.
 
-We may be surrounded by people but we may feel lonely
+> 在生活里面,没有输家和赢家.Sima 教会我要去生活,而且要看他人好的一面.我想,从那一天起,我们班的人都尝试去让自己变得更好.Sima 不像我之前听过那些一样牺牲了.而我看见一堆的血.
 
-I would like to cite few examples from my life.
+Selflessness is definitely underrated because you don’t realize it until the selfless person is gone. But unlike how rich someone was, your memory of their selflessness will last forever.
 
-> 好吧,我 tmd 是一个内向的人.
->
-> 我不需要别人的陪伴才快乐.
->
-> 我的计划不需要别人的帮忙也可以按时进行.
->
-> 我忙于让自己快乐的事,如阅读,煮饭,画画那些.
->
-> 或许我们都被人环绕,但我们感到孤单.
->
-> 我想我会去某一些城市的,在一生里面.
->
-> (BTW,内向的人,是没有生活的 !!!)
+> 无私是最被低估的品质了.因为在你意识到后,无私的人就离去了.不像那种有钱人的离去,你关于他们无私的记忆将会终生记得.
 
-## 你想对你暗恋对象说什么?
+## 和 ta 的最后一条信息
 
-From: [What is something you want to say to your crush?](http://qr.ae/TU1q9m)
+From: [What was the last text message you sent to your ex?](http://qr.ae/TUpybS)
+Date: June 13 2018
 
-Date: April 19 2018
+I'm going anonymous because my mom is on Quora and so is my ex but I care more about the drama from my mom. My ex would probably know it's me because of the conversation I'm going to write down.
 
-You know you’re beautiful. There’s no doubt about that.
+> 我匿名是因为我妈和我前任都在 Quora 上,但我更担心是我妈的不依不饶.前任应该知道这个是我,因为会把信息写到这上面来.
 
-But sometimes, you act like you’re only beautiful on a physical level.
+I'm a 26 years old man and she is 23 years old woman. I stay in Bombay and she stays in Ahmedabad. She was my college junior and we had noticed each other back then but didn't talk at all.
 
-And you’re very, very wrong.
+> 我是一个 26 的老人,而她 23.我待在孟买,她在 Ahmedabad(又是印度).她是我的学妹,然我们都留意到对方,但我们都没有主动去联系对方.
 
-> 你知道你很漂亮.这是不需怀疑的.
->
-> 但有些时候,你表现得你只是金玉其外败絮其中.
->
-> 然而你错了,错得很离谱.
+We had a pretty amazing start to our long distance relationship but soon it turned into insecure push and pull relationship. She would run away, block me from social media and calls, pretend to sleep with other men to show me that she is cheating and all the drama of “You deserve someone better”. It was a crazy emotional drama.
 
-You’re beautiful because you’re adventurous. Brave.
+> 我们有一个很惊艳的异地恋的开头,然后成了狗血剧.她想逃离,然后把我拉黑掉了,无论是社交还是电话.假装和隔壁老王睡了,告诉我她一直都是在欺骗我,所有的都是在发好人卡.那简直宫系列的狗血剧.
 
-You’re never afraid to try new things with new people.
+We met twice after our 9 months long long-distance relationship. We never met while we were in relationship. Second time we met, she shouted in front of the whole public in crowded Cafe by blaming me for things I never did. I went back home while crying in the local train.
 
-> 你漂亮是因为你是那些敢于冒险的人.牛逼的人.
->
-> 你从不害怕和陌生人尝试新的事.
+> 我们在 9 个月的异地恋里面,见过两次面.我们在我们恋爱的时候从来没见过面.第二次,我们相遇,是因为她在一家咖啡馆外边的人群里面大声责骂着我从来没做过的事.我在回家的路上,留下了一如既往的泪水.
 
-You’re beautiful because you’re not afraid to ask for help when you need it.
+After all this we had a small talk kinda chat few times. She still is in Ahmedabad and I'm in Mumbai.
 
-Even if it makes you look a little silly.
+> 在经历过这些后,我们还会偶尔交谈一下.她还在那里,我也还在这里.
 
-> 你漂亮是因为你不怕在你需要的时候去寻求别人帮助.
->
-> 即使这让你看起来有些蠢萌.
+One day I saw her Instagram story with booze and I replied, “Have a good time”.
 
-You’re beautiful because you laugh at everybody’s jokes, even when they’re not funny.
+> 有一天,我看见她的 Ins 展示了酒席,然后我评论,"玩得开心一点,窝草".
 
-> 你漂亮是因为你捧每个人的场,即使那人的并不怎么样.
+She: Yes. I will. Juhu has its own vibe. (Juhu is a place in Mumbai and it was her way of telling me that she is in Mumbai).
 
-You’re beautiful because you’re genuine.
+> 她: 会的.我会的.我现在在孟买.(她用她的方式告诉我她在孟买)
 
-You don’t act like someone you’re not just to get other people to like you.
+All the emotions rushed through me of how she can't tell me that she is in Mumbai and why is she telling me now. Will she ask me to meet? Should I meet her? Should I tell her to work out things again. But I knew there was no point after all the emotional drama last time.
 
-> 你漂亮是因为你是天才(当然啦,我可是樱木花道).
->
-> 你不会显得别人不和你一样而格格不入.
+> 一阵不可抑制的复杂感情涌起心头,为什么她不告诉我她在孟买了,那她为什么现在告诉我.她会叫我去见她吗?我应该去见她吗?我们要复合吗?但我知道经过那些狗血剧之后,复合是不可能的了,这辈子都不可能符合的.
 
-You’re beautiful because you’re not self-conscious.
+Me: Indeed. Check out Versova beach and Yaari road. They are pretty cool.
 
-You dance like nobody’s watching. You talk like you don’t care what people think.
+> 我: 哈.要记得去 xx 海滩和解放路.那些地方很漂亮的.
 
-> 你漂亮是因为你不作.
->
-> 你就像在没人关注的时候独自起舞.你直言直语,从不管 sb 怎么想.(这是脑壳有坑吧)
+She: Sure. I thought You'll ask me to meet but it's okay.
 
-You’re beautiful because you’re one of the few people who is truly like me.
+> 她: 会的.我还以为你想叫我去见你,还好没有.
 
-You know me. You understand me. You are me, in many ways.
+I realised she is just trying to make me crave for her again so she can play games.
 
-There are few things I can think of that are more beautiful than that.
+> 我意识她想让我再次跪给自己,然后她好开始演戏.
 
-> 你漂亮是因为你是少数人真的喜欢你.
->
-> 你知道我.你了解我.你就是我,在很多方面里面.
->
-> 还有一些我能想到比这个更美的你.
+Me: No. I don't think I want to meet you. Have a good time.
 
-Your inner beauty far outshines your physical charm.
+> 我: 还是算了吧.我要忙了.玩得开心.
 
-Don’t ever think you’re just another pretty face.
+She: Thanks.
 
-> 你内心的丰富比你外在美多了.
->
-> 不要想你只是另一张漂亮的脸庞而已.(你不是,哇咔咔)
+> 她: 谢谢.
 
-## 生活最不公平的是什么?
+I felt so much better after this. I never imagined myself being so strong in front of her. I was feeling amazingly happy that I decided not to be a puppet anymore.
 
-From: [What is the most unfair thing in life?](http://qr.ae/TU16nP)
+> 在这之后,我神清气爽.我从来没想过在她面前可以这么勇敢.我感到好开心,因为我不用当别人的宠物了,我就是我,一条烟火一样的单身狗.
 
-Date: April 20 2018
+## 过度使用 Quora 的症状
 
-“Who was the first person on the moon?”
+From: [What are some signs you've been using Quora too much?]()
+Date: June 14 2018
 
-> "谁是第一个登月的人? 是谁,是谁,是谁?"
+A friend stopped by and said,
 
-Most people will know this, and answer instantaneously.
+> 一个朋友在经过的时候,停下来说
 
-> 大多数的人知道这个,然后立刻回答
+Him: “Hey did you see that picture I posted on Facebook?”
 
-“Neil Armstrong”
+> 他:"你有看见我上传到 facbook 的照片没?"
 
-> "尼尔 阿姆斯特朗"
+Me: “Yeah man! I upvoted it!”
 
-What if instead I asked who the second person to step on the moon was. 9 out of 10 times, I will probably get a blank stare.
+> 我:"看到了.我还给他点赞了."
 
-> 如果我替代来问谁是第二个登月的人呢.十次有九次,我甚至可能会被翻白眼.
+Him: “Upvoted???”
 
-Buzz Aldrin. The second person on the moon was Buzz Aldrin.
+> 他:"点赞???"
 
-> Buzz Aldrin.第二个人是 Buzz Aldrin
+Me: “I mean liked, liked!”
 
-Both men on the same mission, stepped foot on the moon almost at the same time, but only the first one is remembered. I think the face of this mission should be the entire Apollo 11 team, and not only Neil Armstrong. History only remembered Armstrong, and that is pretty unfair to all the other team members, who served very important roles in this historic mission.
+> 我: "是喜欢,喜欢啦!"
 
-> 两个人在同一个任务里面,踏上月球也几乎是在同一时刻,但第一个就被铭记了.我想这个任务要被铭记的是整一个 Applo 11 的团队,而不仅仅是 Neil Armstrong.历史仅仅铭记 Armstrong,这对鞋整一个团队的其他人是不公平的,对那些为这次历史贡献的人也是不公平的.(那么发明那首飞船的人是谁?窝草,这不就是扛精吗)
+## 见过最可爱的事是?
 
-And Buzz Aldrin is known as the man who first urinated on the moon…
+From: [What is the cutest thing you've seen recently?]()
+Date: June 14 2018
 
-> 然而 Buzz Aldrin 是第一个在月球上随处大小便的人...
+It was actually something a grown man did.
 
-## 星巴克装逼指南
+> 我见过最可爱的是一个男人做的.
 
-From: [Do you use a different name at Starbucks? If so, why, and what is the name?](http://qr.ae/TU1EeG)
+It was during an early morning meeting, he came in and sat down to go over some documents. Everyone was dressed fairly nice.
 
-Date: April 23 2018
+> 在早上开会的时候,他走进来,然后坐下翻阅一些文档.每一个人都穿得很正式的样子.
 
-Yes!
+As he started paging through things, I noticed myself and a couple others staring at him strangely.
 
-> 是的.
+> 他开始一页一页的看着,我在看过他几次之后发现了他有点奇怪的地方.
 
-I never stick with one name.
+I said, “So what’s going on with the glitter?”
 
-> 我从来没用同一个名称.
+> 我说,"你那些闪闪发光的闪光粉那里来的? 脱衣舞和杠杆.gif"
 
-Barista: Hi, what can I get for you today?
+His chest and hair had multi-colored glitter trickled all over it.
 
-> 咖啡师: hi,你今天要喝点什么?
+> 他的胸前和头发都是那些闪光粉.
 
-Me: I’ll take a tall hot chocolate with almond milk, whipped cream, chocolate chips, and caramel drizzle.
+He smiled and nonchalantly said, “Wait till you have a daughter.”
 
-> 我: 我要一本热的巧克力牛奶,带上一点
+> 他冷冷一笑说,"等你有了小屁孩,你就知道了"
 
-Barista: Got it. And a name for the order?
+## 你给别人最好的建议是什么?
 
-> 咖啡师: 好的.然后你的名字叫什么?
+From: [What's the best advice you've ever given someone?](http://qr.ae/TUpYC2)
+Date: June 15 2018
 
-Me: Batman.\*\*
+An illiterate guy I knew desperately asked me to teach mathematics to his 16-year-old son who couldn’t multiply two one-digit numbers and was months away from failing his 16+ exams - he was at a below-average state school and was doing pretty badly there.
 
-> 我: Batman.(蝙蝠侠,装逼如风)
+> 我认识的一个文盲绝望的请求我去教他 16 岁儿砸的数学,那个不能计算两位小数,离他高考之后一个月的儿砸,他是学校里面的差生,还是学校里面很差的那种.
 
-Barista: (raises eyebrow) Okay. Batman. I thought you only worked at night.
+I agreed to his father's request, but I didn’t teach the kid any mathematics. Every week I just spent 15 minutes telling him and then reminding him that unless he sorted his life out he’d be cooking burgers for the rest of his life.
 
-> 咖啡师:(翻白眼)好吧. Batman.我还以为你只会晚上才出来.
+> 我同意了他父亲的请求,但我没有教那个小屁孩一点数学的东西.每一个星期,我都会花 15 分钟告诉他,提醒他,除非他自己处理好自己的人生,不然他以后只能卖汉堡了.
 
-Me: You’ve discovered my secret.
+I explained in detail what that actually meant. Apart from hating his job he’d be driving home in a 20-year-old Datsun to his tiny house, he wouldn’t be able to give his kids things that he’d want to give them, etc…
 
-> 我: 你发现了我的一个秘密.
+> 我给他详细的解释了卖汉堡的意思.除了他会讨厌他的工作,开着一辆 20 年的车回到他那微小的家,他不能给他的小屁孩任何他想要给的东西,大概都是这类东西...
 
-I then take a seat and watch as all the heads in the store pop up when the barista yells, “Hot chocolate for Batman!”
+And it would, in all probability, be too late to do anything about it, in part because he’d be mentally defeated.
 
-> 然后,我选一个座位,当店里面响起,"Batman 的热巧克力",看着那些各处抬起的头,异常满足.
+> 很有可能,现在做什么都已经迟了,因为他精神上很挫败.
 
-\*\*Substitute name for Superman, Wonder Woman, Sherlock Holmes, Darth Vader etc.
+I did tell him there’s nothing wrong living an honest life like that. In fact, it’d be admirable if he could contently do so. But he’s actively making a choice that will, in all probability, lead him there.
 
-> 其他名称也常用的,如超人,神奇女侠,福尔摩斯,达斯维德等.
+> 我告诉他,这样诚实的活着是没有错的.事实上,如果他对自己足够诚实,这还是值得称赞的一件事.但他必须要按照自己的意愿做出选择,尽所有可能,走到那里.
 
-## 你最喜欢的小说句子
+Just over five years later he graduated from King's College London, one of the top 25 universities in the world, in Computer Science.
 
-From: [What are your favourite lines from any novel?](http://qr.ae/TU1QrM)
+> 5 年后,他从皇家理工学院的计算机系毕业了,那可是世界上 top25 的大学呀.
 
-Date: April 24 2018
+## 在有钱学生面前,感觉怎样?
 
-I’m sure many of you have seen The Martian.
+From: [As a teacher, how do you feel around rich/wealthy students?](http://qr.ae/TUpPmE)
 
-> 我相信你们大多数的人都看过了火星救援.
+Date: June 19 2018
 
-It’s a great movie about an astronaut who gets stranded on Mars when his team leaves the planet without him, assuming he is dead.
+Poor.
 
-> 这是一部关于 team 认为他死掉了,把他独自扔在火星上独自生存的宇航员的电影.
+> 穷
 
-The book is equally good. The opening line:
+## 你会打你的小屁孩吗?
 
-> 那本小说也很好.开头就是:
+From: [Have you ever beaten your child?](http://qr.ae/TUpPlR)
 
-LOG ENTRY:SOL 6
+Date: June 19 2018
 
-I'm pretty much fucked.
+I used to, frequently.
 
-> SOL6 日志
+> 是的,我经常打击他们.
 
-> 这是何等的窝草啊.(还是翻译不出来,可意会,不可言传.)
+But then my daughter got better at Apples to Apples, my older son got better at pool, and my younger son got better at Scrabble.
 
-## 第一次见面怎么惊艳她?
+> 但我的女儿越来越擅长切水果了,我的大儿砸游泳也越来越好了,我的最小的那个小屁孩,拼字游戏也越来越来了.
 
-From: [How do I impress a girl on the first date?](http://qr.ae/TU1dqd)
+Now they are the ones who beat me.
 
-Date: April 25 2018
+> 现在他们成了打击我的人.
 
-Have you ever seen a movie called “When Harry met Sally”?
+Oh, physically? Don't be absurd. No.
 
-> 你看过一部叫 "When Harry met Sally"的电影没?
+> 肉体上打击?不要说笑啦,没有.
 
-Harry declares he never picks up a new girlfriend from the airport. Because, as the relationship progresses she will say “remember when you used to pick me up at the airport?” Or “why don’t you ever pick me up at the airport anymore?”
+## 专属虐狗时刻
 
-> Harry 说他从来不去机场接他的女朋友.因为,之后的情里面,她一定会说"你还记得你之前经常在机场接我吗?" 或者 "为什么你不再去机场接我了?"
+From: [What's your cutest moment with your crush?](http://qr.ae/TUpPlM)
 
-His point is that in the beginning of a relationship, in an attempt to impress, you set the wrong expectations. You become someone other than who you are. You do things that are not sustainable.
+Date: June 19 2018
 
-> 他的观点是,在这段恋情开始的地方,你努力去惊艳对方,这是一个错误的做法.你成为了比你平常更好的的人.你做那些你平常根本不能忍受的事情.
+When I was 11,I had a huge crush on a guy from my school.He dropped signals that he liked me too.
 
-For a successful relationship, forget about being impressive. Stick to who you are. That’s who you want her to fall for.
+> 在我 11 岁的时候,我超喜欢一个我们喜欢的男孩子.他也抛出了他也喜欢我的暗示.
 
-> 对于一段成功的恋情,忘记怎么去惊艳吧.就做你自己就好了.你自己才是你想她沉沦的人呀.
+But we were not allowed to talk to the opposite gender.
 
-## Jimmy Wales 怎么看待美国吴亦凡?
+> 但我们不准和异性交谈.
 
-From: [What does Jimmy Wales think of Justin Bieber?](http://qr.ae/TU10C3)
+So,one day after school I called him at a spot near my house where no one usually comes.
 
-Date: April 26 2018
+> 所以,有一天下课之后,我把他叫到我们家附近的一处地方,那里通常不会有什么人.
 
-> Jimmy Wales:wiki 创始人,本人亲自回答这个问题.贼牛逼.
+He came with his bicycle blushing.
 
-I don’t think of Justin Bieber.
+> 他脸红红的,脸红红的就过来了.
 
-> 我想都没想过 ta.
+Me:Do you like X (my best friend)?
 
-## 哪些人是真正的聪明?
+> 我: 你喜欢 x(传说中的闺蜜)?
 
-From: [What did someone do that made you think they were really smart?](http://qr.ae/TUTXR5)
+Him:No.I only _Love_ you.
 
-Date: April 27 2018
+> 他: 不,我只喜欢你.
 
-When I was still in primary school, my elder brother asked our parents for a diary. Every day he wrote an entry in the diary and locked it in his drawer.
+Me:(blush - smile - blush)
 
-> 那时候,我还待在小学里面,我的哥哥要我们的父母给他买一个笔记本.每一天,他都会写日志,然后把他锁在他的抽屉里面.
+> 我: 脸红-笑-脸红.gif
 
-What a beautiful, fine diary! A symbol of grown-ups and secrets. So I asked my parents for a diary too. But I didn't have my own drawer, so all I could do was put it in a paper box which was full of toys.
+Him:(blush - smile - blush) and gave me a mechanical pencil as a gift.
 
-> 多么漂亮,美好的日志呀.一个成长秘密的象征.所以我也要我的父母给我买了笔记本.但我没有我自己的抽屉.所以,我能做的就是把日志本放到我的玩具盒子里面.
+> 他: (脸红-笑-脸红)给我一支铅笔作为礼物.
 
-The day I got my diary, I ran to my parents and pointed at the box with pride: “That’s where I will put my diary!” My dad gave me a meaningful smile: “Good girl.”
+The pencil is still with me.
 
-> 那天我得到我的日志本,我跑到我父母的面前,指着那个盒子骄傲的说:"那里是我放日志的地方,不能碰" 我爸带着意味深长的微笑对着我说:"好孩子."
+> 那支笔,我现在都还带在身边.
 
-My brother whispered to me: “Why did you tell them where your diary is? You know they will peek!!!”
+P.S : someone saw us there and we ran like hell.
 
-> 我的哥哥低声和我说:"你为什么告诉他们你的日志在哪?你知道 ta 们会去偷看的!!!"
+> PS: 有人看见了我们,我们跑得像狗一样.
 
-I smiled and said nothing.
+**Good luck !**
 
-> 我笑了,然后没做任何评论.
+> 祝好.
 
-I began to make entries in the diary. But what I wrote was just like this:
+## 是人,是鬼?
 
-> 我开始写日志,在那个本子里面.但我写的就像下面这些.
+From: [How do you tell whether someone is a good person or is just faking it?](http://qr.ae/TUpkzI)
+Date: June 20 2018
 
-4/10/2012
+My former father-in-law is one of the best human beings I’ve ever met. We may not speak much anymore since my divorce, but I will always hold him in high regard.
 
-Today my mum cooked for me. She is really a great cook and I can't name another person who has better cooking skills than her!!!! I'll study hard and make a lot of money and buy my mother a big house!!!!
+> 我前岳父就是我遇到过最好的人之一.在我离婚后,我们没怎么交流了,但我一直给他很高的评判.
 
-> 4/10/2012
->
-> 今天我妈给我煮东西吃了.她做的东西很好吃,我不知道有谁的厨艺可以超过她的!!!我要努力学习,赚大钱,给她买一栋大房子的.
+He is a truly good person, and it’s not fake. You know what gives it away?
 
-4/12/2012
+> 他是一个真正的好人,不是装出来的.为什么这么说呢?
 
-I'm sick. My daddy drove me to the hospital. Looking at his figure, I can't believe I'm his daughter. How happy I am!
+In the near 20 years that he was an integral part of my life, he never once-not once- spoke of the good deeds he did for people. And he did a lot of them.
 
-> 4/12/2012
->
-> 我生病了.我爸带我去医院了.看着他的时候,我不能相信我自己是他的女儿,好幸福呀.
+> 在将近 20 年的时间里面,他已经是我生活里面的一部分了,他一次也没提起他帮别人做过的事.然而他帮过别人很多.
 
-4/13/2012
+He’d house-sit for us while we were on a week’s vacation. Months later, I’d gradually notice little changes around the house. The broken lamp we’d been meaning to repair was suddenly working. The greying paint in the bathroom was suddenly brighter. The carpet stain beside the coffee table was no longer there.
 
-Today my teacher asked us for a composition named "The one I want to thank", I plan to write on my mother. She is so open-minded and warm-hearted!
+> 在我们休假的时候,他会帮我们看守房子.一个月后,我留意到房子有了小小的改变.那烂掉的水槽被修好而且能工作了.浴室里面灰暗的色调变明亮了.那块在咖啡桌旁边满是污迹的地毯不见了.
 
-> 4/13/2012
->
-> 今天老师要我们写一篇作文"你想要感谢的人",我打算写我的妈妈.她很开明而且还很好人.
+I’d phone him and ask if he did all those things, and he’d modestly, and almost apologetically, say yes.
 
-My parents' attitude towards me changed.Every time they saw me, they almost ended up in tears of joy and love.
+> 我打电话给我,问是不是他做了这些事,他会很谦虚而且用几乎道歉的语气说,是的.
 
-> 我父母对我的态度开始转变了.每次他们看见我的时候,他们一脸宠溺我,被我感动到泪流满面.
+This applied to everything else in his life. You’d ask him what he’s been up to in the last week, and he’d reply ‘Nothing much.’
 
-My diary became my "wish book". Whatever I wanted, I just needed to write it in the diary. And I would receive it a few days later.
+> 这种情况也适用于他生活上.你问他上个星期在做什么,他会说什么也没做.
 
-> 我的日志开始成为的"愿望清单".我想要什么,我只要写在日志里面.过几天,我就可以拿到了.
+Then, his wife would inform us that he’d, in fact, spent the entire week painting a neighbour’s house because they were too frail to do it themselves.
 
-They gradually couldn't afford this. Every time they opened the diary, ￥ 50–300 flew out of their purse.
+> 然后,他老婆说,事实上,他上个星期一直在帮邻居装修房子,因为 ta 们太弱鸡自己弄不了.
 
-> 最后,他们买不起了.每一次他们打开日志,他们钱包就要没 50-300 元.
+The man was never comfortable with accolades. He just wanted to help.
 
-In the end they bought me a drawer.
+> 那个男人,不想被赞誉.他仅仅想帮助别人.
 
-> 最后,他们给我买了抽屉.
+## 增长生意技巧
 
-"No, I really don't need this."I said.
+From: [How can kids learn entrepreneurship skills?](http://qr.ae/TUpuzw)
+Date: June 21 2018
 
-> "不,我不太需要这个."我说.
+“Dad, I want to make money. Can I work for you?” My 10 year old boy asked me.
 
-"Keep it,"They said, "It's better to lock it."
+> "老爸,我想要钱.我能为你干活吗?" 我 10 岁的儿砸问道.
 
-> "要的,留着吧"他们说,"还是锁着好一点".
+“We don’t work for money son. You must come up with a creative idea to make money through a business.”
 
-"Thanks but no." I said.
+> "儿砸呀,我们不为钱工作.你必须要想出一个很有创意的想法,然后通过 ta 来给你创造钱."
 
-> "谢谢,但我不想锁." 我说.
+“Oh, let me think,” he paused for a moment and said, “I have an idea! I could mow the lawn for the neighbors!”
 
-"Please, lock it!"
+> "蛤,让我想一下",然后他想了一会说,"我有一个主意,我可以给邻居割草."
 
-> "还是锁上吧!"
+“That’s not a business son!”
 
-At least I got a new drawer. It's good. Yay.
+> "这不是生意呀,儿砸!"
 
-> 最起码,我得到了一个新抽屉.这不是很好吗? yeah(看来知乎的段子手,已经开始占领 quora 了 笑)
+“Well, I could wash cars or walk their dogs over the weekends!”
 
-## 来一波神回复
+> "那样子,我可以去洗车,或者给他们遛狗."
 
-Date: April 28 2018
+“You’re still exchanging time for money son! Thats NOT a business. I want you to come up with a business idea!”
 
-a. [What do eagles taste like?](http://qr.ae/TUT7ZG)
+> "你还是吧时间折换成金钱了而已.这不是生意.我希望你可以提出一个生意的注意."
 
-In the US, they taste like 5 years of prison food and a $50,000 fine.
+“I don’t understand dad!”
 
-> 老鹰吃起来什么味道
->
-> 在美国里面,吃起来就像 5 年的监狱饭盒和 5 万美元罚款
+> "我不知道怎么想,老爸"
 
-b. [What is the most fragile thing in the universe?](http://qr.ae/TUT7Zn)
+“I don’t want you to exchange time for money. Think how to solve this!”
 
-Taylor Swift’s heart.
+> "我不想你把时间折换成金钱.想想怎么解决这个.
 
-> 宇宙里面最易碎的物质是什么
->
-> Taylor Swift 的心
+Three days later…
 
-c. [Why do I look like other humans?](http://qr.ae/TUT7ZF)
+> 三天后....
 
-If you didn’t, we’d probably eat you.
+“Dad, dad! I have an idea, what if I plant some vegetables in our backyard, grow them and sell them!”
 
-> 为什么我要像其他人?
->
-> 如果你不,你可能会被我们吃掉.
+> "老爸,老爸,我有一个主意,如果我在院子里面种蔬菜,然后卖给别人呢"
 
-d. [If airplanes could speak, what would they say?](http://qr.ae/TUT7Zg)
+“Now, THAT sounds more like a business son! Can you tell me the difference? How many hours will you invest to keeping up with your plants?” I asked.
 
-**'AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!'** screams the plane as it flies at 500 plus miles per hour at 35,000 feet above the sea level.
+> "这听起来才有点像样子.你能告诉我有什么区别吗?你需要多少时间照料你的蔬菜?"我问他.
 
-The plane is afraid of heights.
+“I need to water the plants every day after school.”
 
-> "啊,啊 x1000"飞机以 500 英里在 1 万米高飞行的时候的尖叫.
->
-> 那架灰机,恐高.
+> "我需要每一天放学后都给它浇水"
 
-## 怎么才是成熟的爱情?
+“What else?”
 
-From: What is the definition of mature love?[http://qr.ae/TUTp93]
+> "其他的呢?"
 
-Date: May 02 2018
+“Watch out for bugs eating my veggies?”
 
-My boyfriend used to drink before we were in a relationship. Once we started dating I asked him to stop boozing. He without any hesitation said okay. And it's being 8 years now,he didn't even touched alcohol once.
+> "防止虫子吃我的蔬菜?"
 
-> 我男票在和我交往前,喜欢喝酒.在我们开始交往的时候,我要求他不要再喝酒了.他一点也没迟疑的答应了.到现在已经 8 年了,他一次也没碰酒了.
+“Correct! How much time will you invest doing that?”
 
-So, a couple of months ago, we were just sitting together and chatting about all the random things. And I asked him:
+> "满分.你需要多少时间去做这些事?"
 
-> 所以,在几个月前,我们坐在一起,然后随便聊着一些什么.然后我问他:
+“Well, dad… nothing, maybe minutes!”
 
-Me: why did you stop boozing?
+> "好像并不需要太多时间"
 
-> 我:为什么你能禁酒的?
+“So what is the difference between your veggie business and working for me or for the neighbors?”
 
-Him: for you.
+> "种蔬菜和你为邻居打工有什么区别吗?"
 
-> 他: 为了你呀.
+“I’m going to save time!”
 
-Me: what about temptations? when you are with your friends?
+> "我会给自己节省一堆的时间!"
 
-> 我: 那关于那些诱惑呢?当你和你朋友在一起的时候呢?
+“Good! Now you have a new problem… You need to invest some money on your vegetable garden! How much money will you invest?
 
-Him: I don't have any.
+> "好的.现在你又有新的问题了..你需要投资一些钱去种蔬菜.你打算投资多少?"
 
-> 他: 我没有朋友.
+We went to Home Depot to buy stuff. He had his cash savings in his pocket.
 
-Me: why? What if I buy you something that you can't resist?( I was teasing him)
+> 我们去超市里面购买所需的东西.他用他之前自己省下来的钱来买.
 
-> 我: 为什么? 如果我买了你不能再坚持的酒呢?(我在测试他)
+”Dad, look! If we install this automatic water system I will be making money even while we’re on vacation!” He said excited after identifying a special hose to connect to his new pots.
 
-Him: no
+> "如果我们安装自动洒水的东西,那我们出去旅游也可以赚钱了!"在确定一条软管可以连接他的水池的时候,他很兴奋的说到.
 
-> 他: 也不喝了.
+“I will buy organic soil so my cucumbers and my tomatoes will be organic. I can sell them at a higher price to my neighbors and my friends.”
 
-Me: why?
+> "我可以买金坷垃给我的黄瓜和西红柿,那样子就可以贴上有机的了.我可以卖 ta 更高的价格."
 
-> 我: 为什么?
+I smiled proudly as I could see how he was getting his business mind together.
 
-Him: I don't want to drink
+> 我很自豪的笑了,我可以看到他已经具有生意头脑了.
 
-> 他: 我不想喝酒了.
+We purchased everything. He negotiated a $50 dollar loan from me. We agreed that he will pay me interest.
 
-Me: why? Why?
+> 我们购买了所需的东西.他从我这里借了 50 美元.我们同意他要交利息.
 
-> 我: 为毛?为毛?为毛?
+Business is an art, not a science.
 
-After lot of asking and pleading.
+> 生意不是科学而是一门艺术.
 
-> 经过一系列的询问和恳求之后.
+My boy is developing his entrepreneurial skills. He is learning everything that schools don’t teach him like how to invest, how to sell, how to keep track of money.
 
-He adjusting my hair back, said:
+> 我的儿砸开始增长他的生意技巧.你在学习那些学校没交给他的,比如怎么投资,怎么销售,怎么管理自己的资金.
 
-> 他抚摸着我的后背说:
+He will learn the pains of paying interest of a loan, and after this winter, he’s learning the pains of losing money and having to start over again!
 
-My father died because of his uncontrollable drinking habit. My mother had to take care of everything. I know how hard it is for a single mother to sustain in this society. I know that you are so innocent, that you can't even go to any other place without me.I don't want you to face the struggles that my mother has faced. That's why I decided to stay away from alcohol, when you came into my life.
+> 他会了解到利息的蛋疼,在冬天后,他会了解到折损和重新开始.
 
-> 我爸因为酗酒早就挂掉了.我妈要悉心照料生活里面的一切东西.我知道在现在的社会里面一个单身母亲过得有多难.我知道你天真可爱,你甚至都不能自己单独去一个地方.我不想你面对我妈曾经面对过的困难.这就是你走进我的生命的时候,我远离酒精的原因了.
+Most importantly, I’m teaching and developing his mindset! Entrepreneurship is an art, an understanding of how to make money, it needs to be learned, not taught.
 
-Tears rushed into my eyes ,my face turned all pink because I was crying so much.
+> 最重要的是,我正在教会他这些.生意是一门艺术,去懂得怎么赚钱,这需要去学习,而不是被说教.
 
-> 我泪流满面,因为我哭着很厉害,我的面都变红了.
+## 怎么告诉父母,有男朋友?
 
-I said: I LOVE YOU
+From: [How do I tell my parents that I have a boyfriend?](http://qr.ae/TUpWHe)
+Date: June 25 2018
 
-> 我说: 山无陵.
+You: Mom. Dad.
 
-He wiping my tears said:I love you too mad girl.
+> 你: 老爸,老妈.
 
-> 他把我的眼泪擦掉说: 天地合.
+Them: ????
 
-Iam the mad one in our relationship. He is the mature one. He usually talks less. He don't usually express his feelings.
+> 他们: ????
 
-> 我是在关系里面比较疯狂的那个.他是比较成熟的那个.他习惯于沉默.他不常表达自己的想法.
+You: I'm pregnant.
 
-But that day, when he said so,I realized that mature love is not buying chocolates and gifts , but leaving something that you love so that you can stay longer with your loved ones. Mature love is loving someone selflessly and unconditionally.
+> 你: 我怀孕了.
 
-> 但那天,当他说出这个的时候,我意识到成熟的爱情不是买一盒巧克力什么的,而是放弃你喜欢的东西为了更好的和你爱的人活在一起.成熟的爱就是无条件和奋不顾身的爱上另一个人.
+Them: What!?!?!??!
 
-EDIT : Thanks for all the love and up votes:)
+> 他们: 窝草!!!
 
-> 更新: 谢谢各位的点赞.
+You: Yes. It's happening. I've met an amazing guy. He's the father. He's a tattoo artist. And he sings in an amazing band. I'm pretty sure the band is gonna make it.
 
-To those people who said that he is lying: May be he was lying, but I choose to trust him. Because love is trust.
+> 你:是的.我怀孕了.我遇到了一个对我很好的男人.他是一个社会人,在一个牛逼的乐团里面当主唱.我很确定那个乐队会出名的,以后.
 
-> 对于那些说他骗我的人: 或许他在撒谎,但我选择相信他.因为爱就是相信彼此.
+Mom: no……
 
-And to the people who are saying that I’m gonna leave him one day: We got engaged a couple of days ago and our wedding is in June(yayyy!! :P).
+> 你妈: 我表示怀疑.
 
-> 然后对那些有一天我准备离开他的人: 我们前些天订婚了,然后婚礼在 6 月.(shit)
-> Love and peace to everyone :)
+You: Yes. I've decided to name the child after him. And I got a tattoo already with his name
 
-## 简洁回复
+> 你: 是的.我决定那个孩子跟他姓了.我还把他的名字纹在了身上.
 
-Date: May 03 2018
+Dad: Uhh what's his name?
 
-From: [Should I sell my dog if the woman I'm dating seriously says no animals are allowed in the house and around her children? I can't bear abandoning him.](http://qr.ae/TUTNrG)
+> 你爸: 他叫什么名字?
 
-This woman is demanding that you abandon someone you love.
+You: Satan.
 
-Lose the woman. Keep the dog.
+> 你: satan.
 
-> q: 我喜欢的女孩(大雾)叫我选她或者选我家的狗,我该怎么做?
->
-> 这个女的命令你抛弃你深爱的另一个
->
-> 放弃这个女的,留下那条狗.(那样就单身+狗???)
+……….
 
-From: [What do I say when I’m caught staring at a girl’s ass?](http://qr.ae/TUTNrr)
+> 大概经过一段足够尴尬的沉默后.
 
-a. Continue staring. This is important. Don’t change your gaze.
+You: I'm kidding. The only part that’s true is the boyfriend part. Except he's an engineer. You'll love him. No babies till marriage — promise.
 
-b. Whip out some sunglasses. Put em’ on. Keep your gaze steady.
+> 你: 我开玩笑的.里面真实的是我有了一个男朋友.他是一个工程师.你们会喜欢他的.在结婚前,我都不会弄出小屁孩的-我发誓.(鲁迅说:要折中)
 
-c. Grab a friend’s arm, and have him guide you around.
+## 你妒忌谁?
+
+From: [Who are you jealous of?](http://qr.ae/TUp9fu)
+Date: June 26 2018
+
+One of my best friends.
+
+> 一个我的好朋友.
 
 -
 
-Problem solved.
+First of all, the dude is frickin’ gorgeous. I’ve made soooo many jokes about doing various things to him if I was gay. He’s beautiful. Serious man crush.
 
-> q: 被人抓住我盯着女孩的屁股看,怎么办?
->
-> a. 继续盯着.这很重要.不要转移你的目光.
->
-> b. 拿出你的太阳眼镜.带上去,然后继续盯着.
->
-> c. 扶着你朋友的手臂,然后让 ta 带着你走.
->
-> -
->
-> 问题完美解决.(人生如戏,全靠演技!!!)
+> 首先,那个那谁是一个 tmd 天才.如果我是 gay 的话,我会取笑他做的很多事情.他很帅.纯正的同性好感.
 
-From: [How can I protect myself and my family from atheists?](http://qr.ae/TUTNro)
+He eats like crap, but he looks like a Calvin Klein model. I’ve been working out and dieting for months, and I don’t even come near to looking like him.
 
-Move to Pakistan.
+> 他不注重饮食,但他自己看起来就像 ck 里面的模特.我控制饮食的运动一个月,也没能和他差不多.
 
-> q: 我怎么从无神论那些人里面保护我的家庭?
->
-> 搬到巴基斯坦.(伊斯兰教欢迎你)
+His smile could melt steel, and he takes Jesus-level selfies. His hair is on point 24/7. His blue eyes constantly sparkle. He’s a beautiful specimen of the male gender.
 
-## 出生前给父母打一个 30 秒的电话,会说什么?
+> 他的微笑能融化钢铁,然后他不注重着装.他的头发刚好及腰.有银河在他的眼睛里面闪烁.他是男性种族里面长得算好的了.
 
-From: [If you could call your parents for 30 seconds before you were born, what would you say?](http://qr.ae/TUTGSO)
+\*That sounded gay as fuck, but I’m 100% straight. I promise. I just get a massive boner every time I look at him. That’s all. I’m 100% straight ;)
 
-Date: May 04 2018
+> 听起来我 tmd 像 gay,但我绝对不是.我发誓.我只是每一次看见他的时候,有一些混乱.就这样.我绝对不是 gay.
 
-God: Ready for a new life?
+-
 
-> CPU: 准备好 Hello world 了没?
+One time he was over at my house, and saw my piano keyboard. He asked if he could play a little. Just fool around.
 
-Me: _Nods_
+> 有一次他来到我的房子里面,看见我的手琴.他问我他可不可以瞎玩一下.
 
-> 我只是点点了头.
+Sure, I said. Go ahead and “Fool around.”
 
-God: Let me tell you about your place of Birth.
+> 你喜欢,我说,自己拿呀,喜欢怎么玩就怎么玩.
 
-> CPU: 让我告诉你,你要运行在哪里吧.
+He cracks his knuckles:
 
-Me: _Nods_
+> 他压了一下自己的关节:
 
-> 我还是点了点头.
+And proceeds to play a super complex hip hop riff, perfectly. Both hands, each finger moving independently, flawlessly, for about 2 minutes straight.
 
-God: In Milky Way Galaxy, among 40 billion planets there is this one tiny blue green planet that contains life. There Life is a race. Everyday you’re out for a mission! Running to earn a piece of paper. No time for yourself! Less Love, More hate. Rich rule, poor suffer. Religion spreads violence instead of love. The word peace is now a history. Humanity dies everyday! I call it ‘Mini Hell’. :D
+> 然后完美的玩出了一个很复杂的乐章.一对手,每个手指都自由活动,完美的,演奏了大概 2 分钟.
 
-> CPU: 在一条在银河的内存里面,差不多有 40 亿个变量,那里有一个蓝色的变量上面有生命.那里生命是一种比赛的载体.每一个时间片,你都要做着任务.为论文奔波.没有时间陪陪你自己.缺少爱,更多的是憎恨.有钱的人创建规则,没钱的则要忍受.宗教比爱更泛滥.那里和平早就不知扔哪里去了.每一个时间片,你都能看见人性的沦丧.我把那个内存空间叫'Mini Hell'. 微笑脸
+I said “Holy shit dude, where’d you learn that?”
 
-Me: _Shook head_
+> 我说:"窝草,你是从哪里学到的?"
 
-> 我 tmd 当然要摇头啦.
+“Oh you know. Youtube.”
 
-God: You don’t want to go there?
+> "YouTube."
 
-> CPU: 你不想去那里?
+-
 
-Me: _Nods_
+The fucker completely learned how to play the piano off Youtube. Exclusively Youtube. He had about 20 different songs and riffs completely memorized. From fucking Youtube.
 
-> 我点了点头.
+> 这个法克在 YouTube 上面学会了怎么演奏钢琴.除了 YouTube.他记得 20 多首歌和乐章,从 tmd Youtube 里面
 
-God: Sorry buddy! Can’t do anything! In 1 minute, you’ll become a part of that planet.
+In my entire life, I’ve never heard anyone say they didn’t like him. Everyone loves him. He’s charismatic, funny, and awesome to be around.
 
-> CPU: 不好意思,小屁孩.我改变不了任何东西.在一分钟后,你会成为那个内存的一部分.
+> 在我的整一个人生里面,我从来听过其他人说不喜欢他.每个人都喜欢他.他有魅力,有趣,在他身边是一件很好的事.
 
-Me: _Starts crying_
+His girlfriend worships him, and he treats her like a queen. He’s like the perfect human being.
 
-> 我开始哭了.
+> 他的女朋友崇拜他,然后他把她奉为王后.他就像一个完美的吃瓜群众.
 
-God: Aww! Don’t cry. I’ll give you 30 seconds to talk to your father. If you’re able to convince him regarding leaving Earth and going to some other distant galaxy, then I’ll manipulate space and time then I would shift you there, along with your parents.
+Now most people would be super intimidated by him. They’d probably hate him. I know I would. He’s better than me in almost every way. I would definitely hate him.
 
-> CPU: 窝草,别哭呀.我给你 30 秒给你的爸爸打一个电话.如果你可以说服他可以离开地球去别的星系内存里面生活,我会参考线程调度去把你和你的父母都切换到那边的.
+> 现在大部分的人都受到了他的威胁.他们应该会恨他.我知道我是恨的.他在各个方面都比我好.我绝壁是恨他的.
 
-Me: _Smiles_
+If…… he wasn’t the most humble person I’d ever met. He never accepts a compliment, and always sincerely returns a compliment that highlights one of your best features.
 
-> 我开心的笑了.
+> 如果..他不是我遇到过最谦虚的话.他从不接受赞扬,然后总是夸你的优点.
 
-God: Here! Take the call.
+It’s just like: DUDE ARE YOU FUCKING JESUS?
 
-> CPU: 来,通信吧.
+> 就像: 窝草,你就是那个天才吗?
 
-_Calls_
+-
 
-> Ping ...
+He’s not rich, he doesn’t have very good grades, and he doesn’t know what he wants to do with his life. But he’s happy, like all the time. I’ve never seen him in any mood worse than “neutral.”
 
-Dad: Hello, who’s this?
+> 他不是富二代,也没有很好的成绩,然后他不知道他的人生要做什么.但他很开心,就像一只以来.我从来没见过他发飙之类的.
 
-> 我爸: 喂,是谁,是谁,究竟是谁?
+-
 
-Me:
+I’m jealous of every aspect of who he is as a person. He’s probably the most intrinsically good friend I’ll ever have. He’s an amazing guy.
 
-> 我无言以对.
+> 我妒忌他作为人的每一个方面.他是我遇到过最好的一个朋友.他是一个牛逼的人.
 
-Dad: I can only hear your breath!
+This weekend we’re gonna go out on the lake and swim. Looking at him will make me hate the way I exist as an imperfect human being. Then he’ll say something super uplifting that fills me with confidence.
 
-> 我爸: 我只能听到你呼吸的声响.
+> 这个星期,我们会去湖边游泳.看着他,我会恨自己不完美.然后他会说一堆的屁话帮我从建自信.
 
-Me:
+-
 
-> 我还是一如既往的沉默,沉默是今天的 java bridge pattern
+God damn I’m jealous of that guy.
 
-Dad: Who’s this? Please tell? My wife is in the hospital and I need to reach there as soon as possible!
+> 窝草,我妒忌那个人.
 
-> 我爸: 是谁? 请回复? 我老婆现在在医院里面,我得立刻到那里.
+## 最后的建议?
 
-Me:
+From: [As a dying person, what is your advice to the living?](http://qr.ae/TUpZae)
 
-> 我还是...
+Date: June 28 2018
 
-Dad: Man, have you called me to make me hear your breathing?
+Do everything you want to do. Don't take the little things for granted. Life is short…
 
-> 我爸: 窝草,你打电话给我就是让我听见你呼吸的吗?
+> 做你想做的事.不要把东西当做理所当然.生命短暂....
 
-Me: _Starts Crying_
+I was diagnosed with muscular dystrophy at age 15.
 
-> 我留下了悔恨的泪水.
+> 我 15 岁的时候被诊断为渐冻症.
 
-Dad: Huh, it seems as if a baby has called me! What the hell!
+Since I have done everything I wanted to do.
 
-> 我爸: 哈,看起来就像一个小屁孩给我打电话.我草.
+> 从我做完我想做的事之后.
 
-_Disconnects_
+I've traveled the country, and I even rode my last roller coaster ride about 12 years ago.
 
-> 通信中断.
+> 我在国内旅行.我甚至在 12 岁的时候驾驶了一次汽车.
 
-God: Oh! I forgot to tell you. You can’t speak! Happy Journey!
+Now, I am incredibly weak. I cannot talk very well, my voice is hoarse, raspy, and down to a whisper. I have to take breaths in between every three or so words.
 
-> CPU: 忘记告诉你了.你不能说话现在.生命周期愉快.
+> 现在我很虚弱了.我不能正常的发声.我的声音变得嘶哑而又刺耳,时常伴着喘息.我在说出 2-3 个词之后都要喘息一会.
 
-Me: …….
+I can't walk more than a few steps.I have a wheelchair now.
 
-> 我只能.....
+> 我不能走一点路.我现在有轮椅了.
 
-_Doctor takes me out_
+I'm constantly tired by noon.
 
-> 医生把我拉出去了.
+> 我现在时常疲惫.
 
-Me: _Starts crying_
+Even eating is a challenge. A simple slice of pizza takes about 30–45 mins to eat.
 
-> 我开始哭了.
+> 甚至连进食都是一项挑战.一块 pizza 要半个小时才能吃下去.
 
-God: And these Humans think Babies cry because they need air in the lungs? This stupid over confident species.
+I've been cheated out of a normal life, and it hurts.
 
-> CPU: 然后那些愚蠢的变量以为小屁孩哭是因为 ta 们的肺部需要空气?多么自信的一个种族呀.
+> 我被平常的生活欺骗了,这让我觉得很受伤.
 
-## 你最想做却又做不到的
+Live your life to the fullest. It's the little things in life that make it so much better…don't take it for granted
 
-From: [What do you wish you could do that you can't?](http://qr.ae/TUTvI5)
+> 要让你的生活充实起来.那些让自己生活变好的东西,不要把 ta 们想成理所当然.
 
-Date: May 04 2018
+I am now 31 and have, at most, 1 more year left to live.
 
-My daughter is in that wonderful phase in which children are constantly asking questions.
+> 我现在 31 岁了,最多,还能活多一年.
 
-> 我的小屁孩正好在她对什么事都好奇的年纪里面.
+Written by my brother
 
-Mom, what’s behind the universe?
+> 兄弟代写.
 
-> Mom,宇宙的背后是什么?
+## 一个备胎的自述
 
-What is a black hole?
+From: [What has been the roughest moment in life?](http://qr.ae/TUpDgt)
+Date: July 02 2018
 
-> 什么是黑洞呀?(霍金叔叔的肚脐眼)
+& there…. In the washroom I for the very first time opened her phone & what I saw shook the world beneath me.
 
-Why don’t adults have toys?
+> 嗯,是这样子的.在厕所里面,我第一次解锁她手机的时候,我感到了整一个宇宙的震动.
 
-> 为什么大人没有玩具了?
+She bad been my cursh since 8th Standard. After being friendzoned since, 4 years subsequent we were in a very deep relationship. Since we both belonged to a conservative society it is here difficult to even meet once a month, but we managed to do it thrice or sometimes more than that a week.
 
-Are coffins sometimes opened after people are buried?
+> 在八年级的时候,我就开始暗恋她了.在经历了所谓的朋友期之后,我们有了 4 年的狗血偶像剧.我们处于比较严谨的社交里面,我们甚至一个月也没聚一次,但我们总能找到方法一个星期聚上三四次.
 
-> 棺材在埋进去之后,有时会打开吗?(会的,牛顿的就经常按不住)
+I used to save money only for her, just to give her a fancy gift, taking her to a decent restaurant, decent gifts only so that she can feel special. Since I knew how much time & temper it took all those years just to get her, I used to protect her like a flower & treat her as a queen. Giving up after all arguments, fights & everything just so that I may not loose her. She also loved me(at least that was she said).
 
-What do starfish eat?
+> 我经常省钱,为了给她买一件礼物,带她去好的餐馆,得体的礼物让她觉得自己是在乎她的.在追她的这些年里面,我知道我花了多少时间和心思,我过去就像小王子一样, 把她当做我的皇后.对于那些相互之间的争吵,因为害怕失去她,我一一妥协.她也是喜欢我的(至少她是这么告诉我的).
 
-> 海星吃什么?
+TWO YEARS AFTER BEING IN A RELATIONSHIP I CAUGHT HER CHEATING ON ME & THE WAY I CAUGHT HER WAS QUITE A VERY UNNATURAL MOVIE SOME SCENE.
 
-This goes on and on, and I adore it. We spend many hours researching all the things she wants to know about. We learn about animals, universe, nature, science, and then she draws what she learned, or makes models in clay or playdough.
+> 在交往两年后,我找到了她劈腿的证据.我找到这个证据的时候就像一些电影里面的场景.
 
-> 就是这种问题,而我觉得这很可爱.我们花很多的时间去查找这些问题的答案.我们学习动物,宇宙,自然,科学,然后她会把她学到的东西画下来,或者用橡皮泥做出来.
+I never asked for her passwords, her phones or anything. Never wanted to make her feel uncomfortable. But since she used to sit right besides the driver seat I somehow unintentionally saw her phone pattern one day. Even that didn't made me unconscious because I trusted her. One day I parked my car near a public washroom telling her that the engine is heating up. Borrowed her phone to have the led light to watch the engine. I took her phone to the washroom to fill up the water bottle for my engine.
 
-There is a particular type of questions she loves to ask again and again:
+> 我从来没有问她要过密码,她的手机或者其他任何东西.从来不想让她感到不舒服.但自从她坐在副驾驶的位置,有一次我不小心看到了她的密码.即使这样子,我也没起疑心,因为我相信她.有一天我把车停在公共厕所旁边,告诉她引擎过热了,借她的手机开灯来看看引擎的情况.我将她的手机拿到厕所里面,用瓶子装水到引擎里面.
 
-> 这有一个她经常问到的问题,她问了一次又一次:
+& there…. In the washroom I for the very first time opened her phone & what I saw shook the world beneath me.
 
-Mom, how old will my brother be when I’m 10?
+> 然后,就是这一刻,我第一次打开他的手机.然后我看到了何等的窝草.
 
-> Mom,我 10 岁的时候,弟弟会变成多少岁了?
+We were having issues since 3,4 months. Serious fights & all but end of the day I used to give up & things kept on dragging. I used to cry madly for her, & kept on doing any shitty thi ng just to please her. I was an example amongst my friends on how loyal & loving a boy should be towards his girl. & vice versa in her girls on how an ideal boy one should have.
 
-He’ll be 7, honey.
+> 我们之间存在问题 3-4 个月了.那天吵了一架,我还是和往常一样放弃了,继续拖着.我之前为她哭得可凶了.做那些任何让她可以变得高兴的事.我是我朋友间的模范男友,在女朋友生气的时候,男朋友该怎么处理的优秀模板.
 
-> 他 7 岁呀,honey.
+She had been sexting with one of her coaching teacher who became friends with her just 4 months prior. They were exchanging inappropriate pictures, kept on meeting & had been physical already. The phone was full of such photos of them. I had never ever asked her for any sexual photo thou we had a physcial relation but I tried never to do any inappropriate thing before getting married.
 
-How old will I be when my brother is 15?
+> 她和她在四个月前认识的男教练发调情信息.他们交换艳照,偶尔出墙,已经出墙了,现在.手机里面全是那些照片.我从没问过她要过裸照什么的,尽管我们之间存在了关系,但我不想在结婚前,要她任何不适的照片.
 
-> 他 15 岁的时候,我多少岁了?
+I came back. Not knowing how to even walk coming from the washroom. Sitting in the car. Drove it to another place. Stopped it. Had tears in my eyes & asked her,
 
-You’ll be 18.
+> 我走回去.甚至不知道怎么走回车里面.坐在车里面,开到其他的地方.停在那里.泪流满面的质询她.
 
-> 你会变成 18 岁了.
+You know I've always trusted you. I fear that you don't trust me for these few months. You've been acting weird. What's the problem baby. Am I starting to hurt you already?
 
-And so on.
+> 你知道我一直相信的.我害怕你不相信我的这些日子里面.你变了.为什么会变成现在这样.我很早就开始让你感到灰心了吗?
 
-> 就是这类型的问题.
+NOOO! Who said such? You're a man every girl dreams of. I can never even think of you being with anyone else. I'll kill that woman. You're mine forever. Don't you worry I’m all yours.
 
-Last night she was asking the same type of questions, but this time she went further, until she asked this question:
+> 没呀.谁说的?你是每一个女孩子的白马王子.我甚至不能想象你和别的人在一起.我会把那些女孩子干掉的.你永远都是我的.不要担心,我全是你的.
 
-> 昨晚她问了同一个问题,然后这一次岁数更后面的,知道她问:
+After her words, I showed her her phone & the pictures, I remember for the very first time in my life I abused horribly & started shouting at her. This is what you call loyalty. This is how your parents have raised you. You're a whore. & tons & tons of abuses. She started crying. Held me forcefully asking for forgiveness but that was the very time I stood for myself. & threw her out of the car in the middle of the city. I had completely lost my cool that day.
 
-Mom, how old will my brother be when I’m 89?
+> 在她说这些后,我给她看了在她手机里面的照片,那一刻我记起了小时后所有受过的委屈,开始骂她了.这就是你 tmd 忠于对方.这就是你父母这么教养你的(这就有点过分了).你是绿茶婊.一堆,一堆,一堆的粗口.她开始哭了.抱着我请求原谅,但这一次我没有.我把她扔在银河系的边缘.告诉你哦,那天我一点也不酷.
 
-> Mom,当我 89 岁的时候,弟弟多少岁了?
+She kept messaging me, used to call me at 4-5 am. Crying that she cannot sleep. She's sorry but I ignored & even went harsh on her on messages.
 
-He’ll be 86, my love.
+> 她一直给我发消息,4-5 点给我电话.哭着说她失眠.她很抱歉,但我忽略了她.尽管还时不时 look back.
 
-> 那样子,他就 86 了,my love.
+It's been two years now & I've progressed miraculously. I cannot believe it myself. When she used to be around I was never able to focus on any other subject rather than love & her. & have learnt a very valuable lesson in life.
 
-As I answered her, I felt my heart drop.
+> 现在已经两年了,我过得挺好.我都有点不相信我自己.当她在身边的时候,我从来都没能专注于其他的东西,除了喜欢她.现在开始找到了生活的意义.
 
-> 在回答她的时候,我的心沉下去了.
+Some things in life are not at all in your control, you can try to do so but if it's difficult, one should let it be.
 
-Suddenly, without any warning, there was a lump in my throat and my eyes filled with tears.
+> 生活里面,你不能控制所有的变量,你可以尝试去做,但这很困难,但一生也要那么一次去做的.
 
-> 突然间,没有任何预告,我就哽咽,然后泪盈眶了.
+## 你最讨厌哪种人?
 
-When my beautiful, inquisitive, kind, loving, passionate, amazing little girl turns 89, I will not be there any longer, to accompany her on her path.
+From: [What kind of people do you hate the most?](http://qr.ae/TUp6zf)
 
-> 当我全宇宙最好的小女儿变成 89 岁的时候,我早就挂掉了,我再也不能陪伴在她的路上了.
+Date: July 05 2018
 
-When my funny, talkative, compassionate, loving, gentle, remarkable little boy turns 86, I will not be near to rejoice in his life.
+“Yeah, I’m exhausted, I just had a really stressful hard day today.”
 
-> 当我全宇宙最好的小男孩变成 86 岁的时候,我不能再为他的生活鼓劲加油了.
+> "今天累扁了,我刚刚度过了一个充满压力的一天."
 
-Of course I knew this. Intellectually.
+“**Well, you only work 8 hours, I worked 10, how do you think I feel?**”
 
-> 当然,我知道这些.理智上说.
+> "好吧,你才工作八小时而已,我工作 10 个小时了,那我该感到什么?"
 
-But last night was the first time I felt it for real.
+_sigh_
 
-> 但昨晚,我感到如此真实.
+> 嘘
 
-It hit me so hard.
+Just because you might have it worse than somebody, doesn’t mean whatever they’re going through isn’t valid.
 
-> 这让我备受打击.
+> 仅仅因为你过得比其他人惨,也不意味着那些人过得好呀.(不好意思,断断续续的积累这些故事,BTW,这位 poster 是个美女)
 
-That is what I wish I could do, and I won’t be able to.
+## 什么时候意识到自己是错了
 
-> 这就是我希望我能做,但我又做不到的了.
+From: [What is a moment when you realized that something you believed in was wrong?](http://qr.ae/TUIG5s)
 
-I wish I didn’t have to leave them, but it is the way life goes, and I eventually will.
+Date: July 16 2018
 
-> 我希望我不用去离开他们,但如果这些是时间的安排,我最终都不得不离去的.(哈,Give him some times,you want to leave,honey!)
+My uncle got cheated on by his wife of 20 years. The divorce was ugly. The whole family was pulled into the fray. Both his kids were in college, so they were spared the nastiness.
 
-## 大表姐经常竖中指?
+> 我叔叔被她老婆戴了 20 多年的绿帽.离婚的时候也一地鸡血.整一个家庭都陷入纷争里面.他的两个小屁孩都上大学了,所以他们免受这些肮脏的撕扯.
 
-From: [Why are there so many pictures of Jennifer Lawrence showing the middle finger?](http://qr.ae/TUTrVv)
+Even before the divorce was finalized, the wife went around town, remorseless, flaunting her lover. It was scandalous. My uncle was so ashamed he refused to leave the house except for his job, and opted out of all family events. He became depressed and suicidal.
 
-Date: May 08 2018
+> 在最终离婚定下来之前,他的老婆就在厚颜无耻的诋毁叔叔了.那些太恶心人了.我叔叔因为那些诽谤赶到很惭愧,除了工作他都待在那间屋子里面,并退出了所有的家庭活动.他变得阴沉和有自杀倾向.
 
-> 大表姐亲自回答
+One day our house phone rang. Father picked it up. My uncle was crying and holding a gun to his head. My father convinced him to put it down while I dialed the helpline.
 
-’Cause I’m an asshole.
+> 有一天我们家的电话响了.我爸拿起电话.我叔叔在哭着,用着枪指着自己的头部.我爸在我给求组热线打电话的时候,劝他把枪放下.
 
-> 因为我屌呀.
+We arranged an intervention and convinced him to get therapy. This helped. In one of his groups, he made a friend named Felicia. Toothy grin and wild red hair. She changed him completely. It wasn't long before they were dating. In a year, they were married. Felicia really wanted kids of her own. They tried for two years until she finally became pregnant.
 
-## 老师教过你们最好的是什么?
+> 我们安排了一次调停,劝他去治疗一下.治疗起到了作用.在那个治疗队伍里面,他遇到了一个叫 Felicia 的人,一个爱笑的,有着红头发的女性.她改变了他.他们甚至都没约会多久.一年后,他们就结婚了.Felicia 想有一个小屁孩.他们尝试了两年后,她终于怀孕了.
 
-From: [What is the best thing a teacher taught you?](http://qr.ae/TUTrV9)
+They were so happy. My uncle would share updates of his wife's health, ultrasound pictures, the nursery they were setting up in an old gym room and spending shitloads of money on. One day, eight months in, he comes home to find his wife on the floor. She was bleeding. That's how I saw him that day when we reached the hospital: in a white shirt stained red with his wife's blood.
 
-Date: May 08 2018
+> 他们很开心.我叔叔会在和我们分享他妻子的健康情况,超声波的照片.他们花了大量的去把旧的健身房改造成小屁孩的房子.一天,在小屁孩八个月的时候,他回家发现了躺在地板上的妻子.她在流血.这就是我们那天到医院看见的情景:他白色的衬衫上面沾满了他妻子的血迹.
 
-In Health 9B (read, Sex Ed) our teacher, Ms. Smith was teaching us about safe sex.
+Until the day I die I will never forget his face, his drawn eyes.
 
-> 在我们卫生健康课上,我们的大姐头 Ms. Smith 正在教安全性教育.
+> 我死也不会忘记那天我叔叔的表情,他全是绝望的眼神.
 
-“Jesus, kids, I’ve said it fifty times and I’ll say it again-never have sex without a condom,” she said.
+For 10 hours, the doctors worked to save both the wife and baby. Failing that, six hours more to save only the dying wife. When the doctor came out and told my uncle the sad news, he just crumpled on the chair behind him. A day before, he was the cheeriest man alive. Now he'd lost both of them.
 
-> "我去,小屁孩们,我说了 50 次了,我还会一次又一次的说,不要发生没保护措施的性行为,"她说.
+> 经过 10 小时的抢救,医生想保住大人和小屁孩.这失败了,然后 6 个小时在抢救那个正在迈向死亡的妻子.但医生出来告诉他那个悲痛的消息的时候,他直接倒在了他身后的椅子上.一天前,他还算是一个幸福的男人.现在他失去了所有.
 
-“If you love her, wear a cover. No glove, no love. Etcetera.”
+I looked at my father, who had told him a forever ago, things will get better, I promise.He was standing next to my uncle with his hand on his shoulder, completely at a loss for words.
 
-> "如果你喜欢她,带套吧.没套,就不要折腾了.等等"
+> 我看着我老爸,那个曾告诉叔叔日子会变好的,我向你保证.他站在我叔叔的身旁,而一句安慰的话也说不出.
 
-In the back, some kid smirked, tipped his chair back.
+In that moment, I knew that Everything happens for a reason it is the shittiest philosophy of life there is. Life is random, happiness is fleeting, and hope? Hope is probably the most sadistic bitch out there.
 
-> 在后面,一些狗男人开始会心一笑,靠在椅背上.
+> 在那一刻,我知道:所有的事发生都是有缘由的,是最操蛋无脑的话了.生活是无常的,幸福是短暂的,而希望呢?希望才是最贱的那个.
 
-“What if it’s too big?” he asked.Ms. Smith narrowed her eyes.
+## 你什么时候意识到你父母不尽责
 
-> "如果太大了呢?"他像市银丸一样闭着眼睛问 Ms Smith.
+From: [When did you realize your parents were bad at parenting?](http://qr.ae/TUIhQQ)
 
-“What?”
+Date: July 17 2018
 
-> "蛤?"
+When I was six. My mom was making me pee in a cup once a month “for school". Then one day my mom asked me again while I was playing with my older brother. I got up but my brother grabbed my shirt to stop me and with out looking up from our game said “she's using you to pass her drug tests, sit down.”
 
-“What if my dick’s too big?” he asked, among some tittering.
+> 在我六岁的时候.我妈会每个月一次的让我把尿撒在一个杯子上面,以学校的名义.有一天我妈在我和我哥哥玩游戏的时候,叫我再撒尿到杯子里面.我起身要去撒尿,而我的哥哥拉住了我,低着头看着游戏说:"她利用你通过毒测,坐下来."
 
-> "如果我的 JJ 太大了呢?"他问,中间夹杂着一些傻笑.
+## Quora 上面都有什么人?
 
-“For a condom?”Ms. Smith snorted.
+From: [What kinds of people are on Quora?](http://qr.ae/TUInVA)
 
-> "对于避孕套?"Ms Smith 轻蔑一笑.
+Date: July 18 2018
 
-“There’s one who asks in every class. You really wanna know, Patrick?”
+The Shirtless Life Coach - My whole life fell apart. I was down. I was broken. And then riseth I did. Now have a look at some shirtless pictures and a link to my blog.
 
-> "这个问题是你们在这节课都会问.你真的想知道吗,little shit?"
+TLDR: Going to the gym seems to solve every life problem.
 
-“Uh-”Ms. Smith reached into her desk drawer, and pulled out a condom.
+> 健身教练-我在人生的支离破碎.我在低谷里面.我被毁掉了.然后我这样子做了.我现在看着我博客上面的那些健身的广告.
 
-> "哼-"Ms Smith 从她的抽屉里面拿出一个避孕套.
+> 长话短说: 去健身,得永生.
 
-“This is a medium,” she said. She pulled it open, and bent over.
+The Shameless Self Promoter - I can assure you my actual name is T-Shirt Warehouse. It is merely a coincidence that my business is also T-Shirt Warehouse and that it is the best place in the world to get premium T-Shirts.
 
-> "这是中等型号的"她说.然后她打开它,然后展开.
+TLDR: He is not a T-Shirt.
 
-“Watch,” she said.
+Or a warehouse.
 
-> "看呀."她说.
+> 微商贩卖黑户-我可以向你担保,我的真名叫衬衫库.而我的工作也恰好在衬衫库里面.那里有世界上最好的衬衫.
 
-And we watched, amazed, as she stretched open the condom and proceeded to pull it over her enormous foot, orthopedic shoe and all.
+> 长话短说: 他不是 T-shirt 也不是 Warehouse
 
-> 然后我们一脸惊奇的看着,看着她把那个避孕套套入她巨大的腿里面,甚至包含了她的鞋子.
+The Overbearing Feminist- ~”You choose to say you like girls and enjoy dating them. That is demeaning. Girls are not women. You should never ever refer to an adult female as a girl.
 
-When she was done, the condom was stretched snugly, but in no danger of snapping, across her foot.
+TLDR = ^ this is a 100% true incident. My inbox was being blown up with a full essay.
 
-> 当她完成的时候,那个避孕套还能舒适的伸展,并没有破的危险,在她的腿上.
+> 性别歧视者-"你说你喜欢和女孩子约会.这是有点 low 了.女孩子不是女人.你从不应该把一个成年的女性当做女孩子."
 
-She gave it a little wiggle.
+> 长话短说: 这种人还真的存在.在这里言论里面,总会刷新三观.
 
-> 她轻轻的摆动着她的腿.
+The Complainer - Quora isn’t Facebook, it is a place for sharing knowledge. Stop upvoting stupid posts.
 
-“So, kids,” she told us. “If a guy says his dick’s too big for a condom-he’s lying. Get out of there. And if his dick’s bigger than my foot-well, there’s something wrong with him. You probably shouldn’t be going out with him anyway.”
+> 抱怨者 - Quora 不是 facebook,这是一个分享知识的地方.所以停止给那些没脑的答案点赞.
 
-> "所以,小屁孩"她告诉我们."如果一个男的说比避孕套还大.继续扯吧.如果比我的腿还大,那他肯定有病.你应该不能再和他玩了."
+The Knowledge Fountain - Just oozes out information via answers.
 
-God. There’s not a day that goes by that I don’t think of that class.
+> 神秘博士 - 通过答案传播知识.
 
-> 窝草,此后的每一天,我都会回想起这一节课.
+The Humor Police - <mildly dirty joke> not funny. See people. We have further proof that Quorans can say gross jokes and get upvotes for anything.
 
-## 生活里面,你最怀念什么?
+> 幽默的警察 - <一堆小黄书>不好玩.看吧,地球人.我们已经有足够的证据证明,quora 人会给任何东西点赞.
 
-From: [What do you miss most in your life?](http://qr.ae/TUTKMY)
+The Fake Sexy Quoran - “OMG - I’m so horny for men. Indian men especially, please follow me on this blog. Or see my 100 answers about enjoying sex.”
 
-Date: May 09 2018
+TLDR: It’s a dude. And he’s trying to exploit Quora’s Indian userbase for follows.
 
-I grew up in poverty with 9 brothers and sisters and 2 disabled parents. My father is the reason I’ve done just about anything and everything in my life. He’s the greatest person I’ve ever met.
+> 小黄书作者 -"CPU,我现在缺男人.特别是印度的,请关注我,或者看我其他 100 篇关于享受 sex 的 blog"
 
-> 我在一个贫困的家庭里面长大,我有 9 个兄弟姐妹和有残疾的父母.我爸是我生活里面的铠甲.他是我见过最伟大的人.
+> 长话短说: 还是个男的.他想印度的饥渴男收割起来.
 
-My mother was diagnosed with a brain tumor and paranoid schizophrenia. She became so ill that the voices inside her head would tell her to kill us. She would lock us in closets and set the floor on fire. We became so used to this procedure that we hid butter knives in every closet just in case we had to escape. After burning down our house twice, my father decided to quit his job because he didn’t feel comfortable leaving us alone or abandoning his sick wife. My mother may sound evil, but she was the most beautiful and friendliest woman I’ve ever known before her brain started to deteriorate.
+The My-English-Sucks-Ass- “Ur anzer mayek no sense? Wut kind of werd is “watermelon”??? U just make english up?”
 
-> 我妈被诊断为脑瘤和精神分裂.她病得太厉害了,她脑子里面的声音甚至叫她杀掉我我们.她会把我们锁在柜子里面,然后在地板上点起一堆火.我们对这个都习以为常了,我们在每一个柜子里面都藏着一把刀,应对万一要逃跑的情况.在烧掉我们房子两次后,我爸决定辞职,因为他对我们在家不放心或者抛弃他患病的妻子.我妈听起来像魔鬼,但她在脑瘤之前是我知道最漂亮和最友好的人了.
+> 那些英语一般的人 -"blabla 说不过去呀?有什么词叫西瓜?你不会是骗我吧?"
 
-Although poor, my father would make sure we ate every day even if it meant sacrificing his own portions. I didn’t learn about the luxury of eating 3 meals a day until I joined the military. Sometimes our daily meal would be cereal and water or boiled water and bouillon cubes.
+The Legit Badass - writes awesome answers consistently. Adds value to Quora.
 
-> 尽管很穷,我爸会保证我们每天都有吃的,即使要把他自己吃的让给我们.在我加入军队前,我都不知道一天原来可以吃三餐的.有时,我们日常食物会是粥或者开水和清汤.
+> 牛逼的人 - 写了一些答案,惊艳众人.
 
-Whether I’d ask him for a gift on Christmas or the reason why we’re poor, he never told me a single lie. He would walk with me around the neighborhood and explain the drug addicts, dealers, gangs, prostitutes, homeless, etc. He was always trying to make me aware of my surroundings without swaying from the truth.
+The Quiet Supporter - never comments or writes, never seeks attention, just sits back and reads and upvotes. They are the backbone of Quora.
 
-> 不论我在圣诞节要一份礼物,还是我们为什么这么穷,我爸都没有对我掩饰过什么.他会带着我散步,然后给我解释药物上瘾,经商,妓女,流浪汉那些东西.他一直让我意识到我的周围是很现实的.
+> 备胎属性 Quora 人 -从不留言和写答案.不活在焦点里面,就躲在角落里面看和点赞.他们是 Quora 的根本.
 
-He was also a great role model and a man who lived by his word. He truly believed in leading by example. He never neglected or belittled anyone. Every person in our neighborhood knew of him and felt comfortable approaching him.
+## 完美婚姻
 
-> 他同时活在他周围里面的模范男人.他相信榜样的力量.他从来没轻视和忽略任何人.每一个认识他的邻居,在他周围也不会觉得尴尬.
+From: [What is your idea of a perfect marriage?](http://qr.ae/TUIrcW)
 
-While growing up he would always hold me tight and say, “I got you in a love-lock”. As a child, I would hysterically laugh while playfully fighting and begging for him to let me go. As a 6’5” and 240lb soldier, I’d still hysterically laugh by his bedside and pretend I couldn’t get out of his grips even though his hands grew fragile from cancer.
+Date: July 19 2018
 
-> 当我们长大的时候,他经常抱着我说,"我会给你一把爱的枷锁".还是一个小屁孩的时候,我会笑得花枝乱颤,然后求他把我放走.在我是一个士兵的时候,我依然笑得花枝乱颤,然后假装我不能摆脱他的拥抱一样,即使他的手臂因为癌症而变得软弱无力.
+My grandparents are married for 65 years now.
 
-Today, I wish my father could still put me in a “love-lock”. I don’t miss poverty, but I do miss my father. I’d re-experience everything just to be able to spend time with him again
+> 我爷爷奶奶结婚 65 年了,到现在.
 
-> 现在,我希望我爸仍然可以给我一个"爱的枷锁".我不怀念贫穷,但我的确怀念我的父亲.我愿重新经历之前所有的事情,来换取一些和他共处的时间.
+Granny has weak legs, and Grandpa chokes food. Even if her whole body tremors, she walks up to the kitchen when grandpa’s home. Sits next to him with water in her hands while he’s eating. She doesn’t want anybody to do that except her.
 
-## 程序猿的噩梦是什么?
+> 奶奶有一条腿不行,而爷爷吃饭容易被噎到.尽管她身体不好,她在爷爷在家的时候都会去到厨房里面.在他吃东西的时候,坐在他的身边,把一杯水放在他手上.她除了自己不想让其他人做这件事.
 
-From: [What is a coder's worst nightmare?](http://qr.ae/TUT2r8)
+Then, he holds her hand supporting her steps to bed.
 
-Date: May 10 2018
+> 然后,爷爷会拉住奶奶的手,扶她去睡觉.
 
-_[Short, concise version of a classic]_
+Every time he chokes, she rushes in her weak legs. “ You’ve to be careful, I won’t always be there to get you water.” - She says.
 
-> [最经典的]
+> 每一次他噎住了,她都会拖着她的病腿去拿水."你要小心一点呀,我不能一直给你拿水的." 她说.
 
-Have a problem, go on stack overflow, see only one question about that problem.
+Every time she falls, he rushes to her. Picks her up, and says “Don’t you worry, you’ve got a strong man.”
 
-> 发现一个问题,去 stack overflow 查,只看到一个相关的提问.
+> 每一次她跌倒,他也会冲向她.把她扶起来,然后说"不要怕,我在你身边."
 
-From years before.
+## 关于婚姻的看法
 
-> 还是一年前的.
+From: [What's your opinion on marriage?](http://qr.ae/TUIKxF)
 
-No reply.
+Date: July 23 2018
 
-> 还是没人回复的.(吐血.gif)
+I was happily married for 15 years and discovered in the course of my marriage that just like my husband inspired in me wonderful things I would have never come to be without him, he also, perhaps in equal measure, suppressed other parts of me that could not develop in his company.
 
-## 你给别人最好的情感建议
+> 我很开心结婚了 15 年之后,然后离婚了,在我的婚姻里面,我的丈夫在某些方面激励了我,如果没有 ta,我是不可能做到,但同时,在同样的考量下,和他在一起也抑制了另一些东西的发展.
 
-From: [What's the best relationship advice you can give someone?](http://qr.ae/TUT2rK)
+He was neither controlling nor limiting. He did not do this on purpose. This is the nature of relationships - the dynamic implicit in the interaction two people create encourages some things and atrophies others.
 
-Date: May 10 2018
+> 他没有控制和限制我的发展.他是无意的.这是两人关系里面最平常的了-两个人在某些事要一起经历,某些事上退宿,都会对各自产生自动的影响的.
 
-In the beginning it’s easy.
+When we got a divorce, I didn’t know very much about myself. I had so much of me to retrieve. Interests to follow, new aspects of me to discover, beliefs I arrived at that I could never get to through conversations with him.
 
-> 在开始都是容易的.
+> 在我们离婚后,我甚至不太了解我自己.我有太多的东西需要去重新拾回了.去追随感兴趣的东西啦,关于离婚的新看法啦,相信以后无论我做什么都不能和他一起讨论了.
 
-So, so, so, so easy.
+Leaving him was one of the most sorrowful things I have ever been through, but it was also one of the most interesting and rewarding.
 
-> 太,太,太 tmd 简单了.
+> 离开他是我经历过最伤心的一件事了,但这也是一件有趣和值得的事.
 
-Everything is magic. The way they talk. The way they order food. Nothing they can do could make you any less crazy about them.
+I have friends who ask me if I am happier now. I don't know if I am happier, but I do know that I feel more alive.
 
-> 所有的东西看起来都是魔法.ta 们说话的方式.我们点餐的方式.ta 们做的任何事,都没能减低你对 ta 们的疯狂.
+> 有朋友问我是否幸福现在.我不知道我算不算星都,但我的确知道我可以活得更自在一些.
 
-New Love casts a spell on you, makes you irrational, willing to follow someone off a cliff.
+This is no small thing.
 
-> 新的爱情给了你魔咒,让你变得不理性,会跟随着别人爬到悬崖边上去.
+> 这不是一件小事.
 
-But…..
+## 谁让你沦陷
 
-> 但....(生活总是有转折)
+From: [What kind of real-life people fascinate you?](http://qr.ae/TUIgGJ)
 
-Life happens. Eventually things escalate, you end up moving in together. Spending exponentially more time together. And the grind and stress of life will turn the spell of new love into the test of true love.
+Date: July 30 2018
 
-> 生活还在继续.最后事情逐渐增长,你们在一起生活了.有了更多在一起的时间.然后生活的琐碎和压力会把你的爱情测试看是不是你的真爱.
+There was a guy in my university who was double majoring in Math and Chemistry.
 
-The way the other person brushes their teeth drives you nuts. The way they open the potato chip bag makes you want to stomp the bag into the ground. You’ll go from missing them terribly to desperately needing a breather.
+> 在我们大学里面有一个双学位数学+化学的 guy.
 
-> 这会,ta 刷牙的方式让你抓狂.ta 们打开薯条的方式让你想把那个盒子夺过来扔掉.你从无时无刻想 ta 到想分开喘一口气.
+He was also on the swim team with me, which required 20 hours of training time per week and left most of us _exhausted_, struggling to stay awake during class.
 
-Bad things will happen for one or both of you, a lost job, the death of a family member, financial troubles, all things that further strain the relationship.
+> 他同时也是游泳队里面一员,游泳队每个星期需要花 20 小时训练,我们都觉得精疲力尽,在上课的时候都很挣扎.
 
-> 一些坏的事情会出现在你或你们两个身上,丢掉工作,或者家庭成员的离开,经济问题,所有的事情都在拉扯着你们的关系.
+He was also doing other extra-curriculars, including debate and networking events.
 
-Getting into a fight will be much, much easier.
+> 他同时还在做着其他的科目,包括辩论和网络上面的玩意.
 
-> 争吵会更,更简单一些.
+He took music lessons and practiced guitar every day. He had a girlfriend he managed to spend time with.
 
-Unfortunately, for many, there will come a day when you look back from outside the relationship and wonder what happened to something that started in such a good place, only to become a dead relationship, a flip book of memories with a sad ending, broken under the weight of a many stupid fights.
+> 他上音乐课,然后每天都练习吉他.他还得陪女朋友.
 
-> 不幸的是,对于大部分人,会有那么一天当你从感情外部回首的时候,会好奇在这个这么好的地方发生的事,最终还是感情破裂,一个翻页的卡通书有着一个悲伤的结局,在那么多的争吵之后破碎.
+He graduated with perfect marks in every class he ever took in two very challenging majors. He now is a wall street trader, making great money (obviously).
 
-I’ll give you the most boring, cliched, powerful relationship advice that I haven’t always heeded:
+> 他修双学位的情况下,带着完美的成绩毕业了.他现在是一个交易员,赚了一大笔钱.
 
-> 我会给你最无聊的,烂大街的,最有用的情感建议,恰恰也是我之前未曾留意过的:
+I’m sure you know some people like this.
 
-Pick your battles: Some things are worth fighting over. But most things aren’t.
+> 我知道你们身边也肯定有这样子的人.
 
-> 不要怂: 有些事是值得你去争取的.但大部分都不值得.
+They just seem like superior human beings. They are unstoppable in everything they do.
 
-## 阅读会惊艳女孩子吗?
+> 他们就像超人一样.什么事都停不下来他们的脚步.
 
-From: [Do you think reading books impresses girls?](http://qr.ae/TUTA77)
+## 校园暴力怎么办?
 
-Date: May 11 2018
+From: [Would you teach your children to "hit back" at school if somebody hit them?](http://qr.ae/TUIg4e)
 
-I read to my four-year-old daughter all the time. She never really seems impressed by it. So I’m going to say no, it doesn’t, based on my personal experience.
+Date: July 20 2018
 
-> 我一直给我四岁的小屁孩读书.她从来都没被我惊艳到.所以我说阅读不会惊艳女孩子,不会的,基于我个人经历得出.
+My father’s rule was simple.
 
-She’s really impressed when I pick her up and spin until we’re both dizzy, for what it’s worth. If your goal is to impress a girl, it’s worth a try.
+> 我爸的规则很简单.
 
-> 她在我把她抱起来,转圈圈转到我们两个都有点头晕的时候才会感到惊奇.如果你想惊艳一个女孩子,这个可以尝试一下.(你调皮了,大猪)
+“If you start a fight, it doesn’t matter what the school does. I’m going to punish you worse than they ever could. If someone starts a fight with you, don’t worry about the school, fight back as best you can, I would never punish you for that. Never start a fight, never be afraid to finish a fight that someone else started with you.”
 
-Oh. I forgot. She’s also very impressed with my impression of a T-Rex. It’s super easy to do, too. Just pull your arms close to you and say you’re a T-Rex. Try it the next time you’re trying to impress a girl. It will leave an impression. I promise.
+> "如果是你挑起的打架,不论学校对你做什么.我会把你打出屎来的.如果是别人打你的话,不要害怕学校,你尽力还击就好,我不会因为这个打你.不要挑起打架,但如果别人先打你的话,你也不要害怕."
 
-> 对了,差点忘了.她还会比我扮为 T-Rex 感到惊奇.这个很简单.只要你把的手臂抱着你自己,然后说:I'm a T-Rex.你下次想惊艳她的时候可以尝试一下这个.这会给她留下很深的印象的.我 tmd 用你性命担保.
+A good lesson, I think. And one I intend to pass down to my children.
 
-## 你生活里面黑暗的秘密是什么?
+> 一个很好的理由,我想.我也想让我的孩子知道这个.
 
-From: [What is the dark secret in your life?](http://qr.ae/TUTo16)
+## 学生例假
 
-Date: May 14 2018
+From: [As a teacher, has a student ever started their period in class? If so, how did you handle it?](http://qr.ae/TUIUE9)
 
-when i was 15 years old I started developing feelings for a girl in my neighbour , although she was just 10 years old but was beautiful.. she used to enjoy my company and looked happy whenever I was around. But I always thought she is just a child now. I always imagined that I will marry her when she gets older. she used to share her day to day events with me. But all the childish stuffs.. But I always felt she wanted to tell me something and will suddenly stop and ran away playfully.. this went for almost one year and she was 11 years old now. One day she said i want to share something with you but I don't know you will believe me or not, that day she behaved in such a mature way, not like an eleven years old. I kept asking and suddenly there were tears in her eyes. And she told me the shocking….
+Date: July 31 2018
 
-> 那一年,我 15.我开始对隔壁那个小女孩心里面的老狗砰砰乱撞的感觉,尽管那年她才 10 岁,但她漂亮呀.无论在哪里,她习惯有我在她身边.但我一直想她还只是一个小屁孩而已.我一直想象有一天我会娶她的,在她长大的时候.她经常和我分享她的日常琐事.但全都是那些小屁孩的玩意...但我一直感觉她想告诉我一些东西,然后她会突然间中断,然后跑到别的地方玩了...这样子差不多过了一年,然后她 11 岁了.一天,她说我想和你分享一些东西,但我不知道你会不会相信我,那天她的行为很反常,不像一个 11 岁的小屁孩.我继续追问她,然后她忽然间就哭了.然后她把震惊的东西告诉了我.....
+The first year I was a teacher, this happened.
 
-My elder brother who is almost 7 years older than me used to molest her since she was 7-8 years old. He used to give free tuitions to her and her brother, he has a very good reputation in her family. She said she even shared this to her mother previously but she instead scolded her back saying you don't want to study that's why you are making such excuses…
+> 在我第一年当老师的时候,就发生了.
 
-> 比我差不多年长 7 岁的哥哥,从她 7-8 岁开始,就调戏她.他经常给她和她的兄弟免费补习,他在她家里面有着很好的名声.她说之前曾告诉过她老妈,但她老妈却责骂她,怀疑这就是她不想学习而想出的借口.
+A kid came in at the start of my fourth period class and said, “Hey, there’s something on my chair.” We had maroon chairs, but it was immediately obvious to me that the stain on his chair seat was blood. Third period had left just moments ago, and I knew the student who’d been sitting there earlier — this teeny freshman girl wearing a skirt — and I doubted that she had any idea she’d started her period.
 
-she said she didn't had enough courage to tell me this earlier thinking i will support my brother.
+> 课前,一个小屁孩走进教室,然后说,"我的凳子上面有东西."我们有着褐色的凳子,但我很快就知道那凳子上面都是血.刚才第三节课刚下课没多久,而我刚好知道坐在那个凳子的学生是谁.那个瘦小刚转来的,穿着裙子的小女生,而且我怀疑她是不是还不知道任何关于她月经的事情.
 
-> 她说她之前没有足够的勇气去告诉我,因为她认为我会站在我哥的那一边.
+Thinking fast, I said, “Wow, looks like someone spilled their nail polish. That sucks. Let’s put a towel over it. Anyway, Bob, sit in this other seat, and we’ll have this taken care of.” Meanwhile, I went to the back of the class and got a pair of sweat pants I’d stashed there for my own use. They were not the loveliest sweat pants, but they had two major advantages: They were black, and they were clean. After looking up the freshman girl’s schedule, I put the sweats in a bag, wrote a sealed note, and called over another student. “Take these to Mrs. Whatever in room XYZ. Tell her they’re for Student PDQ, and please give the student this note and this bag.”
 
-I wondered how she was bearing all this through her childhood and still laughing and playing…
+> 脑袋光速运行,我说,"窝草,一定是谁把指甲油倒在上面了.这很脏,我们先把纸巾扔在上面盖住.不论怎样,Bob,坐在其他的凳子上面,我会来处理这些的."同时,我走出教室,去拿我自己的球衣,我自己穿的当然没有什么可爱的啦,但 ta 们都有一个好处就是: 他们全都是黑的,而且是干净的.看了新来那个小屁孩的课程之后,我把衣服装进一个袋子里面,然后写了一条密封的纸条,然后叫其他的学生,"帮我把这些东西带给在 xxx 教室的 Mrs. Whatever 老师.然后告诉她这些是给 PDQ 的东西,然后把这个纸条和袋子都给那个学生了.
 
-> 我很好奇她在童年里是怎么忍受这些事情,然后还能笑出来和玩乐.
+The note said, “Dear Student PDQ. Please ask to go to the restroom and take this bag with you. You may need what’s in it. Please don’t worry about returning these, and I hope this helps.”
 
-I decided something… I confronted my elder brother and told him in a very cold voice that if you continue doing this I will beat the hell out of him. This worked AND he stopped… out of shame or fear I don't know..
+> 那个纸条说,"亲爱的,请要求去厕所,然后带上那个袋子.你要里面的东西.不要担心要怎么还回来,希望可以帮上你的忙."
 
-> 我决定做点什么...我来到我哥的面前,用很冷酷的语气说如果你继续做这种事的话,我会把你出屎来.这起作用了,然后他停止了.可能是因为羞耻或者害怕,我不知道.
+The next day, she quietly thanked me — I could tell she was embarrassed, so I made it like it was no big deal. Hey, it happens.
 
-to be short….
+> 第二天,她小声的和我道谢-我知道她有点难为情,所以我故意让她觉得这根本没什么.但,这些都发生了.
 
-> 长话短说....
+From that day on, I keep spare sweatpants and t-shirts in my room. It’s easy to find inexpensive sweats at Walmart, and I get t-shirts for various school occasions all the time. I never want someone to feel ashamed over what is a simple and normal bodily function. Even if not all of us have this function, all of our bodies have, at some point in our lives, probably been the source of embarrassment in one way or another. If a ten-buck pair of Walmart sweats can make someone’s life a little better, it’s a worthy investment.
 
-After my 12th, I qualified pre medical exam, became a doctor , married her and now we are living away in another city happily.
+> 从那天起,我总是把一些空闲的衣物扔在我的办公司里面.很简单就在沃尔玛里面找到一个不贵的球衣,我把衬衣也用来应对这种时间.我从来不想 ta 们因为自己的身体功能而感到羞耻.尽管我们不是所有人都有这个机能,也不是我们全部人都有的,但在我们生活里面,这可能会成为 ta 们感到羞耻的一个原因.如果 10 美元就可以买到的沃尔玛可以帮 ta 们更好的度过一点的话,那还是值得的.
 
-> 在 12 年后,我通过了每一项考试,成为了一个医生,和她结婚了,然后我们生活在别的城市里面,还算幸福.
+**Edited to add**: THANK YOU for all of the kind thoughts and responses. I truly appreciate all of the warm-hearted things people said. Wow, I’m blown away!
 
-what I want to convey is that trust your child and believe them when they say you something like that.
+> 更新: 谢谢各位的回复和赞誉.谢谢你们的赞扬,人生高峰 :"}
 
-> 我想表达的是,要相信你的孩子,如果他们告诉你这种事情.(和电影狩猎对比)
+## 最甜的狗粮
 
-## 有一个女朋友是什么感觉
+From: [What is the cutest way someone has ever proposed to you?](http://qr.ae/TUIWft)
+Date: August 01 2018
 
-From: [What is having a girlfriend like?](http://qr.ae/TUTo1E)
+Going Anonymous because my Mom uses Quora regularly and I've still not confessed her about my love!
 
-Date: May 14 2018
+> 我匿名是因为我老妈也经常晃在 Quora 上面,而我还不想因为我的爱情也让她困扰.
 
-For me, having a girlfriend is like having an iPhone X.
+Let me tell you a brief background:
 
-> 对我来说,有一个女朋友就像有一部 iphone x.
+> 给你们一点背景介绍:
 
-I don’t have an iPhone X.
+We were just friends in class 9th and later became kind of BFFs in 10th. Then I went to Kota for JEE preparation and she stayed back! I cleaned JEE and she got admitted to a local college. We again got connected through social media and after a chit chat for about 1–2 years and having almost 4–5 meetings, I decided to propose her.
 
-> 但我并没有一部 iphone x.
+> 我们在 9 年级的时候都还是朋友而已,然而在 10 年级的时候,我们就成为了 BFFs(Best firend forever).我去 Kota 准备 JEE 的考试,然后她留在了那里.我通过了 JEE,她也可以在本地的大学的录取.我们通过社交平台 chit chat 再次取得联系,在联系了 1-2 年后,大概我们见了 4-5 次面,我觉得向她告白.
 
-## 有不会做饭的老婆是什么体验?
+The propose story:
 
-From: [What is it like to have a wife who can’t cook?](http://qr.ae/TUTPfn)
+> 这就是我们的故事:
 
-Date: May 15 2018
+As I mentioned that we were BFFs so there was nothing hidden from her. I came hometown (same town of hers) for winter holidays. I decided and planed everything from past few weeks. I started giving hints that I'm in love with someone. I never took name in chats neither went deep. But that hint is enough. One day she finally asked whether I love someone or what, I could observe a little cry inside her coz I knew that she also loves me.
 
-A man and his wife had just married, and had a little “alone” time after the ceremony. The bride decided to speak.
+> 在我说到我们是最好的朋友的时候,所以我没什么东西能藏得开她.我去到城镇里面(和她同一个城镇里面)度冬天的假日.我在前几个星期决定和计划所有的东西.我开始给出我喜欢某个人的暗示.我从来没告诉她是谁,在聊天里面,也没透露过多的消息.但那些暗示已经足够了.有一天,她终于问我是不是喜欢谁了,我甚至可以听到她内心哭泣的声音了,因为我知道她喜欢我呀.(草)
 
-> 一堆刚结婚的夫妇,在宴会之后有一小段独处的时光.新娘打算说些什么.
+Now, the day came. I called her and said that today I am going to tell you my crush name. We met at a CCD and she was quite tensed. As soon I met her she asked me her name. I told her that the name of that girl is “Addu”. I started describing the beauty of addu. I spoken about addu's eyes, hairs, smile, intelligence, etc…i could observe that she was about to cry but she was silent and numb.
 
-“I have a confession, honey,” she said. “I can’t cook.”
+> 现在那天来了.我打电话给她,说今天我打算和你说出我喜欢的那个人是谁了.我们在 CCD 里面碰面,她有点紧张.在我们碰面一会,她就开始问我喜欢的是谁了.我告诉她那个女孩子叫 Addu.我开始描述我的想象力有多么漂亮了.我谈起 Addu 的眼睛啦,头发啦,笑容啦,还 tmd 很聪明,等等等等.我甚至留意她到差不多快哭了,但她很安静的待在那里.
 
-> "我有点小小的疑惑,亲爱的," 她说. "我不会做饭."
+Now the twist came, I lost my phone suddenly and said her to ring on my number. She took out her phone and dailed my number. That phone ringed in my blazer's pocket. I took out that phone and said, “Look, who's calling?”. It was her call with name written as “Addu”.
 
-“That’s okay,” the husband replied. “I write poetry for a living. There may not be anything to cook.
+> 现在开始较量了.我把我的手机弄丢了,然后请她帮忙打一下我的号码.她拿出她的手机,然后打我的电话.那个电话在我的口袋里面想起来了.我拿出手机然后说,"你看,谁打电话来了."我把她的名字,在我手机上备注位 Addu.
 
-> "没关系的," 丈夫回答. "我已写诗为生.那里不用煮任何的东西."
+You can only imagine that sudden change of mood on her face. Wish I could have a camera to capture her lovely reaction.
 
-## 有哪些让你失望的东西?
+> 你可以想象突然间,她的心情变好了.要是当时有相机拍到她的脸就好了.
 
-From: [What is an immediate turn-off for you?](http://qr.ae/TUTPfP)
+By the way, She is now is girlfriend, BFF and going to be wife coz we've decided to meet each other's parents next week.
 
-Date: May 15 2018
+> 随便说一下,现在她是我的女朋友了.BFF 然后要变成我老婆了,因为我们决定下个星期去见家长了.
 
-Prior to our date, we chatted via text like many Tinderians do before meeting. I told him that I was studying to become a psychologist.
+Thanks for reading \_\_\_
 
-> 在我们约会前,我们像其他的陌陌人一样,在约会前通过短信交流.我告诉他我要成为一个心理学家.
+> 果然撒狗粮,还是很开心的.
 
-He asked, “Are you going to analyze me?”
-
-> 他说,"你要来分析我吗?"
-
-First turn-off. I told him bluntly that I hate when people say that.
-
-> 第一次失望.我告诉他我不喜欢别人对我说这个.
-
-A few hours before our first date, he asked if we could push back the time— by over an hour— without explanation or apology.
-
-> 在我们第一次约会之前,他问我们可否把时间往前推一点-大概一个小时前-没有任何的解释和不好意思.
-
-Second turn-off. I considered cancelling the date.
-
-> 第二次失望.我考试考虑取消这次约会.
-
-When I showed up to the date 15-minutes late in an Uber, he passive-aggressively asked, “Don’t you live a block away?”
-
-> 当我搭 Uber 迟到 15 分钟后,他很不满的说,"你住得离这里很远吗?"
-
-In fact, I lived a 5-minute walk from where I met him and Ubering actually took longer than that. But, that’s neither here nor there…
-
-> 事实上,我离这里走路只需 5 分钟(资本主义的恶意,5 分钟都要 Uber),但 Uber 却花了比这长的时间.但,这就是忽悠呀.
-
-Third turn-off. How dare he comment on my means of travel.
-
-> 第三次失望.他怎么可以对我迟到不满.
-
-I was prepared not to like him and to use every noticeable flaw as an excuse to stop talking to him after this night. I would have told myself, “at least I made an effort…”.
-
-> 我准备不去喜欢他了,然后利用每一个注意到的他的缺点,在这次约会之后作为不和他交谈的借口.我告诉我自己,"至少我给他机会了....".
-
-Mid-date, I became aware that I didn’t dislike him. Even more surprising, conversing with him was actually enjoyable in spite of the prior turn-offs.
-
-> 在约会期间,我意识到我自己并不讨厌他.甚至相当惊喜的是,在一连串的失望之后,和他交谈竟然感到自在.
-
-By the end of the date, I found myself interested to know more about him. I looked forward to a second date.
-
-> 在这次约会后,我发现我对他很感兴趣,想去更多的了解他.我开始期望第二次约会了.
-
-By the end of our second date, we became absolutely inseparable.
-
-> 在第二次约会之后,我们就分不开了.
-
-Three years later, I am engaged to one of the best people I have ever known. I am so happy that I decided not to let those initial turn-offs determine whether or not this person was worth meeting.
-
-> 时间来到 3 年后,我和他订婚了.我很高兴没有因为我的那些小失望而去判断他是不是值得去交往.
-
-After the fact, my fiancé confessed that he, too, considered cancelling our first date due to me having been a pain-in-the-ass during our text-conversation(s). LOL. I don’t blame him. Thank God for second chances :)
-
-> 在这之后,我未婚夫承认他也一样.考虑取消我们的第一次约会,在我们通过操蛋的短信交流的那段时间里面.窝草,我不怪他.幸好还有第二次机会
-
-Side note: What turns a person off is less important than why it turns them off. In my case, my “turn-offs” were indicators of my own insecurities.
-
-> 无关紧要的东西: 什么原因导致 ta 们失望比什么东西导致 ta 们失望更重要.在我这里,我的是缺乏安全感.
-
-## 如果 ta 喜欢你,会问你什么样的问题?
-
-From:[What type of questions would a girl ask if she likes you?](http://qr.ae/TUTklf)
-
-Date: May 16 2018
-
-If they ask: “So what is your type of girl?” Or anything related to that, it is a *damn good sign.*
-
-> 如果 ta 们问:"所以,你喜欢什么样类型的女孩子?"或者其他和这个相关的问题,那这就是他妈好的迹象.
-
-In High School there was this short, pretty blonde girl that I couldn’t take my eyes off of. I casually mentioned to a female friend, “Man, she is as cute as a button.”
-
-> 在那个遥远的地方,有一所高中,那里有着一个闪着光的萝莉,我的视线甚至都不能离开她一秒.我在无意中,对我的一个女同学说到:"我去,她就像按钮一样子可爱."
-
-My friend said, “So go talk to her.”
-
-> 我朋友说,"所以,去和她聊天呀."
-
-I brushed it off, “Nah…she wouldn’t be into me.”
-
-> 我都脸红了,"Nah,她根本对我不感兴趣."
-
-So that weekend at a party, that very girl, out of the blue, corners me in a hallway, standing with her face about 3 inches from mine. I was immediately tense. We had never really talked much before that.
-
-> 在那周的聚会上,那个女孩子,在机会结束后,把我堵在公路的角落里面,在离她脸颊只有 3 厘米的时候,我立刻就紧张了.我们之前都没怎么交流过.
-
-She smiles and says, “So tell me Sean, how cute is a button?”
-
-> 她笑着说,"如果不介意的话,Sean,请告诉我一个按钮有多么可爱呀?"
-
-_Thank you almighty god._
-
-> You are my Jessica. Morty 痴汉脸.jpg
-
-## 你对女孩子做过什么装逼不留痕的事?
-
-From: [What is the smoothest thing you have ever said to a woman?](http://qr.ae/TUTkqK)
-
-Date: May 16 2018
-
-I was 8 years old and sitting in the back of the school bus with the cool kids(because I was one bad mother). My crush was there too and we were teasing each other.
-
-> 那年,我 8 岁.和一些有钱买辣条的小屁孩坐在校巴的最后的座位上.我的初恋也和我做在那里,我们呀,就相互调戏着.
-
-A way we would tease each other was by calling each other names, and answering with “I know you are but what am I?” This was apparently the only comeback that was cool back then.
-
-> 我们调戏对方的方式,包括叫 ta 的外号,或者回答"我知道你是什么,但我是什么呀".显然,在那么这么做,很 cool.
-
-“You're so ugly.”
-
-> "你好丑呀!"
-
-“I know you are but what am I?”
-
-> "我知道你丑,但我是什么?"
-
-“A nincompoop.”
-
-> "一个孔乙已"
-
-“I know you are but what am I?”
-
-> "我知道你是什么,但我是什么呀?"
-
-“A piece of poop.”
-
-> "一坨屎."
-
-Etc.
-
-> 就像这种.
-
-We both kind of liked each other, so I did the smoothest thing known to mankind:
-
-> 我们相互喜欢着对方(单身狗含泪点赞),所以我做了男人应该做的事:
-
-Me: “You're so stupid.”
-
-> 我: "你是个大笨蛋"
-
-Her: “I know you are but what am I?”
-
-> 她:"我知道你是大笨蛋,但我是什么?"
-
-Me: “Beautiful.”
-
-> 我:"Beautiful"
-
-Her: “I know you are but… wait.”
-
-> 她:"我知道你是,但...等一下"
-
-Ah, a legend was born that day.
-
-> 嗯,那天,一个传奇诞生了.
-
-## 你想告诉别人的故事是什么?
-
-From: [What would you like to tell everyone?](http://qr.ae/TUTuOG)
-
-Date: May 17 2018
-
-Years ago….and far far away….
-
-> 许多年前...在很远,很远的地方....
-
-Quora’s CEO, Adam D’Angelo, was sitting at the barber shop getting a haircut.
-
-> Quora 的 CEO Adam D'Angelo,坐在一间理发店里面理发.
-
-He was telling his barber about his new invention, Quora.
-
-> 他告诉给他理发的理发师,他的新发明, Quora.
-
-Adam: So it’s this Q&A site. I think people are really gonna like it.
-
-> Adam: 所以那时一个提问&回答的网站.我想人们会喜欢 ta 的.
-
-Barber: So who is gonna write the answers?
-
-> 理发师: 那么谁会去回答问题?
-
-Adam: Anyone!
-
-> Adam: 任何人.
-
-Barber: Who writes the Questions?
-
-> 理发师: 谁会提出问题?
-
-Adam: Anyone.
-
-> Adam: 任何人.
-
-Suddenly Adam slumps his shoulder and sighs…..getting profoundly sad for some reason.
-
-> 突然间 Adam 垂下了他的肩膀,收回了视线...为某些事伤心了起来.
-
-The barber puts his hand on Adam’s back with concern, “What’s wrong my brother?”
-
-> 那个理发师把他的担心他,然后拍了一下他的肩膀,"有什么事吗,兄 dei?"
-
-Adam: Where……..where am I going to find someone to ask 100,000 questions about comic books, though….
-
-> Adam: 去哪...我 tmd 去哪能找到问 100000 个关于漫画问题的人呀,我去...
-
-The Barber smiles, “Say no more, fam.”
-
-> 那个理发师会心一笑,"我知道了,fam."
-
-And the barber picked up the phone and called his homie, Korey.
-
-> 然后那个理发师拿起电话给他的好友 korey 打了一个电话.
-
-Years later.
-
-> 多年以后.
-
-After breaking 4 moderation bots, which collapsed inwards from the wear and tear of organizing and adding topics to 100,000 Questions,
-
-> 在经过 4 个键盘被敲碎,在这些键盘的惨叫与眼泪里面,把提问添加到了 100000 个问题了.
-
-Korey Daniel has done it.
-
-> Korey Daniel 做到了.
-
-Nice work, Korey. That there is a shit ton of questions, sir.
-
-> 干得漂亮,Korey. 那可是一坨又一坨的问题呀,先生.
-
-You are now officially in a league of your own.
-
-> 你现在有着官方承认的联盟.
-
-I hereby dub thee your own Quora Superhero title:
-
-> 我特此给你一个 Quora 超级英雄的名称:
-
-The Inquisitor.
-
-> 那个提问者.
-
-## 什么时候你意识到你孩子长大了?
-
-From: [When did you realize your child was no longer a child?](http://qr.ae/TUTwvM)
-
-Date: May 18 2018
-
-When my son was in the eighth grade, he got suspended and I had to leave work early to go get him. When I got there, I asked the principal what had happened. The principal explained that my son had beaten up three other boys and even broke one boy's wrist. I was obviously horrified and asked my son what the fuck he was thinking. He simply told me that the boys had cornered one of his friends and were trying to make her strip for them. Being the chivalrous boy I raised him to be, he put a stop to it. I asked the principal if it was true and he dodged the question. In response to that, I told the school that if they're going to allow sexual harassment, I didn't want my child to attend and took him home. I told my son that I was going to take him out of public schools. He replied by telling me that he didn't want to leave the school because of he wasn't there then who was going to stop it from happening again.
-
-> 当我孩子在 8 年级的时候,他要被停学了,然我下早班去带他回家.当我到那里的时候,我问校长究竟发生了什么事.校长解析说我的儿砸把那个男同学给抽了,还把一个小屁孩的手腕给弄断了.我很惊恐,然我问儿砸究竟他妈的的在想什么.他简单的告诉我,那些男孩子在角落里面逼我儿砸的一个女同学给他们脱衣服.我一直以来把他要抚养成正义感的男孩,然后他去制止了他们.我问校长,这是不是真的,然后他想忽悠过去.在这样子的回应下,我告诉校长,如果他们允许性骚扰存在的话,我不像我的儿砸在这上学了,我会带他回家的.我告诉儿砸,我会带他离开这家公立学校的.ta 回答说他不想离开这间学校,因为如果他不再这里的话,如果再次发生这样子的事,谁还会去制止那些人.
-
-This is when I realized my little boy had become a man. He would rather get in trouble to protect a friend than stay out of the spotlight and potentially face long term consequences.
-
-> 这就是我意识到我儿砸从男孩变成男人了.他宁愿去保护自己的朋友,给自己惹上麻烦,也不愿因为要承担责任而视而不见.
-
-## 窝草 Moment?
-
-From:[What was your biggest WTF! moment?](http://qr.ae/TUTUh9)
-
-Date: May 21 2018
-
-Do you know this man??
-
-> 你知道这个男的吗?(一个正在使用单反拍照的男人的图片)
-
-Don’t worry, even I didn’t know him.
-
-> 没关系的,我也不知道.
-
-During the month of March, last year, I was traveling from Chandigarh to Bombay. There was a halt at Delhi for 3 hours. To subdue my boredom while waiting to board my next flight, I started watching the Bollywood movie “AZHAR”, which had released the previous Friday. The person sitting beside me, with a curious look asked: “Are you watching Azhar?”
-
-> 在上一年三月份的时候,我从 Chandigarh 旅行到 Bombay.在 Delhi 那里,我有三个小时的中转间隔休息.为了消磨这段时间的无聊,我开始看宝莱坞的电影"AZHAR",这个刚才上个星期五被发放出来.一个坐在我旁边的人,带着好奇的眼光,问:"你在看 Azhar?"
-
-Me: “Yes, it released last Friday only.”
-
-> 我:"是的,这个上个星期刚刚发布出来."
-
-He: “How did you get this so early, that too with such good picture clarity?”
-
-> 他:"你为什么可以这么早就可以看大,而且像素还很好?"
-
-Me: “Sir, I am an engineer & I do know about few online links since my university days.”
-
-> 我:"我是一个工程师(牛逼咯,工程师最牛逼咯) 而且从我大学开始就知道一些网站(会心一笑.gif)"
-
-He: “Open your share it”
-
-> 他:"打开你的分享"
-
-Me (thought he would ask me to transfer): “OK”
-
-> 我(他应该是请求我发送给他):"好吧"
-
-But to my surprise…..!!! Hell man…!!!
-
-> 但是我惊讶的是...!!! 我草!!!
-
-He: “I am sending you the HD print.”
-
-> 他:"我正在给你发送高清版本."
-
-Now, this was a total surprise for me.
-
-> 现在,这件事变得有趣了.
-
-Me (received the file & shockingly asked): “How did you get this?”
-
-> 我(接收那个文件,然后震惊了):"你是怎么做到的?"
-
-He: “That’s a secret, which I may tell you later. Let’s watch the movie first.”
-
-> 他:"这是一个秘密,我稍后再告诉你.我们先看电影吧."
-
-I shared my earphone with him. We watched the whole movie sitting in the lounge. Meanwhile, he asked me for coffee & snacks; and without any hesitation, I replied in affirmative. That's kinda the doing of Punjabi DNA; can't say NO to food, that too when offered.
-
-> 我和他分享了我的耳机.他坐在长椅上看完了整一部电影.同时,他问我要咖啡和零食.没有任何迟疑,我都立刻分享给他了.这就是那种 Punjabi DNA(大概是什么好的品德都是属于这个的类似吧).不能对食物说不,当你个外人提供的时候.
-
-Me: “Sir what do you do?”
-
-> 我:"你是做什么工作的呀?"
-
-He: “I am a journalist.”
-
-> 他:"我是旅行家."
-
-Me: “Even journalists like you keep pirated things?”
-
-> 我:"尽管像你一样的旅行家,也会看盗版?"
-
-He almost gave a hysterical laugh and then politely asked me to delete the movie from my phone, to which I obliged.
-
-> 他几乎笑到掉下巴了,然后很礼貌的叫我从我手机删除掉那部电影,然后我照做了.
-
-Then, I got up to board my flight. We shook hands & I said, “Goodbye Mr. Journalist, may I know your name please?”
-
-> 然后,我去登机了.我们握了一下手.然后我说,"再见,旅行家先生,我能知道你的名字吗?"
-
-He: “Just Google the director of Azhar movie.”
-
-> 他:"你 google 一下 Azhar 的导演就知道了."
-
-I got a 415V shock seeing his face on Wikipedia page. I was like, “Ohhhhh, oh man! What the duck! We just saw the movie he directed, and to top that, it was a pirated one initially!”
-
-> 我在 wiki 上看见他照片的时候,我就像被 450v 的电电到了.我就像,"窝草.这是何等的窝草.我们刚刚看到他导演的电影,而我刚开始的时候竟然在看盗版."
-
-My mind was completely blank & I wasn't able to fathom what to do.
-
-> 我内心一片空白,然后我都不知道该怎么做了.
-
-I just smiled & left without looking back.
-
-> 我只能脸上挂着微笑,然后不回头,往前走.
-
-IT WAS UNDOUBTEDLY A WTF SITUATION AND THE MOTHER OF CO-INCIDENCE!
-
-> 这无疑是一个窝草的状况,还是绝对的窝草.
-
-THAT PERSON WAS TONY D’SOUZA.
-
-> 那个人是 TONY D'SOUZA
-
-## 什么是抑郁症?
-
-From:[What is depression?](http://qr.ae/TUT9TW)
-
-Date: May 22 2018
-
-His name is Sam.
-
-> 他叫做 Sam.
-
-You come home one day and he’s lying on your couch, his bag propped at one end.
-
-> 你回到家,然后看见他睡在你的沙发上,他的背包扔在另一头.
-
-You don’t know him but he seems at home.
-
-> 你不认识他,但她的确在你的家里面.
-
-You ask him to leave.
-
-> 你要求他离开.
-
-He smirks.
-
-> 他冷冷一笑.
-
-“Make me.”
-
-> "把我赶出去呀."
-
-Even if you call the cops and have them take him away, you can’t afford to keep him away forever so you take matters into your own hands.
-
-> 即使你打电话给警察,让警察带走他,但你不能永远的隔离他,所以你要自己解决这件事.
-
-You cook healthy food. You buy a treadmill and make him run.
-
-> 你煮了好吃的食物.你买了一台跑步机,想逼走他.
-
-You try to wear him down, make living with you so insufferable that finally he leaves.
-
-> 你尝试去打倒他,让你的生活难以忍受,然后他才离开.
-
-One day you come home and find his stuff has spread. His razor is propped up on your bathroom shelf, a thin dusting of hair on your sink. His jeans, smeared with ketchup and covered in crumbs, are in your laundry basket. His gaming console is hooked up to your TV.
-
-> 一天你回家,发现他的东西散落在各处.他的剃刀丢在你浴室的水槽上面,一条脏头发粘在你的皮肤上了.他的沾着番茄酱的牛仔裤扔在你的洗衣机里面.他玩的游戏还定在你的电视上面.
-
-You don’t have the energy to fight him, not today.
-
-> 今天,你很累,不想去和他吵了.
-
-Stepping over his shit you make your way to your room and quietly shut the door.
-
-> 跨过他的衣物,你自己走向自己的房间,然后安静的关上那堵门.
-
-You don’t want company, either. Not with him here.
-
-> 有他在这里,你想要任何人的陪伴.
-
-The next morning you emerge to him taunting you.
-
-> 第二天早上,你发现他在嘲笑你.
-
-Vulgar curses. Deprecating statements about how you aren’t good enough, you’re fat. You’re ugly. Your boss thinks you do a shitty job and your friends are only pretending to like you because they pity you.
-
-> 低俗的咒骂.不以为然的说着你多么的不好,你肥胖.你长得丑啦.你的老板认为你的工作做得像屎一样,你的朋友和你在一起也是出于可怜你.
-
-His spit lands on your bare arm as he screams, as you wade through his stuff and out the door.
-
-> 你把他的东西扔到外边的时候,他咒骂着,他的口水都喷到你手臂上面了.
-
-You get to work and you’re late.
-
-> 你必须要去上班了,而且都迟到了.
-
-“I’m sorry, I couldn’t… Sam, he, uh… Well, I couldn’t leave on time—”
-
-> "我很抱歉,我不能及时来到....Sam, 他,那会,我不能离开"
-
-“Jesus, you’re really going to pass the blame? Kick the guy out already.”
-
-> "窝草,你打算用这个借口来逃避批评>不是已经把他赶走了吗?"
-
-“I’ve tried, and—”
-
-> "我很累,然后..."
-
-“Try harder. Have you tried running? That’s what my cousin did. Worked for him.”
-
-> "再努力一点.你有尝试跑步没? 我的表弟这么做了,而且对他来说很有效."
-
-“Well, yeah, but—”
-
-> "好吧,是的,但是..."
-
-“Honestly, I’m not even sure I believe this whole ‘Sam’ story anyway. Sounds like an excuse to be lazy, if you ask me.”
-
-> "说实话,我甚至不确定我相信'Sam'的这一件事.听起来就像是懒惰的接口,如果你非要问我的话."
-
-In this moment you learn that your problem is invalid.
-
-> 在这一刻,你才知道你的问题是无效的.
-
-It is not Sam’s fault.
-
-> 那不是 Sam 的错.
-
-It is your fault.
-
-> 是你自己的错.
-
-You get to your desk and pick up the framed picture of your family.
-
-> 你回到你的座位,拿起那张家庭照片看一下.
-
-In your place are his stained jeans, his torn-up sneakers, his unwashed hair.
-
-> 照片上你的位置里面他穿着牛仔裤,他的帆布鞋,和他没洗过的头.
-
-On your face, is his face.
-
-> 在你的脸上,是他的脸.
-
-You grab fast food on your way home.
-
-> 在你回家的路上,你买了快餐.
-
-Forcing the front door open, you silently clamber over his things and toss Sam a bag of food as you walk in.
-
-> 打开前门,你默默的爬过他的东西,扔了 Sam 一盒食物,在你经过的时候.
-
-“Fuckin’ fatass.”
-
-> "死肥宅"
-
-You say nothing.
-
-> 你默不作声.
-
-You walk through the kitchen to see the dishes stacked up, the pantry door swinging open to reveal empty shelves. Your feet stick to the floor where something was spilled and never cleaned up.
-
-> 你走过厨房,看见盘子都叠好了,打开的门柜看出里面空无一物.
-
-From the other room, you hear:
-
-> 从其他的房间里面传来
-
-“Hey! Has anyone told you you’re worthless today?”
-
-> "Hey,有谁告诉你,你今天一点卵用没有吗?"
-
-You cry.
-
-> 你哭了.
-
-“Well, if they haven’t—you’re a worthless sack of shit.”
-
-> "好吧,如果他们还没告诉你,你就是没卵用的东西的."
-
-You slam the door to your room and see your bed is unmade, Sam’s greasy hairs stuck to your pillow.
-
-> 你关上你的房门,你看到你的床有点乱,Sam 的头发还留在你的枕头上面.
-
-You curl up on the floor.
-
-> 你蜷缩在地板上面.
-
-You think about killing yourself and Sam’s there, kicking you in the ribs.
-
-> 你想是时候自杀了,因为 Sam 在那里一条有一条的扯着你的肋骨.
-
-“Do it. Do it. Do it. I dare you to.”
-
-> "自杀呀,自杀呀,笨"
-
-Between your screams and gasping breaths, he pushes on.
-
-> 在你喊叫和气若游丝的呼吸间,他刺激着你.
-
-“I bet you wouldn’t. I bet you’re such a wimp, such a spineless and pathetic idiot that you wouldn’t have the guts to.”
-
-> "我赌毛线你不敢.我就知道你是个懦弱的人,一个没骨气和悲惨的蠢材,你不会有胆量自杀的."
-
-“Why do you even bother living? This is just sad.”
-
-> "你为什么还不要脸的活着?这本来就是一件悲伤的事."
-
-“You’d be better off dead, really. Don’t you think your parents are disappointed in you? Fuck, I’d be disappointed if I had a kid like this.”
-
-> "你最好还是死掉了,真的.难道你不觉得你父母对你失望吗?草,如果我有你这样的孩子,我会很失望的."
-
-“I hate you. I fucking hate you.”
-
-> "我恨你,我就 tmd 恨你."
-
-Finally he gets bored and wanders off, and you’re left alone.
-
-> 最后他觉得无聊了,才慢慢走开,只把你自己留在那里.
-
-You wake up in the morning, again.
-
-> 你第二天早上想过来,再一次.
-
-You half-hoped you wouldn’t.
-
-> 你有一半就希望自己死掉了.
-
-And he’s there, and his razor is still in your bathroom, and his unwashed jeans are in your hamper, and his life is plugged in to yours.
-
-> 然后他还在那里.他的剃须刀还在你的浴室里面,他没洗过的衣物扔在你的篮子上,然后他的生活堵塞了你的.
-
-“But have you tried running?”
-
-> "但你尝试过跑步吗?"
-
-Depression is insidious.
-
-> 忧郁症是很隐秘的.
-
-It is a mood disorder characterized by:
-
-> 这是内心调节异常的问题:
-
-Loss of interest or pleasure in your activities
-Weight loss or gain
-Trouble getting to sleep or feeling sleepy during the day
-Feelings restless and agitated, or else very sluggish and slowed down physically or mentally
-Being tired and without energy
-Feeling worthless or guilty
-Trouble concentrating or making decisions
-Thoughts of suicide [1]
-
-> 在你感兴趣的事情上失去了兴趣和快乐
-> 体重下降或上升
-> 失眠或者一整天犯困
-> 感到不安,或者情绪低沉
-> 累到动都不想动了
-> 感到没价值或有负罪感
-> 陷在困难里面,或者做着选择
-> 想自杀
-
-It is a disorder that seemingly everyone has the cure to.
-
-> 这些异常看起来每个人都有.
-
-“Just run more!” “Eat healthier!” “Think positive!”
-
-> "跑多一点"吃得健康一点","要乐观一点"
-
-These are lies.
-
-> 这些全是骗人的.
-
-The average person with depression cannot garner the energy to engage in activities that might help them. That’s part of being depressed.
-
-> 大部分的人在忧郁的时候不能去做那些让自己从新复原的东西.这就是忧郁症的一部分了.
-
-Trying to use willpower to overcome the apathetic sort of sadness that accompanies depression is like a person with no arms trying to punch themselves until their hands grow back. A fundamental component of the plan is missing and it isn't going to work. [2]
-
-> 尝试用意志力去克服冷漠的悲伤那些,就像一个光着拳头去和 ta 们战斗,知道自己的拳头一一被打回.这个最基础的计划是无效的.
-
-If I could run more, if I could just “eat healthier” and be cured, I would gladly do so.
-
-> 如果我可以跑多一点,如果我可以吃得更健康一点会好起来,我会很高兴去做的/
-
-But I can’t. I have depression.
-
-> 但我做不了,因为我有抑郁症呀.
-
-I am not, however, depressed.
-
-> 我不是,不论怎样,忧郁着.
-
-Depression is not you.
-
-> 忧郁不是你.
-
-It lives inside of you, like a disgusting parasite, leeching off of your energy and keeping you from doing and enjoying anything.
-
-> 但 ta 活在你里面,像一条恶心的寄生虫,吸食着你的能量,然后把你隔绝在你所做和享受的所有事外边.
-
-It’s a beast. A monstrosity.
-
-> 那是一个猛兽.一个怪兽.
-
-Mine’s name is Sam.
-
-> 我的名字叫 Sam.
-
-It’s empowering to give him a name because then I am reminded that he is separate from me.
-
-> 这是我的权限,给他起一个名字,因为我知道他是从我这里分离出去的.
-
-That I can defeat him without defeating myself.
-
-> 在没打败自己的前提下,我不能打败他.
-
-With treatment—often a combination of therapy and medication—he can be forced out for good.
-
-> 在常规医疗里面,组合治疗和药物控制,他能够走出来,然后一切变好.
-
-You are not depressed.
-
-> 你不是抑郁症.
-
-You have depression.
-
-> 但你有抑郁症.
-
-And with time and support and lots of hard work, you can get rid of your own Sam.
-
-> 在时间流逝中,支持和大量努力的调节,你可以摆脱你自己的 Sam 的.
-
-I know it.
-
-> 我知道肯定可以的.
-
-## 结婚改变了什么?
-
-From:[What is that one thing that changed in your room after you got married?](http://qr.ae/TUTapk)
-
-Date: May 23 2018
-
-I sleep on the side of the bed closest to the bedroom door.
-
-> 我睡在了床柜子靠近厕所那边了,现在.
-
-Why?
-
-> 为什么?
-
-That's what I asked.
-
-> 我也想知道为什么.
-
-“Because if someone breaks in to our house you can protect me!”
-
-> "因为如果有人闯进来的我们房子的时候,你可以保护我呀!"
-
-“And I can't just as easily protect you if someone breaks in and I'm on the other side of the bed?”
-
-> "如果有人闯进来,我睡在另一边,我不能说保护就保护你呀."
-
-“Right.”
-
-> "你是对的."
-
-“Because I'm closer to the door this way, right?”
-
-> "因为我比较靠近门这边,对吧?"
-
-“Right again.”
-
-> "是的."
-
-“Gotcha…and what if they come through the window?”
-
-> "我理解了(她以为都是从门闯进来的),如果他们爬窗进来呢?"
-
-Her eyes become huge
-
-> 她睁大了眼睛(这不是犯规吗,怎么可以爬窗 摊手.jpg)
-
-“I’m just kidding honey…I'll just tell them to leave and come back through the bedroom door.”
-
-> "我是开玩笑的,亲,如果他爬窗,我会叫他离开,再从厕所门这边进来的."
-
-## 你遇到最纯真的问题是什么?
-
-From: [What is the most innocent thing a person ever asked you?](http://qr.ae/TUTZTi)
-
-Date: May 24 2018
-
-I was teaching swimming lessons. I was taking a group of the 5-6 year olds to the deep end of the indoor pool.
-
-> 我在教游泳的课.我正在把一群 5-6 岁的小屁孩带到深水池里面去.
-
-It was the first time in the deep end for some of them. One started crying.
-
-> 有一些小屁孩是第一次去深水池里面.其中的一个小屁孩就开始哭了.
-
-I said, “What's wrong, Alex?”
-
-> 我说,"出什么事了吗,Alex?"
-
-She was sniffling, “Is there going to be sharks in there?”
-
-> 她抽泣着,"那里是不是有鲨鱼?"
-
-I smiled, “No Alex, it’s the safest water in the world, you'll be fine.”
-
-> 我笑了,"不会的 Alex,那里是这世界上最安全的水池了,你不会有事的."
-
-## 你能给我喂鸡汤吗?
-
-From: [Can you tell me something inspiring?](http://qr.ae/TUTSIp)
-
-Date: May 25 2018
-
-I have known a girl in my btech days who
-
-> 在我大学的时候,我认识到一个女孩子.
-
-Lost both her parents within a span of 2 weeks
-
-> 在两个星期内,同时失去了老爸和老妈.
-
-Broke up with her boyfriend soon after she lost her parents
-
-> 在失去双亲后,她男朋友和她分手了.
-
-Failed in few subjects in her final year of btech
-
-> 在她最后一年里面,挂了一些科.
-
-Was depressed most of times
-
-> 大部分时间都很忧郁.
-
-Was alone most of times and frequently fell sick
-
-> 在大部分时间里面都感到不舒服.
-
-Was fat (must be around 70kgs)
-
-> 有点胖(差不到 70kg)
-
-She used to be quite active on facebook. But once we came out of the college, her facebook feed was inactive, wasn't much into contact with anyone and eventually everyone forgot her.
-
-> 她之前在 facebook 上很活跃.但从我们毕业之后,她的 facebook 就很少更新了,也不太和其他人联系了,最后每个人都忘记了她.
-
-One fine day, few months back, when I was scrolling my facebook, surprisingly there was a post from her.
-
-> 一个平常的日子,大概几个月前,我逛着 facebook,惊奇的看到那里有她的推送.
-
-Immediately I dropped a message to her if all is well at her end.
-
-> 我立刻给她发了一条信息,问她现在过得怎么样.
-
-She responded saying that she
-
-> 她回答说她
-
-Is currently in London and completed her PHd.
-
-> 很快就在伦敦完成了她的 phd 了.
-
-Will soon come to India and get married to her classmate.
-
-> 很快会回到印度和她的同学结婚了.
-
-As checked from her pics, she looks so damn pretty and fit as she practices Yoga and can do almost all Yoga asanas.
-
-> 然后查看她的相册,她看起来很健美,她练习瑜伽,然后能做一整套的动作了.
-
-I couldn't post her pics as I respect her privacy.
-
-> 出于隐私,我不能上传她的照片.
-
-Life is 10% of what happens to you, and 90% of how you react to it.
-
-> 生活是 10%在你身上发生的事,90%是你自己怎么应对的.
+**被禁,我没能为力,窝草**
