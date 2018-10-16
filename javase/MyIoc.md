@@ -1,425 +1,302 @@
-# Java IOC
+# Easy-IOC
 
-在 Spring 里面 IOC 是一个很重要的功能,如果自己要实现一个最简单的 IOC,那么该怎么实现?窝草,好麻烦 :(
+本文档主要用于实现一个最简单的 IOC,请知悉.
 
-涉及知识点:
+**大神请绕道,大神请绕道,大神请绕道**
 
-> a. 自定义注解
->
-> b. 反射
->
-> c. 获取 package 下面的所有 class
+FYI(for your information): `Pathfinder`,探索者,火星救援里面 `Watney` 找到的那个探测器.
 
 ---
 
-## 1. 代码结构
+## 1. PathfinderUtil
 
-代码结构(tips: win 平台生成树形结构命令-> `tree /f` )
-
-```shell
-│  IocStorage.java
-│  TestMyIoc.java
-│
-├─anno
-│      FuckOff.java
-│      Resource.java
-│      Service.java
-│
-├─dao
-│      ServiceDao.java
-│
-├─service
-│  │  IocService.java
-│  │
-│  └─impl
-│          IocServiceImpl.java
-│
-└─util
-        ClassUtil.java
-```
-
----
-
-## 2. 代码实现
-
-### 2.1 自定义注解类
-
-在测试中,建立三个自定义注解`Resource`,`Service`,`FuckOff`
-
-`Resource.java`自定义注解类如下
+该工具类用于查找`packageName`下面的所有`class`.
 
 ```java
-package com.ioc.anno;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-/**
- * 用户注解dao
- *
- * <p>
- *
- * @author huanghuapeng 2018年1月2日下午4:50:26
- *
- */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Resource {
-	Class<?> source();
-}
-```
-
-`Service.java`自定义注解类如下
-
-```java
-package com.ioc.anno;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-/**
- * 用户注解service
- *
- * <p>
- *
- * @author huanghuapeng 2018年1月2日下午4:50:13
- *
- */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Service {
-	Class<?> source();
-}
-```
-
-`FuckOff.java`自定义注解类如下:
-
-```java
-package com.ioc.anno;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-/**
- * 用于区别不需要被IOC干预的类
- *
- * <p>
- *
- * @author huanghuapeng 2018年1月2日下午4:50:37
- *
- */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-public @interface FuckOff {
-
-}
-```
-
-### 2.2 dao 类
-
-```java
-package com.ioc.dao;
-
-/**
- * 业务逻辑处理类
- *
- * <p>
- *
- * @author huanghuapeng 2018年1月2日下午4:54:10
- *
- */
-public class ServiceDao {
-	public void say(String somethig) {
-		System.out.println("ServiceDao Say:" + somethig);
-	}
-}
-```
-
-### 2.3 Service 接口与实现类
-
-`IocService.java`接口
-
-```java
-package com.ioc.service;
-
-/**
- * 业务接口
- *
- * <p>
- *
- * @author huanghuapeng 2018年1月2日下午4:56:22
- *
- */
-public interface IocService {
-	/**
-	 * say
-	 *
-	 * @param str
-	 *            whatever you want
-	 */
-	void say(String str);
-}
-```
-
-实现类`IocServiceImpl.java`**涉及自定义注解**
-
-```java
-package com.ioc.service.impl;
-
-import com.ioc.anno.Resource;
-import com.ioc.anno.Service;
-import com.ioc.dao.ServiceDao;
-import com.ioc.service.IocService;
-
-/**
- * 业务接口实现类
- *
- * <p>
- *
- * @author huanghuapeng 2018年1月2日下午4:57:30
- *
- */
-@Service(source = IocServiceImpl.class)
-public class IocServiceImpl implements IocService {
-
-	@Resource(source = ServiceDao.class)
-	private ServiceDao dao;
-
-	public void say(String str) {
-		dao.say(str);
-	}
-}
-```
-
-### 2.4 获取 package 里面所有 class 的辅助类
-
-```java
-package com.ioc.util;
-
 import java.io.File;
 import java.net.URL;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
-
-import jodd.util.URLDecoder;
+import java.net.URLDecoder;
+import java.util.List;
 
 /**
- * 获取Class工具类
+ * 探索者
+ *
  *
  * <p>
  *
- * @author huanghuapeng 2018年1月2日下午3:59:01
- *
+ * @author hhp 2018年10月16日
+ * @see
+ * @since 1.0
  */
-public class ClassUtil {
+public class PathfinderUtil {
+
+	private static final ClassLoader APP_CLASSLOADER = PathfinderUtil.class.getClassLoader();
 
 	/**
-	 * 获取class
-	 */
-	private final static Class<?> worker = new ClassUtil().getClass();
-
-	/**
-	 * 获取package下面的所有的class,并加载
+	 * 获取App classloader
 	 *
-	 * @param pkgName
-	 *            指定package
-	 * @return Set
+	 * @return {@link ClassLoader}
 	 */
-	public static Set<Class<?>> getClassSet(String pkgName) {
-		Set<Class<?>> classSet = new HashSet<Class<?>>();
+	public static ClassLoader getAppClassLoader() {
+		return APP_CLASSLOADER;
+	}
+
+	/**
+	 * 获取package下面的所有class,包括子package
+	 *
+	 * @param store
+	 *            存储列表
+	 * @param packageName
+	 *            package名称,如<code>com.api.service</code>,且必须为package名称
+	 */
+	public static void findout(List<Class<?>> store, final String packageName) {
+		String filePath = packageName.replaceAll("\\.", "/");
+		URL resource = APP_CLASSLOADER.getResource(filePath);
+		// 资源不存在,或者直接是文件的时候
+		if (null == resource) {
+			return;
+		}
+
 		try {
-			String path = pkgName.replace(".", "/");
-			Enumeration<URL> resources = worker.getClassLoader().getResources(path);
-			while (resources.hasMoreElements()) {
-				URL each = resources.nextElement();
-				if ("file".equals(each.getProtocol())) {
-					String filePath = URLDecoder.decode(each.getFile(), "UTF-8");
-					findClazzs(filePath, pkgName, true, classSet);
+			// 应对中文编码
+			String path = URLDecoder.decode(resource.getFile(), "UTF-8");
+			File file = new File(path);
+			for (File f : file.listFiles()) {
+				String fileName = f.getName();
+				if (f.isDirectory()) {
+					String subPkgName = packageName + "." + fileName;
+					findout(store, subPkgName);
+				} else {
+					if (fileName.endsWith(".class")) {
+						int bound = fileName.length() - 6;
+						String removeSubffixName = fileName.substring(0, bound);
+						String className = packageName + "." + removeSubffixName;
+
+						store.add(loadClass(className));
+					}
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return classSet;
 	}
 
 	/**
-	 * 获取指定package里面的class文件
+	 * 加载class
 	 *
-	 * @param pkgPath
-	 *            package路径
-	 * @param pkgName
-	 *            package名称
-	 * @param recursive
-	 *            是否递归获取
-	 * @param clazzSet
-	 *            class集合
+	 * @param clazzName
+	 *            class名称,例如: <code>com.api.ClassUtil</code>
+	 * @return Class<?>
 	 */
-	private static void findClazzs(String pkgPath, String pkgName, boolean recursive, Set<Class<?>> clazzSet) {
-		File file = new File(pkgPath);
-		if (!file.exists()) {
-			return;
+	public static Class<?> loadClass(String clazzName) {
+		Class<?> targetClass = null;
+		try {
+			// 使用classLoader加载
+			targetClass = APP_CLASSLOADER.loadClass(clazzName);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		/**
-		 * 获取符合的文件,包括文件夹
-		 */
-		File[] listFiles = file.listFiles((each) -> {
-			return (recursive && each.isDirectory()) || each.getName().endsWith(".class");
-		});
-
-		for (File each : listFiles) {
-			if (each.isDirectory()) {
-				findClazzs(each.getAbsolutePath(), pkgName + "." + each.getName(), recursive, clazzSet);
-			} else {
-				String name = each.getName();
-				int subIndex = each.getName().indexOf(".");
-				String clazzName = pkgName + "." + name.substring(0, subIndex);
-				try {
-					// 加载class
-					Class<?> clazz = worker.getClassLoader().loadClass(clazzName);
-					clazzSet.add(clazz);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-}
-```
-
-### 2.5 IOC 容器
-
-**这个就是最简单的 IOC 容器了**
-
-```java
-package com.ioc;
-
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import com.ioc.anno.FuckOff;
-import com.ioc.anno.Resource;
-import com.ioc.util.ClassUtil;
-
-/**
- * 注解为{@link FuckOff}不扫描,不然会因为没有无参数的构成方法而初始化异常
- *
- * <p>
- *
- * @author huanghuapeng 2018年1月2日下午5:00:44
- *
- */
-@FuckOff
-public class IocStorage {
-	/**
-	 * Bean容器
-	 */
-	private static Map<String, Object> map = new HashMap<String, Object>();
-
-	/**
-	 * 扫描package
-	 */
-	private String pkgName;
-
-	public IocStorage(String pkgName) {
-		this.pkgName = pkgName;
-		initIocStorage();
-	}
-
-	/**
-	 * 初始化
-	 */
-	public void initIocStorage() {
-		Set<Class<?>> classSet = ClassUtil.getClassSet(pkgName);
-		for (Class<?> each : classSet) {
-			if (each.isInterface() || each.isAnnotation() || each.isAnnotationPresent(FuckOff.class)) {
-				continue;
-			}
-			try {
-				Object master = each.newInstance();
-				Field[] fields = each.getDeclaredFields();
-				for (Field f : fields) {
-					boolean isResourceAnno = f.isAnnotationPresent(Resource.class);
-					if (isResourceAnno) {
-						f.setAccessible(true);
-						Resource resourceAnno = f.getAnnotation(Resource.class);
-						Class<?> injectObjClass = resourceAnno.source();
-						String key = injectObjClass.getName();
-						Object injectObj = map.get(key);
-						if (null == injectObj) {
-							injectObj = injectObjClass.newInstance();
-							map.put(key, injectObj);
-						}
-						f.set(master, injectObj);
-					}
-				}
-				map.put(each.getName(), master);
-			} catch (Exception e) {
-				System.out.println("初始化异常");
-			}
-		}
-
-	}
-
-	/**
-	 * 获取Bean
-	 *
-	 * @param beanId
-	 *            beanId
-	 * @return T
-	 */
-	@SuppressWarnings("unchecked")
-	public <T> T getBean(String beanId) {
-		return (T) map.get(beanId);
+		return targetClass;
 	}
 }
 ```
 
 ---
 
-## 3. 测试类
+## 2. IocStore
+
+Ioc 集中地,主要用于实例化被扫描包里面的所有 class 和初始化 class 里面的所有要求注入的数据.
 
 ```java
-package com.ioc;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.ioc.service.impl.IocServiceImpl;
+import pkg.ioc.util.PathfinderUtil;
 
 /**
- * 测试类
+ * Ioc集合
+ *
  *
  * <p>
  *
- * @author huanghuapeng 2018年1月2日下午5:04:23
- *
+ * @author hhp 2018年10月16日
+ * @see
+ * @since 1.0
  */
-public class TestMyIoc {
-	public static void main(String[] args) {
-		IocStorage storage = new IocStorage("com.ioc");
-		IocServiceImpl impl = storage.getBean("com.ioc.service.impl.IocServiceImpl");
+public class IocStore {
 
-		impl.say("we working at IOC,good luck");
+	/**
+	 * 扫描包名称
+	 */
+	private static String packageName = null;
+	/**
+	 * 是否设置成功
+	 */
+	private static boolean isSetting = false;
+
+	/**
+	 * 所有类列表
+	 */
+	private static List<Class<?>> classList = new ArrayList<Class<?>>();
+
+	/**
+	 * IOC
+	 */
+	private static Map<String, Object> iocMap = new HashMap<String, Object>();
+
+	/**
+	 * 初始化参数
+	 *
+	 * @param pkgName
+	 *            扫描包名称
+	 */
+	public static void before(String pkgName) {
+		if (null == pkgName) {
+			return;
+		}
+		packageName = pkgName.trim();
+		try {
+			doScanner();
+			doInstance();
+			doInject();
+			isSetting = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			isSetting = false;
+		}
 	}
 
+	/**
+	 * 初始化扫描包里面的所有类
+	 */
+	private static void doScanner() {
+		PathfinderUtil.findout(classList, packageName);
+	}
+
+	/**
+	 * 初始化扫描包里面的所有类
+	 *
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 */
+	private static void doInstance() throws InstantiationException, IllegalAccessException {
+		for (Class<?> e : classList) {
+			if (!e.isInterface()) {
+				Object instance = e.newInstance();
+				Class<?>[] interfaces = e.getInterfaces();
+				for (Class<?> intfc : interfaces) {
+					iocMap.put(intfc.getName(), instance);
+				}
+				iocMap.put(e.getName(), instance);
+			}
+		}
+	}
+
+	/**
+	 * 注入
+	 *
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 */
+	private static void doInject() throws IllegalArgumentException, IllegalAccessException {
+		for (Class<?> e : classList) {
+			Object target = iocMap.get(e.getName());
+			for (Field f : e.getDeclaredFields()) {
+				f.setAccessible(true);
+				Object value = iocMap.get(f.getType().getName());
+				if (value != null) {
+					f.set(target, value);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 获取类
+	 *
+	 * @param clazz
+	 *            类的class
+	 * @return T
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T geatBean(Class<T> clazz) {
+		if (!isSetting) {
+			throw new RuntimeException("Using IocStore#before() setting scanner package first,please");
+		}
+		return (T) iocMap.get(clazz.getName());
+	}
+}
+```
+
+---
+
+## 3. 测试
+
+模拟最简单的 mvc 模型来测试.
+
+### 3.1 Service
+
+```java
+public interface Service {
+	public String say(String something);
+}
+```
+
+```java
+public class ServiceImpl implements Service {
+	@Override
+	public String say(String something) {
+		return this.getClass() + " say: " + something;
+	}
+}
+```
+
+### 3.2 Controller
+
+```java
+public class MyCtrl {
+
+	private Service service;
+
+	public void say(String s) {
+		System.out.println(service.say(s));
+	}
+}
+```
+
+### 3.3 IocTest
+
+```java
+public class IocTest {
+
+	public static void main(String[] args) {
+		IocStore.before("pkg.ioc");
+
+		MyCtrl ctrl = IocStore.geatBean(MyCtrl.class);
+		ctrl.say("12345");
+	}
 }
 ```
 
 测试结果
 
 ```java
-ServiceDao Say:we working at IOC,good luck
+class pkg.ioc.test.service.impl.ServiceImpl say: 12345
 ```
 
 ---
 
-## 3. 参考资料
+## 4. 总结
 
-a. [获取指定 package 下的 class](http://blog.csdn.net/u011666411/article/details/50456644)
+- 没有各种自定义注解来区别 service,controller 什么的.
+- 注入就是要注入,你 new 都没用. 笑哭脸.jpg
+- 写代码呢,最紧要就是开心.
 
-b. [自定义 IOC](http://blog.csdn.net/u011229848/article/details/52845821)
+---
+
+## 5. 参考资料
+
+a. [子敬的项目](https://gitee.com/kwilove/java_learning)
