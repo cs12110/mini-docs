@@ -4,7 +4,33 @@
 
 ---
 
-## 1.切面计算执行耗时
+## 1. SpringBoot 与 maven
+
+在创建了一个父级项目`mvn-parent`之后,然后新建两个子模块`mvn-springboot`与`mvn-common`.但是只想在`mvn-sprigboot`模块引入`springboot`的依赖而`mvn-common`不引入,那么按照之前的做法在`mvn-parent`引入`springboot`的依赖是行不通.
+
+在`mvn-springboot`引入`springboot`的 xml 配置如下:
+
+```xml
+<!-- Spring boot -->
+<dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-dependencies</artifactId>
+			<version>1.5.2.RELEASE</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+	</dependencies>
+</dependencyManagement>
+
+<!-- 其他依赖 -->
+<dependencies>
+	...
+<dependencies>
+```
+
+## 2. 切面计算执行耗时
 
 在性能测试里面,我们需要找到某一个方法执行耗时多久的情况,这是 AOP 绝佳的一个使用场景.
 
@@ -124,11 +150,11 @@ public class ServiceExecTimeCalculateInteceptor {
 
 ---
 
-## 2. Aop 与多注解
+## 3. Aop 与多注解
 
 在一个被拦截的方法上有多个注解,这个的执行是怎样子的?
 
-### 2.1 自定义注解
+### 3.1 自定义注解
 
 ```java
 package com.fei.springboot.annotation;
@@ -158,7 +184,7 @@ public @interface Anno2 {
 }
 ```
 
-### 2.2 切面
+### 3.2 切面
 
 ```java
 package com.fei.springboot.aop;
@@ -244,7 +270,7 @@ public class Anno2Aspect {
 }
 ```
 
-### 2.3 业务类
+### 3.3 业务类
 
 ```java
 package com.fei.springboot.service;
@@ -271,7 +297,7 @@ public class AnnoService {
 }
 ```
 
-### 2.4 测试类
+### 3.4 测试类
 
 ```java
 package test.pkgs;
@@ -301,7 +327,7 @@ public class AnnoTest {
 }
 ```
 
-### 2.5 测试结果
+### 3.5 测试结果
 
 ```java
 2018-10-13 13:41:25 INFO  c.fei.springboot.aop.Anno1Aspect:30 - proceed:com.fei.springboot.service.AnnoService#say
@@ -319,13 +345,13 @@ public class AnnoTest {
 
 ---
 
-## 3. Spring 事务问题
+## 4. Spring 事务问题
 
 在 Spring 里面事务也是切面进行管理的.但是 aop 有一个比较坑爹的地方.
 
 基于上面的代码,我们来模拟一下这个坑爹的场景.
 
-### 3.1 业务类
+### 4.1 业务类
 
 ```java
 package com.fei.springboot.service;
@@ -369,7 +395,7 @@ public class FreakService {
 }
 ```
 
-### 3.2 测试类
+### 4.2 测试类
 
 ```java
 package test.pkgs;
@@ -404,7 +430,7 @@ public class FreakTest {
 }
 ```
 
-### 3.3 测试结果
+### 4.3 测试结果
 
 **测试 testAnno**
 
@@ -434,7 +460,7 @@ public class FreakTest {
 
 详细原因请参考该 blog:[spring aop 类内部调用不拦截原因及解决方案](https://blog.csdn.net/dream_broken/article/details/72911148)
 
-### 3.4 解决方案
+### 4.4 解决方案
 
 通过`ApplicationContext`重新获取代理的类来执行.
 
@@ -523,3 +549,85 @@ public class FreakService {
 ```
 
 Spring AOP 丧尽天良.
+
+---
+
+## 5. Spring 定时器
+
+Sometimes,我们要写相关的定时任务,要求定时 cron 表达式能够在配置文件文件配置.
+
+配置文件时间表达式内容:
+
+```yml
+interval:
+  invoke: 0 0/1 * * * *
+```
+
+定时任务代码
+
+```java
+import java.util.Date;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.Trigger;
+import org.springframework.scheduling.TriggerContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import org.springframework.scheduling.support.CronTrigger;
+
+/**
+ * 定时任务执行器
+ *
+ *
+ * <p>
+ *
+ * @author hhp 2018年10月17日
+ * @see
+ * @since 1.0
+ */
+@Configuration
+@EnableScheduling
+public class MySchedule implements SchedulingConfigurer {
+
+	private static Logger logger = LoggerFactory.getLogger(MySchedule.class);
+
+	/**
+	 * application配置文件配置表达式
+	 */
+	@Value("${interval.invoke}")
+	private String timeSegment = "";
+
+	@Override
+	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+		taskRegistrar.setScheduler(taskExecutor());
+		taskRegistrar.addTriggerTask(new Runnable() {
+			@Override
+			public void run() {
+				// 执行方法调度具体业务代码
+				logger.info("Start run");
+			}
+		}, new Trigger() {
+			@Override
+			public Date nextExecutionTime(TriggerContext triggerContext) {
+				CronTrigger trigger = new CronTrigger(timeSegment);
+				Date nextExecDate = trigger.nextExecutionTime(triggerContext);
+				return nextExecDate;
+			}
+		});
+	}
+
+	@Bean(destroyMethod = "shutdown")
+	public Executor taskExecutor() {
+		return Executors.newScheduledThreadPool(10);
+	}
+}
+```
+
+---
