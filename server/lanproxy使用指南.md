@@ -10,7 +10,7 @@ Server 端: 架设在可以在互联网访问的服务器上,如阿里云服务�
 
 Client 端: 架设在内网.
 
-![1529487546521](imgs\whole-process.png)
+![1529487546521](imgs/whole-process.png)
 
 ---
 
@@ -79,19 +79,19 @@ success
 
 访问地址: **http://ip:port/** ip 为服务器 ip,port 为 config.properties 文件里面`config.server.port`的值.
 
-![1529485730362](imgs\home.png)
+![1529485730362](imgs/home.png)
 
 配置客户端,这里生产的密钥很重要,是要在 client 客户端设置的那个值.
 
-![1529485816206](imgs\add-client.png)
+![1529485816206](imgs/add-client.png)
 
 添加成功后
 
-![1529485867789](imgs\client-list.png)
+![1529485867789](imgs/client-list.png)
 
 配置映射
 
-![1529486776381](imgs\proxy-setting.png)
+![1529486776381](imgs/proxy-setting.png)
 
 ---
 
@@ -143,13 +143,13 @@ $
 
 本地开启智能推荐项目,保证 client 的服务器能连接.
 
-![1529486991380](imgs\local-success.png)
+![1529486991380](imgs/local-success.png)
 
 **使用代理连接**
 
 全部开启成功之后,可以通过阿里云访问内网的部署的项目了,一颗赛艇.
 
-![1529486827877](imgs\proxy-success.png)
+![1529486827877](imgs/proxy-success.png)
 
 这样子,就代理成功了.
 
@@ -188,11 +188,11 @@ hadoop233:/opt/team2/soft/lanproxy-client #
 
 网页配置如下,**7002 端口需要在 lanproxy-server 防火墙上打开.**
 
-![1529552136385](imgs\all-proxies.png)
+![1529552136385](imgs/all-proxies.png)
 
 使用 xshell 登录
 
-![1529552233148](imgs\xshell-conn.png)
+![1529552233148](imgs/xshell-conn.png)
 
 输入用户和密码后
 
