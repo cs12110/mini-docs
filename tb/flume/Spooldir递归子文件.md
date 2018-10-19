@@ -2,9 +2,9 @@
 
 在 Flume 里面经常需要使用 SpoolDir 来监听某一个文件里面的文件变动.
 
-但默认的实现是不能监听子文件夹的文件变动,就是说需要修改先关的源码才可以实现.
+但默认的实现是不能监听子文件夹的文件变动,就是说需要修改源码才可以实现.
 
-在现实生产环境中.flume 监听 ftp 文件夹,但 ftp 上传文件时,一直在追加,那么 flume 会报错.
+在现实生产环境中,`flume` 监听 `ftp` 文件夹,但 `ftp` 上传文件时,一直在追加,那么 `flume` 会报错.
 
 所以 ftp 在上传文件的时候,添加`.tmp`后缀名,上传完重命名回来,那么样子就不会出错了.
 
@@ -174,7 +174,7 @@ private Optional<FileInfo> getNextFile() {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("#getFilesByRecurs have an error:{}", e.getMessage());
+			logger.error("Have an error:{}", e.getMessage());
 		}
 	}
 ```
