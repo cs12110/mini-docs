@@ -27,6 +27,14 @@
 
 ---
 
+- [消息队列](mq/README.md)
+  - [RabbitMq 安装](mq/rabbitmq-install.md)
+  - [RabbitMq 简单使用](mq/rabbitmq-helloworld.md)
+  - [RabbitMq 消息持久化](mq/rabbitmq-persistence.md)
+  - [RabbitMq 消费模式](mq/rabbitmq-model.md)
+
+---
+
 - [服务器](server/README.md)
   - [服务器常用命令](server/服务器常用命令.md)
   - [内网穿透 lanproxy 使用指南](server/lanproxy使用指南.md)
