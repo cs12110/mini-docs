@@ -1,6 +1,8 @@
 # 数据挖掘笔记
 
-最好是自己根据那些例子写一遍,然后理解那些东西.`进度: 70/395`
+最好是自己根据那些例子写一遍,然后理解那些东西.`进度: 87/395`
+
+强烈推荐这本书,而且还是免费,开源改变世界.
 
 书籍地址: [A Programmer's Guide to Data Mining](http://guidetodatamining.com/)
 
@@ -80,7 +82,74 @@ Attention: **这个才是最重要的.**
 
 **Implicit Ratings**: 非明确评分,通过观察用户行为获得,如点击了多少次啦,建立用户画像.
 
-用户画像的建立例子:`After observing what a user clicks on for a few weeks you can imagine that we could develop a reasonable profile of that user—she doesn't like sports but seems to like technology news. If the user clicks on the article “Fastest Way to Lose Weight Discovered by Professional Trainers” and the article “Slow and Steady: How to lose weight and keep it off” perhaps she wishes to lose weight. If she clicks on the iPhone ad, she perhaps has an interest in that product. (By the way, the term used when a user clicks on an ad is called 'click through'.)`
+用户画像的建立例子:
+
+```
+After observing what a user clicks on for a few weeks you can imagine that we could develop a reasonable profile of that user—she doesn't like sports but seems to like technology news. If the user clicks on the article “Fastest Way to Lose Weight Discovered by Professional Trainers” and the article “Slow and Steady: How to lose weight and keep it off” perhaps she wishes to lose weight. If she clicks on the iPhone ad, she perhaps has an interest in that product. (By the way, the term used when a user clicks on an ad is called 'click through'.)
+```
+
+计算问题:
+
+```
+Suppose you have one million users. Every time you want to make a recommendation for someone you need to calculate one million distances (comparing that person to the 999,999 other people). If we are making multiple recommendations per second, the number of calculations get extreme. Unless you throw a lot of iron at the problem the system will get slow.
+```
+
+解决计算问题的方法: 一堆服务器的集群 笑哭脸.jpg
+
+### 1. 用户协同过滤
+
+基于用户协同过滤有两个主要的问题
+
+a. 扩展性: 用户规模的增长会导致服务器的运算压力越来越大.
+
+b. 稀疏性: 大多数推荐系统中,物品的数量要远大于用户的数量,因此用户仅仅对一小部分
+物品进行了评价,这就造成了数据的稀疏性.比如亚马逊有上百万本书,但用户只评论了很少一部分,于是就很难找到两个相似的用户了.
+
+于是就有了下面的`物品协同过滤`
+
+### 2. 物品协同过滤
+
+基于物品,计算出和当前物品相似的物品.
+
+和基于用户协同过滤的不一样的地方是: 基于用户协同过滤是在系统找出和当前用户相似度最高的用户,然后把相似度最高的用户的东西推荐给该用户. 基于物品协同过滤是在系统中找出和当前物品相似度最高的物品,并把相似的物品推荐给用户.
+
+![](imgs/20181023095706.png)
+
+### 3. 优化余弦相似度
+
+用余弦相似度来计算两个物品的距离,我们在第二章中提过“分数膨胀”现象,因此我们
+会从用户的评价中减去他所有评价的均值,这就是修正的余弦相似度.(为什么不用皮尔森相关系数计算?)
+
+公式如下:
+
+![](imgs/20181023100954.png)
+
+例子如下:
+
+![](imgs/20181023101925.png)
+
+Wow, a lot of craps happend for this moment, help,help,help.
+
+### 4. Slope One 算法
+
+![](imgs/20181023105514.png)
+
+`Slope One`分为两个步骤：
+
+第一步: 首先需要计算出两两物品之间的差值(可以在夜间批量计算).
+
+第二步: 则是进行预测,比如一个新用户 Ben 来到了我们网站,他从未听过 Whitney Houston 的
+歌曲,我们想要预测他是否喜欢这位歌手.通过利用他评价过的歌手以及我们计算好的歌手之间的评分差值,就可以进行预测了.
+
+计算物品的差异公式
+
+![](imgs/20181023110034.png)
+
+- card(S)表示 S 中有多少个元素
+- X 表示所有评分值的集合
+- card(S (X))则表示同时评价过物品 j 和 i 的用户数.
+
+看不下去,先喘口气再说,泪目.
 
 ---
 
