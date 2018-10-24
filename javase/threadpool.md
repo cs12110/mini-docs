@@ -177,6 +177,47 @@ public static ExecutorService newCachedThreadPool() {
 
 ---
 
-## 5. 总结
+## 5. FixedThreadPool
+
+当然也有固定线程数的线程池啦.
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class FixedThreadPool {
+	public static void main(String[] args) {
+		ExecutorService executor = Executors.newFixedThreadPool(2);
+
+		executor.submit(new MyRun("t1"));
+		executor.submit(new MyRun("t2"));
+		executor.submit(new MyRun("t3"));
+		executor.submit(new MyRun("t4"));
+	}
+}
+```
+
+测试结果
+
+```java
+2018-10-24 10:44:46 - t1 is running
+2018-10-24 10:44:46 - t2 is running
+2018-10-24 10:44:48 - t3 is running
+2018-10-24 10:44:48 - t4 is running
+```
+
+内部实现
+
+```java
+public static ExecutorService newFixedThreadPool(int nThreads) {
+        return new ThreadPoolExecutor(nThreads, nThreads,
+                                      0L, TimeUnit.MILLISECONDS,
+                                      new LinkedBlockingQueue<Runnable>());
+}
+```
+
+---
+
+## 6. 总结
 
 感觉受到了欺骗,这就是`ThreadPoolExecutor`的事,所以掌握`ThreadPoolExecutor`至关重要.
