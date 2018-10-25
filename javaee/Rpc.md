@@ -10,9 +10,10 @@ RPC:远程过程调用(Remote Procedure Call,RPC)是一个计算机通信协议.
 
 ---
 
-## 基础知识
 
-### 1. Apache Thrift
+## 1. 安装Thrift
+
+### 1.1 Apache Thrift概述
 
 Thrift是Facebook实现的一种高效的,支持多种编程语言的远程服务调用的框架.
 
@@ -22,76 +23,7 @@ Thrift 服务器包含用于绑定协议和传输层的基础架构,它提供阻
 在网上的资料看来,Thrift比Google的gRpc性能更高,所以才选择使用的.
 
 
-简单架构:**服务提供端提供服务给客户端调用.**
-
-![](img/thrift-dispatch.png)
-
-
-
-### 2. 数据类型
-
-基础数据类型如下:
-
-| 类型      | 说明                       | Java中对应类型 |
-| --------- | -------------------------- | -------------- |
-| bool      | 布尔值,bool or false       | boolean        |
-| byte      | 8位有符号整数              | byte           |
-| i16       | 16位有符号整数             | short          |
-| i32       | 32位有符号整数             | int            |
-| i64       | 64位有符号整数             | long           |
-| double    | 64位浮点数                 | double         |
-| string    | 未知编码文本或二进制字符串 | String         |
-| struct    | 结构体类型                 | JavaBean       |
-| list      | 容器类型,数组              | ArrayList      |
-| set       | 容器类型,集合              | HashSet        |
-| map       | 容器类型,映射              | HashMap        |
-| exception | 异常类型                   | Exception      |
-| service   | 服务类型,对应服务的类      | 无             |
-
-### 3. 传输协议
-
-注意: **客户端和服务端都要同一个协议,如要替换请同时替换服务端和客户端协议.**
-
-Thrift 可以让用户选择客户端与服务端之间传输通信协议的类别,在传输协议上总体划分为`文本(text)` 和`二进制(binary)` 传输协议,为节约带宽,提高传输效率,一般情况下使用二进制类型的传输协议.常用协议有以下几种:
-
-| 协议类型            | 说明                                          |
-| ------------------- | --------------------------------------------- |
-| TBinaryProtocol     | 二进制编码格式进行数据传输                    |
-| TCompactProtocol    | 高效率的,密集的二进制编码格式进行数据传输     |
-| TJSONProtocol       | 使用 JSON 的数据编码协议进行数据传输          |
-| TSimpleJSONProtocol | 只提供 JSON 只写的协议,适用于通过脚本语言解析 |
-
-
-如在`PersonServiceClient`和`PersonServiceServer`里面
-
-`PersonServiceServer`
-
-```java
-// 设置协议工厂为 TBinaryProtocol.Factory
-Factory proFactory = new TBinaryProtocol.Factory();
-```
-
-`PersonServiceClient`
-
-```java
-TProtocol protocol = new TBinaryProtocol(transport);
-PersonService.Client client = new PersonService.Client(protocol);
-```
-
-
-### 4. 服务端类型
-
-| 类型名称           | 说明                               |
-| ------------------ | ---------------------------------- |
-| TSimpleServer      | 单线程服务器端使用标准的阻塞式 I/O |
-| TThreadPoolServer  | 多线程服务器端使用标准的阻塞式 I/O |
-| TNonblockingServer | 多线程服务器端使用非阻塞式 I/O     |
-
-
-## 安装Thrift
-
-
-### 1. 下载安装包
+### 1.2 下载安装包
 
 下载安装包,官网下载地址[link](http://thrift.apache.org/download)
 
@@ -101,7 +33,7 @@ PersonService.Client client = new PersonService.Client(protocol);
 [root@dev-116 thrift-0.11.0]# cd thrift-0.11.0
 ```
 
-### 2. 安装thrift
+### 1.3 安装thrift
 
 重点: **依赖`gcc`和`gcc-c++`编译环境**
 
@@ -124,7 +56,7 @@ Use thrift -help for a list of options
 ```
 
 
-### 3. 测试使用
+### 1.4 测试使用
 
 创建文件夹
 
@@ -148,13 +80,131 @@ gen-java  Hello.thrift
 [root@dev-116 thrift-java]# ls gen-java/service/demo/
 Hello.java
 ```
+---
 
-## HelloWorld
-
-把生成的`Hello.java`文件复制到项目里面
+## 2. 基础知识
 
 
-### 1. pom.xml依赖
+简单架构:**服务提供端提供服务给客户端调用.**
+
+![](img/thrift-dispatch.png)
+
+温馨提示: **请结合后面的章节看.**
+
+### 2.1 数据类型
+
+基础数据类型如下:
+
+| 类型      | 说明                       | Java中对应类型 |
+| --------- | -------------------------- | -------------- |
+| bool      | 布尔值,bool or false       | boolean        |
+| byte      | 8位有符号整数              | byte           |
+| i16       | 16位有符号整数             | short          |
+| i32       | 32位有符号整数             | int            |
+| i64       | 64位有符号整数             | long           |
+| double    | 64位浮点数                 | double         |
+| string    | 未知编码文本或二进制字符串 | String         |
+| struct    | 结构体类型                 | JavaBean       |
+| list      | 容器类型,数组              | ArrayList      |
+| set       | 容器类型,集合              | HashSet        |
+| map       | 容器类型,映射              | HashMap        |
+| exception | 异常类型                   | Exception      |
+| service   | 服务类型,对应服务的类      | 无             |
+
+### 2.2 传输协议
+
+注意: **客户端和服务端都要同一个协议,如要替换请同时替换服务端和客户端协议.**
+
+Thrift 可以让用户选择客户端与服务端之间传输通信协议的类别,在传输协议上总体划分为`文本(text)` 和`二进制(binary)` 传输协议,为节约带宽,提高传输效率,一般情况下使用二进制类型的传输协议.常用协议有以下几种:
+
+| 协议类型            | 说明                                          |
+| ------------------- | --------------------------------------------- |
+| TBinaryProtocol     | 二进制编码格式进行数据传输                    |
+| TCompactProtocol    | 高效率的,密集的二进制编码格式进行数据传输     |
+| TJSONProtocol       | 使用 JSON 的数据编码协议进行数据传输          |
+| TSimpleJSONProtocol | 只提供 JSON 只写的协议,适用于通过脚本语言解析 |
+
+
+如在`PersonServiceClient`和`PersonServiceServer`里面替换为`TBinaryProtocol`协议.
+
+`PersonServiceServer`
+
+```java
+// 设置协议工厂为 TBinaryProtocol.Factory
+Factory proFactory = new TBinaryProtocol.Factory();
+```
+
+`PersonServiceClient`
+
+```java
+TProtocol protocol = new TBinaryProtocol(transport);
+PersonService.Client client = new PersonService.Client(protocol);
+```
+
+### 2.3 传输层类型
+
+常用传输层
+
+| 名称                  | 说明                                                   |
+| --------------------- | ------------------------------------------------------ |
+| TSocket               | 使用阻塞式 I/O 进行传输,是最常见的模式                 |
+| TFramedTransport      | 使用非阻塞方式,按块的大小进行传输,类似于 Java 中的 NIO |
+| TNonblockingTransport | 使用非阻塞方式,用于构建异步客户端                      |
+
+
+
+a. **TSocket使用**
+
+请参考`3.4 客户端`章节内容.
+
+
+
+
+b. **TFramedTransport使用**
+
+若使用 TFramedTransport 传输层,其服务器必须修改为非阻塞的服务类型,客户端只需替换清单 TTransport 部分, TNonblockingServerTransport 类是构建非阻塞 socket 的抽象类,TNonblockingServerSocket 类继承 TNonblockingServerTransport
+
+使用 TFramedTransport 传输层的 HelloServiceServer.java
+```java
+TNonblockingServerTransport serverTransport= new TNonblockingServerSocket(10005); 
+Hello.Processor processor = new Hello.Processor(new HelloServiceImpl()); 
+TServer server = new TNonblockingServer(processor, serverTransport); 
+System.out.println("Start server on port 10005 ..."); 
+server.serve();
+```
+
+使用 TFramedTransport 传输层的 HelloServiceClient.java
+```java
+TTransport transport = new TFramedTransport(new TSocket("localhost", 10005));
+```
+
+
+
+c. **TNonblockingTransport**
+
+请参考`5. 构建异步客户端`章节代码.
+
+
+
+
+
+
+### 2.4 服务端类型
+
+| 类型名称           | 说明                               |
+| ------------------ | ---------------------------------- |
+| TSimpleServer      | 单线程服务器端使用标准的阻塞式 I/O |
+| TThreadPoolServer  | 多线程服务器端使用标准的阻塞式 I/O |
+| TNonblockingServer | 多线程服务器端使用非阻塞式 I/O     |
+
+---
+
+## 3. HelloWorld
+
+把生成的`Hello.java`文件复制到项目里面.
+
+
+### 3.1 pom.xml依赖
 
 ```xml
 <dependency>
@@ -171,7 +221,7 @@ Hello.java
 ```
 
 
-### 2. 服务实现类
+### 3.2 服务实现类
 
 创建 HelloServiceImpl.java 文件并实现 Hello.java 文件中的 Hello.Iface 接口
 
@@ -190,7 +240,7 @@ public class HelloServiceImpl implements Hello.Iface {
 }
 ```
 
-### 3. 服务端
+### 3.3 服务端
 
 ```java
 package service.server;
@@ -234,7 +284,7 @@ public class HelloServiceServer {
 ```
 
 
-### 4. 客户端
+### 3.4 客户端
 
 ```java
 package service.client;
@@ -251,7 +301,7 @@ import service.demo.Hello;
 public class HelloServiceClient {
 	public static void main(String[] args) {
 		try {
-			// 设置调用的服务地址为本地，端口为 7911
+			// 设置调用的服务地址为本地,端口为 7911
 			TTransport transport = new TSocket("127.0.0.1", 7911);
 			transport.open();
 			// 设置传输协议为 TBinaryProtocol
@@ -272,7 +322,7 @@ public class HelloServiceClient {
 }
 ```
 
-### 5. 测试
+### 3.5 测试
 
 流程:**先开启服务端,再开启客户端**
 
@@ -284,13 +334,13 @@ class service.demo.HelloServiceImpl say: 窝草
 ```
 
 
-## Thrift复杂类型
+## 4. Thrift复杂类型
 
 在现实的生产环境里面,一个接口接受复杂数据(实体类),并能返回复杂数据(实体类).
 
 那么上面的Helloworld就不适用了,那么我们来看看要怎么定义复杂类型和使用.
 
-### 1. 定义实体类
+### 4.1 定义实体类
 
 实体类文件: ` Person.thrift`
 
@@ -309,7 +359,7 @@ struct Subject{
 }
 ```
 
-### 2. 定义接口
+### 4.2 定义接口
 
 接口类文件: `PersonService.thrift`
 
@@ -337,7 +387,7 @@ PersonService.java
 
 把上面这些生成类复制到eclipse项目下面.
 
-### 3. Java实现
+### 4.3 Java实现
 
 接口实现类
 
@@ -436,7 +486,7 @@ import com.pkgs.service.PersonService;
 public class PersonServiceClient {
 	public static void main(String[] args) {
 		try {
-			// 设置调用的服务地址为本地，端口为 7911
+			// 设置调用的服务地址为本地,端口为 7911
 			TTransport transport = new TSocket("127.0.0.1", 7911);
 			transport.open();
 			// 设置传输协议为 TBinaryProtocol
@@ -457,10 +507,157 @@ public class PersonServiceClient {
 }
 ```
 
+## 5. 构建异步客户端
 
-## 常见问题
+### 5.1 Callback Method
 
-### 1. Null问题
+```java
+
+import org.apache.thrift.async.AsyncMethodCallback;
+
+public class MethodCallback<T> implements AsyncMethodCallback<T> {
+
+	private T response = null;
+
+	/**
+	 * 获取返回结果
+	 * 
+	 * @return Object
+	 */
+	public T getResult() {
+		return this.response;
+	}
+
+	/**
+	 * 处理服务返回的结果值
+	 */
+	@Override
+	public void onComplete(T response) {
+		//System.out.println("complete: " + response);
+		this.response = response;
+	}
+
+	/**
+	 * 处理调用服务过程中出现的异常
+	 */
+	@Override
+	public void onError(Exception exception) {
+		exception.printStackTrace();
+	}
+
+}
+```
+
+### 5.2 非阻塞服务器端
+
+```java
+package com.sync.server;
+
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocolFactory;
+import org.apache.thrift.server.TNonblockingServer;
+import org.apache.thrift.server.TNonblockingServer.Args;
+import org.apache.thrift.server.TServer;
+import org.apache.thrift.transport.TNonblockingServerSocket;
+import org.apache.thrift.transport.TNonblockingServerTransport;
+import org.apache.thrift.transport.TTransportException;
+
+import service.demo.Hello;
+import service.demo.HelloServiceImpl;
+
+public class HelloServiceAsyncServer {
+
+	/**
+	 * 启动 Thrift 异步服务器
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		TNonblockingServerTransport serverTransport;
+		try {
+			// 使用TNonblockingServerSocket
+			serverTransport = new TNonblockingServerSocket(10005);
+			Hello.Processor<Hello.Iface> processor = new Hello.Processor<Hello.Iface>(new HelloServiceImpl());
+			TProtocolFactory proFactory = new TBinaryProtocol.Factory();
+
+			Args argsValue = new Args(serverTransport);
+			argsValue.processor(processor);
+			argsValue.protocolFactory(proFactory);
+
+			TServer server = new TNonblockingServer(argsValue);
+
+			System.out.println("Start server on port 10005 ...");
+			server.serve();
+		} catch (TTransportException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+
+### 5.3 非阻塞客户端
+
+```java
+package com.sync.client;
+
+import java.io.IOException;
+
+import org.apache.thrift.async.TAsyncClientManager;
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocolFactory;
+import org.apache.thrift.transport.TNonblockingSocket;
+import org.apache.thrift.transport.TNonblockingTransport;
+
+import com.sync.callback.MethodCallback;
+
+import service.demo.Hello;
+
+public class HelloServiceAsyncClient {
+
+	/**
+	 * 调用 Hello 服务
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) throws Exception {
+		try {
+			TAsyncClientManager clientManager = new TAsyncClientManager();
+			TNonblockingTransport transport = new TNonblockingSocket("127.0.0.1", 10005, 5000);
+			TProtocolFactory protocol = new TBinaryProtocol.Factory();
+			Hello.AsyncClient asyncClient = new Hello.AsyncClient(protocol, clientManager, transport);
+			System.out.println("Client calls .....");
+			MethodCallback<String> callBack = new MethodCallback<String>();
+			asyncClient.helloString("Hello World", callBack);
+			String res = callBack.getResult();
+			while (res == null) {
+				res = callBack.getResult();
+				// 不知为何要在这里加sleep才不会死循环
+				Thread.sleep(10);
+			}
+			System.out.println(res);
+			transport.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+
+### 5.4 测试结果
+
+先开启服务端,然后开启客户端.
+
+```java
+Client calls .....
+class service.demo.HelloServiceImpl say: Hello World
+```
+
+
+
+## 6. 常见问题
+
+### 6.1 Null问题
 
 在 Thrift 中,直接调用一个返回 null 值的方法会抛出 TApplicationException 异常.
 
@@ -503,7 +700,7 @@ import service.demo.Hello;
 public class HelloServiceClient {
 	public static void main(String[] args) {
 		try {
-			// 设置调用的服务地址为本地，端口为 7911
+			// 设置调用的服务地址为本地,端口为 7911
 			TTransport transport = new TSocket("127.0.0.1", 7911);
 			transport.open();
 			// 设置传输协议为 TBinaryProtocol
@@ -534,10 +731,22 @@ The result of helloString function is NULL
 ```
 
 
+### 6.2 异步客户端死循环
+
+代码请参考`5. 构建异步客户端`代码的`HelloServiceAsyncClient`
+
+```java
+while (res == null) {
+	res = callBack.getResult();
+	// 不知为何要在这里加sleep才不会死循环
+	Thread.sleep(10);
+}
+```
+如果没加上`Thread.sleep(10)`就进入死循环了,这叫我情何以堪.
 
 ---
 
-## 参考文档
+## 7. 参考文档
 
 a. [Apache thrift官网](http://thrift.apache.org/download)
 
