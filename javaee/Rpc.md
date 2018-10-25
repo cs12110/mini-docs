@@ -48,6 +48,44 @@ Thrift 服务器包含用于绑定协议和传输层的基础架构,它提供阻
 | exception | 异常类型                   | Exception      |
 | service   | 服务类型,对应服务的类      | 无             |
 
+### 3. 传输协议
+
+注意: **客户端和服务端都要同一个协议,如要替换请同时替换服务端和客户端协议.**
+
+Thrift 可以让用户选择客户端与服务端之间传输通信协议的类别,在传输协议上总体划分为`文本(text)` 和`二进制(binary)` 传输协议,为节约带宽,提高传输效率,一般情况下使用二进制类型的传输协议.常用协议有以下几种:
+
+| 协议类型            | 说明                                          |
+| ------------------- | --------------------------------------------- |
+| TBinaryProtocol     | 二进制编码格式进行数据传输                    |
+| TCompactProtocol    | 高效率的,密集的二进制编码格式进行数据传输     |
+| TJSONProtocol       | 使用 JSON 的数据编码协议进行数据传输          |
+| TSimpleJSONProtocol | 只提供 JSON 只写的协议,适用于通过脚本语言解析 |
+
+
+如在`PersonServiceClient`和`PersonServiceServer`里面
+
+`PersonServiceServer`
+
+```java
+// 设置协议工厂为 TBinaryProtocol.Factory
+Factory proFactory = new TBinaryProtocol.Factory();
+```
+
+`PersonServiceClient`
+
+```java
+TProtocol protocol = new TBinaryProtocol(transport);
+PersonService.Client client = new PersonService.Client(protocol);
+```
+
+
+### 4. 服务端类型
+
+| 类型名称           | 说明                               |
+| ------------------ | ---------------------------------- |
+| TSimpleServer      | 单线程服务器端使用标准的阻塞式 I/O |
+| TThreadPoolServer  | 多线程服务器端使用标准的阻塞式 I/O |
+| TNonblockingServer | 多线程服务器端使用非阻塞式 I/O     |
 
 
 ## 安装Thrift
@@ -73,6 +111,8 @@ Thrift 服务器包含用于绑定协议和传输层的基础架构,它提供阻
 [root@dev-116 thrift-0.11.0]# yum install -y gcc
 [root@dev-116 thrift-0.11.0]# yum install -y gcc-c++
 ```
+
+安装thrift
 
 ```bash
 [root@dev-116 thrift-0.11.0]# ./configure
@@ -275,8 +315,13 @@ struct Subject{
 
 ```c
 namespace java com.pkgs.service
+
+include "Person.thrift"
+
+typedef Person.Person Person
+
 service PersonService{
-        Person update(1:Person info,2:string name);
+	Person update(1:Person info,2:string name);
 }
 ```
 
@@ -412,6 +457,84 @@ public class PersonServiceClient {
 }
 ```
 
+
+## 常见问题
+
+### 1. Null问题
+
+在 Thrift 中,直接调用一个返回 null 值的方法会抛出 TApplicationException 异常.
+
+修改一些HelloServiceImpl让方法返回null
+
+```java
+import org.apache.thrift.TException;
+public class HelloServiceImpl implements Hello.Iface {
+	@Override
+	public String helloString(String para) throws TException {
+		return null;
+	}
+}
+```
+
+重新开启服务端和客户端,抛出异常
+
+```java
+org.apache.thrift.TApplicationException: helloString failed: unknown result
+	at service.demo.Hello$Client.recv_helloString(Hello.java:65)
+	at service.demo.Hello$Client.helloString(Hello.java:50)
+	at service.client.HelloServiceClient.main(HelloServiceClient.java:22)
+```
+
+代码
+
+```java
+package service.client;
+
+import org.apache.thrift.TApplicationException;
+import org.apache.thrift.TException;
+import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TSocket;
+import org.apache.thrift.transport.TTransport;
+import org.apache.thrift.transport.TTransportException;
+
+import service.demo.Hello;
+
+public class HelloServiceClient {
+	public static void main(String[] args) {
+		try {
+			// 设置调用的服务地址为本地，端口为 7911
+			TTransport transport = new TSocket("127.0.0.1", 7911);
+			transport.open();
+			// 设置传输协议为 TBinaryProtocol
+			TProtocol protocol = new TBinaryProtocol(transport);
+			Hello.Client client = new Hello.Client(protocol);
+			// 调用服务的 helloVoid 方法
+			String result = client.helloString("窝草");
+
+			System.out.println(result);
+
+			transport.close();
+		} catch (TTransportException e) {
+			e.printStackTrace();
+		} catch (TException e) {
+			if (e instanceof TApplicationException
+					&& ((TApplicationException) e).getType() == TApplicationException.MISSING_RESULT) {
+				System.err.println("The result of helloString function is NULL");
+			}
+		}
+	}
+}
+```
+
+重新测试
+
+```java
+The result of helloString function is NULL
+```
+
+
+
 ---
 
 ## 参考文档
@@ -419,5 +542,3 @@ public class PersonServiceClient {
 a. [Apache thrift官网](http://thrift.apache.org/download)
 
 b. [IBM博客](https://www.ibm.com/developerworks/cn/java/j-lo-apachethrift/)
-
-c. [Thrift安装教程](http://www.cnblogs.com/fingerboy/p/6424248.html)
