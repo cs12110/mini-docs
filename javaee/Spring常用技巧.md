@@ -631,3 +631,25 @@ public class MySchedule implements SchedulingConfigurer {
 ```
 
 ---
+
+## 6. Spring 配置默认值
+
+在 Spring 里面可以使用`@Value`注解在变量上获取配置文件上面的值.
+
+类似场景: 如果用户不在配置文件写这个配置,则使用系统默认参数.
+
+```java
+@Value("${async.port}")
+private int asyncPort;
+```
+
+如果用户没配置就直接报错了,启动都启动不了.
+
+那么使用默认值来避免这个异常.
+
+```java
+@Value("${async.port:12345}")
+private int asyncPort;
+```
+
+---
