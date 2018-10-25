@@ -4,18 +4,19 @@
 
 ---
 
-- [Java 基础](javase/README.md)
+- [Java SE](javase/README.md)
   - [Java 优化笔记](javase/Java优化笔记.md)
-  - [Java线程池](javase/threadpool.md)
+  - [Java 线程池](javase/threadpool.md)
   - [Classloader 资料](javase/Classloder.md)
   - [自定义 IOC 资料](javase/MyIoc.md)
   - [Java 工具之数据字典](javase/Java工具之数据字典.md)
 
 ---
 
-- [Java 框架](javaee/README.md)
+- [Java EE](javaee/README.md)
   - [Spring 常用技巧](javaee/Spring常用技巧.md)
   - [SpringCloud 基础](javaee/SpringCloud基础.md)
+  - [Rpc 之 Thrift](javaee/Rpc.md)
 
 ---
 

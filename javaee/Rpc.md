@@ -348,16 +348,22 @@ class service.demo.HelloServiceImpl say: 窝草
 namespace java com.pkgs.entity
 
 struct Person{
-        1: required i32 id;
-        2: required string name;
-        3: optional list<Subject> subjectList;
+        1: required i32 id; // a
+        2: required string name; //b
+        3: optional list<Subject> subjectList; //c
 }
 
-struct Subject{
+struct Subject{ // e
         1: required string name;
         2: required double score;
 }
 ```
+- a. 每个域有一个唯一的正整数标识符
+- b. 每个域可标识为required或optional
+- c. 结构体可以包含其它结构体
+- d. 域可有默认值,与required或optional无关
+- e. Thrift文件可以定义多个结构体
+
 
 ### 4.2 定义接口
 
@@ -751,3 +757,5 @@ while (res == null) {
 a. [Apache thrift官网](http://thrift.apache.org/download)
 
 b. [IBM博客](https://www.ibm.com/developerworks/cn/java/j-lo-apachethrift/)
+
+c. [Thrift定义结构文档](http://www.cnblogs.com/tianhuilove/archive/2011/09/05/2167669.html)
