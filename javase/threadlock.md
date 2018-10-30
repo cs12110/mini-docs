@@ -147,11 +147,18 @@ Worker - 2018-10-28 17:05:38:038 has been stop
 
 i++的非原子性是: 首先要从主存加载数据-> 自增 -> 将结果刷回主存.
 
+synchronized 关键字 3 种应用方式
+
+- 修饰实例方法,作用于当前实例加锁,进入同步代码前要获得当前实例的锁
+
+- 修饰静态方法,作用于当前类对象(class)加锁,进入同步代码前要获得当前类对象的锁
+
+- 修饰代码块,指定加锁对象,对给定对象加锁,进入同步代码库前要获得给定对象的锁
+
 ### 3.1 示例代码
 
 ```java
 public class SyncTest {
-
 	private static volatile long num = 0;
 
 	public static void main(String[] args) {
@@ -165,7 +172,6 @@ public class SyncTest {
 		new Thread(sir).start();
 
 		new Thread(new Worker()).start();
-
 	}
 
 	static class Commander implements Runnable {
