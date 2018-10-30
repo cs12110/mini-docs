@@ -158,27 +158,29 @@ synchronized 关键字 3 种应用方式
 ### 3.1 示例代码
 
 ```java
+import java.util.concurrent.CountDownLatch;
+
 public class SyncTest {
+
 	private static volatile long num = 0;
 
 	public static void main(String[] args) {
-		Commander sir = new Commander();
-		new Thread(sir).start();
-		new Thread(sir).start();
-		new Thread(sir).start();
-		new Thread(sir).start();
-		new Thread(sir).start();
-		new Thread(sir).start();
-		new Thread(sir).start();
-
-		new Thread(new Worker()).start();
-	}
-
-	static class Commander implements Runnable {
-		@Override
-		public void run() {
-			increase();
+		int time = 20000;
+		CountDownLatch latch = new CountDownLatch(time);
+		for (int index = 0; index < time; index++) {
+			Runnable r = () -> {
+				increase();
+				latch.countDown();
+			};
+			new Thread(r).start();
 		}
+		try {
+			// 是await,而不是wait
+			latch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		new Thread(new Worker()).start();
 	}
 
 	private static void increase() {
@@ -191,51 +193,45 @@ public class SyncTest {
 			System.out.println(this.getClass().getSimpleName() + ", the num is: " + num);
 		}
 	}
-
 }
 ```
 
 运行多次测试结果,其中有一次计算出现问题,正确结果应该是 7 才对.
 
 ```java
-Worker, the num is: 6
+Worker, the num is: 19998
 ```
 
 ### 3.2 正确范例
 
 ```java
+import java.util.concurrent.CountDownLatch;
+
 public class SyncTest {
 
 	private static volatile long num = 0;
 
 	public static void main(String[] args) {
-		Commander sir = new Commander();
-		new Thread(sir).start();
-		new Thread(sir).start();
-		new Thread(sir).start();
-		new Thread(sir).start();
-		new Thread(sir).start();
-		new Thread(sir).start();
-		new Thread(sir).start();
-
+		int time = 20000;
+		CountDownLatch latch = new CountDownLatch(time);
+		for (int index = 0; index < time; index++) {
+			Runnable r = () -> {
+				increase();
+				latch.countDown();
+			};
+			new Thread(r).start();
+		}
+		try {
+			// 是await,而不是wait
+			latch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		new Thread(new Worker()).start();
-
 	}
 
-	static class Commander implements Runnable {
-		@Override
-		public void run() {
-			increase();
-		}
-	}
-
-	private static void increase() {
-		/*
-		 * 加锁
-		 */
-		synchronized (SyncTest.class) {
-			num++;
-		}
+	private synchronized static void increase() {
+		num++;
 	}
 
 	static class Worker implements Runnable {
@@ -244,14 +240,13 @@ public class SyncTest {
 			System.out.println(this.getClass().getSimpleName() + ", the num is: " + num);
 		}
 	}
-
 }
 ```
 
 测试结果
 
 ```java
-Worker, the num is: 7
+Worker, the num is: 20000
 ```
 
 关于`synchronized`加载不同地方的作用,请查阅参考资料里面的`深入理解 Java 并发之 synchronized 实现原理`文档.
@@ -280,9 +275,7 @@ A: 在一些内置锁无法满足一些高级功能的时候才考虑使用 Reen
 import java.util.concurrent.locks.ReentrantLock;
 
 public class LockTest {
-
 	private static ReentrantLock lock = new ReentrantLock();
-
 	private static volatile long num = 0;
 
 	public static void main(String[] args) {
@@ -296,7 +289,6 @@ public class LockTest {
 		new Thread(sir).start();
 
 		new Thread(new Worker()).start();
-
 	}
 
 	static class Commander implements Runnable {
