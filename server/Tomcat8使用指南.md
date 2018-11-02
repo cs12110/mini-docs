@@ -1,8 +1,10 @@
-﻿# Tomcat8 设置用户
+﻿# Tomcat 使用指南
 
 该文档仅适用于 tomcat8 用于设置 tomcat 用户,请知悉.
 
-## 1. 配置 manager.xml
+---
+
+## 1. tomcat 添加用户
 
 ### 1.1 配置 manager.xml
 
@@ -24,18 +26,39 @@
 <user username="tomcat" password="tomcat" roles="manager-gui"/>
 ```
 
----
-
-## 2. 重启 tomcat
+### 1.3 重启 tomcat
 
 ```shell
-bin/shutdown.sh
+[root@team-2 tomcat8]# bin/shutdown.sh
+[root@team-2 tomcat8]# bin/startup.sh
+```
 
-bin/startup.sh
+### 1.4 测试
+
+![tomcat status](imgs/tomcat.png)
+
+---
+
+## 2. tomcat 修改端口
+
+在 tomcat 里面,如果不想使用默认的 8080 端口,可以自行修改.
+
+### 2.1 修改配置文件
+
+修改`port="8080"`为修改端口就好.
+
+```xml
+<Connector port="8080" protocol="HTTP/1.1"
+               executor="tomcatThreadPool"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+```
+
+### 2.2 重启 tomcat
+
+```shell
+[root@team-2 tomcat8]# bin/shutdown.sh
+[root@team-2 tomcat8]# bin/startup.sh
 ```
 
 ---
-
-## 3. 测试
-
-![tomcat status](imgs/tomcat.png)

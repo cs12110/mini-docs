@@ -19,3 +19,9 @@ Gitbook 预览:[Gitbook 预览](https://cs12110.gitbooks.io/mini-docs/content/)
 Gitbook 下载:[Gitbook 下载](https://legacy.gitbook.com/book/cs12110/mini-docs/details)
 
 Github 地址:[Github 地址](https://github.com/cs12110/mini-docs)
+
+## 3. 捐助
+
+我竟然厚不了脸皮.
+
+**开源改变世界.**
