@@ -126,6 +126,188 @@ sun.misc.Launcher$AppClassLoader@18b4aac2
 
 ---
 
-## 5.参考资料
+## 5. 简单例子
+
+如果需要动态加载外部的 jar 里面的类,该怎么办?怎么办?怎么办?
+
+### 5.1 自定义 classloader
+
+```java
+import java.net.URL;
+import java.net.URLClassLoader;
+
+/**
+ * 定制个人的classloader,用于加载用户第三方对象
+ *
+ *
+ * <p>
+ *
+ * @author hhp 2018年10月17日
+ * @see
+ * @since 1.0
+ */
+public class PluginClassLoader extends URLClassLoader {
+
+	/**
+	 * URL
+	 *
+	 * @param urls
+	 */
+	public PluginClassLoader(URL[] urls) {
+		super(urls);
+	}
+
+	public PluginClassLoader(URL[] urls, ClassLoader parent) {
+		super(urls, parent);
+	}
+
+	/**
+	 * 新增jar包
+	 *
+	 * @param url
+	 *            jar的url地址
+	 */
+	public void addJar(URL url) {
+		this.addURL(url);
+	}
+}
+```
+
+### 5.2 工具类
+
+```java
+import java.io.File;
+import java.net.URL;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * 获取实体类,不是给Spring代理的第三方实现类
+ *
+ *
+ * <p>
+ *
+ * @author hhp 2018年10月16日
+ * @see
+ * @since 1.0
+ */
+public class InstanceBuilder {
+
+	private static final Logger logger = LoggerFactory.getLogger(InstanceBuilder.class);
+
+	private static PluginClassLoader pluginClassLoader = null;
+	static {
+		initClassLoader();
+	}
+
+	/**
+	 * 构造方法
+	 *
+	 * @param jarPath
+	 *            jar文件路径,为绝对路径,如:<code>/home/dev/biplugin-jars/outside.jar</code>
+	 * @param className
+	 *            加载类名称,如<code>com.plugin.BiSourceImpl</code>
+	 */
+	public InstanceBuilder(String jarPath) {
+		if (jarPath == null || "".equals(jarPath.trim())) {
+			logger.error("Don't mess me around,please set the path of jar");
+			throw new RuntimeException("Don't mess me around,please set the path of jar");
+		}
+
+		if (pluginClassLoader == null) {
+			initClassLoader();
+		}
+		File file = new File(jarPath);
+		if (!isLegalJarFile(file)) {
+			throw new RuntimeException("Jar[" + jarPath + "] isn't a legal jar file.");
+		}
+
+		/*
+		 * 加载用户jar
+		 */
+		try {
+			pluginClassLoader.addJar(file.toURI().toURL());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 构造PluginClassLoader
+	 */
+	public static void initClassLoader() {
+		URL[] urls = new URL[]{};
+		pluginClassLoader = new PluginClassLoader(urls);
+	}
+
+	/**
+	 * 判断Jar文件是否合法
+	 *
+	 * @return boolean
+	 */
+	private static String suffix = ".jar";
+	private boolean isLegalJarFile(File file) {
+		if (!file.exists()) {
+			logger.error("Jar file doesn't exists on:{}", file.getPath());
+			return false;
+		}
+		if (!file.isFile()) {
+			logger.error("Path {} is a dir not a file", file.getPath());
+			return false;
+		}
+
+		if (!file.getName().endsWith(suffix)) {
+			logger.error("File {} is not a jar", file.getPath());
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 创建实体类
+	 *
+	 * @return T
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T get(String className) {
+		try {
+			Class<?> clazz = pluginClassLoader.loadClass(className);
+			return (T) clazz.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+}
+```
+
+### 5.3 测试类
+
+```java
+import org.junit.Test;
+
+import cn.rojao.bi.plugins.func.LogWorker;
+import cn.rojao.bi.puglins.invoke.loader.InstanceBuilder;
+
+public class TestJar {
+
+	@Test
+	public void testName() throws Exception {
+		String userJarPath = "D:/Mydoc/biplugin/bi-plugins-impl-0.0.1-SNAPSHOT-jar-with-dependencies.jar";
+		String logWorkerImpl = "cn.rojao.bi.plugins.impl.NetLogWorkerImpl";
+		String logWorkerImplConfigPath = "D:/Mydoc/biplugin/impl.properties";
+
+		InstanceBuilder builder = new InstanceBuilder(userJarPath);
+		LogWorker impl = builder.get(logWorkerImpl);
+
+		impl.process(logWorkerImplConfigPath);
+	}
+}
+```
+
+---
+
+## 6.参考资料
 
 a. [classloader 原理](http://blog.csdn.net/xyang81/article/details/7292380)

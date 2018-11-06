@@ -8,13 +8,17 @@
 
 ## 1. JVM加载机制
 
-大家都知道,当我们写好一个Java程序之后,不是管是CS还是BS应用,都是由若干个.class文件组织而成的一个完整的Java应用程序,当程序在运行时,即会调用该程序的一个入口函数来调用系统的相关功能,而这些功能都被封装在不同的class文件当中,所以经常要从这个class文件中要调用另外一个class文件中的方法,如果另外一个文件不存在的,则会引发系统异常.而程序在启动的时候,并不会一次性加载程序所要用的所有class文件,而是根据程序的需要,通过Java的类加载机制(ClassLoader)来动态加载某个class文件到内存当中的,从而只有class文件被载入到了内存之后,才能被其它class所引用.所以ClassLoader就是用来动态加载class文件到内存当中用的. 
+当写好一个Java程序之后,不是管是CS还是BS应用,都是由若干个`.class`文件组织而成的一个完整的Java应用程序.当程序在运行时,即会调用该程序的一个入口函数来调用系统的相关功能,而这些功能都被封装在不同的class文件当中,所以经常要从这个class文件中要调用另外一个class文件中的方法,如果另外一个文件不存在的,则会引发系统异常.而程序在启动的时候,并不会一次性加载程序所要用的所有class文件,而是根据程序的需要,通过Java的类加载机制(ClassLoader)来动态加载某个class文件到内存当中的,从而只有class文件被载入到了内存之后,才能被其它class所引用. 
+
+**所以ClassLoader就是用来动态加载class文件到内存当中用的.**
 
 
 
 ### 1.1 JVM的ClassLoader
 
-**BootStrap ClassLoader**:称为启动类加载器,是Java类加载层次中最顶层的类加载器,负责加载JDK中的核心类库,如:rt.jar,resources.jar,charsets.jar等,可通过如下程序获得该类加载器从哪些地方加载了相关的jar或class文件:
+**BootStrap ClassLoader**:称为启动类加载器,是Java类加载层次中最顶层的类加载器,负责加载JDK中的核心类库,如:rt.jar,resources.jar,charsets.jar等.
+
+可通过如下程序获得该类加载器从哪些地方加载了相关的jar或class文件:
 
 ```java
 URL[] urls = sun.misc.Launcher.getBootstrapClassPath().getURLs();
@@ -46,29 +50,25 @@ C:\Program Files\Java\jdk1.6.0_22\jre\lib\resources.jar;C:\Program Files\Java\jd
 
 **App ClassLoader**:称为系统类加载器,负责加载应用程序classpath目录下的所有jar和class文件.
 
-
-
 注意: 除了Java默认提供的三个ClassLoader之外,用户还可以根据需要定义自已的ClassLoader,而这些自定义的ClassLoader都必须继承自java.lang.ClassLoader类,也包括Java提供的另外二个ClassLoader(Extension ClassLoader和App ClassLoader)在内,但是Bootstrap ClassLoader不继承自ClassLoader,因为它不是一个普通的Java类,底层由C++编写,已嵌入到了JVM内核当中,当JVM启动后,Bootstrap ClassLoader也随着启动,负责加载完核心类库后,并构造Extension ClassLoader和App ClassLoader类加载器.
-
-
 
 ### 1.2 双亲委托
 
 **原理介绍**
 
-ClassLoader使用的是**双亲委托模型**来搜索类的,每个ClassLoader实例都有一个父类加载器的引用(不是继承的关系,是一个包含的关系),虚拟机内置的类加载器(Bootstrap ClassLoader)本身没有父类加载器,但可以用作其它ClassLoader实例的的父类加载器.当一个ClassLoader实例需要加载某个类时,它会试图亲自搜索某个类之前,先把这个任务委托给它的父类加载器,这个过程是由上至下依次检查的,首先由最顶层的类加载器Bootstrap ClassLoader试图加载,如果没加载到,则把任务转交给Extension ClassLoader试图加载,如果也没加载到,则转交给App ClassLoader 进行加载,如果它也没有加载得到的话,则返回给委托的发起者,由它到指定的文件系统或网络等URL中加载该类.如果它们都没有加载到这个类时,则抛出ClassNotFoundException异常.否则将这个找到的类生成一个类的定义,并将它加载到内存当中,最后返回这个类在内存中的Class实例对象.
+ClassLoader使用的是 **双亲委托模型** 来搜索类的,每个ClassLoader实例都有一个父类加载器的引用(不是继承的关系,是一个包含的关系),虚拟机内置的类加载器(Bootstrap ClassLoader)本身没有父类加载器,但可以用作其它ClassLoader实例的的父类加载器.当一个ClassLoader实例需要加载某个类时,它会试图亲自搜索某个类之前,先把这个任务委托给它的父类加载器,这个过程是由上至下依次检查的,首先由最顶层的类加载器Bootstrap ClassLoader试图加载,如果没加载到,则把任务转交给Extension ClassLoader试图加载,如果也没加载到,则转交给App ClassLoader 进行加载,如果它也没有加载得到的话,则返回给委托的发起者,由它到指定的文件系统或网络等URL中加载该类.如果它们都没有加载到这个类时,则抛出ClassNotFoundException异常.否则将这个找到的类生成一个类的定义,并将它加载到内存当中,最后返回这个类在内存中的Class实例对象.
 
  
 
-**为什么要使用双亲委托这种模型呢？**
+**为什么要使用双亲委托这种模型呢?**
 
-因为这样可以**避免重复加载**,当父亲已经加载了该类的时候,就没有必要子ClassLoader再加载一次.考虑到安全因素,我们试想一下,如果不使用这种委托模式,那我们就可以随时使用自定义的String来动态替代java核心api中定义的类型,这样会存在非常大的安全隐患,而双亲委托的方式,就可以避免这种情况,因为String已经在启动时就被引导类加载器(Bootstrcp ClassLoader)加载,所以用户自定义的ClassLoader永远也无法加载一个自己写的String,除非你改变JDK中ClassLoader搜索类的默认算法.
+因为这样可以 **避免重复加载**,当父亲已经加载了该类的时候,就没有必要子ClassLoader再加载一次.考虑到安全因素,我们试想一下,如果不使用这种委托模式,那我们就可以随时使用自定义的String来动态替代java核心api中定义的类型,这样会存在非常大的安全隐患,而双亲委托的方式,就可以避免这种情况,因为String已经在启动时就被引导类加载器(Bootstrcp ClassLoader)加载,所以用户自定义的ClassLoader永远也无法加载一个自己写的String,除非你改变JDK中ClassLoader搜索类的默认算法.
 
  
 
-**但是JVM在搜索类的时候,又是如何判定两个class是相同的呢？**
+**但是JVM在搜索类的时候,又是如何判定两个class是相同的呢?**
 
-​JVM在判定两个class是否相同时,不仅要判断两个类名是否相同,而且要判断是否由同一个类加载器实例加载的.只有两者同时满足的情况下,JVM才认为这两个class是相同的.就算两个class是同一份class字节码,如果被两个不同的ClassLoader实例所加载,JVM也会认为它们是两个不同class.比如网络上的一个Java类org.classloader.simple.NetClassLoaderSimple,javac编译之后生成字节码文件NetClassLoaderSimple.class,ClassLoaderA和ClassLoaderB这两个类加载器并读取了NetClassLoaderSimple.class文件,并分别定义出了java.lang.Class实例来表示这个类,对于JVM来说,它们是两个不同的实例对象,但它们确实是同一份字节码文件,如果试图将这个Class实例生成具体的对象进行转换时,就会抛运行时异常java.lang.ClassCaseException,提示这是两个不同的类型.现在通过实例来验证上述所描述的是否正确:
+​JVM在判定两个class是否相同时,不仅要判断两个类名是否相同,而且要判断是否由同一个类加载器实例加载的.只有两者同时满足的情况下,JVM才认为这两个class是相同的.就算两个class是同一份class字节码,如果被两个不同的ClassLoader实例所加载,JVM也会认为它们是两个不同class.比如网络上的一个Java类org.classloader.simple.NetClassLoaderSimple,javac编译之后生成字节码文件NetClassLoaderSimple.class,ClassLoaderA和ClassLoaderB这两个类加载器并读取了NetClassLoaderSimple.class文件,并分别定义出了java.lang.Class实例来表示这个类,对于JVM来说,它们是两个不同的实例对象,但它们确实是同一份字节码文件,如果试图将这个Class实例生成具体的对象进行转换时,就会抛运行时异常java.lang.ClassCaseException,提示这是两个不同的类型.现在通过实例来验证上述所描述的是否正确.
 
 
 ---
@@ -79,8 +79,11 @@ ClassLoader使用的是**双亲委托模型**来搜索类的,每个ClassLoader�
 ### 2.1 HashMap的增长
 
 在Java 8 之前,HashMap和其他基于map的类都是通过链地址法解决冲突,它们使用单向链表来存储相同索引值的元素.在最坏的情况下,这种方式会将HashMap的get方法的性能从O(1)降低到O(n).为了解决在频繁冲突时hashmap性能降低的问题,Java 8中使用平衡树来替代链表存储冲突的元素.这意味着我们可以将最坏情况下的性能从O(n)提高到O(logn).
+
 在Java 8中使用常量TREEIFY_THRESHOLD来控制是否切换到平衡树来存储.目前,这个常量值是8,这意味着当有超过8个元素的索引一样时,HashMap会使用树来存储它们.
+
 这一改变是为了继续优化常用类.大家可能还记得在Java 7中为了优化常用类对ArrayList和HashMap采用了延迟加载的机制,在有元素加入之前不会分配内存,这会减少空的链表和HashMap占用的内存.
+
 这一动态的特性使得HashMap一开始使用链表,并在冲突的元素数量超过指定值时用平衡二叉树替换链表.不过这一特性在所有基于hash table的类中并没有,例如Hashtable和WeakHashMap.
 目前,只有ConcurrentHashMap,LinkedHashMap和HashMap会在频繁冲突的情况下使用平衡树.
 
@@ -117,9 +120,9 @@ HashMap的快速高效,使其使用非常广泛.其原理是,调用hashCode()和
 
 虽然是一个小小的改进,但意义重大:
 
-1.O(n)到O(logn)的时间开销.
+- a. O(n)到O(logn)的时间开销.
 
-2.如果恶意程序知道我们用的是Hash算法,则在纯链表情况下,它能够发送大量请求导致哈希碰撞,然后不停访问这些key导致HashMap忙于进行线性查找,最终陷入瘫痪,即形成了拒绝服务攻击(DoS).
+- b. 如果恶意程序知道我们用的是Hash算法,则在纯链表情况下,它能够发送大量请求导致哈希碰撞,然后不停访问这些key导致HashMap忙于进行线性查找,最终陷入瘫痪,即形成了拒绝服务攻击(DoS).
 
 
 
@@ -198,7 +201,7 @@ ConcurrentHashMap和CopyOnWriteArrayList保留了线程安全的同时,也提供
 
 **ConcurrentHashMap和Hashtable的区别**
 
-Hashtable和ConcurrentHashMap有什么分别呢？它们都可以用于多线程的环境,但是当Hashtable的大小增加到一定的时候,性能会急剧下降,因为迭代时需要被锁定很长的时间.因为ConcurrentHashMap引入了分割(segmentation),不论它变得多么大,仅仅需要锁定map的某个部分,而其它的线程不需要等到迭代完成才能访问map.简而言之,**在迭代的过程中,ConcurrentHashMap仅仅锁定map的某个部分,而Hashtable则会锁定整个map**.
+Hashtable和ConcurrentHashMap有什么分别呢?它们都可以用于多线程的环境,但是当Hashtable的大小增加到一定的时候,性能会急剧下降,因为迭代时需要被锁定很长的时间.因为ConcurrentHashMap引入了分割(segmentation),不论它变得多么大,仅仅需要锁定map的某个部分,而其它的线程不需要等到迭代完成才能访问map.简而言之,**在迭代的过程中,ConcurrentHashMap仅仅锁定map的某个部分,而Hashtable则会锁定整个map**.
 
 
 
@@ -248,11 +251,11 @@ BlockingQueue<Runnable> workQueue,RejectedExecutionHandler handler);
 ```java
 TimeUnit.DAYS; //天
 TimeUnit.HOURS; //小时
-TimeUnit.MINUTES;    //分钟
-TimeUnit.SECONDS;    //秒
+TimeUnit.MINUTES; //分钟
+TimeUnit.SECONDS; //秒
 TimeUnit.MILLISECONDS; //毫秒
 TimeUnit.MICROSECONDS; //微妙
-TimeUnit.NANOSECONDS;//纳秒
+TimeUnit.NANOSECONDS; //纳秒
 ```
 
 
@@ -297,7 +300,7 @@ Java异常体系如下:
 
 **Error与Exception**
 
-Error是程序无法处理的错误,比如OutOfMemoryError,ThreadDeath等.这些异常发生时,Java虚拟机(JVM)一般会选择线程终止.        Exception是程序本身可以处理的异常,这种异常分两大类运行时异常和非运行时异常.程序中应当尽可能去处理这些异常.       
+Error是程序无法处理的错误,比如OutOfMemoryError,ThreadDeath等.这些异常发生时,Java虚拟机(JVM)一般会选择线程终止.Exception是程序本身可以处理的异常,这种异常分两大类运行时异常和非运行时异常.程序中应当尽可能去处理这些异常.       
 
 
 
@@ -319,11 +322,11 @@ throw关键字是用于方法体内部,用来抛出一个Throwable类型的异�
 sleep 是线程类(Thread)的方法,导致此线程暂停执行指定时间,给执行机会给其他线程,但是监控状态依然保持,到时后会自动恢复.调用sleep 不会释放对象锁.
 wait 是Object 类的方法,对此对象调用wait 方法导致本线程放弃对象锁,进入等待此对象的等待锁定池,只有针对此对象发出notify 方法(或notifyAll)后本线程才进入对象锁定池准备获得对象锁进入运行状态.
 
-1. 这两个方法来自不同的类分别是Thread和Object
+- 这两个方法来自不同的类分别是Thread和Object
 
-2. 最主要是sleep方法没有释放锁,而wait方法释放了锁,使得其他线程可以使用同步控制块或者方法.
+- 最主要是sleep方法没有释放锁,而wait方法释放了锁,使得其他线程可以使用同步控制块或者方法.
 
-3. wait,notify和notifyAll只能在同步控制方法或者同步控制块里面使用,而sleep可以在任何地方使用(使用范围)
+- wait,notify和notifyAll只能在同步控制方法或者同步控制块里面使用,而sleep可以在任何地方使用(使用范围)
 
 ```java
 synchronized(x){
@@ -332,7 +335,7 @@ synchronized(x){
 }
 ```
 
-4. sleep必须捕获异常,而wait,notify和notifyAll不需要捕获异常
+- sleep必须捕获异常,而wait,notify和notifyAll不需要捕获异常
 
 sleep方法属于Thread类中方法,表示让一个线程进入睡眠状态,等待一定的时间之后,自动醒来进入到可运行状态,不会马上进入运行状态,因为线程调度机制恢复线程的运行也需要时间,一个线程对象调用了sleep方法之后,并不会释放他所持有的所有对象锁,所以也就不会影响其他进程对象的运行.但在sleep的过程中过程中有可能被其他对象调用它的interrupt(),产生InterruptedException异常,如果你的程序不捕获这个异常,线程就会异常终止,进入TERMINATED状态,如果你的程序捕获了这个异常,那么程序就会继续执行catch语句块(可能还有finally语句块)以及以后的代码.
 
@@ -368,12 +371,17 @@ lazyLoadingEnabled,aggressiveLazyLoading
 
 ### 6.2 **查询缓存**
 
-**Mybatis的一级缓存**是指SqlSession.一级缓存的作用域是一个SqlSession.Mybatis默认开启一级缓存.
+**Mybatis的一级缓存**是指SqlSession.
+
+一级缓存的作用域是一个SqlSession.Mybatis默认开启一级缓存.
+
 在同一个SqlSession中,执行相同的查询SQL,第一次会去查询数据库,并写到缓存中;第二次直接从缓存中取.当执行SQL时两次查询中间发生了增删改操作,则SqlSession的缓存清空.
 
  
 
-**Mybatis的二级缓存**是指mapper映射文件.二级缓存的作用域是同一个namespace下的mapper映射文件内容,多个SqlSession共享.Mybatis需要手动设置启动二级缓存.
+**Mybatis的二级缓存**是指mapper映射文件.
+
+二级缓存的作用域是同一个namespace下的mapper映射文件内容,多个SqlSession共享.Mybatis需要手动设置启动二级缓存.
 
 在同一个namespace下的mapper文件中,执行相同的查询SQL,第一次会去查询数据库,并写到缓存中;第二次直接从缓存中取.当执行SQL时两次查询中间发生了增删改操作,则二级缓存清空.
 
@@ -411,7 +419,7 @@ SqlSession执行insert,update,delete等操作commit后会清空该SQLSession缓�
 
 ### 6.3 **缓存设置**
 
-1,  在核心配置文件SqlMapConfig.xml中加入以下内容(开启二级缓存总开关):
+在核心配置文件SqlMapConfig.xml中加入以下内容(开启二级缓存总开关):
 
 cacheEnabled设置为 true
 
@@ -419,7 +427,7 @@ cacheEnabled设置为 true
 
   
 
-2,在映射文件中,加入以下内容,开启二级缓存:
+在映射文件中,加入以下内容,开启二级缓存:
 
 ![](imgs/wKiom1WIJHGj-78eAACCk6Tv9vs396.jpg)
 
@@ -448,7 +456,7 @@ cacheEnabled设置为 true
 
 ## 7. SQL组合索引
 
-联合索引又叫复合索引.对于复合索引:Mysql从左到右的使用索引中的字段,一个查询可以只使用索引中的一部份,但只能是最左侧部分.例如索引是key index(a,b,c). 可以支持[a],[a,b],[a,c] ,[a,b,c] 4种组合进行查找,但不支持 b,c进行查找 .当最左侧字段是常量引用时,索引就十分有效.
+联合索引又叫复合索引.对于复合索引:Mysql从左到右的使用索引中的字段,一个查询可以只使用索引中的一部份,但只能是最左侧部分.例如索引是key index(a,b,c). 可以支持[a],[a,b],[a,c] ,[a,b,c] 4种组合进行查找,但不支持 b,c进行查找.当最左侧字段是常量引用时,索引就十分有效.
 
 假设有表结构如下
 
@@ -514,7 +522,7 @@ CGLib动态代理
 
 **比较:**
 
-JDK动态代理是**面向接口**,在创建代理实现类时比CGLib要快,创建代理速度快.
+JDK动态代理是 **面向接口**,在创建代理实现类时比CGLib要快,创建代理速度快.
 
 CGLib动态代理是通过字节码底层继承要代理类来实现(如果被代理类被final关键字所修饰,那么抱歉会失败),在创建代理这一块没有JDK动态代理快,但是运行速度比JDK动态代理要快.
 
@@ -619,7 +627,7 @@ public class ApplicationContextUtil implements ApplicationContextAware {
 
 ### 10.3 @Autowired 与 @Resource
 
-年初刚加入到现在的项目时,在使用注解时我用的@Resource.后来,同事:你怎么使用@Resource注解？我:使用它有错吗？同事:没错,但是现在都使用@Autowired.我:我研究一下.
+年初刚加入到现在的项目时,在使用注解时我用的@Resource.后来,同事:你怎么使用@Resource注解?我:使用它有错吗?同事:没错,但是现在都使用@Autowired.我:我研究一下.
 
 在大学,学习J2EE实训时一直使用的是@Resource注解,后来我就养成习惯了.现在对这两个注解做一下解释:
 
@@ -913,7 +921,7 @@ BeanFactory是个Factory,也就是IOC容器或对象工厂,FactoryBean是个Bean
 
 ### 10.5 @Component与@Service区别
 
-在spring集成的框架中,注解在类上的`@Component`,`@Repository`,`@Service`等注解能否被互换？或者说这些注解有什么区别？
+在spring集成的框架中,注解在类上的`@Component`,`@Repository`,`@Service`等注解能否被互换?或者说这些注解有什么区别?
 
 引用spring的官方文档中的一段描述:
 
