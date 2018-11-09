@@ -44,6 +44,7 @@
   - [Tomcat8 使用指南](server/Tomcat8使用指南.md)
   - [Ftp 安装指南](server/ftp安装指南.md)
   - [Gogs 安装指南](server/gogs安装指南.md)
+  - [Jenkins 安装指南](server/jenkins安装指南.md)
 
 ---
 
