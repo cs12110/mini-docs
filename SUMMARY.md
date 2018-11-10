@@ -1,7 +1,3 @@
-# mini-docs
-
----
-
 - [简介](README.md)
 
 ---
