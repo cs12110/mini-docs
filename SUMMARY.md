@@ -1,6 +1,6 @@
-# Summary
+---
 
-- [Introduction](README.md)
+- [简介](README.md)
 
 ---
 
@@ -41,11 +41,12 @@
 
 - [服务器](server/README.md)
   - [服务器常用命令](server/服务器常用命令.md)
-  - [内网穿透 lanproxy 使用指南](server/lanproxy使用指南.md)
+  - [Lanproxy 使用指南](server/lanproxy使用指南.md)
   - [Tomcat8 使用指南](server/Tomcat8使用指南.md)
   - [Ftp 安装指南](server/ftp安装指南.md)
   - [Gogs 安装指南](server/gogs安装指南.md)
   - [Jenkins 安装指南](server/jenkins安装指南.md)
+  - [Docsify 安装指南](server/docsify使用指南.md)
 
 ---
 
