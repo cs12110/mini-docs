@@ -28,7 +28,7 @@
 
 ### 1.3 重启 tomcat
 
-```shell
+```sh
 [root@team-2 tomcat8]# bin/shutdown.sh
 [root@team-2 tomcat8]# bin/startup.sh
 ```
@@ -56,7 +56,7 @@
 
 ### 2.2 重启 tomcat
 
-```shell
+```sh
 [root@team-2 tomcat8]# bin/shutdown.sh
 [root@team-2 tomcat8]# bin/startup.sh
 ```

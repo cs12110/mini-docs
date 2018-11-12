@@ -6,7 +6,7 @@ docsify 一个类似 gitbook 一样的文档展示工具,你值得拥有.
 
 ## 1. 安装 docsify
 
-该章节描述docsify的安装.
+该章节描述 docsify 的安装.
 
 ### 1.1 安装 nodejs
 
@@ -18,7 +18,7 @@ docsify 一个类似 gitbook 一样的文档展示工具,你值得拥有.
 [root@team-2 nodejs]# wget https://nodejs.org/dist/v10.13.0/node-v10.13.0-linux-x64.tar.xz
 [root@team-2 nodejs]# ls
 node-v10.13.0-linux-x64.tar.xz
-[root@team-2 nodejs]# tar -xvf node-v10.13.0-linux-x64.tar.xz 
+[root@team-2 nodejs]# tar -xvf node-v10.13.0-linux-x64.tar.xz
 ```
 
 设置环境变量
@@ -31,29 +31,29 @@ export PATH=$PATH:$NODEJS_HOME/bin
 
 使用`source /etc/profile`重新加载环境变量即可.
 
-```bash
+```sh
 [root@team-2 nodejs]# node -v
 v10.13.0
 [root@team-2 nodejs]# npm -v
 6.4.1
 ```
 
-### 1.2 安装docsify
+### 1.2 安装 docsify
 
 这个在网上都是使用`npm i docsify-cli -g`,但是出现了异常.
 
-解决方法是进入到npm所在位置进行安装,如`lib/node_modules/`.
+解决方法是进入到 npm 所在位置进行安装,如`lib/node_modules/`.
 
-```bash
-[root@team-2 node-v10.13.0-linux-x64]# ls -al  bin/npm  
+```sh
+[root@team-2 node-v10.13.0-linux-x64]# ls -al  bin/npm
 lrwxrwxrwx 1 500 500 38 Oct 30 15:48 bin/npm -> ../lib/node_modules/npm/bin/npm-cli.js
 [root@team-2 node-v10.13.0-linux-x64]# cd lib/node_modules/
-[root@team-2 node_modules]# npm i docsify -g 
+[root@team-2 node_modules]# npm i docsify -g
 > docsify@4.8.5 postinstall /usr/lib/node_modules/docsify
 > opencollective postinstall
 
 
-                          Thanks for installing docsify 
+                          Thanks for installing docsify
                  Please consider donating to our open collective
                         to help us maintain this package.
 
@@ -67,20 +67,20 @@ lrwxrwxrwx 1 500 500 38 Oct 30 15:48 bin/npm -> ../lib/node_modules/npm/bin/npm-
 + docsify@4.8.5
 added 57 packages from 30 contributors in 12.674s
 ```
+
 等待安装完毕即可.
 
 ---
 
-## 2. docsify使用
+## 2. docsify 使用
 
-因为使用的是gitbook的项目,`SUMMARY.md`遵循gitbook的章节模式,请知悉.
-
+因为使用的是 gitbook 的项目,`SUMMARY.md`遵循 gitbook 的章节模式,请知悉.
 
 ### 2.1 初始化文档
 
 使用命令: `docsify init yourDocsFolder`
 
-```bash
+```sh
 [root@team-2 mini-docs]# ls
 db  iview  javaee  javase  mq  README.md  server  SUMMARY.md  tb
 [root@team-2 mini-docs]#  docsify init .
@@ -91,7 +91,7 @@ Initialization succeeded! Please run docsify serve .
 db  index.html	iview  javaee  javase  mq  README.md  server  SUMMARY.md  tb
 ```
 
-### 2.2 设置index.html
+### 2.2 设置 index.html
 
 ```html
 <!DOCTYPE html>
@@ -114,7 +114,7 @@ db  index.html	iview  javaee  javase  mq  README.md  server  SUMMARY.md  tb
       loadSidebar: 'SUMMARY.md'
     }
   </script>
-  
+
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
   <!-- 复制代码插件 -->
   <script src="//unpkg.com/docsify-copy-code"></script>
@@ -148,16 +148,15 @@ echo 'you can visit: http://47.98.104.252:5566/'
 
 启动脚本之后,可以通过浏览器访问: `http://服务器ip:5566/`即可看到文档了.
 
-
 ### 2.3 定时更新
 
 那么怎么做到定时更新呢?
 
-我们加入linux的定时器,使用定时器,定时拉取github上面的最新文档即可.
+我们加入 linux 的定时器,使用定时器,定时拉取 github 上面的最新文档即可.
 
-首先把docsify的commit一下,我们才能pull
+首先把 docsify 的 commit 一下,我们才能 pull
 
-```bash
+```sh
 [root@team-2 mini-docs]# git add .
 [root@team-2 mini-docs]# git commit -m 'docsify'
 [master 8a0c2d0] docsify
@@ -172,10 +171,9 @@ echo 'you can visit: http://47.98.104.252:5566/'
 nothing to commit, working directory clean
 ```
 
-
 加入定时器
 
-```bash
+```sh
 [root@team-2 mini-docs]# crontab -e
 
 */5 * * * *  sh /opt/soft/docsify/git-pull.sh
@@ -197,9 +195,6 @@ By the way,定时器的日志可以通过:`cat /var/log/cron`日志查看.
 
 ## 3. 参考资料
 
-a. [docsify官网](https://docsify.js.org/#/)
+a. [docsify 官网](https://docsify.js.org/#/)
 
-b. [cs12110的github](https://github.com/cs12110)
-
-
-
+b. [cs12110 的 github](https://github.com/cs12110)

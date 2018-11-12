@@ -10,7 +10,7 @@
 
 `rpm`安装,安装包为: `vsftpd-3.0.2-22.el7.x86_64.rpm`.
 
-```shell
+```sh
 [root@dev-2 ftp]# rpm -ivh vsftpd-3.0.2-22.el7.x86_64.rpm
 Preparing...                          ################################# [100%]
 Updating / installing...
@@ -33,7 +33,7 @@ Updating / installing...
 
 配置 ftp 用户和密码,安装完成后,配置文件放置在`/ect/vsftpd/`目录下
 
-```shell
+```sh
 [root@dev-2 vsftpd]# pwd
 /etc/vsftpd
 [root@dev-2 vsftpd]# ls
@@ -42,7 +42,7 @@ ftpusers  user_list  vsftpd.conf  vsftpd_conf_migrate.sh
 
 ### 2.1 增加配置
 
-```shell
+```sh
 # 注释
 #anonymous_enable=YES
 
@@ -56,7 +56,7 @@ userlist_deny=NO
 
 linux 新增`ftpuser`用户,并设置密码为`rojao123`
 
-```shell
+```sh
 [root@dev-2 vsftpd]# useradd  ftpuser
 [root@dev-2 vsftpd]# passwd ftpuser
 Changing password for user ftpuser.
@@ -70,7 +70,7 @@ passwd: all authentication tokens updated successfully.
 
 配置 ftp 配置文件`user_list`,添加`ftpuser`
 
-```shell
+```sh
 # vsftpd userlist
 # If userlist_deny=NO, only allow users in this file
 # If userlist_deny=YES (default), never allow users in this file, and
@@ -96,7 +96,7 @@ ftpuser
 
 ### 2.4 重启 ftp 服务
 
-```shell
+```sh
 [root@dev-2 vsftpd]# systemctl  restart  vsftpd
 ```
 

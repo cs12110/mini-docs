@@ -20,7 +20,7 @@ Client 端: 架设在内网.
 
 文件结构如下:
 
-```shell
+```sh
 [root@team-2 proxy-server-20171116]# ls
 bin  conf  lib  logs  webpages
 [root@team-2 proxy-server-20171116]#
@@ -55,7 +55,7 @@ config.admin.password=admin
 
 日志存放在`logs/`目录下.
 
-```shell
+```sh
 [root@team-2 proxy-server-20171116]# bin/startup.sh
 Starting the proxy server ...started
 PID: 6080
@@ -64,7 +64,7 @@ PID: 6080
 
 ### 1.3 开启防火墙端口
 
-```shell
+```sh
 [root@team-2 conf]# firewall-cmd --add-port=8090/tcp --permanent --zone=public
 [root@team-2 conf]# firewall-cmd --add-port=4900/tcp --permanent --zone=public
 [root@team-2 conf]# firewall-cmd --add-port=4993/tcp --permanent --zone=public
@@ -101,7 +101,7 @@ success
 
 文档结构:
 
-```shell
+```sh
 Administrator@QBKF7V9BTMOUJFI MINGW64 ~/Downloads/lanproxy-client/lanproxy-java-client-20171116
 $ ls lanproxy-java-client-20171116/
 bin/  conf/  lib/  logs/
@@ -129,7 +129,7 @@ server.port=4900
 
 **要注意日志文件是否有异常出现.**
 
-```shell
+```sh
 Administrator@QBKF7V9BTMOUJFI MINGW64 ~/Downloads/lanproxy-client/lanproxy-java-client-20171116/lanproxy-java-client-20171116
 $ bin/startup.sh
 Starting the proxy client ...started
@@ -167,7 +167,7 @@ nohup ./client_linux_amd64 -s SERVER_IP -p SERVER_SSL_PORT -k KEY_OF_PROXY -ssl 
 
 启动 client 端
 
-```shell
+```sh
 hadoop233:/opt/team2/soft/lanproxy-client # nohup ./client_linux_amd64 -s 47.98.104.252 -p 4993 -k 9124b3ba4d7247f887faaf80c3a7905c -ssl true &
 [1] 24257
 hadoop233:/opt/team2/soft/lanproxy-client # nohup: ignoring input and appending output to `nohup.out'
@@ -196,7 +196,7 @@ hadoop233:/opt/team2/soft/lanproxy-client #
 
 输入用户和密码后
 
-```shell
+```sh
 Last login: Wed Jun 20 23:28:40 2018 from 10.10.2.233
 [root@dev-1 ~]# ip addr
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1
@@ -222,7 +222,7 @@ Last login: Wed Jun 20 23:28:40 2018 from 10.10.2.233
 
 **普通端口连接**
 
-```shell
+```sh
 # mac 64位
 nohup ./client_darwin_amd64 -s SERVER_IP -p SERVER_PORT -k CLIENT_KEY &
 
@@ -235,7 +235,7 @@ nohup ./client_linux_amd64 -s SERVER_IP -p SERVER_PORT -k CLIENT_KEY &
 
 **SSL 端口连接**(服务器连接)
 
-```shell
+```sh
 # mac 64位
 nohup ./client_darwin_amd64 -s SERVER_IP -p SERVER_SSL_PORT -k CLIENT_KEY -ssl true &
 

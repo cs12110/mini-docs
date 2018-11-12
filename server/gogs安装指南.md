@@ -14,7 +14,7 @@ Gogs: 一个简易版,部署在自己服务器上的版本管理软件.
 
 这里使用 yum 安装,如果是内网,请使用 rpm 的安装包安装.
 
-```bash
+```sh
 [root@dev-116 ~]# yum install -y git
 [root@dev-116 ~]# git --version
 git version 1.8.3.1
@@ -27,7 +27,7 @@ gogs 要使用数据库存储,在这里我们选用 mysql.
 
 使用 rpm 安装 mysql,因为服务器上已经安装.
 
-```bash
+```sh
 [root@dev-116 mysql]# ls
 mysql-5.7.8-linux64.tar                         mysql-community-common-5.7.18-1.el7.x86_64.rpm  mysql-community-server-5.7.18-1.el7.x86_64.rpm
 mysql-community-client-5.7.18-1.el7.x86_64.rpm  mysql-community-libs-5.7.18-1.el7.x86_64.rpm
@@ -57,7 +57,7 @@ Query OK, 0 rows affected (0.01 sec)
 
 开通防火墙端口
 
-```bash
+```sh
 [root@dev-116 ~]# firewall-cmd --add-port=3306/tcp --zone=public --permanent
 success
 [root@dev-116 ~]# firewall-cmd --reload
@@ -72,7 +72,7 @@ success
 
 gogs 默认使用 3000 端口,请确保防火墙开启了该端口.
 
-```bash
+```sh
 [root@dev-116 ~]# firewall-cmd --add-port=3000/tcp --zone=public --permanent
 success
 [root@dev-116 ~]# firewall-cmd --reload
@@ -85,7 +85,7 @@ success
 
 官网下载页面:[link](https://gogs.io/docs/installation/install_from_binary.html)
 
-```bash
+```sh
 [root@dev-116 soft]# wget https://dl.gogs.io/0.11.66/gogs_0.11.66_linux_amd64.tar.gz
 [root@dev-116 soft]# tar -xvf gogs_0.11.66_linux_amd64.tar.gz
 [root@dev-116 gogs]# ls
@@ -134,7 +134,7 @@ ok,现在安装成功了,我们要改变我们的启动的方式了.
 
 我们上面使用启动方式是
 
-```bash
+```sh
 [root@dev-116 gogs]# ./gogs web
 ```
 
@@ -142,7 +142,7 @@ ok,现在安装成功了,我们要改变我们的启动的方式了.
 
 我们使用下面这种启动方式来启动
 
-```bash
+```sh
 [root@dev-116 gogs]# nohup ./gogs web  &
 [1] 65117
 [root@dev-116 gogs]# nohup: ignoring input and appending output to ‘nohup.out’

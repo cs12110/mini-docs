@@ -26,7 +26,7 @@
 
 **jdk**如下
 
-```bash
+```sh
 [root@dev-116 jdk1.8.0_151]# java -version
 java version "1.8.0_151"
 Java(TM) SE Runtime Environment (build 1.8.0_151-b12)
@@ -35,7 +35,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)
 
 **maven**如下
 
-```bash
+```sh
 [root@dev-116 maven-3.6.0]# mvn -version
 Apache Maven 3.6.0 (97c98ec64a1fdfee7767ce5ffb20918da4f719f3; 2018-10-25T02:41:47+08:00)
 Maven home: /opt/soft/maven/maven-3.6.0
@@ -46,7 +46,7 @@ OS name: "linux", version: "3.10.0-514.el7.x86_64", arch: "amd64", family: "unix
 
 **git**如下
 
-```bash
+```sh
 [root@dev-116 jenkins]# git --version
 git version 1.8.3.1
 [root@dev-116 jenkins]#
@@ -56,7 +56,7 @@ git version 1.8.3.1
 
 这里面使用`jenkins.war`
 
-```bash
+```sh
 [root@dev-116 jenkins]# wget http://mirror.xmission.com/jenkins/war-stable/2.138.2/jenkins.war
 [root@dev-116 jenkins]# du -sh *
 125M	jenkins.war
@@ -66,7 +66,7 @@ git version 1.8.3.1
 
 注意: **记得开启防火墙的端口.**
 
-```bash
+```sh
 [root@dev-116 jenkins]# firewall-cmd --add-port=3456/tcp --zone=public --permanent
 success
 [root@dev-116 jenkins]# firewall-cmd --reload
@@ -77,7 +77,7 @@ success
 
 启动 jenkins
 
-```bash
+```sh
 [root@dev-116 jenkins]# java -jar jenkins.war --httpPort=3456
 Running from: /opt/soft/jenkins/jenkins.war
 webroot: $user.home/.jenkins
@@ -89,7 +89,7 @@ INFO: Jenkins is fully up and running
 
 校验是否开启成功
 
-```bash
+```sh
 [root@dev-116 jenkins]# curl 10.33.1.116:3456
 ```
 
@@ -118,7 +118,7 @@ jenkins 的访问地址为:`http://server-ip:3456/`
 
 获取jenkins密码
 
-```bash
+```sh
 [root@dev-116 jenkins]# cat  /root/.jenkins/secrets/initialAdminPassword
 e5d7c32aafb54888a75f0da6ec5903f5
 ```
@@ -200,7 +200,7 @@ git用户密码设置如下
 
 温馨提示: **注意文件的配置路径**
 
-```bash
+```sh
 [root@dev-116 maven-task]# pwd
 /root/.jenkins/workspace/maven-task
 [root@dev-116 maven-task]# ls
@@ -227,7 +227,7 @@ docs  pom.xml  README.md  src  target
 
 在构建的控制台里面输出这个则构建成功.
 
-```bash
+```sh
 ......
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
@@ -280,7 +280,7 @@ echo -e '---------------'
 
 在构建成功之后,可以在`10.33.1.115`服务器上看见项目启动.
 
-```bash
+```sh
 [root@dev-115 soft]# cd english-web/
 [root@dev-115 english-web]# ls
 app  config  english-web-0.0.1-SNAPSHOT-package.zip  lib  logconfig  logs
