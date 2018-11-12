@@ -16,6 +16,7 @@
 
 - [Java EE](javaee/README.md)
   - [Spring 常用技巧](javaee/Spring常用技巧.md)
+  - [Spring 与 SqlSession](javaee/Spring与SqlSession.md)
   - [SpringCloud 基础](javaee/SpringCloud基础.md)
   - [Rpc 之 Thrift](javaee/Rpc.md)
 
