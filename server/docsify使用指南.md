@@ -111,14 +111,16 @@ db  index.html	iview  javaee  javase  mq  README.md  server  SUMMARY.md  tb
       name: 'cs12110',
       repo: 'cs12110/mini-docs',
       loadSidebar: true,
-      loadSidebar: 'SUMMARY.md'
+      loadSidebar: 'SUMMARY.md',
+      coverpage: true,
+      subMaxLevel: 3,
+      auto2top: true
     }
   </script>
-
+  
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-  <!-- 复制代码插件 -->
   <script src="//unpkg.com/docsify-copy-code"></script>
-  <!-- 代码高亮插件 -->
+  <!-- 代码高亮 -->
   <script src="//unpkg.com/prismjs/components/prism-java.min.js"></script>
   <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
 
