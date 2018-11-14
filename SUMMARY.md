@@ -10,7 +10,6 @@
   - [ThreadLocal 笔记](javase/threadlocal.md)
   - [Classloader 资料](javase/Classloder.md)
   - [自定义 IOC 资料](javase/MyIoc.md)
-  - [Java 工具之数据字典](javase/Java工具之数据字典.md)
 
 ---
 
