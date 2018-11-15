@@ -126,3 +126,100 @@ thread-1 持有锁`0x00000000d65ac460`,在等待`0x00000000d65ac450`.
 thread-2 持有锁`0x00000000d65ac450`,在等待`0x00000000d65ac450`.
 
 ---
+
+## 2. 生产者/消费者模式
+
+面试中经常遇到的`生产者/消费者`模式,经典的`wait/notify`的使用场景.
+
+### 2.1 基础知识
+
+重点: **wait 会释放锁,进入 blocked 状态,当被 notify 的时候再重新进行 ready-to-run 里面.**
+
+gotMsg=false
+
+消费者获得锁 -> if(!gotMsg){Lock.class.wait()} do something -> done.
+
+生产者获取消费者释放的锁 -> 生产消息 -> gotMsg=ture ->Lock.class.notify().
+
+### 2.2 测试代码
+
+```java
+package test;
+/**
+ * 生产者/消费者模式
+ *
+ *
+ * <p>
+ *
+ * @author cs12110 2018年11月15日
+ * @see
+ * @since 1.0
+ */
+public class Factory {
+
+	private static String msg = "";
+
+	private static boolean isHaveWorkToDo = false;
+
+	public static void main(String[] args) {
+		new Thread(new MyConsumer()).start();
+		new Thread(new MyProvider()).start();
+	}
+
+	/**
+	 * 消费者
+	 */
+	static class MyConsumer implements Runnable {
+		@Override
+		public void run() {
+			try {
+				synchronized (Factory.class) {
+					System.out.println(this + " get the lock");
+					if (!isHaveWorkToDo) {
+						System.out.println(this + " got to wait");
+						Factory.class.wait();
+					}
+					System.out.println(this + " consumer: " + msg);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * 生产者
+	 */
+	static class MyProvider implements Runnable {
+		@Override
+		public void run() {
+			try {
+				synchronized (Factory.class) {
+					System.out.println(this + " get the lock");
+					msg = "timestamp:" + System.currentTimeMillis();
+					System.out.println(this + " provider: " + msg);
+					isHaveWorkToDo = false;
+
+					Factory.class.notify();
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
+```
+
+测试结果
+
+```java
+test.Factory$MyConsumer@64f7047 get the lock
+test.Factory$MyConsumer@64f7047 got to wait
+test.Factory$MyProvider@612327cd get the lock
+test.Factory$MyProvider@612327cd provider: timestamp:1542247858340
+test.Factory$MyConsumer@64f7047 consumer: timestamp:1542247858340
+```
+
+---
