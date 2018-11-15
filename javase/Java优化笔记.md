@@ -838,68 +838,19 @@ After all the task done, you can do anything you want.
 
 ---
 
-## 10.文件导入数据的优化
+## 10.数据导入优化
 
-在生产环境里面,有一个需求: 用户界面导入文件,程序处理入数据库.
+在生产环境里面,有一个需求: 用户界面导入文件,按行读取文件内容,并把内容插入数据库.
 
-在之前的优化,使用数据库批处理来加快导入速度.
+在系统里面使用的方式是: 使用`IO`读取内容,每一行进行处理插入数据.
 
-现在加快速度: 先按照行数拆分文件,交给线程池处理每一个子文件(当然线程也是用数据库批处理)
+优化版本 1: 使用`jdbc`批处理功能,减少数据在网络上传输的时间.
 
-**App.java**
+优化版本 2: 采用队列方法,一个线程负责读取文件内容放置队里,开启其他线程处理队列里面的内容+线程使用`jdbc`批处理.
 
-```java
-package com.pkgs;
+测试文本:`all.txt`,为 100 行的数据文本.
 
-public class App {
-	public static void main(String[] args) {
-		// 生成测试数据文件
-		GeneratorFile.main(null);
-
-		// 简单处理
-		Simple.main(null);
-
-		// 优化处理
-		Optimize.main(null);
-	}
-}
-```
-
-**GeneratorFile.java**
-
-```java
-package com.pkgs;
-
-import java.io.File;
-import java.io.FileWriter;
-
-public class GeneratorFile {
-
-	public static void main(String[] args) {
-
-		StringBuilder builder = new StringBuilder();
-
-		for (int index = 0; index < 1000; index++) {
-			builder.append(index);
-			builder.append(System.lineSeparator());
-		}
-
-		try {
-			File file = new File("d://all.txt");
-			FileWriter writer = new FileWriter(file);
-			writer.write(builder.toString());
-			writer.flush();
-			writer.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-}
-```
-
-**Simple.java**
+### 10.1 普通处理
 
 ```java
 package com.pkgs;
@@ -930,8 +881,8 @@ public class Simple {
 
 	private void processLine(String line) {
 		try {
-			// 每条数据处理,大概耗时50毫秒
-			Thread.sleep(50);
+			// 每条数据处理,大概耗时5毫秒
+			Thread.sleep(5);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -939,140 +890,195 @@ public class Simple {
 }
 ```
 
-**Optimize.java**
+测试结果
 
 ```java
-package com.pkgs;
+class com.pkgs.Simple spend times: 504
+```
+
+### 10.2 优化版本代码
+
+自定义队列代码
+
+```java
+
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+/**
+ * 队列中心
+ *
+ *
+ * <p>
+ *
+ * @author cs12110 2018年11月15日
+ * @see
+ * @since 1.0
+ */
+public class MemQueue {
+
+	/**
+	 * 队列
+	 */
+	private static final BlockingQueue<Object> BLOCK_QUEUE = new LinkedBlockingQueue<>();
+
+	/**
+	 * 结束标志
+	 */
+	private static final String IS_DONE_VALUE = "$$%%^^**&&##++--//??@@!!";
+
+	/**
+	 * 新增消息
+	 *
+	 * @param value
+	 *            值
+	 */
+	public static void put(Object value) {
+		try {
+			BLOCK_QUEUE.put(value);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 消费消息
+	 *
+	 * @return object
+	 */
+	public static Object pop() {
+		return BLOCK_QUEUE.poll();
+	}
+
+	/**
+	 * 设置All done标志
+	 */
+	public static void allDone() {
+		put(IS_DONE_VALUE);
+	}
+
+	/**
+	 * 判断是否结束
+	 *
+	 * @param value
+	 *            值
+	 * @return boolean
+	 */
+	public static boolean itIsDone(Object value) {
+		return IS_DONE_VALUE.equals(String.valueOf(value));
+	}
+
+}
+```
+
+```java
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Executors;
+
+import test.MemQueue;
 
 public class Optimize {
 
-	private static final int STEP_IN = 100;
+	private final static int THREAD_NUM = 5;
 
-	private final static ExecutorService service = new ThreadPoolExecutor(5, 10,
-			0, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1024));
+	private final static ExecutorService service = Executors.newFixedThreadPool(THREAD_NUM);
+	/**
+	 * 消息全部放置完成
+	 */
+	private static volatile boolean isAllDone = false;
 
-	public static void main(String[] args) {
-
+	public static void startup(String[] args) {
 		long start = System.currentTimeMillis();
-		try {
-			List<String> fileList = splitFile("d://all.txt");
-			List<Future<?>> futureList = new ArrayList<>();
+		service.submit(new MyReader());
+		for (int index = 0, size = THREAD_NUM - 1; index < size; index++) {
+			service.submit(new MyConsumer("t" + index));
+		}
 
-			for (String each : fileList) {
-				// System.out.println(each);
-				Future<?> submit = service.submit(new Worker(each));
-				futureList.add(submit);
-			}
-
-			for (Future<?> f : futureList) {
-				f.get();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		while (!isAllDone) {
 		}
 		long end = System.currentTimeMillis();
-		System.out.println(Optimize.class + " spend: " + (end - start));
+
+		System.out.println("Optimize spend: " + (end - start));
 	}
 
-	private static List<String> splitFile(String path) {
-		List<String> fileList = new ArrayList<>();
-		File file = new File(path);
-		String name = file.getName();
-
-		try {
-			RandomAccessFile accessFile = new RandomAccessFile(file, "r");
-
-			int lineNum = 0;
-			int fileIndex = 0;
-
-			String line = null;
-			StringBuilder builder = new StringBuilder();
-
-			while (null != (line = accessFile.readLine())) {
-				lineNum++;
-				builder.append(line);
-				builder.append(System.lineSeparator());
-				if (lineNum % STEP_IN == 0) {
-					File subFile = new File((fileIndex++) + name);
-					FileWriter writer = new FileWriter(subFile);
-					writer.write(builder.toString());
-					writer.flush();
-					writer.close();
-					builder = new StringBuilder();
-					fileList.add(subFile.getAbsolutePath());
+	static class MyReader implements Runnable {
+		@Override
+		public void run() {
+			System.out.println("Start running: " + this);
+			try {
+				File file = new File("d://all.txt");
+				RandomAccessFile access = new RandomAccessFile(file, "r");
+				String line = null;
+				while (null != (line = access.readLine())) {
+					MemQueue.put(line);
 				}
+				access.close();
+				System.out.println("It's done: " + this);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				MemQueue.allDone();
 			}
-
-			if (builder.length() > 0) {
-				File subFile = new File(fileIndex + name);
-				FileWriter writer = new FileWriter(subFile);
-				writer.write(builder.toString());
-				writer.flush();
-				writer.close();
-				fileList.add(subFile.getAbsolutePath());
-			}
-
-			accessFile.close();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		return fileList;
 	}
 
-	static class Worker implements Runnable {
+	/**
+	 * 消费者
+	 */
+	static class MyConsumer implements Runnable {
+		private String threadName;
+		private int num = 0;
 
-		private String path;
-
-		public Worker(String path) {
-			this.path = path;
+		public MyConsumer(String threadName) {
+			super();
+			this.threadName = threadName;
 		}
 
 		@Override
 		public void run() {
-			try {
-				File file = new File(path);
-				RandomAccessFile access = new RandomAccessFile(file, "r");
-				String line = null;
-				while (null != (line = access.readLine())) {
-					processLine(line);
+			long start = System.currentTimeMillis();
+			while (!isAllDone) {
+				Object msg = MemQueue.pop();
+				if (MemQueue.itIsDone(msg)) {
+					isAllDone = true;
+					break;
 				}
-
-				// 删除临时文件
-				file.delete();
-				access.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+				if (null != msg) {
+					processLine(String.valueOf(msg));
+					num++;
+				}
 			}
+			long end = System.currentTimeMillis();
+			System.out.println(threadName + " using: " + num + " , spend times: " + (end - start));
 		}
 
 		private void processLine(String line) {
 			try {
-				// 每条数据处理,大概耗时50毫秒
-				Thread.sleep(50);
+				// 每条数据处理,大概耗时5毫秒
+				Thread.sleep(5);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
+
 }
 ```
 
-**测试结果**
+测试结果
 
 ```java
-class com.pkgs.Simple spend times: 50002
-class com.pkgs.Optimize spend: 10026
+Start running: test.per.Optimize$MyReader@24d2263f
+It's done: test.per.Optimize$MyReader@24d2263f
+t0 using: 25 , spend times: 127
+Optimize spend: 140
+Optimize is done
+t2 using: 24 , spend times: 128
+t1 using: 26 , spend times: 131
+t3 using: 25 , spend times: 125
 ```
 
 总结:在上述的测试数据里面,该方法能提高数据的处理速度(差不多 5 倍),但也消耗更大的资源和提高了程序的复杂性.要怎么使用,请参考具体生成环境.
