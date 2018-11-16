@@ -653,3 +653,134 @@ private int asyncPort;
 ```
 
 ---
+
+---
+
+## 7. 获取 ApplicationContext
+
+Spring 与 ApplicationContext
+
+在有些场景下面,我们需要获取到上下文`ApplicationContext`.
+
+那么我们该怎么做呢?
+
+### 7.1 实现`ApplicationContextAware`接口.
+
+实现`ApplicationContextAware`接口,这里面有一个坑.
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
+
+/**
+ *
+ * ApplicationContext工具类
+ *
+ * <p>
+ *
+ * @author cs12110 2018年11月16日
+ * @see
+ * @since 1.0
+ */
+@Component("SpringAppCtx")
+public class SpringAppCtx implements ApplicationContextAware {
+
+	private static Logger logger = LoggerFactory.getLogger(SpringAppCtx.class);
+
+	private static ApplicationContext ctx = null;
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
+		logger.info("Set context value: {}", applicationContext);
+		SpringAppCtx.ctx = applicationContext;
+	}
+
+	public static ApplicationContext getApplicationContext() {
+		return ctx;
+	}
+
+}
+```
+
+上面这种实现方法,有一个要命的地方是,就是`@PostConstruct`方法里面使用到的话,会得到的是`null`.
+
+解决方法: 在调用类里面,添加注解`@DependsOn("SpringAppCtx")`.代码如下
+
+```java
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+import cn.rojao.task.SpringAppCtx;
+
+@SpringBootApplication
+@EnableScheduling
+@DependsOn("SpringAppCtx")
+public class App {
+	public static void main(String[] args) {
+		SpringApplication.run(App.class, args);
+	}
+
+	/**
+	 * 系统初始化方法
+	 */
+	@PostConstruct
+	public void sysInit() {
+		ApplicationContext ctx = SpringAppCtx.getApplicationContext();
+		System.out.println();
+		System.out.println(ctx);
+		System.out.println();
+	}
+}
+```
+
+### 7.2 @Autowired 注入
+
+最简单,最粗暴,我最喜欢了.
+
+直接使用`@Autowired`注入.
+
+```java
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+import cn.rojao.task.SysInit;
+
+@SpringBootApplication
+@EnableScheduling
+public class App {
+
+	@Autowired
+	private ApplicationContext ctx;
+
+	public static void main(String[] args) {
+		SpringApplication.run(App.class, args);
+	}
+
+	/**
+	 * 系统初始化方法
+	 */
+	@PostConstruct
+	public void sysInit() {
+		System.out.println(ctx);
+	}
+}
+```
+
+---
