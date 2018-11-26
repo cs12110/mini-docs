@@ -19,6 +19,7 @@
   - [Spring 与 SqlSession](javaee/Spring与SqlSession.md)
   - [SpringCloud 基础](javaee/SpringCloud基础.md)
   - [Rpc 之 Thrift](javaee/Rpc.md)
+  - [Redis 之分布式锁](javaee/Redis之分布式锁.md)
 
 ---
 

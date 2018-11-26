@@ -654,8 +654,6 @@ private int asyncPort;
 
 ---
 
----
-
 ## 7. 获取 ApplicationContext
 
 Spring 与 ApplicationContext
