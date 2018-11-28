@@ -223,3 +223,188 @@ test.Factory$MyConsumer@64f7047 consumer: timestamp:1542247858340
 ```
 
 ---
+
+## 3. CountdownLatch
+
+适用于: 在主线程需要等待所有子线程执行完,再往下执行的场景.
+
+最简单的就是使用 `join` 来实现,但是 `join` 并不能完全实现多线程的作用.
+
+### 3.1 测试线程
+
+```java
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.CountDownLatch;
+
+/**
+ * 测试线程
+ *
+ *
+ * <p>
+ *
+ * @author cs12110 2018年11月28日
+ * @see
+ * @since 1.0
+ */
+public class MyRun implements Runnable {
+
+	/**
+	 * 线程名称
+	 */
+	private String threadName;
+	/**
+	 * {@link CountDownLatch}
+	 */
+	private CountDownLatch latch;
+
+	public MyRun(String threadName) {
+		this(threadName, null);
+	}
+
+	public MyRun(String threadName, CountDownLatch latch) {
+		this.threadName = threadName;
+		this.latch = latch;
+	}
+
+	@Override
+	public void run() {
+		System.out.println(getTime() + " - " + threadName + " start running");
+		try {
+			Thread.sleep(1000);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(getTime() + " - " + threadName + " all done");
+		// latch count down
+		if (latch != null) {
+			latch.countDown();
+		}
+
+	}
+
+	/**
+	 * 获取当前时间
+	 *
+	 * @return
+	 */
+	public static String getTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
+		return sdf.format(new Date());
+	}
+}
+```
+
+### 3.2 join
+
+```java
+/**
+ * 测试Join的使用
+ *
+ *
+ * <p>
+ *
+ * @author cs12110 2018年11月28日
+ * @see
+ * @since 1.0
+ */
+public class MyJoin {
+
+	public static void main(String[] args) {
+		// 线程数
+		int threadNum = 3;
+
+		// 启动线程
+		for (int index = 0; index < threadNum; index++) {
+			Thread t = new Thread(new MyRun("t" + index));
+			t.start();
+			try {
+				t.join();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(MyRun.getTime() + " - main all is done");
+	}
+
+}
+```
+
+测试结果
+
+```java
+2018-11-28 14:10:01,728 - t0 start running
+2018-11-28 14:10:02,729 - t0 all done
+2018-11-28 14:10:02,731 - t1 start running
+2018-11-28 14:10:03,731 - t1 all done
+2018-11-28 14:10:03,733 - t2 start running
+2018-11-28 14:10:04,733 - t2 all done
+2018-11-28 14:10:04,734 - main all is done
+```
+
+### 3.3 countdown
+
+```java
+import java.util.concurrent.CountDownLatch;
+/**
+ * 测试{@link CountDownLatch}的使用
+ *
+ *
+ * <p>
+ *
+ * @author cs12110 2018年11月28日
+ * @see
+ * @since 1.0
+ */
+public class MyLatch {
+
+	/**
+	 * CountdownLacth对象
+	 */
+	private static CountDownLatch latch;
+
+	public static void main(String[] args) {
+
+		// 线程数
+		int threadNum = 3;
+
+		// 实例化CountdownLatch
+		latch = new CountDownLatch(threadNum);
+
+		// 启动线程
+		for (int index = 0; index < threadNum; index++) {
+			new Thread(new MyRun("t" + index, latch)).start();
+		}
+
+		try {
+			// 注意是await,而不是wait
+			latch.await();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(MyRun.getTime() + " - main all is done");
+	}
+
+}
+```
+
+测试结果
+
+```java
+2018-11-28 14:10:52,699 - t2 start running
+2018-11-28 14:10:52,699 - t0 start running
+2018-11-28 14:10:52,699 - t1 start running
+2018-11-28 14:10:53,700 - t2 all done
+2018-11-28 14:10:53,700 - t1 all done
+2018-11-28 14:10:53,700 - t0 all done
+2018-11-28 14:10:53,701 - main all is done
+```
+
+### 3.4 结论
+
+可以看出`join`相当于单线程执行,`CountdownLatch`更能发回多线程的作用.
+
+所以遇到相似的场景时,应选用`CountdownLatch`来代替`join`.
+
+---
