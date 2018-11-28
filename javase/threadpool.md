@@ -48,12 +48,14 @@ public class MyRun implements Runnable {
 
 这个就是我们的奥黛丽.赫本了(主角).
 
-注意队列是有边界还是没有边界的. :"}
+注意等待队列是有边界还是没有边界的,同时也要注意等待队列的大小.
+
+比如: `new LinkedBlockingQueue<>(1)`和`new LinkedBlockingQueue<>()`的区别.
 
 ```java
 public class MyThreadPoolExecuotr {
 	public static void main(String[] args) {
-		ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 5, 10, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1));
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 5, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<>(1));
 
 		executor.submit(new MyRun("t1"));
 		executor.submit(new MyRun("t2"));
@@ -80,10 +82,10 @@ public ThreadPoolExecutor(int corePoolSize,
 
 - corePoolsize: 线程池核心线程数
 - maxinumPoolSize: 线程池最大线程数
-- keepAliveTime 和 unit: 这个两个组合使用,表示空闲的线程(只回收>coresize 的线程)在多少时间后被回收
+- keepAliveTime 和 unit: 这个两个组合使用,表示空闲的线程(只回收>coresize 的线程)在多少时间后被回收,最多缩减为 coresize 数量
 - workQueue: 等待队列的大小
 
-工作流程:<span style="color:pink">**陆续创建核心线程数大小的线程 -> 消费不过了,放到等待队列里面 -> 队列满了 -> 扩充线程池线程数,最大为最大线程数 -> 队列满了(有边界的队列才会满,想 LinkedBlockingQueue 是不会满的 orz),池已经扩充到最大,还消费不过来-> 默认采取拒绝策略.**<span>
+工作流程:<span style="color:pink">**陆续创建核心线程数大小的线程 -> 消费不过了,放到等待队列里面 -> 队列满了 -> 扩充线程池线程数,最大为最大线程数 -> 队列满了(有边界的队列才会满 orz),池已经扩充到最大,还消费不过来-> 默认采取拒绝策略.**<span>
 
 测试结果
 
