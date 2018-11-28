@@ -123,7 +123,7 @@ public class RedisLockUtil {
 	 *
 	 * @return String
 	 */
-	private static String releaseLockSscript() {
+	private static String releaseLockScript() {
 		String script = "if redis.call('get', KEYS[1]) == ARGV[1] then  return redis.call('del', KEYS[1]) else  return 0 end";
 		return script;
 	}
@@ -169,8 +169,8 @@ public class SetNxLock {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				RedisLockUtil.unlock(KEY_NAME, RESOURCE_NAME);
 				System.out.println(getTime() + " " + threadName + " release the lock");
+				RedisLockUtil.unlock(KEY_NAME, RESOURCE_NAME);
 			}
 		}
 
