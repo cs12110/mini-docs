@@ -135,12 +135,8 @@ public class RedisLockUtil {
 测试代码
 
 ```java
-package com.pkgs;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.pkgs.lock.RedisLockUtil;
 
 public class SetNxLock {
 
@@ -176,7 +172,6 @@ public class SetNxLock {
 
 		private static String getTime() {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 			return sdf.format(new Date());
 		}
 
@@ -235,8 +230,6 @@ Redission 可以解决上面那些问题. 泪目
 ### 2.2 代码
 
 ```java
-package com.pkgs;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -301,18 +294,15 @@ public class RedissionLock {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				lock.unlock();
 				System.out.println(getTime() + " " + threadName + " release the lock");
+				lock.unlock();
 			}
-
 		}
 
 		private static String getTime() {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 			return sdf.format(new Date());
 		}
-
 	}
 }
 ```
@@ -341,4 +331,4 @@ public class RedissionLock {
 
 ## 3. 结论
 
-如果使用分布式锁,建议使用 redission 来做.
+如果使用分布式锁,建议使用 `redission` 来做.
