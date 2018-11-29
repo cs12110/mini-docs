@@ -267,7 +267,7 @@ ReentrantLock 和 synchronized,前者的先进性体现在以下几点:
 
 Q: 什么时候使用`ReentrantLock`?
 
-A: 在一些内置锁无法满足一些高级功能的时候才考虑使用 ReentrantLock
+A: 在一些内置锁无法满足一些高级功能的时候才考虑使用 `ReentrantLock`
 
 ### 4.2 示例代码
 
@@ -299,9 +299,13 @@ public class LockTest {
 	}
 
 	private static void increase() {
+		// 一定要在finally里面释放锁,不要抛出异常,其他的线程永远都不可能获取到锁.
 		lock.lock();
-		num++;
-		lock.unlock();
+		try{
+			num++;
+		}finally{
+			lock.unlock();
+		}
 	}
 
 	static class Worker implements Runnable {
@@ -328,3 +332,5 @@ a. [全面理解 Java 内存模型(JMM)及 volatile 关键字](https://blog.csdn
 b. [深入理解 Java 并发之 synchronized 实现原理](https://blog.csdn.net/javazejian/article/details/72828483)
 
 c. [Java 并发编程系列之十六：Lock 锁](https://blog.csdn.net/u011116672/article/details/51064186?utm_source=blogxgwz0)
+
+d. [IBM:ReentrantLock 和 synchronized 对比](https://www.ibm.com/developerworks/cn/java/j-jtp10264/index.html)
