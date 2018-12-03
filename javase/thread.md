@@ -175,7 +175,8 @@ public class Factory {
 			try {
 				synchronized (Factory.class) {
 					System.out.println(this + " get the lock");
-					if (!isHaveWorkToDo) {
+					//这里面,为什么使用while而不是if?请参考下面的QA
+					while(!isHaveWorkToDo) {
 						System.out.println(this + " got to wait");
 						Factory.class.wait();
 					}
@@ -221,6 +222,10 @@ test.Factory$MyProvider@612327cd get the lock
 test.Factory$MyProvider@612327cd provider: timestamp:1542247858340
 test.Factory$MyConsumer@64f7047 consumer: timestamp:1542247858340
 ```
+
+Q: 为什么使用`while`而不是`if`?
+
+A: 在没有被通知,中断或超时的情况下,线程还可以唤醒一个所谓的虚假唤醒(spurious wakeup,唤醒时,条件仍然不满足).虽然这种情况在实践中很少发生,但是应用程序必须通过以下方式防止其发生,即对应该导致该线程被提醒的条件进行测试,如果不满足该条件,则继续等待. [link](https://www.cnblogs.com/nulisaonian/p/6076674.html)
 
 ---
 
