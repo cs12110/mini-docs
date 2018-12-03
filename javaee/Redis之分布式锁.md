@@ -141,7 +141,7 @@ import java.util.Date;
 public class SetNxLock {
 
 	private static final String KEY_NAME = "tickets-lock";
-	private static final String RESOURCE_NAME = "tickets";
+	// private static final String RESOURCE_NAME = "tickets";
 
 	public static void main(String[] args) {
 		for (int index = 0; index < 5; index++) {
@@ -158,15 +158,17 @@ public class SetNxLock {
 
 		@Override
 		public void run() {
+			//使用 uuid 作为value,可以确定释放当前占用的锁
+			String value = UUID.randomUUID().toString();
 			try {
-				RedisLockUtil.lock(KEY_NAME, RESOURCE_NAME);
+				RedisLockUtil.lock(KEY_NAME, value);
 				System.out.println(getTime() + " " + threadName + " get the lock");
-				// Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				System.out.println(getTime() + " " + threadName + " release the lock");
-				RedisLockUtil.unlock(KEY_NAME, RESOURCE_NAME);
+				RedisLockUtil.unlock(KEY_NAME, value);
 			}
 		}
 
