@@ -329,8 +329,114 @@ public class RedissionLock {
 2018-11-26 09:54:28 c3 release the lock
 ```
 
+### 2.3 Redission 源码
+
+RedissionLock 主要是使用 lua eval 执行脚本(保证原子性),使用 hset+发布/订阅实现的.
+
+**加锁源码**
+
+`lockInterruptibly`: 获取锁,不成功则订阅释放锁的消息,获得消息前阻塞.得到释放通知后再去循环获取锁.
+
+```java
+@Override
+public void lockInterruptibly(long leaseTime, TimeUnit unit) throws InterruptedException {
+	// ttl: time to live
+	Long ttl = tryAcquire(leaseTime, unit);
+	// lock acquired
+	if (ttl == null) {
+		return;
+	}
+
+	// 异步订阅redis channel
+	Future<RedissonLockEntry> future = subscribe();
+	get(future);
+
+	try {
+		// 循环判断是否获取锁
+		while (true) {
+			ttl = tryAcquire(leaseTime, unit);
+			// lock acquired
+			if (ttl == null) {
+				break;
+			}
+
+			// waiting for message
+			RedissonLockEntry entry = getEntry();
+			if (ttl >= 0) {
+				entry.getLatch().tryAcquire(ttl, TimeUnit.MILLISECONDS);
+			} else {
+				entry.getLatch().acquire();
+			}
+		}
+	} finally {
+		// 取消订阅
+		unsubscribe(future);
+	}
+}
+```
+
+```java
+Future<Long> tryLockInnerAsync(long leaseTime, TimeUnit unit, long threadId) {
+internalLockLeaseTime = unit.toMillis(leaseTime);
+
+return commandExecutor.evalWriteAsync(getName(), LongCodec.INSTANCE, RedisCommands.EVAL_LONG,
+			"if (redis.call('exists', KEYS[1]) == 0) then " +
+				"redis.call('hset', KEYS[1], ARGV[2], 1); " +
+				"redis.call('pexpire', KEYS[1], ARGV[1]); " +
+				"return nil; " +
+			"end; " +
+			"if (redis.call('hexists', KEYS[1], ARGV[2]) == 1) then " +
+				"redis.call('hincrby', KEYS[1], ARGV[2], 1); " +
+				"redis.call('pexpire', KEYS[1], ARGV[1]); " +
+				"return nil; " +
+			"end; " +
+			"return redis.call('pttl', KEYS[1]);",
+			Collections.<Object>singletonList(getName()), internalLockLeaseTime, getLockName(threadId));
+}
+```
+
+**解锁源码**
+
+```java
+@Override
+public void unlock() {
+	Boolean opStatus = commandExecutor.evalWrite(getName(), LongCodec.INSTANCE, RedisCommands.EVAL_BOOLEAN,
+					"if (redis.call('exists', KEYS[1]) == 0) then " +
+						"redis.call('publish', KEYS[2], ARGV[1]); " +
+						"return 1; " +
+					"end;" +
+					"if (redis.call('hexists', KEYS[1], ARGV[3]) == 0) then " +
+						"return nil;" +
+					"end; " +
+					"local counter = redis.call('hincrby', KEYS[1], ARGV[3], -1); " +
+					"if (counter > 0) then " +
+						"redis.call('pexpire', KEYS[1], ARGV[2]); " +
+						"return 0; " +
+					"else " +
+						"redis.call('del', KEYS[1]); " +
+						"redis.call('publish', KEYS[2], ARGV[1]); " +
+						"return 1; "+
+					"end; " +
+					"return nil;",
+					Arrays.<Object>asList(getName(), getChannelName()), LockPubSub.unlockMessage, internalLockLeaseTime, getLockName(Thread.currentThread().getId()));
+	if (opStatus == null) {
+		throw new IllegalMonitorStateException("attempt to unlock lock, not locked by current thread by node id: "
+				+ id + " thread-id: " + Thread.currentThread().getId());
+	}
+	if (opStatus) {
+		cancelExpirationRenewal();
+	}
+}
+```
+
 ---
 
 ## 3. 结论
 
 如果使用分布式锁,建议使用 `redission` 来做.
+
+---
+
+## 4. 参考资料
+
+a. [Redission 分布式锁实现原理](https://www.cnblogs.com/diegodu/p/8185480.html)

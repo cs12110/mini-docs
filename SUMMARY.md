@@ -11,6 +11,7 @@
   - [ThreadLocal 笔记](javase/threadlocal.md)
   - [Classloader 资料](javase/Classloder.md)
   - [自定义 IOC 资料](javase/MyIoc.md)
+  - [Redis发布/订阅模式](javase/Redis发布订阅.md)
 
 ---
 
