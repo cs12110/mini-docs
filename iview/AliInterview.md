@@ -348,7 +348,7 @@ wait属于Object的成员方法,一旦一个对象调用了wait方法,必须要�
 
 ## 6. Mybatis缓存
 
-### 6.1 **延迟加载**
+### 6.1 延迟加载
 
 resultMap中的association和collection标签具有延迟加载的功能.
 
@@ -369,7 +369,7 @@ lazyLoadingEnabled,aggressiveLazyLoading
 
 
 
-### 6.2 **查询缓存**
+### 6.2 查询缓存
 
 **Mybatis的一级缓存**是指SqlSession.
 
@@ -417,7 +417,7 @@ SqlSession执行insert,update,delete等操作commit后会清空该SQLSession缓�
 
  
 
-### 6.3 **缓存设置**
+### 6.3 缓存设置
 
 在核心配置文件SqlMapConfig.xml中加入以下内容(开启二级缓存总开关):
 
@@ -454,7 +454,10 @@ cacheEnabled设置为 true
 
 ---
 
-## 7. SQL组合索引
+## 7. Mysql
+
+
+### 7.1 组合索引
 
 联合索引又叫复合索引.对于复合索引:Mysql从左到右的使用索引中的字段,一个查询可以只使用索引中的一部份,但只能是最左侧部分.例如索引是key index(a,b,c). 可以支持[a],[a,b],[a,c] ,[a,b,c] 4种组合进行查找,但不支持 b,c进行查找.当最左侧字段是常量引用时,索引就十分有效.
 
@@ -487,6 +490,44 @@ select * from abc where a ='1' and b='1';
 ```sql
 select * from abc where b='1' and c ='1';
 ```
+
+### 7.2 乐观锁与悲观锁
+
+悲观锁与乐观锁是两种常见的资源并发锁设计思路,也是并发编程中一个非常基础的概念.本文将对这两种常见的锁机制在数据库数据上的实现进行比较系统的介绍.
+
+**悲观锁(Pessimistic Lock)**
+
+悲观锁的特点是先获取锁,再进行业务操作,即"悲观"的认为获取锁是非常有可能失败的,因此要先确保获取锁成功再进行业务操作.通常所说的"一锁二查三更新"即指的是使用悲观锁.通常来讲在数据库上的悲观锁需要数据库本身提供支持,即通过常用的select ... for update操作来实现悲观锁.当数据库执行select for update时会获取被select中的数据行的行锁,因此其他并发执行的select for update如果试图选中同一行则会发生排斥(需要等待行锁被释放),因此达到锁的效果.select for update获取的行锁会在当前事务结束时自动释放,因此必须在事务中使用.
+
+这里需要注意的一点是不同的数据库对select for update的实现和支持都是有所区别的,例如oracle支持select for update no wait,表示如果拿不到锁立刻报错,而不是等待,mysql就没有no wait这个选项.另外mysql还有个问题是select for update语句执行中所有扫描过的行都会被锁上,这一点很容易造成问题.因此如果在mysql中用悲观锁务必要确定走了索引,而不是全表扫描.
+
+**乐观锁(Optimistic Lock)**
+
+乐观锁的特点先进行业务操作,不到万不得已不去拿锁.即"乐观"的认为拿锁多半是会成功的,因此在进行完业务操作需要实际更新数据的最后一步再去拿一下锁就好.
+
+乐观锁在数据库上的实现完全是逻辑的,不需要数据库提供特殊的支持.一般的做法是在需要锁的数据上增加一个版本号,或者时间戳,然后按照如下方式实现：
+
+```java
+SELECT data AS old_data, version AS old_version FROM ...;
+
+// 根据获取的数据进行业务操作,得到new_data和new_version
+UPDATE SET data = new_data, version = new_version WHERE version = old_version
+
+if (updated row > 0) {
+    // 乐观锁获取成功,操作完成
+} else {
+    // 乐观锁获取失败,回滚并重试
+}
+
+```
+
+乐观锁是否在事务中其实都是无所谓的,其底层机制是这样：在数据库内部update同一行的时候是不允许并发的,即数据库每次执行一条update语句时会获取被update行的写锁,直到这一行被成功更新后才释放.因此在业务操作进行前获取需要锁的数据的当前版本号,然后实际更新数据时再次对比版本号确认与之前获取的相同,并更新版本号,即可确认这之间没有发生并发的修改.如果更新失败即可认为老版本的数据已经被并发修改掉而不存在了,此时认为获取锁失败,需要回滚整个业务操作并可根据需要重试整个过程.
+
+**总结**
+
+乐观锁在不发生取锁失败的情况下开销比悲观锁小,但是一旦发生失败回滚开销则比较大,因此适合用在取锁失败概率比较小的场景,可以提升系统并发性能
+
+乐观锁还适用于一些比较特殊的场景,例如在业务操作过程中无法和数据库保持连接等悲观锁无法适用的地方
 
 ---
 
@@ -822,6 +863,7 @@ public interface BeanFactory {
 ```
 
 **FactoryBean**
+
 一般情况下,Spring通过反射机制利用<bean>的class属性指定实现类实例化Bean,在某些情况下,实例化Bean过程比较复杂,如果按照传统的方式,则需要在<bean>中提供大量的配置信息.配置方式的灵活性是受限的,这时采用编码的方式可能会得到一个简单的方案.Spring为此提供了一个org.springframework.bean.factory.FactoryBean的工厂类接口,用户可以通过实现该接口定制实例化Bean的逻辑.
 FactoryBean接口对于Spring框架来说占用重要的地位,Spring自身就提供了70多个FactoryBean的实现.它们隐藏了实例化一些复杂Bean的细节,给上层应用带来了便利.从Spring3.0开始,FactoryBean开始支持泛型,即接口声明改为FactoryBean<T>的形式
 
@@ -834,11 +876,17 @@ public interface FactoryBean<T> {
 }
 ```
 
- 在该接口中还定义了以下3个方法:
-TgetObject():返回由FactoryBean创建的Bean实例,如果isSingleton()返回true,则该实例会放到Spring容器中单实例缓存池中;
-booleanisSingleton():返回由FactoryBean创建的Bean实例的作用域是singleton还是prototype;
-`Class<T>getObjectType()`:返回FactoryBean创建的Bean类型.
+该接口中还定义了以下3个方法:
+
+- T getObject():返回由FactoryBean创建的Bean实例,如果isSingleton()返回true,则该实例会放到Spring容器中单实例缓存池中;
+
+- boolean isSingleton():返回由FactoryBean创建的Bean实例的作用域是singleton还是prototype;
+
+- Class<T> getObjectType():返回FactoryBean创建的Bean类型.
+
+
 当配置文件中`<bean>`的class属性配置的实现类是FactoryBean时,通过getBean()方法返回的不是FactoryBean本身,而是FactoryBean#getObject()方法所返回的对象,相当于FactoryBean#getObject()代理了getBean()方法.
+
 例:如果使用传统方式配置下面Car的`<bean>`时,Car的每个属性分别对应一个`<property>`元素标签.
 
 ```java
@@ -913,6 +961,7 @@ public   class  CarFactoryBean  implements  FactoryBean<Car>  {
 
 
 **区别**
+
 BeanFactory是个Factory,也就是IOC容器或对象工厂,FactoryBean是个Bean.在Spring中,所有的Bean都是由BeanFactory(也就是IOC容器)来进行管理的.但对FactoryBean而言,这个Bean不是简单的Bean,而是一个能生产或者修饰对象生成的工厂Bean,它的实现与设计模式中的工厂模式和修饰器模式类似.
 
 
@@ -1000,6 +1049,7 @@ public @interface ScheduleJob {...}
 Spring默认情况下会对运行期例外(RunTimeException),即uncheck异常,进行事务回滚.
 
 如果遇到checked异常就不回滚.
+
 如何改变默认规则:
 
 1. 让checked例外也回滚:在整个方法前加上 `@Transactional(rollbackFor=Exception.class)`
@@ -1269,7 +1319,7 @@ RPC 的主要功能目标是让构建分布式计算(应用)更容易,在提供�
 
 服务化的一个好处就是,不限定服务的提供方使用什么技术选型,能够实现大公司跨团队的技术解耦. 
 
-如果没有统一的服务框架,RPC框架,各个团队的服务提供方就需要各自实现一套序列化,反序列化,网络框架,连接池,收发线程,超时处理,状态机等“业务之外”的重复技术劳动,造成整体的低效.所以,统一RPC框架把上述“业务之外”的技术劳动统一处理,是服务化首要解决的问题
+如果没有统一的服务框架,RPC框架,各个团队的服务提供方就需要各自实现一套序列化,反序列化,网络框架,连接池,收发线程,超时处理,状态机等"业务之外"的重复技术劳动,造成整体的低效.所以,统一RPC框架把上述"业务之外"的技术劳动统一处理,是服务化首要解决的问题
 
 
 **几种协议**
