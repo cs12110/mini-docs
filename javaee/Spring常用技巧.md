@@ -782,3 +782,105 @@ public class App {
 ```
 
 ---
+
+## 8. SpringBoot 拦截器
+
+### 8.1 基础概念
+
+来自[过滤器(Filter)和拦截器(Interceptor)](https://www.cnblogs.com/protected/p/6649587.html)
+
+Filter 和 Interceptor 的区别
+
+- Filter 是基于函数回调(doFilter()方法)的,而 Interceptor 则是基于 Java 反射的(AOP 思想)
+
+- Filter 依赖于 Servlet 容器,而 Interceptor 不依赖于 Servlet 容器.Filter 对几乎所有的请求起作用,而 Interceptor 只能对 action 请求起作用.
+
+- Interceptor 可以访问 Action 的上下文,值栈里的对象,而 Filter 不能
+
+- 在 action 的生命周期里,Interceptor 可以被多次调用,而 Filter 只能在容器初始化时调用一次.
+
+Filter 和 Interceptor 的执行顺序
+
+**过滤前-拦截前-action 执行-拦截后-过滤后**
+
+### 8.2 代码实现
+
+需要实现 Spring 里面的`org.springframework.web.servlet.HandlerInterceptor`接口,并注册.
+
+**拦截器**
+
+```java
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+/**
+ * 拦截器
+ *
+ *
+ * <p>
+ *
+ * @author cs12110 2018年12月6日
+ * @see
+ * @since 1.0
+ */
+public class JustWatchInterceptor implements HandlerInterceptor {
+
+	private static Logger logger = LoggerFactory.getLogger(JustWatchInterceptor.class);
+
+	/**
+	 * 请求前拦截器
+	 */
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		logger.info("interceptor:{}", request.getRequestURI());
+		// 返回true才往下执行
+		return true;
+	}
+}
+```
+
+**配置**
+
+```java
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import cn.rojao.utils.interceptor.JustWatchInterceptor;
+/**
+ * MVC配置
+ */
+@Configuration
+public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new JustWatchInterceptor());
+	}
+
+	/**
+	 * 添加自定义方法参数处理器,没有可省略
+	 */
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+	}
+}
+```
+
+**测试结果**
+
+```java
+2018-12-06 08:24:31 INFO  c.r.u.i.JustWatchInterceptor:30 - interceptor:/login.html
+2018-12-06 08:24:31 INFO  c.r.u.i.JustWatchInterceptor:30 - interceptor:/sys/sysbasedata/getAllBaseData
+2018-12-06 08:24:31 INFO  c.r.u.i.JustWatchInterceptor:30 - interceptor:/captcha.jpg
+2018-12-06 08:24:31 INFO  c.r.u.i.JustWatchInterceptor:30 - interceptor:/public/images/icon.png
+```
