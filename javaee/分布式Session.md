@@ -18,7 +18,7 @@ nginx 默认的策略里面使用`ip_hash`,如果当前用户使用的`server1`�
 
 ### 1.2 简单架构
 
-![img/share-session.png](img/share-session.png)
+![i](img/share-session.png)
 
 ---
 
@@ -30,7 +30,7 @@ nginx 默认的策略里面使用`ip_hash`,如果当前用户使用的`server1`�
 
 使用高版本的可以支持 redis 集群.
 
-FBI WARING:`Do not use version < 3.1.0` [详情link](http://alexxiyang.github.io/shiro-redis/)
+FBI WARING:`Do not use version < 3.1.0` [详情 link](http://alexxiyang.github.io/shiro-redis/)
 
 ```xml
 <!-- shiro+redis缓存插件 -->
@@ -82,9 +82,7 @@ import cn.rojao.utils.shiro.UserRealm;
 /**
  * Shiro配置
  *
- * @author ynz
- * @email ynz@rojao.cn
- * @version 创建时间：2017年11月21日 下午12:27:21
+ * @version 创建时间：2019年12月05日
  */
 @Configuration
 public class ShiroConfig {
