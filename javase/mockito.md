@@ -593,7 +593,158 @@ public class VerifyCaptureArgTest {
 
 ---
 
-## 12. 参考资料
+## 12. SpringBoot 与 Mockito
+
+请确保`springboot`,`springboot-test`,`junit`,`mockito`依赖.
+
+测试服务类
+
+```java
+package com.official.mock;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.official.entity.Customer;
+import com.official.mapper.CustomerMapper;
+
+/**
+ * 测试Service
+ *
+ *
+ * @author cs12110 at 2018年12月9日上午12:43:03
+ *
+ */
+@Service
+public class MockService {
+
+	private static Logger logger = LoggerFactory.getLogger(MockService.class);
+
+	private MockMapper mockMapper;
+
+	@Autowired
+	private CustomerMapper customMapper;
+
+	public String get(String id) {
+		Customer customer = mockMapper.get(id);
+
+		logger.info("The customer is: {}", customer);
+
+		if (null != customer) {
+			System.out.println(customMapper);
+			logger.info("customMapper:{}", customMapper);
+			Customer target = customMapper.selectByPrimaryKey(22);
+			logger.info("customMapper:{}", customMapper);
+
+			logger.info("for:{}", target);
+
+			return target.toString();
+		}
+
+		return "fuck this";
+	}
+
+	public void setMockMapper(MockMapper mockMapper) {
+		this.mockMapper = mockMapper;
+	}
+}
+```
+
+mapper 接口类
+
+```java
+package com.official.mock;
+
+import com.official.entity.Customer;
+
+public interface MockMapper {
+	public Customer get(String id);
+}
+```
+
+测试类
+
+```java
+package com.test.mock;
+
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.official.App;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = App.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public abstract class AbstractBaseMock {
+
+	@Before
+	public void setUp() throws Exception {
+		MockitoAnnotations.initMocks(this);
+	}
+
+	public abstract void test();
+}
+```
+
+```java
+package com.test.mock;
+
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.official.entity.Customer;
+import com.official.mock.MockMapper;
+import com.official.mock.MockService;
+
+/**
+ *
+ *
+ *
+ * @author cs12110 at 2018年12月8日下午11:27:05
+ *
+ */
+public class SpringMockTest extends AbstractBaseMock {
+
+	@Mock
+	private MockMapper mockMapper;
+
+	@Autowired
+	@InjectMocks
+	private MockService service;
+
+	@Test
+	@Override
+	public void test() {
+		/**
+		 * 这里tmd调用setter,让我很尴尬
+		 */
+		service.setMockMapper(mockMapper);
+		Mockito.when(mockMapper.get("1")).thenReturn(buildCustomer());
+
+		String customer = service.get("1");
+
+		System.out.println("mock test:" + customer);
+	}
+
+	private Customer buildCustomer() {
+		Customer ctm = new Customer();
+		ctm.setAge(36);
+		ctm.setName("3306");
+		return ctm;
+	}
+}
+```
+
+---
+
+## 13. 参考资料
 
 a. [Mockito 官方教程](https://static.javadoc.io/org.mockito/mockito-core/2.23.4/org/mockito/Mockito.html)
 
