@@ -5,6 +5,7 @@
 ---
 
 - [Java SE](javase/README.md)
+  - [Java 测试之 Mockito](javase/mockito.md)
   - [Java 优化笔记](javase/Java优化笔记.md)
   - [Java 线程](javase/thread.md)
   - [Java 线程池](javase/threadpool.md)
