@@ -23,6 +23,7 @@
   - [Rpc 之 Thrift](javaee/Rpc.md)
   - [Redis 之分布式锁](javaee/Redis之分布式锁.md)
   - [Redis 之分布式 Session](javaee/分布式Session.md)
+  - [全文检索之elasticsearch](javaee/全文检索之elasticsearch.md)
 
 ---
 
