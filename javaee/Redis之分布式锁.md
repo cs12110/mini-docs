@@ -10,8 +10,8 @@
 	- [2. Redission 锁](#2-redission-%E9%94%81)
 		- [2.1 pom.xml](#21-pomxml)
 		- [2.2 代码](#22-%E4%BB%A3%E7%A0%81)
-		- [2.2 测试结果](#22-%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C)
-		- [2.3 Redission 源码](#23-redission-%E6%BA%90%E7%A0%81)
+		- [2.3 测试结果](#23-%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C)
+		- [2.4 Redission 源码](#24-redission-%E6%BA%90%E7%A0%81)
 	- [3. 结论](#3-%E7%BB%93%E8%AE%BA)
 	- [4. 参考资料](#4-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
 
@@ -323,7 +323,7 @@ public class RedissionLock {
 }
 ```
 
-### 2.2 测试结果
+### 2.3 测试结果
 
 ```java
 2018-11-26 09:54:23 c4 get the lock
@@ -343,7 +343,7 @@ public class RedissionLock {
 2018-11-26 09:54:28 c3 release the lock
 ```
 
-### 2.3 Redission 源码
+### 2.4 Redission 源码
 
 RedissionLock 主要是使用 lua eval 执行脚本(保证原子性),使用 hset+发布/订阅实现的.
 
