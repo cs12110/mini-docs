@@ -20,10 +20,11 @@
   - [Spring 常用技巧](javaee/Spring常用技巧.md)
   - [Spring 与 SqlSession](javaee/Spring与SqlSession.md)
   - [SpringCloud 基础](javaee/SpringCloud基础.md)
-  - [Rpc 之 Thrift](javaee/Rpc.md)
+  - [Rpc 之 Thrift](javaee/Rpc之Thrift.md)
+  - [Rpc 之 Dubbo](javaee/Rpc之Dubbo.md)
   - [Redis 之分布式锁](javaee/Redis之分布式锁.md)
   - [Redis 之分布式 Session](javaee/分布式Session.md)
-  - [全文检索之elasticsearch](javaee/全文检索之elasticsearch.md)
+  - [全文检索之 elasticsearch](javaee/全文检索之elasticsearch.md)
 
 ---
 

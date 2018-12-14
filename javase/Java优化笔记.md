@@ -6,6 +6,8 @@
 
 _文档不定时更新_
 
+---
+
 ## 1. 字符串首字母修改为小写
 
 **优化方法: 避免生成多余的对象(不仅字符串,系统优化也如是)**
@@ -97,29 +99,7 @@ public class LogCheckResult {
         this.errMsg = errMsg;
     }
 
-    public boolean isOk() {
-        return isOk;
-    }
-
-    public void setOk(boolean isOk) {
-        this.isOk = isOk;
-    }
-
-    public String getLog() {
-        return log;
-    }
-
-    public void setLog(String log) {
-        this.log = log;
-    }
-
-    public String getErrMsg() {
-        return errMsg;
-    }
-
-    public void setErrMsg(String errMsg) {
-        this.errMsg = errMsg;
-    }
+    //getter/setter
 
     @Override
     public String toString() {
@@ -672,18 +652,7 @@ class Bean {
 class MyBean extends Bean {
 	private String beanName;
 	private String value;
-	public String getBeanName() {
-		return beanName;
-	}
-	public void setBeanName(String beanName) {
-		this.beanName = beanName;
-	}
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
+	// 省略getter/setter
 }
 ```
 
@@ -1182,8 +1151,6 @@ return date.toString();
 那么我们可以使用动态代理了.
 
 ```java
-package issue.pool;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
