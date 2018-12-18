@@ -712,8 +712,7 @@ public class MockitoTest extends AbstractSpringTest {
 	public void test() {
 		Mockito.doReturn("world").when(mockitoMapper).say("hello");
 
-		MockitoService spy = Mockito.spy(mockitoService);
-		spy.say("hello");
+		mockitoService.say("hello");
 	}
 }
 ```
@@ -721,7 +720,7 @@ public class MockitoTest extends AbstractSpringTest {
 测试结果
 
 ```java
-cn.rojao.service.mockito.MockitoService$MockitoMock$1187350920@26e74d50:world
+cn.rojao.service.mockito.MockitoService@2762e9a7:world
 ```
 
 ---
