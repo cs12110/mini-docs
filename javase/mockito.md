@@ -512,7 +512,7 @@ public class VerifyOrderest {
 
 ---
 
-## 10. 根据调用顺序设置不同的 stubbing 的值
+## 10. 根据调用顺序设置 stubbing
 
 作用: **根据不同的调用顺序,设置返回值,注意超过之后返回最后一个 stubbing 值.**
 
@@ -597,149 +597,131 @@ public class VerifyCaptureArgTest {
 
 请确保`springboot`,`springboot-test`,`junit`,`mockito`依赖.
 
-测试服务类
+请注意: **测试 service 上面并没有声明任何的 Spring 注解**
+
+### 12.1 Mapper 接口
 
 ```java
-package com.official.mock;
+public interface MockitoMapper {
+	public String say(String something);
+}
+```
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+### 12.2 Service 接口
+
+```java
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import com.official.entity.Customer;
-import com.official.mapper.CustomerMapper;
-
-/**
- * 测试Service
- *
- *
- * @author cs12110 at 2018年12月9日上午12:43:03
- *
- */
-@Service
-public class MockService {
-
-	private static Logger logger = LoggerFactory.getLogger(MockService.class);
-
-	private MockMapper mockMapper;
+public class MockitoService {
 
 	@Autowired
-	private CustomerMapper customMapper;
+	private MockitoMapper mockitoMapper;
 
-	public String get(String id) {
-		Customer customer = mockMapper.get(id);
-
-		logger.info("The customer is: {}", customer);
-
-		if (null != customer) {
-			System.out.println(customMapper);
-			logger.info("customMapper:{}", customMapper);
-			Customer target = customMapper.selectByPrimaryKey(22);
-			logger.info("customMapper:{}", customMapper);
-
-			logger.info("for:{}", target);
-
-			return target.toString();
-		}
-
-		return "fuck this";
-	}
-
-	public void setMockMapper(MockMapper mockMapper) {
-		this.mockMapper = mockMapper;
+	public void say(String s) {
+		System.out.println(this + ":" + mockitoMapper.say(s));
 	}
 }
 ```
 
-mapper 接口类
+### 12.3 测试类
+
+抽象父类
 
 ```java
-package com.official.mock;
+package com.test.spring;
 
-import com.official.entity.Customer;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
+import org.slf4j.ILoggerFactory;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-public interface MockMapper {
-	public Customer get(String id);
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import com.pkgs.WebApp;
+
+/**
+ * Spring test基类
+ *
+ * <pre>
+ * `@SpringBootTest(classes = WebApp.class)` 为`@SpringBootApplication`的主方法类
+ * </pre>
+ *
+ * @author cs12110 2018年12月13日
+ * @see
+ * @since 1.0
+ */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = WebApp.class)
+public abstract class AbstractSpringTest {
+	static {
+		ILoggerFactory factory = LoggerFactory.getILoggerFactory();
+		// logback的logger,而不是slf4j的logger
+		Logger logger = (Logger) factory.getLogger("org.springframework");
+		logger.setLevel(Level.ERROR);
+	}
+
+	@Before
+	public void before() {
+		MockitoAnnotations.initMocks(this);
+	}
+
+	@Test
+	public abstract void test();
 }
 ```
 
 测试类
 
 ```java
-package com.test.mock;
-
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.official.App;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = App.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public abstract class AbstractBaseMock {
-
-	@Before
-	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-	}
-
-	public abstract void test();
-}
-```
-
-```java
-package com.test.mock;
+package com.test.mockito;
 
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.official.entity.Customer;
-import com.official.mock.MockMapper;
-import com.official.mock.MockService;
+import com.test.spring.AbstractSpringTest;
+
+import com.pkgs.service.mockito.MockitoMapper;
+import com.pkgs.service.mockito.MockitoService;
 
 /**
+ * 注意@Mock和@InjectMocks注解
  *
  *
  *
- * @author cs12110 at 2018年12月8日下午11:27:05
+ * <p>
  *
+ * @author cs12110 2018年12月18日上午10:23:59
+ * @see
+ * @since 1.0
  */
-public class SpringMockTest extends AbstractBaseMock {
+public class MockitoTest extends AbstractSpringTest {
 
 	@Mock
-	private MockMapper mockMapper;
+	private MockitoMapper mockitoMapper;
 
-	@Autowired
 	@InjectMocks
-	private MockService service;
+	private MockitoService mockitoService;
 
 	@Test
-	@Override
 	public void test() {
-		/**
-		 * 这里tmd调用setter,让我很尴尬
-		 */
-		service.setMockMapper(mockMapper);
-		Mockito.when(mockMapper.get("1")).thenReturn(buildCustomer());
+		Mockito.doReturn("world").when(mockitoMapper).say("hello");
 
-		String customer = service.get("1");
-
-		System.out.println("mock test:" + customer);
-	}
-
-	private Customer buildCustomer() {
-		Customer ctm = new Customer();
-		ctm.setAge(36);
-		ctm.setName("3306");
-		return ctm;
+		MockitoService spy = Mockito.spy(mockitoService);
+		spy.say("hello");
 	}
 }
+```
+
+测试结果
+
+```java
+cn.rojao.service.mockito.MockitoService$MockitoMock$1187350920@26e74d50:world
 ```
 
 ---
