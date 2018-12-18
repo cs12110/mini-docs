@@ -232,7 +232,7 @@ good!
 #parse("test.vm")
 ```
 
-输出结果为: "velocity"
+输出结果为: "cs12110"
 
 `ByInclude.vm`
 
