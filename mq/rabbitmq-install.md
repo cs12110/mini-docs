@@ -13,6 +13,7 @@
 ```sh
 # 解压
 [root@team-2 ~]# tar -xvf otp_src_18.3.tar.gz cd otp_src_18.3
+[root@team-2 ~]# cd otp_src_18.3
 
 # 配置 '--prefix'指定的安装目录
 [root@team-2 ~]# ./configure --prefix=/usr/local/erlang --without-javac
@@ -39,6 +40,8 @@ Eshell V7.3  (abort with ^G)
 ## 2. 安装 Rabbit
 
 需要开启防火墙`15672`和`5672`端口.
+
+网页访问地址: `http://服务器Ip:15672`
 
 ```sh
 [root@team-2 ~] wget
