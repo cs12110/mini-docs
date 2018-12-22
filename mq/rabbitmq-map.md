@@ -4,9 +4,43 @@
 
 下面我们来熟悉一下 rabbitmq 的各个模式的使用.
 
+<!-- TOC -->
+
+- [RabbitMq](#rabbitmq)
+  - [1. 共用代码](#1-共用代码)
+    - [1.1 pom.xml](#11-pomxml)
+    - [1.2 RabbitUtil](#12-rabbitutil)
+    - [1.3 SysUtil](#13-sysutil)
+    - [1.4 关于 Connection 与 Channel 的关闭问题](#14-关于-connection-与-channel-的关闭问题)
+  - [2. 简单队列](#2-简单队列)
+    - [2.1 生产者](#21-生产者)
+    - [2.2 消费者](#22-消费者)
+    - [2.3 测试类](#23-测试类)
+  - [3. worker 模式](#3-worker-模式)
+    - [3.1 生产者](#31-生产者)
+    - [3.2 消费者](#32-消费者)
+    - [3.3 测试类](#33-测试类)
+  - [4. 发布订阅模式](#4-发布订阅模式)
+    - [4.1 生产者](#41-生产者)
+    - [4.2 消费者](#42-消费者)
+    - [4.3 测试类](#43-测试类)
+  - [5. 路由模式](#5-路由模式)
+    - [5.1 生产者](#51-生产者)
+    - [5.2 消费者](#52-消费者)
+    - [5.3 测试类](#53-测试类)
+  - [6. Topic](#6-topic)
+    - [6.1 生产者](#61-生产者)
+    - [6.2 消费者](#62-消费者)
+    - [6.3 测试类](#63-测试类)
+  - [7. 消息持久化](#7-消息持久化)
+  - [8. 异常](#8-异常)
+  - [9. 参考资料](#9-参考资料)
+
+<!-- /TOC -->
+
 ---
 
-## 1. 共用模块代码
+## 1. 共用代码
 
 ### 1.1 pom.xml
 
@@ -54,7 +88,6 @@ public class RabbitUtil {
 		factory.setVirtualHost(SysUtil.RabbitConfig.RABBIT_VHOST);
 		factory.setUsername(SysUtil.RabbitConfig.RABBIT_USER);
 		factory.setPassword(SysUtil.RabbitConfig.RABBIT_PASSWORD);
-		factory.setConnectionTimeout(5000);
 	}
 
 	/**
@@ -70,21 +103,6 @@ public class RabbitUtil {
 			e.printStackTrace();
 		}
 		return rabbitConn;
-	}
-
-	/**
-	 * 关闭连接
-	 *
-	 * @param connection
-	 */
-	public static void close(Connection connection) {
-		Optional.ofNullable(connection).ifPresent(c -> {
-			try {
-				c.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
 	}
 }
 ```
@@ -152,7 +170,7 @@ public class SysUtil {
 	 *
 	 * @return String
 	 */
-	public static String getStackTrackInfo() {
+	private static String getStackTrackInfo() {
 		Exception trace = new Exception();
 		StackTraceElement[] stackTraceArr = trace.getStackTrace();
 		String selfName = SysUtil.class.getName();
@@ -196,7 +214,7 @@ public class SysUtil {
 	 *
 	 * @return
 	 */
-	public static String getTime() {
+	private static String getTime() {
 		Supplier<String> supplier = () -> {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			return sdf.format(new Date());
@@ -260,7 +278,7 @@ public class MsgProducer {
 	private static final String QUEUE_NAME = SysUtil.RabbitConfig.SIMPLE_QUEUE;
 
 	/**
-	 * 标识消息名称
+	 * 标识
 	 */
 	private String name;
 
@@ -413,7 +431,7 @@ public class SimpleQueue {
 
 生产者生产的消息发至消息队列,然后多个消费者来消费.[官网 link](http://next.rabbitmq.com/tutorials/tutorial-two-java.html)
 
-和 fanout 的区别是: 队列的消息只能给其中一个消费者消费,而不是全部消费者.
+和 fanout 的区别是: **队列的消息只能给其中一个消费者消费,而不是全部消费者.**
 
 ### 3.1 生产者
 
@@ -1012,6 +1030,8 @@ public class RoutingQueue {
 
 ## 6. Topic
 
+在交换机里面实现更灵活的队列绑定消费相关消息.
+
 ### 6.1 生产者
 
 ```java
@@ -1196,7 +1216,6 @@ public class TopicQueue {
 		// 获取全部
 		TopicConsumer consumer3 = new TopicConsumer("topic-consumer3", "#", 0);
 		consumer3.takeMsg();
-
 	}
 }
 ```
@@ -1220,9 +1239,60 @@ public class TopicQueue {
 
 ---
 
-## 7. 异常
+## 7. 消息持久化
+
+如果消息不要进行就持久化的话,在 rabbitmq 服务器 down 之后,消息会丢失.
+
+所以对重要的消息进行持久化是很必要的一件事.
+
+Q: 那么该怎么进行数据持久化呢?
+
+A: 在生产者和消费者声明队列的时候,把`durable`参数设置为 true.
+
+```java
+/*
+ * 第二个参数设置持久化,设置durable为true,同样在消费端queue的声明也必须为true
+ *
+ * text格式持久化?
+ */
+ch.queueDeclare(durableQueueName, true, false, false, null);
+```
+
+---
+
+## 8. 异常
 
 重现操作: 只要关闭然后重启快的话,就会出现如下异常.
+
+测试代码
+
+```java
+package com.test;
+
+import com.pkgs.util.RabbitUtil;
+import com.pkgs.util.SysUtil;
+import com.rabbitmq.client.Connection;
+
+public class QuickGetConnectionTest {
+
+	public static void main(String[] args) {
+		for (int index = 0; index < 100; index++) {
+			Connection conn = RabbitUtil.getDefRabbitConnection();
+			if (conn == null) {
+				SysUtil.log("Error on get connection: " + index);
+			}
+			try {
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		SysUtil.log("All is done");
+	}
+}
+```
+
+出现异常如下:
 
 ```java
 java.util.concurrent.TimeoutException
@@ -1258,8 +1328,22 @@ java.net.SocketException: Socket Closed
 
 现在还没有救,窝草.
 
+即使是官网的推荐方法,在频繁获取 connection 的时候,都还是会出错的,惨不忍睹.
+
+```java
+ConnectionFactory factory = new ConnectionFactory();
+// configure various connection settings
+
+try {
+  Connection conn = factory.newConnection();
+} catch (java.net.ConnectException e) {
+  Thread.sleep(5000);
+  // apply retry logic
+}
+```
+
 ---
 
-## 8. 参考资料
+## 9. 参考资料
 
 a. [RabbitMq 官网](http://next.rabbitmq.com/tutorials/tutorial-one-java.html)

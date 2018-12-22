@@ -13,7 +13,6 @@
   - [ThreadLocal 笔记](javase/threadlocal.md)
   - [Classloader 资料](javase/Classloder.md)
   - [自定义 IOC 资料](javase/MyIoc.md)
-  - [Redis 发布/订阅模式](javase/Redis发布订阅.md)
 
 ---
 
@@ -43,9 +42,8 @@
 
 - [消息队列](mq/README.md)
   - [RabbitMq 安装](mq/rabbitmq-install.md)
-  - [RabbitMq 简单使用](mq/rabbitmq-helloworld.md)
-  - [RabbitMq 消息持久化](mq/rabbitmq-persistence.md)
-  - [RabbitMq 消费模式](mq/rabbitmq-model.md)
+  - [RabbitMq 使用指南](mq/rabbitmq-map.md)
+  - [Redis 发布/订阅模式](mq/redis-pubsub.md)
 
 ---
 
