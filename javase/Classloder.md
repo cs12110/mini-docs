@@ -128,7 +128,7 @@ sun.misc.Launcher$AppClassLoader@18b4aac2
 
 ## 5. 简单例子
 
-如果需要动态加载外部的 jar 里面的类,该怎么办?怎么办?怎么办?
+下面演示一个简单的动态加载类和该类的依赖的例子. :"}
 
 ### 5.1 自定义 classloader
 
@@ -137,147 +137,57 @@ import java.net.URL;
 import java.net.URLClassLoader;
 
 /**
- * 定制个人的classloader,用于加载用户第三方对象
+ * 动态加载类
  *
  *
- * <p>
+ * @author cs12110 at 2018年12月23日下午10:05:19
  *
- * @author hhp 2018年10月17日
- * @see
- * @since 1.0
  */
-public class PluginClassLoader extends URLClassLoader {
+public class DynamicLoader {
+
+	private static URL[] urls = {};
+	private static MyClassLoader classLoder = new MyClassLoader(urls);
 
 	/**
-	 * URL
+	 * classloader
 	 *
-	 * @param urls
 	 */
-	public PluginClassLoader(URL[] urls) {
-		super(urls);
-	}
+	static class MyClassLoader extends URLClassLoader {
+		public MyClassLoader(URL[] urls) {
+			super(urls);
+		}
 
-	public PluginClassLoader(URL[] urls, ClassLoader parent) {
-		super(urls, parent);
+		@Override
+		public void addURL(URL url) {
+			super.addURL(url);
+		}
 	}
 
 	/**
-	 * 新增jar包
+	 * 添加加载的url
 	 *
-	 * @param url
-	 *            jar的url地址
+	 * @param fileUrl url
 	 */
-	public void addJar(URL url) {
-		this.addURL(url);
-	}
-}
-```
-
-### 5.2 工具类
-
-```java
-import java.io.File;
-import java.net.URL;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-/**
- * 获取实体类,不是给Spring代理的第三方实现类
- *
- *
- * <p>
- *
- * @author hhp 2018年10月16日
- * @see
- * @since 1.0
- */
-public class InstanceBuilder {
-
-	private static final Logger logger = LoggerFactory.getLogger(InstanceBuilder.class);
-
-	private static PluginClassLoader pluginClassLoader = null;
-	static {
-		initClassLoader();
+	public static void addUrl(URL fileUrl) {
+		classLoder.addURL(fileUrl);
 	}
 
 	/**
-	 * 构造方法
+	 * 加载类,如果不存在返回null
 	 *
-	 * @param jarPath
-	 *            jar文件路径,为绝对路径,如:<code>/home/dev/biplugin-jars/outside.jar</code>
-	 * @param className
-	 *            加载类名称,如<code>com.plugin.BiSourceImpl</code>
-	 */
-	public InstanceBuilder(String jarPath) {
-		if (jarPath == null || "".equals(jarPath.trim())) {
-			logger.error("Don't mess me around,please set the path of jar");
-			throw new RuntimeException("Don't mess me around,please set the path of jar");
-		}
-
-		if (pluginClassLoader == null) {
-			initClassLoader();
-		}
-		File file = new File(jarPath);
-		if (!isLegalJarFile(file)) {
-			throw new RuntimeException("Jar[" + jarPath + "] isn't a legal jar file.");
-		}
-
-		/*
-		 * 加载用户jar
-		 */
-		try {
-			pluginClassLoader.addJar(file.toURI().toURL());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * 构造PluginClassLoader
-	 */
-	public static void initClassLoader() {
-		URL[] urls = new URL[]{};
-		pluginClassLoader = new PluginClassLoader(urls);
-	}
-
-	/**
-	 * 判断Jar文件是否合法
-	 *
-	 * @return boolean
-	 */
-	private static String suffix = ".jar";
-	private boolean isLegalJarFile(File file) {
-		if (!file.exists()) {
-			logger.error("Jar file doesn't exists on:{}", file.getPath());
-			return false;
-		}
-		if (!file.isFile()) {
-			logger.error("Path {} is a dir not a file", file.getPath());
-			return false;
-		}
-
-		if (!file.getName().endsWith(suffix)) {
-			logger.error("File {} is not a jar", file.getPath());
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * 创建实体类
-	 *
+	 * @param className 类名称
 	 * @return T
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T get(String className) {
+	public static <T> T load(String className) {
+		T instance = null;
 		try {
-			Class<?> clazz = pluginClassLoader.loadClass(className);
-			return (T) clazz.newInstance();
+			Class<?> clazz = classLoder.loadClass(className);
+			instance = (T) clazz.newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return instance;
 	}
 }
 ```
@@ -285,25 +195,54 @@ public class InstanceBuilder {
 ### 5.3 测试类
 
 ```java
-import org.junit.Test;
+package com.pkgs.invoker;
 
-import cn.rojao.bi.plugins.func.LogWorker;
-import cn.rojao.bi.puglins.invoke.loader.InstanceBuilder;
+import java.io.File;
 
-public class TestJar {
+import com.pkgs.api.DynamicApi;
+import com.pkgs.entity.PageEntity;
+import com.pkgs.util.DynamicLoader;
 
-	@Test
-	public void testName() throws Exception {
-		String userJarPath = "D:/Mydoc/biplugin/bi-plugins-impl-0.0.1-SNAPSHOT-jar-with-dependencies.jar";
-		String logWorkerImpl = "cn.rojao.bi.plugins.impl.NetLogWorkerImpl";
-		String logWorkerImplConfigPath = "D:/Mydoc/biplugin/impl.properties";
+/**
+ * 测试类
+ *
+ *
+ * @author cs12110 at 2018年12月23日下午10:14:38
+ *
+ */
+public class DynamicInvoker {
 
-		InstanceBuilder builder = new InstanceBuilder(userJarPath);
-		LogWorker impl = builder.get(logWorkerImpl);
+	public static void main(String[] args) {
+		// dynamic-service-0.0.1-SNAPSHOT.jar依赖的mysql连接driver,动态加载进来
+		String mysqlDriverJarPath = "D:\\plugins\\deps\\mysql-connector-java-5.1.40.jar";
+		// 实现公共接口的类jar
+		String dynamicServiceJarPath = "D:\\plugins\\service\\dynamic-service-0.0.1-SNAPSHOT.jar";
+		try {
 
-		impl.process(logWorkerImplConfigPath);
+			File mysqlDriverJarFile = new File(mysqlDriverJarPath);
+			File file = new File(dynamicServiceJarPath);
+
+			// 加入资源
+			DynamicLoader.addUrl(mysqlDriverJarFile.toURI().toURL());
+			DynamicLoader.addUrl(file.toURI().toURL());
+
+			// 动态加载实现类,DynamicApi和PageEntity都是公共模块的类
+			DynamicApi api = DynamicLoader.load("com.pkgs.service.ZhihuImpl");
+			PageEntity page = api.getPage("www.zhihu.com");
+
+			System.out.println(page);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+
 }
+```
+
+测试结果
+
+```java
+PageEntity [url=www.zhihu.com, html=ok ,you can connection to db now, time=1545574512950]
 ```
 
 ---
