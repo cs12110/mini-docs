@@ -6,7 +6,21 @@
 
 ---
 
-## 1. JVM加载机制
+## 优秀博客
+
+- [JVM内存划分](https://blog.csdn.net/antony9118/article/details/51375662)
+- [Java内存模型](https://blog.csdn.net/javazejian/article/details/72772461)
+- [Spring启动流程](https://blog.csdn.net/moshenglv/article/details/53517343)
+- [Mybatis源码阅读](https://blog.csdn.net/u011676300/article/details/82904713)
+- [Socket通信原理](https://www.cnblogs.com/itfly8/p/5844803.html)
+- [SQL优化](https://blog.csdn.net/jie_liang/article/details/77340905)
+- [Java设计模式](http://www.runoob.com/design-pattern/design-pattern-tutorial.html)
+
+Q: 数据库建立索引的规则是什么?
+
+---
+
+## JVM加载机制
 
 当写好一个Java程序之后,不是管是CS还是BS应用,都是由若干个`.class`文件组织而成的一个完整的Java应用程序.当程序在运行时,即会调用该程序的一个入口函数来调用系统的相关功能,而这些功能都被封装在不同的class文件当中,所以经常要从这个class文件中要调用另外一个class文件中的方法,如果另外一个文件不存在的,则会引发系统异常.而程序在启动的时候,并不会一次性加载程序所要用的所有class文件,而是根据程序的需要,通过Java的类加载机制(ClassLoader)来动态加载某个class文件到内存当中的,从而只有class文件被载入到了内存之后,才能被其它class所引用. 
 
@@ -14,7 +28,7 @@
 
 
 
-### 1.1 JVM的ClassLoader
+### JVM的ClassLoader
 
 **BootStrap ClassLoader**:称为启动类加载器,是Java类加载层次中最顶层的类加载器,负责加载JDK中的核心类库,如:rt.jar,resources.jar,charsets.jar等.
 
@@ -52,7 +66,7 @@ C:\Program Files\Java\jdk1.6.0_22\jre\lib\resources.jar;C:\Program Files\Java\jd
 
 注意: 除了Java默认提供的三个ClassLoader之外,用户还可以根据需要定义自已的ClassLoader,而这些自定义的ClassLoader都必须继承自java.lang.ClassLoader类,也包括Java提供的另外二个ClassLoader(Extension ClassLoader和App ClassLoader)在内,但是Bootstrap ClassLoader不继承自ClassLoader,因为它不是一个普通的Java类,底层由C++编写,已嵌入到了JVM内核当中,当JVM启动后,Bootstrap ClassLoader也随着启动,负责加载完核心类库后,并构造Extension ClassLoader和App ClassLoader类加载器.
 
-### 1.2 双亲委托
+### 双亲委托
 
 **原理介绍**
 
@@ -74,9 +88,9 @@ ClassLoader使用的是 **双亲委托模型** 来搜索类的,每个ClassLoader
 ---
 
 
-## 2. HashMap相关
+## HashMap相关
 
-### 2.1 HashMap的增长
+### HashMap的增长
 
 在Java 8 之前,HashMap和其他基于map的类都是通过链地址法解决冲突,它们使用单向链表来存储相同索引值的元素.在最坏的情况下,这种方式会将HashMap的get方法的性能从O(1)降低到O(n).为了解决在频繁冲突时hashmap性能降低的问题,Java 8中使用平衡树来替代链表存储冲突的元素.这意味着我们可以将最坏情况下的性能从O(n)提高到O(logn).
 
@@ -126,7 +140,7 @@ HashMap的快速高效,使其使用非常广泛.其原理是,调用hashCode()和
 
 
 
-### 2.2 HashMap和HashSet的区别
+### HashMap和HashSet的区别
 
 | hashMap实现的是map接口                                                      | hashSet实现的是set接口                  |
 | --------------------------------------------------------------------------- | --------------------------------------- |
@@ -138,7 +152,7 @@ HashMap的快速高效,使其使用非常广泛.其原理是,调用hashCode()和
 
 
 
-### 2.3 HashMap和HashTable的区别
+### HashMap和HashTable的区别
 
 HashTable:
 
@@ -154,7 +168,7 @@ HashMap把Hashtable的contains方法去掉了,改成containsvalue和containsKey.
 
 
 
-### 2.4 LinkedHashMap
+### LinkedHashMap
 
 在HashMap里边,put进去的元素,取出来是无序的,如果要保证有序,那么可以使用LinkedHashMap.
 
@@ -189,7 +203,7 @@ null:null
 
 
 
-### 2.5 HashTable和ConcurrentHashMap的区别
+### HashTable和ConcurrentHashMap的区别
 
 **为什么我们需要ConcurrentHashMap和CopyOnWriteArrayList**
 
@@ -215,7 +229,7 @@ b. HashTable的put和get方法都是同步方法,  而ConcurrentHashMap的get�
 ---
 
 
-## 3. 线程池的使用
+## 线程池的使用
 
 执行流程:  **创建coresize的初始线程 ->coresize全部已执行,新进任务放进等待队列 -> 队列已满 -> 开启线程数至maxsize -> 还执行不过来,进行策略拒绝.**
 
@@ -288,15 +302,15 @@ ThreadPoolExecutor.CallerRunsPolicy;
 
 
 
-## 4. Java里面的异常体系 
+## Java里面的异常体系 
 
-### 4.1 Java异常体系
+### Java异常体系
 
 Java异常体系如下:
 
 ![1535693252798](imgs/exception.png)
 
-### 4.2 基础概念
+### 基础概念
 
 **Error与Exception**
 
@@ -317,7 +331,7 @@ throw关键字是用于方法体内部,用来抛出一个Throwable类型的异�
 ---
 
 
-## 5. Wait和Sleep的区别
+## Wait和Sleep的区别
 
 sleep 是线程类(Thread)的方法,导致此线程暂停执行指定时间,给执行机会给其他线程,但是监控状态依然保持,到时后会自动恢复.调用sleep 不会释放对象锁.
 wait 是Object 类的方法,对此对象调用wait 方法导致本线程放弃对象锁,进入等待此对象的等待锁定池,只有针对此对象发出notify 方法(或notifyAll)后本线程才进入对象锁定池准备获得对象锁进入运行状态.
@@ -346,9 +360,9 @@ wait属于Object的成员方法,一旦一个对象调用了wait方法,必须要�
 
 ---
 
-## 6. Mybatis缓存
+## Mybatis缓存
 
-### 6.1 延迟加载
+### 延迟加载
 
 resultMap中的association和collection标签具有延迟加载的功能.
 
@@ -369,7 +383,7 @@ lazyLoadingEnabled,aggressiveLazyLoading
 
 
 
-### 6.2 查询缓存
+### 查询缓存
 
 **Mybatis的一级缓存**是指SqlSession.
 
@@ -417,7 +431,7 @@ SqlSession执行insert,update,delete等操作commit后会清空该SQLSession缓�
 
  
 
-### 6.3 缓存设置
+### 缓存设置
 
 在核心配置文件SqlMapConfig.xml中加入以下内容(开启二级缓存总开关):
 
@@ -454,10 +468,10 @@ cacheEnabled设置为 true
 
 ---
 
-## 7. Mysql
+## Mysql
 
 
-### 7.1 组合索引
+### 组合索引
 
 联合索引又叫复合索引.对于复合索引:Mysql从左到右的使用索引中的字段,一个查询可以只使用索引中的一部份,但只能是最左侧部分.例如索引是key index(a,b,c). 可以支持[a],[a,b],[a,c] ,[a,b,c] 4种组合进行查找,但不支持 b,c进行查找.当最左侧字段是常量引用时,索引就十分有效.
 
@@ -491,7 +505,7 @@ select * from abc where a ='1' and b='1';
 select * from abc where b='1' and c ='1';
 ```
 
-### 7.2 乐观锁与悲观锁
+### 乐观锁与悲观锁
 
 悲观锁与乐观锁是两种常见的资源并发锁设计思路,也是并发编程中一个非常基础的概念.本文将对这两种常见的锁机制在数据库数据上的实现进行比较系统的介绍.
 
@@ -531,9 +545,9 @@ if (updated row > 0) {
 
 ---
 
-## 8. 动态代理和Cglib的区别
+## 动态代理和Cglib的区别
 
-### 8.1 基础知识
+### 基础知识
 
 Spirng的AOP的动态代理实现机制有两种,分别是:
 
@@ -559,7 +573,7 @@ CGLib动态代理
 
 
 
-### 8.2 两者对比
+### 两者对比
 
 **比较:**
 
@@ -578,7 +592,7 @@ CGLib动态代理是通过字节码底层继承要代理类来实现(如果被�
 
 
 
-## 9. 消息队列对比
+## 消息队列对比
 
 
 主流消息队列对比
@@ -590,11 +604,11 @@ CGLib动态代理是通过字节码底层继承要代理类来实现(如果被�
 ---
 
 
-## 10. Spring请求过程和注解区别
+## Spring请求过程和注解区别
 
 
 
-### 10.1 Spring请求响应过程
+### Spring请求响应过程
 
 请求如下图所示
 
@@ -602,7 +616,7 @@ CGLib动态代理是通过字节码底层继承要代理类来实现(如果被�
 
 
 
-### 10.2 获取ApplicationContext
+### 获取ApplicationContext
 
 在项目中,经常遇到这样的问题:有些类需要使用new来创建对象,但是类中需要使用spring容器中定义的bean,此时无法通过spring的自动注入来注入我们需要使用的bean.所以需要手动的从spring容器中获取bean.要获取bean必须先获取到ApplicationContext对象,有以下方式可以获取该对象.
 
@@ -666,7 +680,7 @@ public class ApplicationContextUtil implements ApplicationContextAware {
 
 
 
-### 10.3 @Autowired 与 @Resource
+### @Autowired 与 @Resource
 
 年初刚加入到现在的项目时,在使用注解时我用的@Resource.后来,同事:你怎么使用@Resource注解?我:使用它有错吗?同事:没错,但是现在都使用@Autowired.我:我研究一下.
 
@@ -834,7 +848,7 @@ public class SequenceServiceImpl implements SequenceService {
 
 
 
-### 10.4 BeanFactory与FactoryBean
+### BeanFactory与FactoryBean
 
 区别:BeanFactory是个Factory,也就是IOC容器或对象工厂,FactoryBean是个Bean.在Spring中,所有的Bean都是由BeanFactory(也就是IOC容器)来进行管理的.但对FactoryBean而言,这个Bean不是简单的Bean,而是一个能生产或者修饰对象生成的工厂Bean,它的实现与设计模式中的工厂模式和修饰器模式类似
 
@@ -968,7 +982,7 @@ BeanFactory是个Factory,也就是IOC容器或对象工厂,FactoryBean是个Bean
 
 
 
-### 10.5 @Component与@Service区别
+### @Component与@Service区别
 
 在spring集成的框架中,注解在类上的`@Component`,`@Repository`,`@Service`等注解能否被互换?或者说这些注解有什么区别?
 
@@ -984,12 +998,12 @@ BeanFactory是个Factory,也就是IOC容器或对象工厂,FactoryBean是个Bean
 
 就如上文所说的,`@Repository`早已被支持了在你的持久层作为一个标记可以去自动处理数据库操作产生的异常(译者注:因为原生的java操作数据库所产生的异常只定义了几种,但是产生数据库异常的原因却有很多种,这样对于数据库操作的报错排查造成了一定的影响;而Spring拓展了原生的持久层异常,针对不同的产生原因有了更多的异常进行描述.所以,在注解了`@Repository`的类上如果数据库操作中抛出了异常,就能对其进行处理,转而抛出的是翻译后的spring专属数据库异常,方便我们对异常进行排查处理).
 
-| 注解        | 含义                                        |
+| 注解        |                    含义                     |
 | ----------- | :-----------------------------------------: |
 | @Component  | 最普通的组件,可以被注入到spring容器进行管理 |
-| @Repository | 作用于持久层                                |
-| @Service    | 作用于业务逻辑层                            |
-| @Controller | 作用于表现层(spring-mvc的注解)              |
+| @Repository |                作用于持久层                 |
+| @Service    |              作用于业务逻辑层               |
+| @Controller |       作用于表现层(spring-mvc的注解)        |
 
 回答2
 
@@ -1040,9 +1054,9 @@ public @interface ScheduleJob {...}
 
 ---
 
-## 11. Spring事务和传播机制
+## Spring事务和传播机制
 
-### 11.1 事务的嵌套概念
+### 事务的嵌套概念
 
 所谓事务的嵌套就是两个事务方法之间相互调用.spring事务开启 ,或者是基于接口的或者是基于类的代理被创建(**注意一定要是代理,不能手动new 一个对象,并且此类(有无接口都行)一定要被代理——spring中的bean只要纳入了IOC管理都是被代理的**).所以在同一个类中一个方法调用另一个方法有事务的方法,事务是不会起作用的.
 
@@ -1060,7 +1074,7 @@ Spring默认情况下会对运行期例外(RunTimeException),即uncheck异常,�
 
 上面三种方式也可在xml配置
 
-### 11.2 spring事务传播属性
+### spring事务传播属性
 
 在 spring的 TransactionDefinition接口中一共定义了六种事务传播属性:
 
@@ -1180,7 +1194,7 @@ c. Connection.getMetaData().supportsSavepoints() 必须为 true, 即 jdbc drive 
 
 
 
-### 11.3 Log Service配置事务传播
+### Log Service配置事务传播
 
 不管业务逻辑的service是否有异常,Log Service都应该能够记录成功,通常有异常的调用更是用户关心的.Log Service如果沿用业务逻辑Service的事务的话在抛出异常时将没有办法记录日志(事实上是回滚了).所以希望Log Service能够有独立的事务.日志和普通的服务应该具有不同的策略.Spring 配置文件transaction.xml:
 
@@ -1228,7 +1242,7 @@ c. Connection.getMetaData().supportsSavepoints() 必须为 true, 即 jdbc drive 
 
 ---
 
-## 12. Spring IOC和AOP的应用 
+## Spring IOC和AOP的应用 
 
 IOC:IOC,另外一种说法叫DI(Dependency Injection),即依赖注入.它并不是一种技术实现,而是一种设计思想.在任何一个有实际开发意义的程序项目中,我们会使用很多类来描述它们特有的功能,并且通过类与类之间的相互协作来完成特定的业务逻辑.这个时候,每个类都需要负责管理与自己有交互的类的引用和依赖,代码将会变的异常难以维护和极度的高耦合.而IOC的出现正是用来解决这个问题,我们通过IOC将这些相互依赖对象的创建.协调工作交给Spring容器去处理,每个对象只需要关注其自身的业务逻辑关系就可以了.在这样的角度上来看,获得依赖的对象的方式,进行了反转,变成了由spring容器控制对象如何获取外部资源(包括其他对象和文件资料等等).
 
@@ -1278,7 +1292,7 @@ Spring 切面可以应用5种类型的通知:
 
 ---
 
-## 13. RPC与Rest
+## RPC与Rest
 
 接口调用通常包含两个部分,序列化和通信协议.常见的序列化协议包括json,xml,hession,protobuf,thrift,text,bytes等;通信比较流行的是http,soap,websockect,RPC通常基于TCP实现,常用框架例如dubbo,netty,mina,thrift
 
