@@ -222,6 +222,202 @@ public static ExecutorService newFixedThreadPool(int nThreads) {
 
 ---
 
-## 6. 总结
+## 6. 实现原理
+
+Q: 那么线程池是怎么实现的呢?
+
+A: 别问我!!!
+
+`ThreadPoolExecutor`的源码继承关系如下
+
+```java
+public class ThreadPoolExecutor extends AbstractExecutorService {
+ //...
+}
+```
+
+就拿`AbstractExecutorService#submit()`来看,我们看一下这些是怎么做到的.
+
+```java
+/**
+ * @throws RejectedExecutionException {@inheritDoc}
+ * @throws NullPointerException       {@inheritDoc}
+ */
+public Future<?> submit(Runnable task) {
+	if (task == null) throw new NullPointerException();
+	RunnableFuture<Void> ftask = newTaskFor(task, null);
+	execute(ftask);
+	return ftask;
+}
+```
+
+经过`newTaskFor()`之后,还是到了`ThreadPoolExecutor#execute()`
+
+```java
+public void execute(Runnable command) {
+if (command == null)
+	throw new NullPointerException();
+int c = ctl.get();
+
+// 当前开启线程数<coresize
+if (workerCountOf(c) < corePoolSize) {
+	if (addWorker(command, true))
+		return;
+	c = ctl.get();
+}
+// 放置等待队列,workQueue为BlockingQueue
+if (isRunning(c) && workQueue.offer(command)) {
+	int recheck = ctl.get();
+	if (! isRunning(recheck) && remove(command))
+		reject(command);
+	else if (workerCountOf(recheck) == 0)
+		addWorker(null, false);
+}
+// 等待队列满了,扩大线程池,如果扩大失败则拒绝任务
+else if (!addWorker(command, false))
+	reject(command);
+}
+```
+
+摘取`addWork`的重要代码
+
+```java
+Worker w = null;
+try {
+	w = new Worker(firstTask);
+	final Thread t = w.thread;
+	if (t != null) {
+		final ReentrantLock mainLock = this.mainLock;
+		mainLock.lock();
+		try {
+			int rs = runStateOf(ctl.get());
+
+			if (rs < SHUTDOWN ||
+				(rs == SHUTDOWN && firstTask == null)) {
+				if (t.isAlive()) // precheck that t is startable
+					throw new IllegalThreadStateException();
+				// workers为全局的hashset
+				workers.add(w);
+				int s = workers.size();
+				if (s > largestPoolSize)
+					largestPoolSize = s;
+				workerAdded = true;
+			}
+		} finally {
+			mainLock.unlock();
+		}
+		// 这里面的 start调用的是Worker运行之后里面的run方法
+		if (workerAdded) {
+			t.start();
+			workerStarted = true;
+		}
+	}
+} finally {
+	if (! workerStarted)
+		addWorkerFailed(w);
+}
+```
+
+我们来看看`Worker#run()`方法是做什么的.
+
+```java
+private final class Worker extends AbstractQueuedSynchronizer implements Runnable{
+	public void run() {
+		runWorker(this);
+	}
+
+	final void runWorker(Worker w) {
+        Thread wt = Thread.currentThread();
+        Runnable task = w.firstTask;
+        w.firstTask = null;
+        w.unlock(); // allow interrupts
+        boolean completedAbruptly = true;
+        try {
+			// 拿到需要被执行的线程,保证自己先运行完然后才拿数据
+            while (task != null || (task = getTask()) != null) {
+                w.lock();
+                // If pool is stopping, ensure thread is interrupted;
+                // if not, ensure thread is not interrupted.  This
+                // requires a recheck in second case to deal with
+                // shutdownNow race while clearing interrupt
+                if ((runStateAtLeast(ctl.get(), STOP) ||
+                     (Thread.interrupted() &&
+                      runStateAtLeast(ctl.get(), STOP))) &&
+                    !wt.isInterrupted())
+                    wt.interrupt();
+                try {
+                    beforeExecute(wt, task);
+                    Throwable thrown = null;
+                    try {
+						// 直接调用该线程的run方法,简单粗暴.
+                        task.run();
+                    } catch (RuntimeException x) {
+                        thrown = x; throw x;
+                    } catch (Error x) {
+                        thrown = x; throw x;
+                    } catch (Throwable x) {
+                        thrown = x; throw new Error(x);
+                    } finally {
+                        afterExecute(task, thrown);
+                    }
+                } finally {
+                    task = null;
+                    w.completedTasks++;
+                    w.unlock();
+                }
+            }
+            completedAbruptly = false;
+        } finally {
+            processWorkerExit(w, completedAbruptly);
+        }
+    }
+}
+```
+
+`getTask()`方法如下
+
+```java
+private Runnable getTask() {
+	boolean timedOut = false; // Did the last poll() time out?
+
+	for (;;) {
+		int c = ctl.get();
+		int rs = runStateOf(c);
+
+		// Check if queue empty only if necessary.
+		if (rs >= SHUTDOWN && (rs >= STOP || workQueue.isEmpty())) {
+			decrementWorkerCount();
+			return null;
+		}
+
+		int wc = workerCountOf(c);
+
+		// Are workers subject to culling?
+		boolean timed = allowCoreThreadTimeOut || wc > corePoolSize;
+
+		if ((wc > maximumPoolSize || (timed && timedOut))
+			&& (wc > 1 || workQueue.isEmpty())) {
+			if (compareAndDecrementWorkerCount(c))
+				return null;
+			continue;
+		}
+        //获取等待队列里面的线程
+		try {
+			Runnable r = timed ?
+				workQueue.poll(keepAliveTime, TimeUnit.NANOSECONDS) :
+				workQueue.take();
+			if (r != null)
+				return r;
+			timedOut = true;
+		} catch (InterruptedException retry) {
+			timedOut = false;
+		}
+	}
+}
+```
+
+---
+
+## 7. 总结
 
 感觉受到了欺骗,这就是`ThreadPoolExecutor`的事,所以掌握`ThreadPoolExecutor`至关重要.
