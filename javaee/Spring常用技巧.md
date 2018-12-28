@@ -884,3 +884,111 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 2018-12-06 08:24:31 INFO  c.r.u.i.JustWatchInterceptor:30 - interceptor:/captcha.jpg
 2018-12-06 08:24:31 INFO  c.r.u.i.JustWatchInterceptor:30 - interceptor:/public/images/icon.png
 ```
+
+---
+
+## 9. Springboot 防止重复提交
+
+借助自定义注解和拦截器防止重复提交.
+
+### 9.1 自定义注解
+
+```java
+import java.lang.annotation.*;
+
+/**
+ * 防止重复提交
+ * <p/>
+ *
+ * @author cs12110 created at: 2018/12/28 13:23
+ * <p>
+ * since: 1.0.0
+ */
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface AntiResubmit {
+
+    /**
+     * 描述
+     *
+     * @return String
+     */
+    String desc() default "";
+}
+```
+
+### 9.2 切面
+
+```java
+import com.alibaba.fastjson.JSON;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 防止重复提交切面
+ * <p/>
+ *
+ * @author cs12110 created at: 2018/12/28 13:25
+ * <p>
+ * since: 1.0.0
+ */
+@Component
+@Aspect
+public class AntiResubmitAspect {
+
+    private static Logger logger = LoggerFactory.getLogger(AntiResubmitAspect.class);
+
+
+    @Pointcut("@annotation(cn.rojao.utils.annotation.AntiResubmit)")
+    public void execute() {
+
+    }
+
+    @Around("execute()")
+    public Object around(ProceedingJoinPoint point) {
+        try {
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
+                    .getRequestAttributes();
+            HttpServletRequest request = attributes.getRequest();
+            HttpSession session = request.getSession(false);
+
+            //key
+            String key = session.getId() + "#" + request.getServletPath();
+            Object token = session.getAttribute(key);
+
+            if (token == null) {
+                session.setAttribute(key, 1);
+                //执行方法
+                Object value = point.proceed();
+                session.removeAttribute(key);
+                return value;
+            } else {
+                logger.error("repeat:{}", key);
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+
+        //重复提交
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("status", 403);
+        map.put("msg", "Repeat submit");
+        return JSON.toJSONString(map);
+    }
+}
+```
+
+---
