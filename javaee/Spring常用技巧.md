@@ -951,8 +951,10 @@ public class AntiResubmitAspect {
 
     private static Logger logger = LoggerFactory.getLogger(AntiResubmitAspect.class);
 
-
-    @Pointcut("@annotation(cn.rojao.utils.annotation.AntiResubmit)")
+    /**
+	 * @annotation为AntiResubmit注解完整位置.
+	 */
+    @Pointcut("@annotation(cn.pkgs.utils.anno.AntiResubmit)")
     public void execute() {
 
     }
@@ -965,7 +967,7 @@ public class AntiResubmitAspect {
             HttpServletRequest request = attributes.getRequest();
             HttpSession session = request.getSession(false);
 
-            //key
+            //key,可以存放在redis,做分布式判断
             String key = session.getId() + "#" + request.getServletPath();
             Object token = session.getAttribute(key);
 
