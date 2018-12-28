@@ -43,6 +43,7 @@
 - [消息队列](mq/README.md)
   - [RabbitMq 安装](mq/rabbitmq-install.md)
   - [RabbitMq 使用指南](mq/rabbitmq-map.md)
+  - [RabbitMq 与 Springboot](mq/rabbitmq-ee.md)
   - [Redis 发布/订阅模式](mq/redis-pubsub.md)
 
 ---
