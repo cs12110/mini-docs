@@ -26,6 +26,7 @@
   - [Rpc 之 Dubbo](javaee/Rpc之Dubbo.md)
   - [Redis 之分布式锁](javaee/Redis之分布式锁.md)
   - [Redis 之分布式 Session](javaee/分布式Session.md)
+  - [JWT 使用指南](javaee/jwt-map.md)
   - [全文检索之 elasticsearch](javaee/全文检索之elasticsearch.md)
 
 ---
@@ -43,6 +44,7 @@
 - [消息队列](mq/README.md)
   - [RabbitMq 安装](mq/rabbitmq-install.md)
   - [RabbitMq 使用指南](mq/rabbitmq-map.md)
+  - [RabbitMq 与 Springboot](mq/rabbitmq-ee.md)
   - [Redis 发布/订阅模式](mq/redis-pubsub.md)
 
 ---
