@@ -18,6 +18,7 @@
 ---
 
 - [Java EE](javaee/README.md)
+  - [Java 之日志指南](javaee/log-guide.md)
   - [Java 之代码生成器](javaee/Java之Velocity.md)
   - [分库分表之 Sharding-Jdbc](javaee/分库分表之Sharding-jdbc.md)
   - [Spring 常用技巧](javaee/Spring常用技巧.md)
