@@ -229,3 +229,9 @@ public class Plugin implements InvocationHandler {
 
 }
 ```
+
+---
+
+## 2. 选择数据流程
+
+从 MapperProxy 根据执行方法名称获取 MapperStatement -> 使用 Executor.query(ms,...)执行 -> CacheingExecutor 代理的 SimpleExecutor -> 如果一级缓存里面有数据,则从缓存里面获取 -> 没有则从执行 SimpleExecutor 里面的 doQuery 方法 -> doQuery()调用 Configuration.newStatementHandler 组装 StatementHandler(该方法判断判断是否存在复合条件的拦截器,如果有的话则对该方法进行动态代理,在执行的时候因为进行业务增强) -> StatementHandler 执行查询 -> 返回数据.

@@ -13,7 +13,7 @@
   - [ThreadLocal 笔记](javase/threadlocal.md)
   - [Classloader 资料](javase/Classloder.md)
   - [自定义 IOC 资料](javase/MyIoc.md)
-  - [CGLib 的简单使用](javase/cglib-guide.md)
+  - [Proxy 的简单使用](javase/proxy-guide.md)
 
 ---
 
