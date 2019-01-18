@@ -222,7 +222,77 @@ public static ExecutorService newFixedThreadPool(int nThreads) {
 
 ---
 
-## 6. 实现原理
+## 6. 自定义 ThreadFactory
+
+在线程池里面可以自定义 ThreadFactory,定义线程 Factory 的名称可以让线程有更易识别的名称标识,你值得拥有.
+
+自定义 ThreadFactory 如下
+
+```java
+
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
+
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/1/18 11:31
+ * <p>
+ * since: 1.0.0
+ */
+public class CustomThreadFactory implements ThreadFactory {
+
+    /**
+     * 前缀名称
+     */
+    private String prefixName;
+
+    /**
+     * 线程下标
+     */
+    private final AtomicInteger atomicInteger = new AtomicInteger(1);
+
+    /**
+     * 构建线程工厂
+     *
+     * @param prefixName 线程前缀名称
+     */
+    public CustomThreadFactory(String prefixName) {
+        this.prefixName = prefixName;
+    }
+
+    /**
+     * 构建线程
+     *
+     * @param r {@link Runnable}
+     * @return Thread
+     */
+    @Override
+    public Thread newThread(Runnable r) {
+        // 构建线程名称
+        String threadName = prefixName + "-t" + atomicInteger.getAndIncrement();
+        return new Thread(r, threadName);
+    }
+}
+```
+
+构建线程池如下
+
+```java
+ExecutorService threadExecutor = new ThreadPoolExecutor(
+		2,
+		10,
+		0,
+		TimeUnit.SECONDS,
+		new LinkedBlockingDeque<>(),
+		new CustomThreadFactory("my-factory"));
+```
+
+提交任务之后,可以通过 JvisiualVM 查看线程名称. :"}
+
+---
+
+## 7. 线程池实现原理
 
 Q: 那么线程池是怎么实现的呢?
 
@@ -418,6 +488,6 @@ private Runnable getTask() {
 
 ---
 
-## 7. 总结
+## 8. 总结
 
 感觉受到了欺骗,这就是`ThreadPoolExecutor`的事,所以掌握`ThreadPoolExecutor`至关重要.
