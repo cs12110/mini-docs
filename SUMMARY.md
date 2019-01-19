@@ -53,6 +53,7 @@
 
 - [服务器](server/README.md)
   - [服务器常用命令](server/服务器常用命令.md)
+  - [Nginx 使用指南](server/nginx安装指南.md)
   - [Lanproxy 使用指南](server/lanproxy使用指南.md)
   - [Tomcat8 使用指南](server/Tomcat8使用指南.md)
   - [Ftp 安装指南](server/ftp安装指南.md)
