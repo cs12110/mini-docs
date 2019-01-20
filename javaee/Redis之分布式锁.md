@@ -2,20 +2,6 @@
 
 分布式锁是一个要掌握的关键知识点,特别应用在分布式系统的资源访问控制上面.
 
-- [Redis 之分布式锁](#redis-%E4%B9%8B%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81)
-	- [1. Redis 锁](#1-redis-%E9%94%81)
-		- [1.1 pom.xml](#11-pomxml)
-		- [1.2 代码](#12-%E4%BB%A3%E7%A0%81)
-		- [1.3 测试](#13-%E6%B5%8B%E8%AF%95)
-	- [2. Redission 锁](#2-redission-%E9%94%81)
-		- [2.1 pom.xml](#21-pomxml)
-		- [2.2 代码](#22-%E4%BB%A3%E7%A0%81)
-		- [2.3 测试结果](#23-%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C)
-		- [2.4 Redission 源码](#24-redission-%E6%BA%90%E7%A0%81)
-	- [3. 结论](#3-%E7%BB%93%E8%AE%BA)
-	- [4. 参考资料](#4-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
-
-
 ---
 
 ## 1. Redis 锁
@@ -302,7 +288,13 @@ public class RedissionLock {
 		public void run() {
 			RLock lock = redisson.getLock(lockKey);
 
+			/* 
+			 * 要注意服务器异常导致的死锁
+			 * 
+			 * 建议采用: void lock(long leaseTime, TimeUnit unit);
+			 */
 			lock.lock();
+
 			try {
 				System.out.println(getTime() + " " + threadName + " get the lock");
 				Thread.sleep(1000);

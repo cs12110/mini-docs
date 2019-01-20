@@ -106,32 +106,32 @@ import org.slf4j.LoggerFactory;
 @Intercepts({ @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = { Statement.class }) })
 public class MyPlugin implements Interceptor {
 
-	private static Logger logger = LoggerFactory.getLogger(MyPlugin.class);
+  private static Logger logger = LoggerFactory.getLogger(MyPlugin.class);
 
-	@Override
-	public Object intercept(Invocation invocation) throws Throwable {
-		logger.info("This is interceptor" + (valueOfInvocation(invocation)));
-		return invocation.proceed();
-	}
+  @Override
+  public Object intercept(Invocation invocation) throws Throwable {
+    logger.info("This is interceptor" + (valueOfInvocation(invocation)));
+    return invocation.proceed();
+  }
 
-	private Map<String, Object> valueOfInvocation(Invocation in) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("target", in.getTarget());
-		map.put("class", in.getClass());
-		map.put("args", in.getArgs());
-		map.put("method", in.getMethod());
-		return map;
-	}
+  private Map<String, Object> valueOfInvocation(Invocation in) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("target", in.getTarget());
+    map.put("class", in.getClass());
+    map.put("args", in.getArgs());
+    map.put("method", in.getMethod());
+    return map;
+  }
 
-	@Override
-	public Object plugin(Object target) {
-		logger.info("This is plugin");
-		return Plugin.wrap(target, this);
-	}
+  @Override
+  public Object plugin(Object target) {
+    logger.info("This is plugin");
+    return Plugin.wrap(target, this);
+  }
 
-	@Override
-	public void setProperties(Properties properties) {
-	}
+  @Override
+  public void setProperties(Properties properties) {
+  }
 
 }
 ```
@@ -234,4 +234,168 @@ public class Plugin implements InvocationHandler {
 
 ## 2. 选择数据流程
 
+### 2.1 选择数据流程
+
 从 MapperProxy 根据执行方法名称获取 MapperStatement -> 使用 Executor.query(ms,...)执行 -> CacheingExecutor 代理的 SimpleExecutor -> 如果一级缓存里面有数据,则从缓存里面获取 -> 没有则从执行 SimpleExecutor 里面的 doQuery 方法 -> doQuery()调用 Configuration.newStatementHandler 组装 StatementHandler(该方法判断判断是否存在复合条件的拦截器,如果有的话则对该方法进行动态代理,在执行的时候因为进行业务增强) -> StatementHandler 执行查询 -> 返回数据.
+
+### 2.2 MapperProxy 的构建
+
+mybatis 里面的 Session 是通过 SqlSessionFactory 构建.
+
+```java
+InputStream stream = Resources.getResourceAsStream(configXmlPath);
+SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(stream);
+```
+
+内部最终调用的 build 方法如下:
+
+```java
+ public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
+  try {
+    XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
+    return build(parser.parse());
+  } catch (Exception e) {
+    throw ExceptionFactory.wrapException("Error building SqlSession.", e);
+  } finally {
+    ErrorContext.instance().reset();
+    try {
+      inputStream.close();
+    } catch (IOException e) {
+      // Intentionally ignore. Prefer previous error.
+    }
+  }
+}
+```
+
+`XMLConfigBuilder#parse`方法里面调用了下面这个方法来构建整一个环境
+
+```java
+private void parseConfiguration(XNode root) {
+  try {
+    //issue #117 read properties first
+    propertiesElement(root.evalNode("properties"));
+    Properties settings = settingsAsProperties(root.evalNode("settings"));
+    loadCustomVfs(settings);
+    typeAliasesElement(root.evalNode("typeAliases"));
+    pluginElement(root.evalNode("plugins"));
+    objectFactoryElement(root.evalNode("objectFactory"));
+    objectWrapperFactoryElement(root.evalNode("objectWrapperFactory"));
+    reflectorFactoryElement(root.evalNode("reflectorFactory"));
+    settingsElement(settings);
+    // read it after objectFactory and objectWrapperFactory issue #631
+    environmentsElement(root.evalNode("environments"));
+    databaseIdProviderElement(root.evalNode("databaseIdProvider"));
+    typeHandlerElement(root.evalNode("typeHandlers"));
+    mapperElement(root.evalNode("mappers"));
+  } catch (Exception e) {
+    throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
+  }
+}
+```
+
+在`mapperElement(root.evalNode("mappers"));`调用如下方法
+
+```java
+public void parse() {
+  if (!configuration.isResourceLoaded(resource)) {
+    configurationElement(parser.evalNode("/mapper"));
+    configuration.addLoadedResource(resource);
+    bindMapperForNamespace();
+  }
+
+  parsePendingResultMaps();
+  parsePendingCacheRefs();
+  parsePendingStatements();
+}
+```
+
+`bindMapperForNamespace()`负责将 xml 内容解释,获取到 class,并将该 class 存为 Configuration.mapperRegistry.
+
+```java
+public <T> void addMapper(Class<T> type) {
+  mapperRegistry.addMapper(type);
+}
+```
+
+mapperReistry 里面
+
+```java
+public <T> void addMapper(Class<T> type) {
+  if (type.isInterface()) {
+    if (hasMapper(type)) {
+      throw new BindingException("Type " + type + " is already known to the MapperRegistry.");
+    }
+    boolean loadCompleted = false;
+    try {
+      knownMappers.put(type, new MapperProxyFactory<T>(type));
+      // It's important that the type is added before the parser is run
+      // otherwise the binding may automatically be attempted by the
+      // mapper parser. If the type is already known, it won't try.
+      MapperAnnotationBuilder parser = new MapperAnnotationBuilder(config, type);
+      parser.parse();
+      loadCompleted = true;
+    } finally {
+      if (!loadCompleted) {
+        knownMappers.remove(type);
+      }
+    }
+  }
+}
+```
+
+```java
+public class MapperProxyFactory<T> {
+
+  private final Class<T> mapperInterface;
+  private final Map<Method, MapperMethod> methodCache = new ConcurrentHashMap<Method, MapperMethod>();
+
+  public MapperProxyFactory(Class<T> mapperInterface) {
+    this.mapperInterface = mapperInterface;
+  }
+
+  public Class<T> getMapperInterface() {
+    return mapperInterface;
+  }
+
+  public Map<Method, MapperMethod> getMethodCache() {
+    return methodCache;
+  }
+
+  @SuppressWarnings("unchecked")
+  protected T newInstance(MapperProxy<T> mapperProxy) {
+    return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface }, mapperProxy);
+  }
+
+  public T newInstance(SqlSession sqlSession) {
+    final MapperProxy<T> mapperProxy = new MapperProxy<T>(sqlSession, mapperInterface, methodCache);
+    return newInstance(mapperProxy);
+  }
+
+}
+```
+
+上面就是构建的流程了.
+
+那么看看获取的流程:`Configuration#getMapper`
+
+```java
+public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+  return mapperRegistry.getMapper(type, sqlSession);
+}
+```
+
+快来人呀,快来人呀,你看 ta 们终于 newInstance 了.
+
+```java
+public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+  final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownMappers.get(type);
+  if (mapperProxyFactory == null) {
+    throw new BindingException("Type " + type + " is not known to the MapperRegistry.");
+  }
+  try {
+    return mapperProxyFactory.newInstance(sqlSession);
+  } catch (Exception e) {
+    throw new BindingException("Error getting mapper instance. Cause: " + e, e);
+  }
+}
+```
