@@ -870,184 +870,184 @@ class com.pkgs.Simple spend times: 504
 自定义队列代码
 
 ```java
+package com.pkgs;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * 队列中心
+ * TODO: 本地线程
  *
- *
- * <p>
- *
- * @author cs12110 2018年11月15日
- * @see
- * @since 1.0
+ * @author cs12110 create at: 2019/1/20 20:53
+ * Since: 1.0.0
  */
 public class MemQueue {
+    /**
+     * 队列
+     */
+    private static final BlockingQueue<Object> BLOCK_QUEUE = new LinkedBlockingQueue<>();
 
-	/**
-	 * 队列
-	 */
-	private static final BlockingQueue<Object> BLOCK_QUEUE = new LinkedBlockingQueue<>();
+    /**
+     * 结束标志
+     */
+    private static volatile boolean isFinish = false;
 
-	/**
-	 * 结束标志
-	 */
-	private static final String IS_DONE_VALUE = "$$%%^^**&&##++--//??@@!!";
+    /**
+     * 新增消息
+     *
+     * @param value 值
+     */
+    public static void put(Object value) {
+        try {
+            BLOCK_QUEUE.put(value);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-	/**
-	 * 新增消息
-	 *
-	 * @param value
-	 *            值
-	 */
-	public static void put(Object value) {
-		try {
-			BLOCK_QUEUE.put(value);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * 消费消息
+     *
+     * @return object
+     */
+    public static Object pop() {
+        return BLOCK_QUEUE.poll();
+    }
 
-	/**
-	 * 消费消息
-	 *
-	 * @return object
-	 */
-	public static Object pop() {
-		return BLOCK_QUEUE.poll();
-	}
+    public static boolean isIsFinish() {
+        return isFinish;
+    }
 
-	/**
-	 * 设置All done标志
-	 */
-	public static void allDone() {
-		put(IS_DONE_VALUE);
-	}
-
-	/**
-	 * 判断是否结束
-	 *
-	 * @param value
-	 *            值
-	 * @return boolean
-	 */
-	public static boolean itIsDone(Object value) {
-		return IS_DONE_VALUE.equals(String.valueOf(value));
-	}
-
+    public static void setIsFinish(boolean isFinish) {
+        MemQueue.isFinish = isFinish;
+    }
 }
 ```
 
 ```java
+package com.pkgs;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import test.MemQueue;
-
+/**
+ * TODO: 文件导入优化
+ *
+ * @author cs12110 create at: 2019/1/20 20:56
+ * Since: 1.0.0
+ */
 public class Optimize {
 
-	private final static int THREAD_NUM = 5;
+    private final static int THREAD_NUM = 5;
 
-	private final static ExecutorService service = Executors.newFixedThreadPool(THREAD_NUM);
-	/**
-	 * 消息全部放置完成
-	 */
-	private static volatile boolean isAllDone = false;
+    private final static ExecutorService service = Executors.newFixedThreadPool(THREAD_NUM);
 
-	public static void startup(String[] args) {
-		long start = System.currentTimeMillis();
-		service.submit(new MyReader());
-		for (int index = 0, size = THREAD_NUM - 1; index < size; index++) {
-			service.submit(new MyConsumer("t" + index));
-		}
+    public static void main(String[] args) {
+        long start = System.currentTimeMillis();
+        service.submit(new MyReader());
 
-		while (!isAllDone) {
-		}
-		long end = System.currentTimeMillis();
+        /*
+         *使用countdownLatch监测线程池里面的子线程是否全部执行完成
+         */
+        CountDownLatch latch = new CountDownLatch(THREAD_NUM);
+        for (int index = 0; index < THREAD_NUM; index++) {
+            service.submit(new MyConsumer(latch, "t" + index));
+        }
 
-		System.out.println("Optimize spend: " + (end - start));
-	}
+        try {
+            latch.await();
+        } catch (Exception e) {
+            //do nothing
+        }
 
-	static class MyReader implements Runnable {
-		@Override
-		public void run() {
-			System.out.println("Start running: " + this);
-			try {
-				File file = new File("d://all.txt");
-				RandomAccessFile access = new RandomAccessFile(file, "r");
-				String line = null;
-				while (null != (line = access.readLine())) {
-					MemQueue.put(line);
-				}
-				access.close();
-				System.out.println("It's done: " + this);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				MemQueue.allDone();
-			}
-		}
-	}
+        long end = System.currentTimeMillis();
 
-	/**
-	 * 消费者
-	 */
-	static class MyConsumer implements Runnable {
-		private String threadName;
-		private int num = 0;
 
-		public MyConsumer(String threadName) {
-			super();
-			this.threadName = threadName;
-		}
+        System.out.println("Optimize spend: " + (end - start));
+    }
 
-		@Override
-		public void run() {
-			long start = System.currentTimeMillis();
-			while (!isAllDone) {
-				Object msg = MemQueue.pop();
-				if (MemQueue.itIsDone(msg)) {
-					isAllDone = true;
-					break;
-				}
-				if (null != msg) {
-					processLine(String.valueOf(msg));
-					num++;
-				}
-			}
-			long end = System.currentTimeMillis();
-			System.out.println(threadName + " using: " + num + " , spend times: " + (end - start));
-		}
+    /**
+     * 读取文件内容到queue
+     */
+    static class MyReader implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("Provider is running");
+            try {
+                File file = new File("d://all.txt");
+                RandomAccessFile access = new RandomAccessFile(file, "r");
+                String line;
+                while (null != (line = access.readLine())) {
+                    MemQueue.put(line);
+                }
+                access.close();
+                System.out.println("Provider is done");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                MemQueue.setIsFinish(true);
+            }
+        }
+    }
 
-		private void processLine(String line) {
-			try {
-				// 每条数据处理,大概耗时5毫秒
-				Thread.sleep(5);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+    /**
+     * 消费者,消费queue消息
+     */
+    static class MyConsumer implements Runnable {
+        private CountDownLatch latch;
+        private String threadName;
 
+        public MyConsumer(CountDownLatch latch, String threadName) {
+            super();
+            this.latch = latch;
+            this.threadName = threadName;
+        }
+
+        @Override
+        public void run() {
+            long start = System.currentTimeMillis();
+            int num = 0;
+            while (true) {
+                Object msg = MemQueue.pop();
+                if (msg == null && MemQueue.isIsFinish()) {
+                    break;
+                }
+                if (null != msg) {
+                    processLine(String.valueOf(msg));
+                    num++;
+                }
+            }
+            long end = System.currentTimeMillis();
+            System.out.println(threadName + "is done, get msg: " + num + ",spend times: " + (end - start));
+            latch.countDown();
+        }
+
+        private void processLine(String line) {
+            try {
+                // 每条数据处理,大概耗时5毫秒
+                Thread.sleep(5);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 ```
 
 测试结果
 
 ```java
-Start running: test.per.Optimize$MyReader@24d2263f
-It's done: test.per.Optimize$MyReader@24d2263f
-t0 using: 25 , spend times: 127
-Optimize spend: 140
-Optimize is done
-t2 using: 24 , spend times: 128
-t1 using: 26 , spend times: 131
-t3 using: 25 , spend times: 125
+Provider is running
+Provider is done
+t1is done, get msg: 21,spend times: 119
+t4is done, get msg: 17,spend times: 129
+t0is done, get msg: 18,spend times: 125
+t2is done, get msg: 22,spend times: 124
+t3is done, get msg: 22,spend times: 123
+Optimize spend: 166
 ```
 
 总结:在上述的测试数据里面,该方法能提高数据的处理速度(差不多 5 倍),但也消耗更大的资源和提高了程序的复杂性.要怎么使用,请参考具体生成环境.
