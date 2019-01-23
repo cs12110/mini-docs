@@ -37,6 +37,8 @@ hadoop 版本为: `2.7.3`,请知悉.
 ```java
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * 日志工具类
@@ -50,68 +52,10 @@ public class LogUtil {
 
     private static final Object[] EMPTY_ARR = {};
 
-    public static void display(String log) {
-        display(log, EMPTY_ARR);
-    }
-
-    public static void display(String log, Object... params) {
-        StringBuilder body = new StringBuilder();
-        body.append(getTime());
-        body.append(" ");
-        body.append(getStackTraceInfo());
-        body.append(" - ");
-
-        if (params != null && params.length > 0) {
-            int leftIndex = log.indexOf("{");
-            int rightIndex = log.indexOf("}");
-
-            if (leftIndex != -1 && rightIndex != -1 && leftIndex < rightIndex) {
-                char[] arr = log.toCharArray();
-                int len = arr.length;
-                int paramIndex = 0;
-                for (int index = 0, max = len - 1; index < max; index++) {
-                    // 判断是否属于{}
-                    if (arr[index] == '{' && arr[index + 1] == '}' && paramIndex < params.length) {
-                        body.append(params[paramIndex++]);
-                        index++;
-                    } else {
-                        body.append(arr[index]);
-                    }
-                }
-                if (arr[len - 1] != '}') {
-                    body.append(arr[len - 1]);
-                }
-                if (paramIndex < params.length) {
-                    for (int index = paramIndex; index < params.length; index++) {
-                        body.append(' ');
-                        body.append(params[index]);
-                    }
-                }
-            } else {
-                for (Object each : params) {
-                    body.append(each);
-                    body.append(" ");
-                }
-            }
-        } else {
-            body.append(log);
-        }
-        System.out.println(body);
-    }
-
-    private static String getStackTraceInfo() {
-        Exception ex = new Exception();
-        StackTraceElement[] traceArr = ex.getStackTrace();
-        for (StackTraceElement e : traceArr) {
-            if (e.getClassName().equals(LogUtil.class.getName())) {
-                continue;
-            }
-            return (simplify(e.getClassName()) + ":" + e.getLineNumber());
-        }
-        return "N/A";
-    }
-
-    private static String simplify(String clazzName) {
+    /**
+     * 简单化类名function
+     */
+    private static Function<String, String> simplifyClassNameFun = clazzName -> {
         if (null == clazzName) {
             return null;
         }
@@ -128,18 +72,79 @@ public class LogUtil {
         }
         builder.append(clazzName.substring(left));
         return builder.toString();
+    };
+
+    /**
+     * 时间提供类
+     */
+    private static Supplier<String> dateSupplier = () -> {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date());
+    };
+
+
+    /**
+     * 打印日志
+     *
+     * @param log 日志
+     */
+    public static void display(String log) {
+        display(log, EMPTY_ARR);
     }
 
     /**
-     * 获取系统当前时间
+     * 打印日志
+     *
+     * @param log    日志主体
+     * @param params 日志参数
+     */
+    public static void display(String log, Object... params) {
+        StringBuilder body = new StringBuilder();
+        body.append(dateSupplier.get()).append(" ").append(getStackTraceInfo()).append(" - ");
+        if (null == params || params.length == 0) {
+            body.append(log);
+            System.out.println(log);
+            return;
+        }
+
+        char[] arr = log.toCharArray();
+        int i;
+        int paramIndex = 0;
+        int len = arr.length;
+
+        for (i = 0; i < len - 1; i++) {
+            if (arr[i] == '{' && arr[i + 1] == '}') {
+                if (paramIndex < params.length) {
+                    body.append(params[paramIndex++]);
+                } else {
+                    body.append(arr[i]);
+                    body.append(arr[i + 1]);
+                }
+                i++;
+            } else {
+                body.append(arr[i]);
+            }
+        }
+       
+        System.out.println(body);
+    }
+
+    /**
+     * 获取StackTrace信息
      *
      * @return String
      */
-    private static String getTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return sdf.format(new Date());
+    private static String getStackTraceInfo() {
+        Exception ex = new Exception();
+        StackTraceElement[] traceArr = ex.getStackTrace();
+        for (StackTraceElement e : traceArr) {
+            if (e.getClassName().equals(LogUtil.class.getName())) {
+                continue;
+            }
+            return (simplifyClassNameFun.apply(e.getClassName()) + ":" + e.getLineNumber());
+        }
+        return "N/A";
     }
-
 }
 ```
 
@@ -360,13 +365,13 @@ public class HdfsTest {
 测试结果
 
 ```java
-2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:114 - Start copy d://logs/ into hdfs://10.10.1.142:9000/my-logs/}
+2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:114 - Start copy d://logs/ into hdfs://10.10.1.142:9000/my-logs/
 2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:116 - Copy d://logs/ into hdfs://10.10.1.142:9000/my-logs/ is done
 2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:121 - Delete  d:\logs\1.txt file is done
-2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:114 - Start copy d://logs/ into hdfs://10.10.1.142:9000/my-logs/}
+2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:114 - Start copy d://logs/ into hdfs://10.10.1.142:9000/my-logs/
 2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:116 - Copy d://logs/ into hdfs://10.10.1.142:9000/my-logs/ is done
 2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:121 - Delete  d:\logs\2.txt file is done
-2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:114 - Start copy d://logs/ into hdfs://10.10.1.142:9000/my-logs/}
+2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:114 - Start copy d://logs/ into hdfs://10.10.1.142:9000/my-logs/
 2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:116 - Copy d://logs/ into hdfs://10.10.1.142:9000/my-logs/ is done
 2019-01-22 09:25:54 c.r.e.h.HdfsUploadWorker:121 - Delete  d:\logs\3.txt file is done
 ```
