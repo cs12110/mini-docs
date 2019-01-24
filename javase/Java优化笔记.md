@@ -2,7 +2,7 @@
 
 提高 Java 性能的小 tips.
 
-文档不能提供详细的解决方法,但吸收优秀代码,提供一种思路,Java 性能优化,是一门坑爹的艺术呀. 咧嘴笑.jpg
+Java 性能优化, 是一门坑爹的艺术呀. 咧嘴笑.jpg
 
 _文档不定时更新_
 
@@ -12,9 +12,7 @@ _文档不定时更新_
 
 **优化方法: 避免生成多余的对象(不仅字符串,系统优化也如是)**
 
-在我们普通的做法里面为了方便,会使用字符串截取
-
-代码类似:
+普通的做法使用`str.substring()`,大概如下:
 
 ```java
 public static String changeFirstChar(boolean upper, String str) {
@@ -31,7 +29,7 @@ public static String changeFirstChar(boolean upper, String str) {
 }
 ```
 
-在`Jodd`的工具类`StringUtil.java`里面的`changeFirstCharacterCase`里面,ta 们优化了这个字符串改变首字母的方法,代码如下:
+`Jodd`的工具类`StringUtil#changeFirstCharacterCase`里面,ta 们是这么做的:
 
 ```java
 private static String changeFirstCharacterCase(boolean capitalize, String string) {
@@ -57,7 +55,7 @@ private static String changeFirstCharacterCase(boolean capitalize, String string
 	}
 ```
 
-测试结果如下,可以看出`Jodd`代码比自己写的字符串截取快了 3 倍左右(Jodd actually do a good job!).
+测试结果如下,`Jodd`代码字符串截取快了 3 倍左右 (Jodd actually do a good job!).
 
 ```java
 Test times: 1000000
@@ -67,117 +65,109 @@ change spend time: 41
 
 ---
 
-## 2. 使用设计模式
+## 2. StringBuilder 的使用
 
-在项目中,有一个功能:校验一条日志,返回`LogCheckResult`对象
+在字符串的连接里面如果不涉及线程安全,那么 StringBuilder 你值得拥有.
 
-LogCheckResult 类代码如下
+但在使用中还可以有一点小小的优化,如下:
 
-```java
-public class LogCheckResult {
-    /**
-     * 默认成功检查类
-     */
-    public static LogCheckResult DEFAULT_SUCCESS_RESULT = new LogCheckResult(true, "", "");
-    /**
-     * 是否合法标志
-     */
-    private boolean isOk;
-    /**
-     * 日志字符串
-     */
-    private String log;
-    /**
-     * 错误信息
-     */
-    private String errMsg;
-
-    public LogCheckResult(boolean isOk, String log, String errMsg) {
-        super();
-        this.isOk = isOk;
-        this.log = log;
-        this.errMsg = errMsg;
-    }
-
-    //getter/setter
-
-    @Override
-    public String toString() {
-        return "{isOk:" + isOk + ", log:" + log + ", errMsg:" + errMsg + "}";
-    }
-
-}
-```
-
-如果日志成功,LogCheckResult 里面的 log 和 errMsg 属性为空
-
-在项目中使用的时候,可以把 LogCheckResult 变成 Builder 模式,这样更简洁明了.
+如果字符串确定长度的话,也请使用 `new StringBuilder(capacity)`
 
 ```java
-public class LogCheckResult {
-    /**
-     * 默认成功检查类
-     */
-    public static LogCheckResult DEFAULT_SUCCESS_RESULT = new LogCheckResult.Builder(true).build();
-    /**
-     * 是否合法标志
-     */
-    private boolean isOk;
-    /**
-     * 日志字符串
-     */
-    private String log;
-    /**
-     * 错误信息
-     */
-    private String errMsg;
+public class StrBuilder {
+	public static void main(String[] args) {
+		before();
+		after();
+	}
+	/**
+	 * 循环的每一次都生成了一个StringBuilder对象
+	 */
+	private static void before() {
+		System.out.println("--- Before ---");
+		for (int index = 0; index < 5; index++) {
+			StringBuilder builder = new StringBuilder();
+			builder.append("this is").append(index);
+			System.out.println(builder);
+		}
+	}
 
-    private LogCheckResult(Builder builder) {
-        this.isOk = builder.isOk;
-        this.log = builder.log;
-        this.errMsg = builder.errMsg;
-    }
+	/**
+	 * 只有一个StringBuilder对象
+	 */
+	private static void after() {
+		System.out.println("--- After ---");
+		StringBuilder builder = new StringBuilder();
+		for (int index = 0; index < 5; index++) {
+			builder.setLength(0);
+			builder.append("this is").append(index);
+			System.out.println(builder);
+		}
+	}
 
-    public static class Builder {
-        private boolean isOk;
-        private String log;
-        private String errMsg;
-
-        public Builder(boolean isOk) {
-            this.isOk = isOk;
-        }
-        public Builder setLog(String log) {
-            this.log = log;
-            return this;
-        }
-        public Builder setErrMsg(String errMsg) {
-            this.errMsg = errMsg;
-            return this;
-        }
-        public LogCheckResult build() {
-            return new LogCheckResult(this);
-        }
-    }
-
-    public boolean isOk() {
-        return isOk;
-    }
-    public String getLog() {
-        return log;
-    }
-    public String getErrMsg() {
-        return errMsg;
-    }
-    @Override
-    public String toString() {
-        return "{isOk:" + isOk + ", log:" + log + ", errMsg:" + errMsg + "}";
-    }
 }
 ```
 
 ---
 
-## 3. List 初始化
+## 3. 字符串截取
+
+在现实生产环境里面,经常遇到要到某个字符串进行截取的情况.一般也是使用`split()`,但如果是简单的获取,还有更好的做法.
+
+普通做法如下:
+
+```java
+@Test
+public void testArr() throws Exception {
+	String str = "a,b,c,d,e";
+	long start = System.currentTimeMillis();
+	String[] arr = null;
+	for (int index = 0; index < 100000; index++) {
+		arr = str.split(",");
+		String a = arr[0];
+		// doSomething with a
+	}
+
+	long end = System.currentTimeMillis();
+
+	System.out.println("Arr spend: " + (end - start));
+}
+```
+
+简单优化:
+
+```java
+@Test
+public void testSub() throws Exception {
+	String str = "a,b,c,d,e";
+	long start = System.currentTimeMillis();
+
+	int buond = 0;
+	for (int index = 0; index < 100000; index++) {
+		buond = str.indexOf(",");
+		if (buond != -1) {
+			String a = str.substring(0, buond);
+			// doSomething with a
+		}
+	}
+
+	long end = System.currentTimeMillis();
+
+	System.out.println("Sub spend: " + (end - start));
+}
+```
+
+测试结果
+
+```java
+Arr spend: 565
+Sub spend: 53
+```
+
+结论: 字符串,还真的能折腾不少东西. :{
+
+---
+
+## 4. List 初始化
 
 哈,List 里面的根本组成就是`Object[] values`.如果在初始化,不进行长度的控制,默认长度初始化为`10`,那么在 add 新的元素的时候,当数组长度达到(size+1>length)的时候,就会按照`length*1.5`倍来增长数组.也就是在默认初始化的情况下:
 
@@ -223,7 +213,7 @@ public class LengthOfList {
 
 ---
 
-## 4. 反射的简单优化
+## 5. 反射的简单优化
 
 在 Java 里面,反射真的是一个有趣的家伙.当然这个优化一次执行可能就是快几百毫秒,几乎感觉不出来.如果在大循环里面,每次快几百毫秒,那么整一个就快了,好多,好多,好多了.
 
@@ -340,7 +330,7 @@ public class MyObj {
 
 ---
 
-## 5. Class.forName 和 ClassLoader 的区别
+## 6. Class.forName 和 ClassLoader 的区别
 
 在使用数据库连接的时候,一般会调用`Class.forName(driverName)`来注册数据库连接驱动.
 
@@ -428,55 +418,6 @@ This is static method in StaticBlockClazz
 上面的结论是通过的,那么为什么导致这样子?
 
 据说在调用`newInstance()`的方法,生成对象的时候才会执行静态代码块里面的东西.而`ClassLoader`仅仅是把`.class`文件加载到 jvm 而没有执行`newInstance()`的操作,而`Class.forName`是会默认调用`newInstance()`的操作,具体还需要去看**Jdk**代码才清楚
-
----
-
-## 6. `Function<K,V>`的使用
-
-在`Jodd`的项目代码里面看见了一个使用`Function<K,V>`的地方,觉得很好奇.所以测试了一下.
-
-适用场景: map 里面根据 key 查找,如果该不存在的情况下,会创建新的 value 存入 map 里面
-
-```java
-public class FunctionTest {
-	public static void main(String[] args) {
-		Map<String, MyClazz> map = new HashMap<String, MyClazz>();
-		map.put("1", new MyClazz("1"));
-		map.put("2", new MyClazz("2"));
-
-		/*
-		 * Function的使用
-		 */
-		Function<String, MyClazz> fun = (n -> new MyClazz(n));
-		/*
-		 * 新建id为4的MyCalzz,并放入map
-		 */
-		MyClazz clazz = map.computeIfAbsent("4", fun);
-
-		System.out.println(clazz);
-		System.out.println(map.size());
-	}
-
-}
-
-class MyClazz {
-	private String id;
-	public MyClazz(String id) {
-		super();
-		this.id = id;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	@Override
-	public String toString() {
-		return "MyClazz [id=" + id + "]";
-	}
-}
-```
 
 ---
 
@@ -688,138 +629,17 @@ java.beans.PropertyDescriptor[name=value; propertyType=class java.lang.String; r
 
 ---
 
-## 9. 线程池的使用
+## 9.数据导入优化
 
-在现实场景中,有些地方需要用到多线程,但不推荐使用 new Thread 这种方法来创建新的线程,线程多的时候,JVM 在维护线程和 CPU 切换上面都要耗费大量的资源.所以推荐使用线程池.
+需求: 用户界面导入文件,按行读取文件内容,并把内容插入数据库.
 
-**线程池在使用中不用关闭,在应用开启的时候初始化,然后到应用结束没特殊情况都不应手动关闭.**
-
-```java
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
-/**
- * 线程池
- *
- * @author root
- *
- */
-public class ThreadPoolUtil {
-
-	/**
-	 * 线程池
-	 *
-	 * 线程提交大于>coresize的时候,放到queue里面,队列满的话,开启新的线程来处理,最大线程数为maxsize,超过这个数量的时候,
-	 * 采用拒绝策略
-	 *
-	 */
-	private final static ExecutorService POOL = new ThreadPoolExecutor(2, 8, 10, TimeUnit.SECONDS,
-			new ArrayBlockingQueue<>(1024));
-
-	/**
-	 * 提交线程多条线程
-	 *
-	 * @param taskList
-	 *            线程组
-	 * @return List
-	 */
-	public static List<Future<?>> batch(List<Runnable> taskList) {
-		List<Future<?>> futureList = new ArrayList<>(taskList.size());
-		for(Runnable each: taskList){
-			futureList.add(submit(each));
-		}
-		return futureList;
-	}
-
-	/**
-	 * 提交任务
-	 *
-	 * @param task
-	 *            任务
-	 * @return {@link Future}
-	 */
-	public static Future<?> submit(Runnable task) {
-		return POOL.submit(task);
-	}
-
-}
-```
-
-测试类如下
-
-```java
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Future;
-
-public class TestThreadPool {
-
-	public static void main(String[] args) {
-		int taskNum = 5;
-		List<Runnable> list = new ArrayList<>(taskNum);
-		for (int index = 0; index < taskNum; index++) {
-			list.add(new MyRun(index));
-		}
-
-		List<Future<?>> futureList = ThreadPoolUtil.batch(list);
-		for (Future<?> f : futureList) {
-			try {
-				f.get();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println("After all the task done, you can do anything you want.");
-	}
-
-}
-
-class MyRun implements Runnable {
-
-	private int threadId;
-
-	public MyRun(int threadId) {
-		this.threadId = threadId;
-	}
-
-	@Override
-	public void run() {
-		System.out.println(this.getClass() + "[" + threadId + "] is running");
-	}
-}
-```
-
-测试结果
-
-```java
-class issue.pool.MyRun[1] is running
-class issue.pool.MyRun[0] is running
-class issue.pool.MyRun[2] is running
-class issue.pool.MyRun[3] is running
-class issue.pool.MyRun[4] is running
-After all the task done, you can do anything you want.
-```
-
----
-
-## 10.数据导入优化
-
-在生产环境里面,有一个需求: 用户界面导入文件,按行读取文件内容,并把内容插入数据库.
-
-在系统里面使用的方式是: 使用`IO`读取内容,每一行进行处理插入数据.
-
-优化版本 1: 使用`jdbc`批处理功能,减少数据在网络上传输的时间.
-
-优化版本 2: 采用队列方法,一个线程负责读取文件内容放置队里,开启其他线程处理队列里面的内容+线程使用`jdbc`批处理.
+- 普通模式: 使用`IO`读取内容,对每一行数据进行处理插入数据.
+- 优化版本 1: 使用`jdbc`批处理功能,减少数据在网络上传输的时间.
+- 优化版本 2: 采用队列方法,一个线程负责读取文件内容放置队里,开启其他线程处理队列里面的内容+`jdbc`批处理.
 
 测试文本:`all.txt`,为 100 行的数据文本.
 
-### 10.1 普通处理
+### 9.1 普通处理
 
 ```java
 package com.pkgs;
@@ -865,7 +685,7 @@ public class Simple {
 class com.pkgs.Simple spend times: 504
 ```
 
-### 10.2 优化版本代码
+### 9.2 优化版本代码
 
 自定义队列代码
 
@@ -1050,15 +870,13 @@ t3is done, get msg: 22,spend times: 123
 Optimize spend: 166
 ```
 
-总结:在上述的测试数据里面,该方法能提高数据的处理速度(差不多 5 倍),但也消耗更大的资源和提高了程序的复杂性.要怎么使用,请参考具体生成环境.
+总结:该方法能提高数据的处理速度(差不多 5 倍),但也消耗更大的资源和提高了程序的复杂性. ~~要怎么使用,请参考具体生产环境~~
 
 ---
 
-## 11. 接口设计
+## 10. 接口设计
 
-至今,都还记得,这种疼.
-
-狗日的接口设置,太膨胀了,这怪谁?当然怪自己了.
+至今,都还记得,这种疼.狗日的接口设置,太膨胀了,这怪谁?当然怪自己了.
 
 在之前项目的接口里面,有如下接口
 
@@ -1080,7 +898,7 @@ BusVod selectOne(BusVod search);
 
 ---
 
-## 12. 时间处理
+## 11. 时间处理
 
 在 Java 里面经常使用`SimpleDateFormat`来做时间的格式化,但这个东西线程不安全.
 
@@ -1140,214 +958,11 @@ date.append(instance.get(Calendar.SECOND));
 return date.toString();
 ```
 
-代码增加了一点,但在线程安全的情况下,Calendar 还是比 SimpleDateFormat 快一点.
+代码增加了一点,但在线程安全的情况下,Calendar 还比 SimpleDateFormat 快一点.
 
 ---
 
-## 13. 动态代理
-
-在日常的性能测试里面,有很多需要计算某个方法的执行耗时.
-
-那么我们可以使用动态代理了.
-
-```java
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- * Stopwatch
- *
- * @author root
- *
- */
-public class StopwatchAop implements InvocationHandler {
-	/**
-	 * 本地缓存
-	 */
-	private static Map<String, Object> cache = new HashMap<String, Object>();
-
-	/**
-	 * 创建动态代理对象
-	 *
-	 * @param clazz 对象
-	 * @return T
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> T wrapper(Class<T> clazz) {
-		if (null == clazz) {
-			return null;
-		}
-		String key = clazz.getName();
-		Object value = cache.get(key);
-		if (value != null) {
-			return (T) value;
-		} else {
-			T instance = null;
-			try {
-				instance = clazz.newInstance();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			Object proxy = Proxy.newProxyInstance(clazz.getClassLoader(), clazz.getInterfaces(),
-					new StopwatchAop(instance));
-
-			cache.put(key, proxy);
-			return (T) proxy;
-		}
-	}
-
-	private Object target;
-
-	private StopwatchAop(Object target) {
-		super();
-		this.target = target;
-	}
-
-	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
-		long start = System.currentTimeMillis();
-
-		Object result = method.invoke(target, args);
-		long end = System.currentTimeMillis();
-
-		System.out.println(buildLog(method, start, end));
-
-		return result;
-	}
-
-	/**
-	 * 创建日志
-	 *
-	 * @param m     method
-	 * @param start 开始时间
-	 * @param end   结束时间
-	 * @return String
-	 */
-	private String buildLog(Method m, long start, long end) {
-		long spend = end - start;
-
-		String methodName = m.getName();
-		String className = m.getDeclaringClass().getName();
-
-		StringBuilder log = new StringBuilder();
-		log.append(className).append("#").append(methodName);
-		log.append(" - ");
-		log.append("spend times: ").append(spend);
-		return log.toString();
-	}
-
-}
-```
-
----
-
-## 14. StringBuilder 的使用
-
-在字符串的连接里面如果不涉及线程安全,那么 StringBuilder 你值得拥有.
-
-但在使用中还可以有一点小小的优化,如下:
-
-如果字符串确定长度的话,也请使用 `new StringBuilder(capacity)`
-
-```java
-public class StrBuilder {
-	public static void main(String[] args) {
-		before();
-		after();
-	}
-	/**
-	 * 循环的每一次都生成了一个StringBuilder对象
-	 */
-	private static void before() {
-		System.out.println("--- Before ---");
-		for (int index = 0; index < 5; index++) {
-			StringBuilder builder = new StringBuilder();
-			builder.append("this is").append(index);
-			System.out.println(builder);
-		}
-	}
-
-	/**
-	 * 只有一个StringBuilder对象
-	 */
-	private static void after() {
-		System.out.println("--- After ---");
-		StringBuilder builder = new StringBuilder();
-		for (int index = 0; index < 5; index++) {
-			builder.setLength(0);
-			builder.append("this is").append(index);
-			System.out.println(builder);
-		}
-	}
-
-}
-```
-
----
-
-## 15. 字符串截取
-
-在现实生产环境里面,经常遇到要到某个字符串进行截取的情况.一般也是使用`split()`,但如果是简单的获取,还有更好的做法.
-
-普通做法如下:
-
-```java
-@Test
-public void testArr() throws Exception {
-	String str = "a,b,c,d,e";
-	long start = System.currentTimeMillis();
-	String[] arr = null;
-	for (int index = 0; index < 100000; index++) {
-		arr = str.split(",");
-		String a = arr[0];
-		// doSomething with a
-	}
-
-	long end = System.currentTimeMillis();
-
-	System.out.println("Arr spend: " + (end - start));
-}
-```
-
-简单优化:
-
-```java
-@Test
-public void testSub() throws Exception {
-	String str = "a,b,c,d,e";
-	long start = System.currentTimeMillis();
-
-	int buond = 0;
-	for (int index = 0; index < 100000; index++) {
-		buond = str.indexOf(",");
-		if (buond != -1) {
-			String a = str.substring(0, buond);
-			// doSomething with a
-		}
-	}
-
-	long end = System.currentTimeMillis();
-
-	System.out.println("Sub spend: " + (end - start));
-}
-```
-
-测试结果
-
-```java
-Arr spend: 565
-Sub spend: 53
-```
-
-结论: 字符串,还真的能折腾不少东西. :{
-
----
-
-## 16. 快速获取所有子文件路径
+## 12. 快速获取子文件路径
 
 自己需要获取某个文件夹下面的所有子文件的路径,但是使用单线程递归获取耗时,有点久.
 
@@ -1365,7 +980,7 @@ import java.util.concurrent.RecursiveAction;
  *
  * <p>
  *
- * @author hhp 2018年9月29日
+ * @author cs12110 2018年9月29日
  * @see
  * @since 1.0
  */
@@ -1460,7 +1075,7 @@ public class QuicklyFileSeeker {
 
 ---
 
-## 17. 加载外部 jar
+## 13. 加载外部 jar
 
 生产场景:项目 a 提交接口给项目 b -> 项目 b 实现这个接口后打包成 jar -> 放置特定文件夹 -> 项目 a 自定加载使用项目 b 实现的接口.
 
@@ -1478,7 +1093,7 @@ import java.net.URLClassLoader;
  *
  * <p>
  *
- * @author hhp 2018年10月16日
+ * @author cs12110 2018年10月16日
  * @see
  * @since 1.0
  */
@@ -1521,7 +1136,7 @@ import java.net.URL;
  *
  * <p>
  *
- * @author hhp 2018年10月16日
+ * @author cs12110 2018年10月16日
  * @see
  * @since 1.0
  */
