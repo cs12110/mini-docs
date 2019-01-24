@@ -5,22 +5,22 @@
 ---
 
 - [Java SE](javase/README.md)
-  - [Java 测试之 Mockito](javase/mockito.md)
-  - [Java 之 lambda](javase/Java之lambda.md)
-  - [Java 优化笔记](javase/Java优化笔记.md)
-  - [Java 线程](javase/thread.md)
-  - [Java 线程池](javase/threadpool.md)
-  - [ThreadLocal 笔记](javase/threadlocal.md)
-  - [Classloader 资料](javase/Classloder.md)
-  - [自定义 IOC 资料](javase/MyIoc.md)
-  - [Proxy 的简单使用](javase/proxy-guide.md)
+  - [Java 之 Mockito](javase/java-mockito.md)
+  - [Java 之 Lambda](javase/java-lambda.md)
+  - [Java 之 线程](javase/java-thread.md)
+  - [Java 之 线程池](javase/java-threadpool.md)
+  - [Java 之 ThreadLocal](javase/java-threadlocal.md)
+  - [Java 之 Classloader](javase/java-classloder.md)
+  - [Java 之 IOC](javase/java-myioc.md)
+  - [Java 之 Proxy](javase/java-proxy.md)
+  - [Java 之 优化笔记](javase/java-optimize.md)
 
 ---
 
 - [Java EE](javaee/README.md)
-  - [Java 之日志指南](javaee/log-guide.md)
-  - [Java 之代码生成器](javaee/Java之Velocity.md)
-  - [分库分表之 Sharding-Jdbc](javaee/分库分表之Sharding-jdbc.md)
+  - [日志指南](javaee/log-guide.md)
+  - [代码生成器](javaee/Java之Velocity.md)
+  - [Sharding-Jdbc](javaee/分库分表之Sharding-jdbc.md)
   - [Spring 常用技巧](javaee/Spring常用技巧.md)
   - [Spring 与 SqlSession](javaee/Spring与SqlSession.md)
   - [SpringCloud 基础](javaee/SpringCloud基础.md)
@@ -28,7 +28,7 @@
   - [Rpc 之 Dubbo](javaee/Rpc之Dubbo.md)
   - [Redis 之分布式锁](javaee/Redis之分布式锁.md)
   - [Redis 之分布式 Session](javaee/分布式Session.md)
-  - [Redis数据导入优化](javaee/Redis数据导入优化.md)
+  - [Redis 数据导入优化](javaee/Redis数据导入优化.md)
   - [JWT 使用指南](javaee/jwt-map.md)
   - [全文检索之 elasticsearch](javaee/全文检索之elasticsearch.md)
 
