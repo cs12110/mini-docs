@@ -28,6 +28,7 @@
   - [Rpc 之 Dubbo](javaee/Rpc之Dubbo.md)
   - [Redis 之分布式锁](javaee/Redis之分布式锁.md)
   - [Redis 之分布式 Session](javaee/分布式Session.md)
+  - [Redis数据导入优化](javaee/Redis数据导入优化.md)
   - [JWT 使用指南](javaee/jwt-map.md)
   - [全文检索之 elasticsearch](javaee/全文检索之elasticsearch.md)
 
