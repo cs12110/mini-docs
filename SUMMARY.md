@@ -18,19 +18,19 @@
 ---
 
 - [Java EE](javaee/README.md)
-  - [日志指南](javaee/log-guide.md)
-  - [代码生成器](javaee/Java之Velocity.md)
-  - [Sharding-Jdbc](javaee/分库分表之Sharding-jdbc.md)
-  - [Spring 常用技巧](javaee/Spring常用技巧.md)
-  - [Spring 与 SqlSession](javaee/Spring与SqlSession.md)
-  - [SpringCloud 基础](javaee/SpringCloud基础.md)
-  - [Rpc 之 Thrift](javaee/Rpc之Thrift.md)
-  - [Rpc 之 Dubbo](javaee/Rpc之Dubbo.md)
-  - [Redis 之分布式锁](javaee/Redis之分布式锁.md)
-  - [Redis 之分布式 Session](javaee/分布式Session.md)
-  - [Redis 数据导入优化](javaee/Redis数据导入优化.md)
+  - [常用日志组件](javaee/log-guide.md)
+  - [Velocity 代码生成器](javaee/cg-velocity.md)
+  - [分开分表](javaee/分库分表之Sharding-jdbc.md)
+  - [Spring 常用技巧](javaee/spring-usage.md)
+  - [Spring 与 SqlSession](javaee/spring-sqlsession.md)
+  - [SpringCloud 基础教程](javaee/springcloud.md)
+  - [Rpc 之 Thrift](javaee/rpc-thrift.md)
+  - [Rpc 之 Dubbo](javaee/rpc-dubbo.md)
+  - [Redis 之 分布式锁](javaee/redis-lock.md)
+  - [Redis 之 分布式 Session](javaee/redis-session.md)
+  - [Redis 之 导入优化](javaee/redis-import.md)
   - [JWT 使用指南](javaee/jwt-map.md)
-  - [全文检索之 elasticsearch](javaee/全文检索之elasticsearch.md)
+  - [Elasticsearch](javaee/fulltext-es.md)
 
 ---
 
