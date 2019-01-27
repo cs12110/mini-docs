@@ -20,7 +20,7 @@
 - [Java EE](javaee/README.md)
   - [常用日志组件](javaee/log-guide.md)
   - [Velocity 代码生成器](javaee/cg-velocity.md)
-  - [分开分表](javaee/分库分表之Sharding-jdbc.md)
+  - [分库分表 之 Sharding-JDBC](javaee/sharding-jdbc.md)
   - [Spring 常用技巧](javaee/spring-usage.md)
   - [Spring 与 SqlSession](javaee/spring-sqlsession.md)
   - [SpringCloud 基础教程](javaee/springcloud.md)
