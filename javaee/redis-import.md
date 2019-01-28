@@ -435,6 +435,121 @@ spend: 88 ms
 
 ---
 
-## 4. 参考资料
+## 4. LettuceConnectionFactory
+
+在最新的 LettuceConnectionFactory 里面可以根据如下操作获取 pipeline.
+
+```java
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisClusterConnection;
+import org.springframework.data.redis.connection.RedisClusterNode;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.stereotype.Component;
+import redis.clients.jedis.Jedis;
+import redis.clients.util.JedisClusterCRC16;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Redis的速度与激情,你值得拥有.
+ * <p>
+ * <p>
+ * <p/>
+ * <pre>
+ *
+ * 通过JedisClusterCRC16计算key的槽 -> 根据槽获取master节点的id -> 根据id获取master节点的jedis连接 ->
+ *
+ * 通过jedis获取pipelined -> 通过pipelined操作数据.
+ * </pre>
+ *
+ * @author cs12110 created at: 2019/1/26 14:09
+ * <p>
+ * since: 1.0.0
+ */
+@Component
+public class FastRedis {
+
+    @Autowired
+    private LettuceConnectionFactory lettuceConnectionFactory;
+
+    private List<RedisClusterNode> masterNodeList;
+
+    private volatile boolean isAlreadyInit = false;
+
+    /**
+     * 初始化
+     */
+    private void init() {
+        if (!isAlreadyInit) {
+            synchronized (FastRedis.class) {
+                masterNodeList = getMasterNodeInfo();
+                isAlreadyInit = true;
+            }
+        }
+    }
+
+    /**
+     * 获取master id
+     *
+     * @param key key值
+     * @return String
+     */
+    public String getMasterIdByKey(String key) {
+        init();
+        // 根据key计算槽值
+        int slot = JedisClusterCRC16.getSlot(key);
+
+        RedisClusterNode target = null;
+        for (RedisClusterNode node : masterNodeList) {
+            if (node.getSlotRange().contains(slot)) {
+                target = node;
+                break;
+            }
+        }
+        return null == target ? null : target.getId();
+    }
+
+    /**
+     * 获取jedis连接
+     *
+     * @param masterId masterId
+     * @return Jedis
+     */
+    public Jedis getMasterConn(String masterId) {
+        init();
+        for (RedisClusterNode node : masterNodeList) {
+            if (node.getId().equals(masterId)) {
+                return new Jedis(node.getHost(), node.getPort());
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * 获取master节点信息列表
+     *
+     * @return List
+     */
+    private List<RedisClusterNode> getMasterNodeInfo() {
+        RedisClusterConnection clusterConnection = lettuceConnectionFactory.getClusterConnection();
+        Iterable<RedisClusterNode> redisClusterNodes = clusterConnection.clusterGetNodes();
+        List<RedisClusterNode> list = new ArrayList<>();
+        for (RedisClusterNode node : redisClusterNodes) {
+            if (node.isMaster()) {
+                list.add(node);
+            }
+        }
+        return list;
+    }
+
+}
+```
+
+---
+
+## 5. 参考资料
 
 a. [cowboy 的开源项目](https://gitee.com/cowboy2016/springboot2-open)
