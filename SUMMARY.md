@@ -54,14 +54,14 @@
 ---
 
 - [服务器](server/README.md)
-  - [服务器常用命令](server/服务器常用命令.md)
-  - [Nginx 使用指南](server/nginx安装指南.md)
-  - [Lanproxy 使用指南](server/lanproxy使用指南.md)
-  - [Tomcat8 使用指南](server/Tomcat8使用指南.md)
-  - [Ftp 安装指南](server/ftp安装指南.md)
-  - [Gogs 安装指南](server/gogs安装指南.md)
-  - [Jenkins 安装指南](server/jenkins安装指南.md)
-  - [Docsify 安装指南](server/docsify使用指南.md)
+  - [服务器常用命令](server/cmd-guide.md)
+  - [Nginx 指南](server/nginx-guide.md)
+  - [Lanproxy 指南](server/lanproxy-guide.md)
+  - [Tomcat8 指南](server/tomcat8-guide.md)
+  - [Ftp 指南](server/ftp-guide.md)
+  - [Gogs 指南](server/gogs-guide.md)
+  - [Jenkins 指南](server/jenkins-guide.md)
+  - [Docsify 指南](server/docsify-guide.md)
 
 ---
 
