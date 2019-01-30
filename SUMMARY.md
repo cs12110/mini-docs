@@ -19,6 +19,7 @@
 
 - [Java EE](javaee/README.md)
   - [常用日志组件](javaee/log-guide.md)
+  - [Swagger组件](javaee/swagger2.md)
   - [Velocity 代码生成器](javaee/cg-velocity.md)
   - [分库分表 之 Sharding-JDBC](javaee/sharding-jdbc.md)
   - [Spring 常用技巧](javaee/spring-usage.md)
