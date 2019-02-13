@@ -554,6 +554,8 @@ Spring AOP 丧尽天良.
 
 ## 5. Spring 定时器
 
+### 5.1 自定义定时器
+
 Sometimes,我们要写相关的定时任务,要求定时 cron 表达式能够在配置文件文件配置.
 
 配置文件时间表达式内容:
@@ -628,6 +630,115 @@ public class MySchedule implements SchedulingConfigurer {
 		return Executors.newScheduledThreadPool(10);
 	}
 }
+```
+
+### 5.2 并发定时器
+
+在使用`@Scheduled(cron="${schedule.video-cron:0/30 * * * * ?}")`的时候,发现一个问题: 默认情况下,只有一个定时线程在运行定时任务,也就是说同一时间只能运行一个方法,不能做到并行. [参考牛神博客 link](https://blog.csdn.net/cowbin2012/article/details/85219887)
+
+```java
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/2/13 9:45
+ * <p>
+ * since: 1.0.0
+ */
+@Component
+@Slf4j
+public class JustTestTask {
+
+    @Scheduled(cron = "0/5 * * * * *")
+    public void method1() {
+        log.info("method1");
+        try {
+            Thread.sleep(2000 * 10);
+        } catch (Exception e) {
+            // do nothing
+        }
+    }
+
+    @Scheduled(cron = "0/5 * * * * *")
+    public void method2() {
+        log.info("method2");
+        try {
+            Thread.sleep(2000 * 20);
+        } catch (Exception e) {
+            // do nothing
+        }
+    }
+}
+```
+
+测试结果
+
+```java
+2019-02-13 10:11:55 INFO  c.r.t.JustTestTask:20 - method1
+2019-02-13 10:12:15 INFO  c.r.t.JustTestTask:30 - method2
+2019-02-13 10:12:55 INFO  c.r.t.JustTestTask:20 - method1
+2019-02-13 10:13:15 INFO  c.r.t.JustTestTask:30 - method2
+2019-02-13 10:13:55 INFO  c.r.t.JustTestTask:20 - method1
+2019-02-13 10:14:15 INFO  c.r.t.JustTestTask:30 - method2
+2019-02-13 10:14:55 INFO  c.r.t.JustTestTask:20 - method1
+```
+
+Q: 那么定时任务该怎么进行并发呢?
+
+A: 请参考如下代码.
+
+```java
+import cn.rojao.util.ThreadUtil;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
+
+/**
+ * 为了应对定时器的并发处理配置
+ * <p>
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/2/13 8:57
+ * <p>
+ * since: 1.0.0
+ */
+@Configuration
+public class ScheduleConfig implements SchedulingConfigurer {
+
+    /**
+     * 定时任务数量
+     */
+    private int taskNum = 2;
+
+    @Override
+    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+        taskRegistrar.setScheduler(setTaskExecutors());
+    }
+
+    @Bean
+    public ExecutorService setTaskExecutors() {
+        ThreadFactory factory = ThreadUtil.buildThreadFactory("schedule-pool");
+        return new ScheduledThreadPoolExecutor(taskNum, factory);
+    }
+}
+```
+
+测试结果
+
+```java
+2019-02-13 10:17:00 INFO  c.r.t.JustTestTask:30 - method2
+2019-02-13 10:17:00 INFO  c.r.t.JustTestTask:20 - method1
+2019-02-13 10:17:25 INFO  c.r.t.JustTestTask:20 - method1
+2019-02-13 10:17:45 INFO  c.r.t.JustTestTask:30 - method2
+2019-02-13 10:17:50 INFO  c.r.t.JustTestTask:20 - method1
 ```
 
 ---
