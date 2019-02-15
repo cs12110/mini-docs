@@ -6,7 +6,9 @@ Apache kafka 是消息中间件的一种(如 RabbitMQ).
 
 ## 1. kafka 简介
 
-关于`Message Queue`解释:
+基础概念你我他.
+
+### 1.1 Mq
 
 假设消费者在处理鸡蛋时噎住了(消费者系统 down),生产者还在生产鸡蛋,那新生产的鸡蛋就丢失了.
 
@@ -21,6 +23,15 @@ Apache kafka 是消息中间件的一种(如 RabbitMQ).
 > topic: 标签,生产者为生产出来的每一鸡蛋贴上标签(topic),不同消费者根据标签(topic)消费响应的鸡蛋
 >
 > broker: kafka 的篮子
+
+### 1.2 Kafka
+
+那么 kafka 具有哪些优势呢?
+
+- 时间复杂度为 O(1)的方式提供消息持久化能力,即使对 TB 级以上数据也能保证常数时间的访问性能
+- 高吞吐率,即使在非常廉价的商用机器上也能做到单机支持每秒 100K 条消息的传输
+- 支持 Kafka Server 间的消息分区,及分布式消费,同时保证每个 partition 内的消息顺序传输
+- 同时支持离线数据处理和实时数据处理
 
 ---
 
@@ -228,20 +239,46 @@ hadoop233:/opt/hadoop/zookeeper-3.4.9/bin # ./zkCli.sh
 [zk: localhost:2181(CONNECTED) 1] rmr /admin/delete_topics
 ```
 
+### 4.4 修改 partitions
+
+注意: **partitions 的数量只能单调递增.**
+
+```sh
+^C[root@bi141 kafka_2.11-2.1.0]# bin/kafka-topics.sh --describe --zookeeper 10.10.1.141:2181 --topic streaming_topic
+Topic:streaming_topic	PartitionCount:2	ReplicationFactor:2	Configs:
+	Topic: streaming_topic	Partition: 0	Leader: 1	Replicas: 1,2	Isr: 1,2
+	Topic: streaming_topic	Partition: 1	Leader: 2	Replicas: 2,0	Isr: 2,0
+[root@bi141 kafka_2.11-2.1.0]# bin/kafka-topics.sh --zookeeper 10.10.1.141 --alter --partitions 5 --topic streaming_topic
+WARNING: If partitions are increased for a topic that has a key, the partition logic or ordering of the messages will be affected
+Adding partitions succeeded!
+[root@bi141 kafka_2.11-2.1.0]# bin/kafka-topics.sh --describe --zookeeper 10.10.1.141:2181 --topic streaming_topic
+Topic:streaming_topic	PartitionCount:5	ReplicationFactor:2	Configs:
+	Topic: streaming_topic	Partition: 0	Leader: 1	Replicas: 1,2	Isr: 1,2
+	Topic: streaming_topic	Partition: 1	Leader: 2	Replicas: 2,0	Isr: 2,0
+	Topic: streaming_topic	Partition: 2	Leader: 0	Replicas: 0,2	Isr: 0,2
+	Topic: streaming_topic	Partition: 3	Leader: 1	Replicas: 1,2	Isr: 1,2
+	Topic: streaming_topic	Partition: 4	Leader: 2	Replicas: 2,0	Isr: 2,0
+[root@bi141 kafka_2.11-2.1.0]#
+```
+
 ---
 
 ## 5. Java 整合 kafka
 
-Java 对 Kafka 说: 你喊呀,喊破喉咙都没人来救你的.
-
 WARNING: **注意创建消费者队列时 partitions 和客户端消费的情况**.
+
+该程序实现: 一个生产者/多个消费者的生产模式,请知悉.
 
 ### 5.1 创建消息队列
 
-创建测试的消息队列
+创建测试的消息队列: <u>请必须注意队列的 topic partitions 是否符合创建的数量</u>.
 
 ```sh
-[root@bi141 kafka_2.11-2.1.0]# bin/kafka-topics.sh --create --zookeeper 10.10.1.141:2181,10.10.1.142:2181,10.10.1.143:2181 --replication-factor 2 --partitions 1 --topic streaming_mq
+[root@bi141 kafka_2.11-2.1.0]# bin/kafka-topics.sh --create --zookeeper 10.10.1.141:2181,10.10.1.142:2181,10.10.1.143:2181 --replication-factor 2 --partitions 2 --topic streaming_topic
+[root@bi141 kafka_2.11-2.1.0]# bin/kafka-topics.sh --describe --zookeeper 10.10.1.141:2181 --topic streaming_topic
+Topic:streaming_topic	PartitionCount:2	ReplicationFactor:2	Configs:
+	Topic: streaming_topic	Partition: 0	Leader: 1	Replicas: 1,2	Isr: 1,2
+	Topic: streaming_topic	Partition: 1	Leader: 2	Replicas: 2,0	Isr: 2,0
 ```
 
 ### 5.2 maven 依赖
@@ -287,7 +324,7 @@ WARNING: **注意创建消费者队列时 partitions 和客户端消费的情况
 </dependency>
 ```
 
-### 5.3 常量配置类
+### 5.3 配置类
 
 ```java
 package com.pkgs.conf;
@@ -307,7 +344,7 @@ public class KafkaConf {
 
     public static final String GROUP_ID = "streaming";
 
-    public static final String STREAMING_TOPIC_NAME = "streaming_mq";
+    public static final String STREAMING_TOPIC_NAME = "streaming_topic";
 
     public static final String KAFKA_SERVER_URL = "10.10.1.141:20000,10.10.1.141:20001,20.10.1.141:20002";
 
@@ -349,10 +386,72 @@ public class StudentEntity {
 }
 ```
 
-### 5.5 消息生产者
+### 5.5 线程工具类
 
 ```java
-package com.pkgs.provider;
+package com.pkgs.util;
+
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
+/**
+ * Thread util
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/2/15 9:19
+ * <p>
+ * since: 1.0.0
+ */
+public class ThreadUtil {
+
+
+    public static ExecutorService buildConsumerExecutor(int threadNum) {
+        return new ThreadPoolExecutor(
+                threadNum,
+                threadNum,
+                0,
+                TimeUnit.SECONDS,
+                new LinkedBlockingDeque<>(threadNum),
+                new MyThreadFactory("consumer-pool")
+        );
+    }
+
+    public static ExecutorService buildAppExecutor() {
+        int threadNum = 4;
+
+        return new ThreadPoolExecutor(
+                threadNum,
+                threadNum,
+                0,
+                TimeUnit.SECONDS,
+                new LinkedBlockingDeque<>(threadNum),
+                new MyThreadFactory("mq-pool")
+        );
+    }
+
+    public static class MyThreadFactory implements ThreadFactory {
+
+        private String prefixName;
+        private AtomicInteger counter = new AtomicInteger(1);
+
+        MyThreadFactory(String prefixName) {
+            this.prefixName = prefixName;
+        }
+
+        @Override
+        public Thread newThread(Runnable r) {
+            String name = prefixName + "-" + counter.getAndIncrement();
+            return new Thread(r, name);
+        }
+    }
+
+}
+```
+
+### 5.6 消息生产者
+
+```java
+package com.pkgs.worker;
 
 import com.pkgs.conf.KafkaConf;
 import com.pkgs.entity.StudentEntity;
@@ -386,26 +485,22 @@ public class MqProvider implements Runnable {
         Properties props = new Properties();
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         props.put("metadata.broker.list", KafkaConf.KAFKA_SERVER_URL);
-        Producer<Integer, String> producer = new Producer<>(new ProducerConfig(props));
-
+        Producer<String, String> producer = new Producer<>(new ProducerConfig(props));
 
         int index = 0;
         int times = 5;
         while (index++ < times) {
-            try {
-                StudentEntity stu = buildStu(index);
-                KeyedMessage<Integer, String> message = new KeyedMessage<>(topicName, stu.toString());
 
-                producer.send(message);
-                Thread.sleep(2000);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            StudentEntity stu = buildStu(index);
+
+            // 指定key,发布到不同的分区里面去.
+            KeyedMessage<String, String> message = new KeyedMessage<>(topicName, "" + index, stu.toString());
+            producer.send(message);
         }
     }
 
     private static Supplier<String> dateSupplier = () -> {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss,SSS");
         return sdf.format(new Date());
     };
 
@@ -420,22 +515,25 @@ public class MqProvider implements Runnable {
 }
 ```
 
-### 5.6 消息消费者
+### 5.7 消息消费者
 
 ```java
-package com.pkgs.provider;
+package com.pkgs.worker;
 
 import com.pkgs.conf.KafkaConf;
+import com.pkgs.util.ThreadUtil;
 import kafka.consumer.Consumer;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
+import kafka.message.MessageAndMetadata;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
 
 /**
  * 消费者
@@ -447,11 +545,14 @@ import java.util.Properties;
  */
 public class MqConsumer implements Runnable {
 
-    private String consumerId;
     private String topicName;
 
-    public MqConsumer(String consumerId, String topicName) {
-        this.consumerId = consumerId;
+    /**
+     * topic的分区数量
+     */
+    private static final int PARTITION_NUM = 2;
+
+    public MqConsumer(String topicName) {
         this.topicName = topicName;
         consumer = Consumer.createJavaConsumerConnector(buildConsumerConf());
     }
@@ -460,11 +561,12 @@ public class MqConsumer implements Runnable {
     private ConsumerConnector consumer;
 
 
-    private static ConsumerConfig buildConsumerConf() {
+    private ConsumerConfig buildConsumerConf() {
         Properties props = new Properties();
 
         props.put("zookeeper.connect", KafkaConf.ZOOKEEPER_URL);
         props.put("group.id", KafkaConf.GROUP_ID);
+        props.put("group.name", "streaming-consumer");
         props.put("zookeeper.session.timeout.ms", "40000");
         props.put("zookeeper.sync.time.ms", "200");
         props.put("auto.commit.interval.ms", "1000");
@@ -474,20 +576,36 @@ public class MqConsumer implements Runnable {
 
     @Override
     public void run() {
+        // 注意数量为partition的数量
         Map<String, Integer> topicCountMap = new HashMap<>(1);
-        topicCountMap.put(topicName, 1);
+        topicCountMap.put(topicName, PARTITION_NUM);
 
         Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
-        KafkaStream<byte[], byte[]> stream = consumerMap.get(topicName).get(0);
-        ConsumerIterator<byte[], byte[]> iterator = stream.iterator();
+        List<KafkaStream<byte[], byte[]>> streams = consumerMap.get(topicName);
 
-        try {
-            while (iterator.hasNext()) {
-                String body = new String(iterator.next().message());
-                System.out.println(consumerId + ":" + body);
+        // 创建消费线程池
+        ExecutorService executor = ThreadUtil.buildConsumerExecutor(PARTITION_NUM);
+        for (final KafkaStream<byte[], byte[]> stream : streams) {
+            executor.submit(new ConsumerThread(stream));
+        }
+    }
+
+
+    static class ConsumerThread implements Runnable {
+        private KafkaStream<byte[], byte[]> stream;
+
+        ConsumerThread(KafkaStream<byte[], byte[]> stream) {
+            this.stream = stream;
+        }
+
+        @Override
+        public void run() {
+            ConsumerIterator<byte[], byte[]> it = stream.iterator();
+            while (it.hasNext()) {
+                MessageAndMetadata<byte[], byte[]> mam = it.next();
+                System.out.println(Thread.currentThread().getName() + ": partition[" + mam.partition() + "],"
+                        + "offset[" + mam.offset() + "], " + new String(mam.message()));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
@@ -499,11 +617,11 @@ public class MqConsumer implements Runnable {
 package com.pkgs;
 
 import com.pkgs.conf.KafkaConf;
-import com.pkgs.provider.MqConsumer;
-import com.pkgs.provider.MqProvider;
+import com.pkgs.util.ThreadUtil;
+import com.pkgs.worker.MqConsumer;
+import com.pkgs.worker.MqProvider;
 
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.ExecutorService;
 
 /**
  * <p/>
@@ -515,40 +633,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class KafkaApp {
 
     public static void main(String[] args) {
-        ExecutorService service = buildExecutor();
+        ExecutorService service = ThreadUtil.buildAppExecutor();
         service.submit(new MqProvider(KafkaConf.STREAMING_TOPIC_NAME));
-        service.submit(new MqConsumer("c1", KafkaConf.STREAMING_TOPIC_NAME));
-        service.submit(new MqConsumer("c2", KafkaConf.STREAMING_TOPIC_NAME));
-    }
-
-
-    private static ExecutorService buildExecutor() {
-        int threadNum = 3;
-
-        return new ThreadPoolExecutor(
-                threadNum,
-                threadNum,
-                0,
-                TimeUnit.SECONDS,
-                new LinkedBlockingDeque<>(threadNum),
-                new MyThreadFactory("mq-pool")
-        );
-    }
-
-    public static class MyThreadFactory implements ThreadFactory {
-
-        private String prefixName;
-        private AtomicInteger counter = new AtomicInteger(1);
-
-        MyThreadFactory(String prefixName) {
-            this.prefixName = prefixName;
-        }
-
-        @Override
-        public Thread newThread(Runnable r) {
-            String name = prefixName + "-" + counter.getAndIncrement();
-            return new Thread(r, name);
-        }
+        service.submit(new MqConsumer(KafkaConf.STREAMING_TOPIC_NAME));
     }
 }
 ```
@@ -556,16 +643,14 @@ public class KafkaApp {
 测试结果
 
 ```java
-c1:{"date":"20190214144942","id":1,"name":"name1","score":0.0}
-c1:{"date":"20190214144944","id":2,"name":"name2","score":0.0}
-c1:{"date":"20190214144946","id":3,"name":"name3","score":0.0}
-c1:{"date":"20190214144948","id":4,"name":"name4","score":0.0}
-c1:{"date":"20190214144950","id":5,"name":"name5","score":0.0}
+consumer-pool-2: partition[0],offset[2], {"date":"20190215102634,707","id":2,"name":"name2","score":0.0}
+consumer-pool-1: partition[1],offset[3], {"date":"20190215102613,528","id":1,"name":"name1","score":0.0}
+consumer-pool-2: partition[0],offset[3], {"date":"20190215102634,713","id":4,"name":"name4","score":0.0}
+consumer-pool-1: partition[1],offset[4], {"date":"20190215102634,711","id":3,"name":"name3","score":0.0}
+consumer-pool-1: partition[1],offset[5], {"date":"20190215102634,714","id":5,"name":"name5","score":0.0}
 ```
 
-Q: 从测试结果可以看出,只有一个消费端在消费,那么另一个消费端为什么没有消费消息呢?
-
-A: 注意创建队列时的 partitions 和消费端的 groupId 关系. [link](https://www.jianshu.com/p/6233d5341dfe)
+总结: 从测试结果可以看出,有两个线程消费队列里面的消息.
 
 ---
 
