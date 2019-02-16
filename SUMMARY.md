@@ -19,7 +19,7 @@
 
 - [Java EE](javaee/README.md)
   - [常用日志组件](javaee/log-guide.md)
-  - [Swagger组件](javaee/swagger2.md)
+  - [Swagger 组件](javaee/swagger2.md)
   - [Velocity 代码生成器](javaee/cg-velocity.md)
   - [分库分表 之 Sharding-JDBC](javaee/sharding-jdbc.md)
   - [Spring 常用技巧](javaee/spring-usage.md)
@@ -85,6 +85,8 @@
     - [SpoolDir 递归子文件夹](tb/flume/Spooldir递归子文件.md)
   - [Kafka](kafka/README.md)
     - [Kafka 基础文档](tb/kafka/kafka基础文档.md)
+  - [Spark](tb/spark/README.md)
+    - [Spark Streaming](tb/spark/spark-streaming.md)
 
 ---
 
