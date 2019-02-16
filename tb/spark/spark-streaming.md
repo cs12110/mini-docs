@@ -304,7 +304,7 @@ public class StreamingWordCountApp {
 ```bash
 #!/bin/sh
 
-use_memory='8G'
+use_memory='4G'
 spark_location='spark://10.10.1.141:7077,10.10.1.142:7077'
 
 task_app_prefix='/opt/bi/spark/stream-task/'
@@ -315,15 +315,24 @@ executor_app=$task_app_prefix'/hvs-engine-0.0.1-SNAPSHOT.jar'
 
 echo -e  '\n\nStartup spark task\n\n'
 
+# 那我在这里多说两句 领导脸.jpg
+
 spark-submit \
 --master ${spark_location} \
+# 固定任务在每一个节点运行占用的内存大小
 --executor-memory ${use_memory} \
+# 规定任务在整一个集群占用的core数量,使多任务并发成为可能
+--total-executor-cores 2 \
 --class ${executor_class} ${executor_app}  ${executor_conf}
 ```
 
 计算结果
 
 ![](imgs/redis-data.png)
+
+
+
+
 
 ---
 
