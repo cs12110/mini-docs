@@ -6,12 +6,12 @@
 
 ## 1. Redis 锁
 
-在网上实现简单的分布式锁,几乎都是使用 setnx+超时这个命令来完成.
+网上实现简单的分布式锁,几乎都是使用 `setnx+超时`命令来完成.
 
-但这个简单的方法存在天然的缺陷
+这个简单的方法存在天然的缺陷
 
-- 方法执行耗时长于锁的过时时间,在方法还没执行完就自动释放锁.
-- 如果设置过时时间过长,执行过程 down 的话,会给其他没 down 导致很长的等待时间.
+- <u>方法执行耗时长于锁的过时时间,在方法还没执行完就自动释放锁.</u>
+- <u>如果设置过时时间过长,执行过程 down 的话,会给其他没 down 导致很长的等待时间.</u>
 
 ### 1.1 pom.xml
 
@@ -158,7 +158,11 @@ public class SetNxLock {
 
 		@Override
 		public void run() {
-			//使用 uuid 作为value,可以确定释放当前占用的锁
+			/*
+			 * 使用 uuid 作为value,可以确定释放当前占用的锁
+			 *
+			 * 如果使用统一名称(如tickets),可以没获得锁,出现异常在finally里面释放掉了,那就操蛋了.
+			 */
 			String value = UUID.randomUUID().toString();
 			try {
 				RedisLockUtil.lock(KEY_NAME, value);
@@ -289,9 +293,9 @@ public class RedissionLock {
 			RLock lock = redisson.getLock(lockKey);
 
 			/* 
-			 * 要注意服务器异常导致的死锁
+			 * 如果本jvm获得锁,在释放锁前down掉了,那么锁一直没能被释放,其他获取不到,就相当于死锁了!!!
 			 * 
-			 * 建议采用: void lock(long leaseTime, TimeUnit unit);
+			 * 所以,建议采用: void lock(long leaseTime, TimeUnit unit);
 			 */
 			lock.lock();
 
