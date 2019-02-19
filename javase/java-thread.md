@@ -415,3 +415,66 @@ public class MyLatch {
 所以遇到相似的场景时,应选用`CountdownLatch`来代替`join`.
 
 ---
+
+
+## 4. volatile
+
+在线程里面所有操作的数据来自该线程线程的工作内存,操作完成后再刷回主存里面去.
+
+
+
+
+### 4.1 测试代码
+
+```java
+package com.test;
+
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/2/19 14:43
+ * <p>
+ * since: 1.0.0
+ */
+public class VolatileTest {
+
+    private static boolean isFinish = false;
+
+    public static void main(String[] args) {
+        new Thread(new MyRun1()).start();
+
+        isFinish = true;
+        System.out.println("Set finish to true");
+    }
+
+
+    public static class MyRun1 implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("Run1 is start");
+            while (isFinish) {
+            }
+            System.out.println("Run1 is done");
+        }
+    }
+
+}
+```
+
+测试结果
+
+```java
+Set finish to true
+Run1 is start
+```
+
+可以看出`MyRun1`并没有随着主线程修改`isFinish=true`而跳出循环.
+
+### 4.2 volatile
+
+那么,是时候轮到我出场了,volatile如是说.
+
+
+```java
+
+```

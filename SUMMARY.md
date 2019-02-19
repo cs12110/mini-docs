@@ -11,7 +11,8 @@
   - [Java 之 线程池](javase/java-threadpool.md)
   - [Java 之 ThreadLocal](javase/java-threadlocal.md)
   - [Java 之 Classloader](javase/java-classloder.md)
-  - [Java 之 IOC](javase/java-myioc.md)
+  - [Java 之 自定义IOC](javase/java-ioc.md)
+  - [Java 之 自定义RPC](javase/java-rpc.md)
   - [Java 之 Proxy](javase/java-proxy.md)
   - [Java 之 优化笔记](javase/java-optimize.md)
 
