@@ -422,7 +422,9 @@ public class MyLatch {
 在线程里面所有操作的数据来自该线程线程的工作内存,操作完成后再刷回主存里面去.
 
 
+Q: 在执行方法的时候,有哪些数据存放到工作空间里面呀?
 
+A: 根据虚拟机规范.对于一个实例对象中的成员方法而言.如果方法中包含本地变量是基本数据类型(boolean,byte,short,char,int,long,float,double).将直接存储在工作内存的帧栈结构中.但倘若本地变量是引用类型.那么该变量的引用会存储在功能内存的帧栈中.而对象实例将存储在主内存(共享数据区域.堆)中.但对于实例对象的成员变量.不管它是基本数据类型或者包装类型(Integer、Double等)还是引用类型.都会被存储到堆区.至于static变量以及类本身相关信息将会存储在主内存中.需要注意的是.在主内存中的实例对象可以被多线程共享.倘若两个线程同时调用了同一个对象的同一个方法.那么两条线程会将要操作的数据拷贝一份到自己的工作内存中.执行完成操作后才刷新到主内存.[link](https://blog.csdn.net/javazejian/article/details/72772461)
 
 ### 4.1 测试代码
 
@@ -432,49 +434,125 @@ package com.test;
 /**
  * <p/>
  *
- * @author cs12110 created at: 2019/2/19 14:43
+ * @author cs12110 created at: 2019/2/20 15:09
  * <p>
  * since: 1.0.0
  */
-public class VolatileTest {
+public class MyVolatileTest {
 
-    private static boolean isFinish = false;
+    private boolean isStop = false;
 
     public static void main(String[] args) {
-        new Thread(new MyRun1()).start();
+        MyVolatileTest test = new MyVolatileTest();
 
-        isFinish = true;
-        System.out.println("Set finish to true");
+        new Thread(test.new Run2()).start();
+        /*
+         * 确保run2比run1先运行. ta们各自把isStop拷贝到自己的工作空间.
+				 * 不然run2拿到的可能是run1修改后刷回主存的isStop=true了.
+         */
+        try {
+            Thread.sleep(100);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        new Thread(test.new Run1()).start();
     }
 
-
-    public static class MyRun1 implements Runnable {
+    public class Run1 implements Runnable {
         @Override
         public void run() {
-            System.out.println("Run1 is start");
-            while (isFinish) {
-            }
-            System.out.println("Run1 is done");
+            isStop = true;
+            System.out.println("Run1 set isStop=true");
         }
     }
 
+    public class Run2 implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("Run2 start");
+            while (!isStop) {
+                // try {
+                //     Thread.sleep(10);
+                // } catch (Exception e) {
+                //     e.printStackTrace();
+                // }
+            }
+            System.out.println("Run2 done");
+        }
+    }
 }
 ```
 
 测试结果
 
 ```java
-Set finish to true
-Run1 is start
+Run2 start
+Run1 set isStop=true
 ```
-
-可以看出`MyRun1`并没有随着主线程修改`isFinish=true`而跳出循环.
 
 ### 4.2 volatile
 
-那么,是时候轮到我出场了,volatile如是说.
+```java
+package com.test;
 
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/2/20 15:09
+ * <p>
+ * since: 1.0.0
+ */
+public class MyVolatileTest {
+
+    private volatile boolean isStop = false;
+
+    public static void main(String[] args) {
+        MyVolatileTest test = new MyVolatileTest();
+
+        /*
+         * 确保run2比run1先运行. ta们各自把isStop拷贝到自己的工作空间.
+         *
+         *
+         *
+         */
+        new Thread(test.new Run2()).start();
+        try {
+            Thread.sleep(100);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        new Thread(test.new Run1()).start();
+    }
+
+    public class Run1 implements Runnable {
+        @Override
+        public void run() {
+            isStop = true;
+            System.out.println("Run1 set isStop=true");
+        }
+    }
+
+    public class Run2 implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("Run2 start");
+            while (!isStop) {
+                // try {
+                //     Thread.sleep(10);
+                // } catch (Exception e) {
+                //     e.printStackTrace();
+                // }
+            }
+            System.out.println("Run2 done");
+        }
+    }
+}
+```
+
+测试结果
 
 ```java
-
+Run2 start
+Run1 set isStop=true
+Run2 done
 ```
