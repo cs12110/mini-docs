@@ -556,3 +556,104 @@ Run2 start
 Run1 set isStop=true
 Run2 done
 ```
+
+---
+
+## 5. Callable与Future
+
+JVM在ta的日志轻轻的写下了: 在多线程里面,时值天下三分,Thread,Runnable,Callable各成一方豪强.
+
+Q: 为什么要特地说一下Callable呀?
+
+A: ~~我喜欢呀.~~ 在某些特殊的场景里面,需要线程执行完之后的结果(如mapreduce),Thread与Runnable都不能实现,所以选择使用Callable.
+
+### 5.1 代码
+
+```java
+import com.pkgs.util.ThreadUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.*;
+import java.util.function.Supplier;
+
+/**
+ * callable
+ * 
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/2/22 16:48
+ * <p>
+ * since: 1.0.0
+ */
+public class MyFuture {
+
+    /**
+     * 日期提供类
+     */
+    private static Supplier<String> dateSupplier = () -> {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date());
+    };
+
+
+    public static void main(String[] args) {
+        int threadNum = 2;
+        ExecutorService executorService = new ThreadPoolExecutor(
+                threadNum,
+                threadNum,
+                0,
+                TimeUnit.SECONDS,
+                new LinkedBlockingDeque<>(threadNum),
+                ThreadUtil.buildThreadFactory("callable-pool")
+        );
+
+        // 提交callable任务
+        List<Future<Integer>> futureList = new ArrayList<>(threadNum);
+        for (int i = 0; i < threadNum; i++) {
+            Future<Integer> future = executorService.submit(new CallMe());
+            futureList.add(future);
+        }
+
+        // 从future获取callable任务的返回值
+        for (Future<Integer> f : futureList) {
+            try {
+                Integer value = f.get();
+                System.out.println(dateSupplier.get() + " " + value);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * callable 线程
+     */
+    public static class CallMe implements Callable<Integer> {
+        @Override
+        public Integer call() {
+            System.out.println(dateSupplier.get() + " " + Thread.currentThread().getName() + " start");
+            try {
+                Thread.sleep(5000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println(dateSupplier.get() + " " + Thread.currentThread().getName() + " done");
+            return 1;
+        }
+    }
+}
+```
+
+### 5.2 测试结果
+
+```java
+2019-02-22 17:18:10 pool-1 start
+2019-02-22 17:18:10 pool-2 start
+2019-02-22 17:18:15 pool-1 done
+2019-02-22 17:18:15 pool-2 done
+2019-02-22 17:18:15 1
+2019-02-22 17:18:15 1
+```
