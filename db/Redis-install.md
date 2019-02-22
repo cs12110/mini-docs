@@ -569,26 +569,26 @@ redis7004='/opt/dev/redis/redis7004/'
 redis7005='/opt/dev/redis/redis7005/'
 
 cd $redis7000
-redis-server $redis7000/redis.conf &
+nohup redis-server $redis7000/redis.conf &
 
 
 cd $redis7001
-redis-server $redis7001/redis.conf &
+nohup redis-server $redis7001/redis.conf &
 
 
 cd $redis7002
-redis-server $redis7002/redis.conf &
+nohup redis-server $redis7002/redis.conf &
 
 
 cd $redis7003
-redis-server $redis7003/redis.conf &
+nohup redis-server $redis7003/redis.conf &
 
 
 cd $redis7004
-redis-server $redis7004/redis.conf &
+nohup redis-server $redis7004/redis.conf &
 
 cd $redis7005
-redis-server $redis7005/redis.conf &
+nohup redis-server $redis7005/redis.conf &
 ```
 
 ---
