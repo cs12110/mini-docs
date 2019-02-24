@@ -565,7 +565,7 @@ JVM在ta的日志轻轻的写下了: 在多线程里面,时值天下三分,Threa
 
 Q: 为什么要特地说一下Callable呀?
 
-A: ~~我喜欢呀.~~ 在某些特殊的场景里面,需要线程执行完之后的结果(如mapreduce),Thread与Runnable都不能实现,所以选择使用Callable.
+A: ~~我喜欢呀.~~ 在某些特殊的场景里面,**需要线程执行完之后的结果(如mapreduce)**,Thread与Runnable都不能实现,所以选择使用Callable.
 
 ### 5.1 代码
 
