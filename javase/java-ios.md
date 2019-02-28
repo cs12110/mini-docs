@@ -260,6 +260,8 @@ NIO可以采用多路复用的IO模型来处理多个socket同时连接的问题
 ### 2.1 代码
 
 ```java
+package com.test.fake;
+
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
@@ -267,7 +269,10 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.function.Supplier;
 
 /**
  * NIO server
@@ -328,6 +333,7 @@ public class NioSocketServerApp {
                     keyIterator.remove();
 
                     handler(key);
+
                 }
             }
         } catch (Exception e) {
@@ -375,6 +381,12 @@ public class NioSocketServerApp {
         }
     }
 
+    private static Supplier<String> dateSupplier = () -> {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        return sdf.format(new Date());
+    };
+
     /**
      * 处理读取事件
      *
@@ -391,15 +403,17 @@ public class NioSocketServerApp {
                 byte[] data = buffer.array();
                 String msg = new String(data).trim();
 
-                Thread.sleep(3000);
 
                 SocketAddress address = channel.getRemoteAddress();
                 System.out.println("Server pick up: " + address.toString() + " - " + msg);
 
                 //回写数据
-                ByteBuffer outBuffer = ByteBuffer.wrap("success\n".getBytes());
+                ByteBuffer outBuffer = ByteBuffer.wrap((dateSupplier.get() + " - success\n").getBytes());
                 // 将消息回送给客户端
                 channel.write(outBuffer);
+
+                // 模拟处理数据耗时    
+                Thread.sleep(5000);
             } else {
                 System.out.println("Client close connection");
                 key.cancel();
@@ -411,7 +425,19 @@ public class NioSocketServerApp {
 }
 ```
 
+### 2.2 测试 
 
+Q: 但是上面那个程序还是会堵塞的问题,你知道吗? 微笑脸.jpg
+
+A: What do u say? 
+
+在`NioSocketServerApp#handlerRead`里面的`Thread.sleep(5000)`会堵塞而且出现粘包/解包问题(泪目),该怎么测试呢?
+
+使用cmd打开两个telnet: `telnet 127.0.0.1 9988`,在第一个按下1之后,迅速切换到第二个telnet按下2,你会看到第二个数据响应时间是`5s`后.
+
+Q: 那么怎么解决这个问题呀?
+
+A: 咨询了一下大神,ta说应该在`NioSocketServerApp#handlerRead`使用线程来处理做到异步.
 
 ---
 
