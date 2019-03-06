@@ -611,9 +611,85 @@ CGLIB动态代理特点
 ---
 
 
-## Spring请求过程和注解区别
+## Spring相关
 
 
+### SpringBoot和Spring MVC的区别
+
+原文: [link](https://blog.csdn.net/u014590757/article/details/79602309 )
+
+spring boot只是一个配置工具,整合工具,辅助工具.
+
+springmvc是框架,项目中实际运行的代码
+
+
+Spring 框架就像一个家族，有众多衍生产品例如 boot,security,jpa等等.但他们的基础都是Spring 的ioc和 aop. ioc 提供了依赖注入的容器， aop解决了面向横切面的编程，然后在此两者的基础上实现了其他延伸产品的高级功能.
+
+Spring MVC是基于Servlet 的一个 MVC 框架主要解决 WEB 开发的问题，因为 Spring 的配置非常复杂，各种XML, JavaConfig,hin处理起来比较繁琐.于是为了简化开发者的使用，从而创造性地推出了Spring boot，约定优于配置，简化了spring的配置流程.
+
+说得更简便一些：Spring 最初利用"工厂模式"(DI)和"代理模式"(AOP)解耦应用组件.大家觉得挺好用，于是按照这种模式搞了一个 MVC框架(一些用Spring 解耦的组件)，用开发 web 应用( SpringMVC ).然后发现每次开发都写很多样板代码，为了简化工作流程，于是开发出了一些"懒人整合包"(starter)，这套就是 Spring Boot.
+
+ 
+
+Spring MVC的功能
+
+Spring MVC提供了一种轻度耦合的方式来开发web应用.
+
+Spring MVC是Spring的一个模块，式一个web框架.通过Dispatcher Servlet, ModelAndView 和 View Resolver，开发web应用变得很容易.解决的问题领域是网站应用程序或者服务开发——URL路由,Session,模板引擎,静态Web资源等等.
+
+ 
+
+Spring Boot的功能
+
+Spring Boot实现了自动配置，降低了项目搭建的复杂度.
+
+众所周知Spring框架需要进行大量的配置，Spring Boot引入自动配置的概念，让项目设置变得很容易.Spring Boot本身并不提供Spring框架的核心特性以及扩展功能，只是用于快速,敏捷地开发新一代基于Spring框架的应用程序.也就是说，它并不是用来替代Spring的解决方案，而是和Spring框架紧密结合用于提升Spring开发者体验的工具.同时它集成了大量常用的第三方库配置(例如Jackson, JDBC, Mongo, Redis, Mail等等)，Spring Boot应用中这些第三方库几乎可以零配置的开箱即用(out-of-the-box)，大部分的Spring Boot应用都只需要非常少量的配置代码，开发者能够更加专注于业务逻辑.
+
+Spring Boot只是承载者，辅助你简化项目搭建过程的.如果承载的是WEB项目，使用Spring MVC作为MVC框架，那么工作流程和你上面描述的是完全一样的，因为这部分工作是Spring MVC做的而不是Spring Boot.
+
+对使用者来说，换用Spring Boot以后，项目初始化方法变了，配置文件变了，另外就是不需要单独安装Tomcat这类容器服务器了，maven打出jar包直接跑起来就是个网站，但你最核心的业务逻辑实现与业务流程实现没有任何变化.
+
+所以，用最简练的语言概括就是：
+
+Spring 是一个"引擎"；
+
+Spring MVC 是基于Spring的一个 MVC 框架；
+
+Spring Boot 是基于Spring4的条件注册的一套快速开发整合包.
+
+### Spring 各个组件功能
+
+**核心容器(Spring core)**
+
+核心容器提供Spring框架的基本功能.Spring以bean的方式组织和管理Java应用中的各个组件及其关系.Spring使用BeanFactory来产生和管理Bean,它是工厂模式的实现.BeanFactory使用控制反转(IoC)模式将应用的配置和依赖性规范与实际的应用程序代码分开.BeanFactory使用依赖注入的方式提供给组件依赖.
+
+**Spring上下文(Spring context)**
+
+Spring上下文是一个配置文件,向Spring框架提供上下文信息.Spring上下文包括企业服务,如JNDI,EJB,电子邮件,国际化,校验和调度功能.
+
+**Spring面向切面编程(Spring AOP)**
+
+通过配置管理特性,Spring AOP 模块直接将面向方面的编程功能集成到了 Spring框架中.所以,可以很容易地使 Spring框架管理的任何对象支持 AOP.Spring AOP 模块为基于 Spring 的应用程序中的对象提供了事务管理服务.通过使用 Spring AOP,不用依赖 EJB 组件,就可以将声明性事务管理集成到应用程序中.
+
+
+**Spring DAO模块**
+
+DAO模式主要目的是将持久层相关问题与一般的的业务规则和工作流隔离开来.Spring 中的DAO提供一致的方式访问数据库,不管采用何种持久化技术,Spring都提供一直的编程模型.Spring还对不同的持久层技术提供一致的DAO方式的异常层次结构.
+
+**Spring ORM模块**
+
+Spring 与所有的主要的ORM映射框架都集成的很好,包括Hibernate,JDO实现,TopLink和IBatis SQL Map等.Spring为所有的这些框架提供了模板之类的辅助类,达成了一致的编程风格.
+
+**Spring Web模块**
+
+Web上下文模块建立在应用程序上下文模块之上,为基于Web的应用程序提供了上下文.Web层使用Web层框架,可选的,可以是Spring自己的MVC框架,或者提供的Web框架,如Struts,Webwork,tapestry和jsf.
+
+**Spring MVC框架(Spring WebMVC)**
+
+MVC框架是一个全功能的构建Web应用程序的MVC实现.通过策略接口,MVC框架变成为高度可配置的.Spring的MVC框架提供清晰的角色划分：控制器,验证器,命令对象,表单对象和模型对象,分发器,处理器映射和视图解析器.Spring支持多种视图技术. 
+
+
+### Spring Cloud 各个组件
 
 ### Spring请求响应过程
 

@@ -6,11 +6,50 @@
 
 ---
 
-## 1. CentOS7 与防火墙
+
+## 1. 设置静态IP
+
+在生产环境里面,服务器设置静态ip地址是必不可少的.
+
+```sh
+[root@dev-115 ~]# vi /etc/sysconfig/network-scripts/ifcfg-ens33 
+TYPE="Ethernet"
+# 设置为static
+BOOTPROTO="static"
+DEFROUTE="yes"
+PEERDNS="yes"
+PEERROUTES="yes"
+IPV4_FAILURE_FATAL="no"
+IPV6INIT="yes"
+IPV6_AUTOCONF="yes"
+IPV6_DEFROUTE="yes"
+IPV6_PEERDNS="yes"
+IPV6_PEERROUTES="yes"
+IPV6_FAILURE_FATAL="no"
+IPV6_ADDR_GEN_MODE="stable-privacy"
+NAME="ens33"
+UUID="873ced93-6651-4be2-927c-b74fc1ebf786"
+DEVICE="ens33"
+# on boot设置为yes
+ONBOOT="yes"
+
+# 配置ip地址,子网掩码,网关和dns服务器
+IPADDR=10.33.1.115
+NETMASK=255.255.255.255
+GATEWAY=10.33.1.1
+DNS1=8.8.8.8
+
+# 重启网络服务
+[root@dev-115 ~]# systemctl restart network 
+```
+
+---
+
+## 2. CentOS7 与防火墙
 
 在 CentOS7 里面防火墙的命令变了,很多,很多,很多.
 
-### 1.1 常用命令
+### 2.1 常用命令
 
 **查看状态**
 
@@ -36,7 +75,7 @@
 [root@team-2 ~]# systemctl disable firewalld
 ```
 
-### 1.2 开启端口
+### 2.2 开启端口
 
 **开启端口**
 
@@ -58,7 +97,7 @@
 [root@team-2 ~]# firewall-cmd --reload
 ```
 
-### 1.3 SuSE 关闭防火墙
+### 2.3 SuSE 关闭防火墙
 
 ```sh
 hadoop249:/home/bi # rcSuSEfirewall2 stop
@@ -74,11 +113,11 @@ hadoop249:/home/bi # rcSuSEfirewall2 restart
 
 ---
 
-## 2. 服务器资源
+## 3. 服务器资源
 
 我们该如何查看服务器中的磁盘和内存呢?
 
-### 2.1 磁盘
+### 3.1 磁盘
 
 **查看磁盘容量**
 
@@ -103,7 +142,7 @@ tmpfs           184M     0  184M   0% /run/user/0
 [root@team-2 opt]#
 ```
 
-### 2.2 内存
+### 3.2 内存
 
 **查看内存**
 
@@ -121,7 +160,7 @@ Mem:           1839         845          86           0         906         810
 Swap:           511           0         511
 ```
 
-### 2.3 top 命令
+### 3.3 top 命令
 
 使用 top 命令可以查看进程的 cpu 和内存占用比
 
@@ -149,11 +188,11 @@ KiB Swap:   524284 total,   524284 free,        0 used.   829512 avail Mem
 
 ---
 
-## 3. 查找进程
+## 4. 查找进程
 
 在服务器中我们该怎么查找到特定的进程?
 
-### 3.1 按端口号
+### 4.1 按端口号
 
 一般`netstat`命令用来查找端口是否被使用,而使用情况要使用`ps`命令来查看.
 
@@ -164,7 +203,7 @@ tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      
 root     11735     1  0 Aug21 ?        00:34:09 /opt/soft/jdk/jdk1.8/bin/java -Djava.util.logging.config.file=/opt/soft/tomcat/tomcat8/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dignore.endorsed.dirs= -classpath /opt/soft/tomcat/tomcat8/bin/bootstrap.jar:/opt/soft/tomcat/tomcat8/bin/tomcat-juli.jar -Dcatalina.base=/opt/soft/tomcat/tomcat8 -Dcatalina.home=/opt/soft/tomcat/tomcat8 -Djava.io.tmpdir=/opt/soft/tomcat/tomcat8/temp org.apache.catalina.startup.Bootstrap start
 ```
 
-### 3.2 按进程名称
+### 4.2 按进程名称
 
 - `grep -v 'str'`: 不匹配 str
 
@@ -173,7 +212,7 @@ root     11735     1  0 Aug21 ?        00:34:09 /opt/soft/jdk/jdk1.8/bin/java -D
 root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-SNAPSHOT.jar
 ```
 
-### 3.3 jps 命令
+### 4.3 jps 命令
 
 该命令为 java 专有,必须安装**jdk 环境**,且显示出来都是 jvm 的进程.
 
@@ -185,7 +224,7 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 11609 org.fengfei.lanproxy.server.ProxyServerContainer
 ```
 
-### 3.4 kill
+### 4.4 kill
 
 用来杀死进程,用来强制杀死进程!!!
 
@@ -197,9 +236,9 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 
 ---
 
-## 4. 服务器文件传输
+## 5. 服务器文件传输
 
-### 4.1 文件压缩
+### 5.1 文件压缩
 
 服务器中经常遇到要将多个文件压缩成一个压缩包的情况,仅仅是 tar 只会把文件打包而不会压缩,所以将文件压缩为 gz 的压缩包.
 
@@ -211,7 +250,7 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 [root@team-2 opt]# tar -zcvf pkgs.tar.gz pkgs/
 ```
 
-### 4.2 文件解压
+### 5.2 文件解压
 
 一般压缩包有两种格式:`tar`和`zip`,嗯,是的,对`rar`很排斥.
 
@@ -227,7 +266,7 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 [root@team-2 opt]# unzip yourZip.zip
 ```
 
-### 4.3 服务器之间文件传输
+### 5.3 服务器之间文件传输
 
 在服务器之间,怎么传输文件呢?不会是用 U 盘 copy 来 copy 去吧?
 
@@ -242,9 +281,9 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 
 ---
 
-## 5. 服务器用户
+## 6. 服务器用户
 
-### 5.1 新增用户
+### 6.1 新增用户
 
 `useradd -m -d`: 创建并指定 home 目录.
 
@@ -260,7 +299,7 @@ Reenter New Password:
 Password changed.
 ```
 
-### 5.2 改变目录拥有者
+### 6.2 改变目录拥有者
 
 有些时候,将某些目录赋给某个用户,让用户拥有那个目录的所有权限.
 
@@ -283,9 +322,9 @@ drwxr-xr-x 2 haiyan users 4096 Sep 15 23:15 root-dir
 
 ---
 
-## 6. maven 打包
+## 7. maven 打包
 
-### 6.1 普通
+### 7.1 普通
 
 下面的命令打包会运行 test 文件夹里面的代码,如果 test 代码要运行很久,请使用`6.2`的打包方式.
 
@@ -293,7 +332,7 @@ drwxr-xr-x 2 haiyan users 4096 Sep 15 23:15 root-dir
 [root@team-2 ~]# mvn clean package
 ```
 
-### 6.2 跳过测试打包
+### 7.2 跳过测试打包
 
 打包推荐使用如下命令
 
@@ -301,7 +340,7 @@ drwxr-xr-x 2 haiyan users 4096 Sep 15 23:15 root-dir
 [root@team-2 ~]# mvn clean package -Dmaven.test.skip=true
 ```
 
-### 6.3 模块相互依赖打包
+### 7.3 模块相互依赖打包
 
 在项目里面,可能会出现`mvn-module1`依赖`mvn-module2`的情况.
 
@@ -330,9 +369,9 @@ $ mvn clean package -Dmaven.test.skip=true
 
 ---
 
-## 7. 时间设置
+## 8. 时间设置
 
-### 7.1 date
+### 8.1 date
 
 **设置日期**
 
@@ -346,7 +385,7 @@ hadoop235:/etc # date -s  20181008
 hadoop235:/etc # date -s  10:19:40
 ```
 
-### 7.2 ntp
+### 8.2 ntp
 
 集群里面有些节点的时间可能会出现差异,所以使用阿里云的时间服务器同步互联网时间,用来规范集群里面的每一个节点的时间.
 
@@ -377,7 +416,7 @@ hadoop235:/etc # crontab -e
 */5 * * * * /usr/sbin/sntp -P no -r ntp1.aliyun.com
 ```
 
-### 7.3 crontab
+### 8.3 crontab
 
 命令格式: `* * * * * command`
 
@@ -403,11 +442,11 @@ hadoop235:/etc # crontab -e
 
 ---
 
-## 8. 软件安装
+## 9. 软件安装
 
 在 linux 上最方便的两种安装软件的方式,编译的那些都是逆天的. :{
 
-### 8.1 yum
+### 9.1 yum
 
 **查找软件**
 
@@ -440,7 +479,7 @@ hadoop235:/etc # crontab -e
 [root@hadoop235 ~]# yum install -y --downloadonly --downloaddir=git-rpm/ git.x86_64
 ```
 
-### 8.2 rpm
+### 9.2 rpm
 
 切记: `能升级更新软件,就绝壁不要强制安装了` 笑哭脸.jpg
 
@@ -471,7 +510,7 @@ git-1.8.3.1-14.el7_5.x86_64
 
 ---
 
-## 9. 修改 hostname
+## 10. 修改 hostname
 
 有时候需要修改服务器的主机名称,一般是修改`/etc/hosts`下面的文件,such as
 
@@ -491,7 +530,7 @@ hadoop249
 
 ---
 
-## 10. 找出消耗资源的线程
+## 11. 找出消耗资源的线程
 
 首先找到 pid
 
@@ -552,11 +591,11 @@ public class HexStr {
 
 ---
 
-## 11. dump
+## 12. dump
 
 `heap dump` 记录内存信息的,`thread dump` 是记录 CPU 信息的.
 
-### 11.1 head dump
+### 12.1 head dump
 
 ```sh
 [root@team-2 ~]# jps -lm
@@ -585,7 +624,7 @@ Started HTTP server on port 5500
 Server is ready.
 ```
 
-### 11.2 thread dump
+### 12.2 thread dump
 
 ```sh
 [root@team-2 ~]# jps -lm
@@ -597,7 +636,7 @@ Server is ready.
 
 ---
 
-## 12. 查找进程关联文件
+## 13. 查找进程关联文件
 
 使用`lsof`查找进程关联的文件.
 
@@ -617,7 +656,7 @@ node    1536 root  cwd       DIR  253,1     4096  527608 /opt/soft/docsify/mini-
 
 ---
 
-## 13. 常用脚本
+## 14. 常用脚本
 
 在项目里面需要一个简单的启用脚本的话,这是一个简单的范例. :"}
 
@@ -656,7 +695,7 @@ fi
 
 ---
 
-## 14. 远程监控 jvm
+## 15. 远程监控 jvm
 
 在开启 java 项目的时候,可以开启远程监控,方便查看 jvm 在服务器上面的资源情况.
 
