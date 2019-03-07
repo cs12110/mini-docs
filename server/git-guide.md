@@ -109,6 +109,29 @@ Switched to branch 'master'
 [root@bi141 git]# git commit -m 'merge dev'
 ```
 
+
+### 删除分支
+
+注意:**删除分支前,记得合并分支的代码到主分支.**
+
+**删除本地分支**
+
+```sh
+[root@bi141 git]# git branch 
+  dev
+* master
+[root@bi141 git]# git branch -D dev
+Deleted branch dev (was 683c8ac).
+[root@bi141 git]# git branch 
+* master
+```
+
+**删除远程分支**
+
+```sh
+[root@bi141 git]git push origin --delete dev
+```
+
 ### 版本回退
 
 ```sh
