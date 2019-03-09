@@ -127,3 +127,9 @@ public class EditorTest {
 ```java
 class java.lang.Integer:123
 ```
+
+---
+
+## 2. Spring初始化过程
+
+[优秀博客 link](https://fangjian0423.github.io/)

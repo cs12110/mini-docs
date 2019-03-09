@@ -6,14 +6,13 @@
 
 电脑越来越慢了, 泪目.
 
-
 ---
 
 ## 1. BIO
 
 之前一直不太了解NIO/和IO的区别,所以花了一点时间去查资料,然后还是不明白. orz
 
-但可以得出的初步结论如下:**传统io单线程处理的弊端,一个服务端无法为多个客户端提供服务.**
+但可以得出的初步结论如下:**传统io单线程处理的弊端,一个服务端无法同一时间为多个客户端提供服务,除非每一个socket都开新的线程处理.**
 
 ### 1.1 测试代码
 
@@ -255,7 +254,190 @@ A: 这样子的确做到了处理多个socket了.如果并发10k的话,就有10k
 
 写不下去了,痛哭流涕.
 
-### 2.1 
+NIO可以采用多路复用的IO模型来处理多个socket同时连接的问题,这也让高并发成为了可能.
+
+
+### 2.1 代码
+
+```java
+package com.test.fake;
+
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.function.Supplier;
+
+/**
+ * NIO server
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/2/25 13:50
+ * <p>
+ * since: 1.0.0
+ */
+public class NioSocketServerApp {
+
+    /**
+     * NIO Selector
+     */
+    private Selector selector;
+
+
+    public static void main(String[] args) {
+        NioSocketServerApp app = new NioSocketServerApp();
+        app.iniServer(9988);
+        app.listen();
+    }
+
+    /**
+     * 初始化服务器
+     *
+     * @param port 端口
+     */
+    private void iniServer(int port) {
+        try {
+            ServerSocketChannel socketChannel = ServerSocketChannel.open();
+            // 设置为非阻塞通道
+            socketChannel.configureBlocking(false);
+            // 将该通道的server socket 绑定到端口上
+            socketChannel.socket().bind(new InetSocketAddress(port));
+            // 获取通道管理器
+            selector = Selector.open();
+
+            socketChannel.register(selector, SelectionKey.OP_ACCEPT);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 进行监听
+     */
+    private void listen() {
+        try {
+            while (true) {
+                // 当注册事件到达时,方法返回
+                selector.select();
+
+                Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
+                while (keyIterator.hasNext()) {
+                    SelectionKey key = keyIterator.next();
+                    keyIterator.remove();
+
+                    handler(key);
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 处理获取到的监听事件
+     *
+     * @param key {@link SelectionKey}
+     */
+    private void handler(SelectionKey key) {
+        try {
+            // 客户端请求连接时间
+            if (key.isAcceptable()) {
+                handlerAccept(key);
+            }
+            // 获取可读事件
+            else if (key.isReadable()) {
+                handlerRead(key);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 处理连接事件
+     *
+     * @param key {@link SelectionKey}
+     */
+    private void handlerAccept(SelectionKey key) {
+        try {
+            ServerSocketChannel channel = (ServerSocketChannel) key.channel();
+            SocketChannel socketChannel = channel.accept();
+            socketChannel.configureBlocking(false);
+
+            System.out.println("New connection");
+
+            // 连接成功后,为了接收客户端信息,需要设置读权限
+            socketChannel.register(selector, SelectionKey.OP_READ);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static Supplier<String> dateSupplier = () -> {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        return sdf.format(new Date());
+    };
+
+    /**
+     * 处理读取事件
+     *
+     * @param key {@link SelectionKey}
+     */
+    private void handlerRead(SelectionKey key) {
+        try {
+            // 服务器可读取消息:得到事件发生的Socket通道
+            SocketChannel channel = (SocketChannel) key.channel();
+            // 创建读取的缓冲区
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            int read = channel.read(buffer);
+            if (read > 0) {
+                byte[] data = buffer.array();
+                String msg = new String(data).trim();
+
+
+                SocketAddress address = channel.getRemoteAddress();
+                System.out.println("Server pick up: " + address.toString() + " - " + msg);
+
+                //回写数据
+                ByteBuffer outBuffer = ByteBuffer.wrap((dateSupplier.get() + " - success\n").getBytes());
+                // 将消息回送给客户端
+                channel.write(outBuffer);
+
+                // 模拟处理数据耗时    
+                Thread.sleep(5000);
+            } else {
+                System.out.println("Client close connection");
+                key.cancel();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### 2.2 测试 
+
+Q: 但是上面那个程序还是会堵塞的问题,你知道吗? 微笑脸.jpg
+
+A: What do u say? 
+
+在`NioSocketServerApp#handlerRead`里面的`Thread.sleep(5000)`会堵塞而且出现粘包/解包问题(泪目),该怎么测试呢?
+
+使用cmd打开两个telnet: `telnet 127.0.0.1 9988`,在第一个按下1之后,迅速切换到第二个telnet按下2,你会看到第二个数据响应时间是`5s`后.
+
+Q: 那么怎么解决这个问题呀?
+
+A: 咨询了一下大神,ta说应该在`NioSocketServerApp#handlerRead`使用线程来处理做到异步.
 
 ---
 
