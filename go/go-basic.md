@@ -164,6 +164,44 @@ func main() {
 }
 ```
 
+### slice
+
+Q: 在go里面有定长度的数组,那么有没有像java里面的list的可变长度东西呀?
+
+A: 有的,大人,这边请.
+
+```go
+package main
+
+func main() {
+	// 和数组的区别就是,数组的声明携带了固定长度
+	var arr []int
+
+	// len: 获取长度
+	// cap: 获取容量
+	println(len(arr), "", cap(arr))
+
+	arr = append(arr, 0)
+	arr = append(arr, 1)
+	arr = append(arr, 2)
+
+	println(len(arr), "", cap(arr))
+
+	println("--------------")
+
+	for _, n := range arr {
+		println(n)
+	}
+
+	println("--------------")
+	// 取出第一个至第三个元素
+	ints := arr[0:2]
+	for _, n := range ints {
+		println(n)
+	}
+}
+```
+
 ---
 
 ## 常规应用
