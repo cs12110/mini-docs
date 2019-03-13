@@ -443,4 +443,4 @@ A: 咨询了一下大神,ta说应该在`NioSocketServerApp#handlerRead`使用线
 
 ## 参考资料
 
-a. [传统IO和NIO详细比较](https://blog.csdn.net/qq_22933035/article/details/79967791)
+a. [传统io和NIO详细比较](https://blog.csdn.net/qq_22933035/article/details/79967791)

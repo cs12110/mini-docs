@@ -6,13 +6,12 @@
 
 ---
 
+## 1. 设置静态 IP
 
-## 1. 设置静态IP
-
-在生产环境里面,服务器设置静态ip地址是必不可少的.
+在生产环境里面,服务器设置静态 ip 地址是必不可少的.
 
 ```sh
-[root@dev-115 ~]# vi /etc/sysconfig/network-scripts/ifcfg-ens33 
+[root@dev-115 ~]# vi /etc/sysconfig/network-scripts/ifcfg-ens33
 TYPE="Ethernet"
 # 设置为static
 BOOTPROTO="static"
@@ -40,7 +39,7 @@ GATEWAY=10.33.1.1
 DNS1=8.8.8.8
 
 # 重启网络服务
-[root@dev-115 ~]# systemctl restart network 
+[root@dev-115 ~]# systemctl restart network
 ```
 
 ---
@@ -738,9 +737,9 @@ A: 因为除了上面的那端口,还有其他通讯端口. ~~,需要在防火�
 ```sh
 [root@team-2 4fun-spider]# jps  -lm |grep 4fun-spider
 21825 app/4fun-spider-0.0.1-SNAPSHOT.jar
-[root@team-2 4fun-spider]# netstat -lnp|grep 21825 
-tcp        0      0 0.0.0.0:9876            0.0.0.0:*               LISTEN      21825/java          
-tcp        0      0 0.0.0.0:37277           0.0.0.0:*               LISTEN      21825/java     
+[root@team-2 4fun-spider]# netstat -lnp|grep 21825
+tcp        0      0 0.0.0.0:9876            0.0.0.0:*               LISTEN      21825/java
+tcp        0      0 0.0.0.0:37277           0.0.0.0:*               LISTEN      21825/java
 ```
 
 As you can see, 开启`9876`端口 ~~,还开启了`37277`~~(据说随机开启,冷漠脸).
@@ -753,3 +752,40 @@ netstat 命令解释:
 - -p 表示显示进程的 PID 和进程名称.
 
 ---
+
+## 16. wget&curl
+
+### 16.1 wget
+
+Q: 如果在服务器要下载网上的资源链接该怎么办呢?
+
+A: wget,你值得拥有.命令格式: `wget 'resourceUrl' -O outputFileName`,resourceUrl 使用`'`来包住(`-O outputFileName`为可选命令,O 为大写字母).
+
+比如使用服务器下载`vscode`:
+
+```sh
+[root@team-2 ~]# wget 'https://vscode.cdn.azure.cn/stable/05f146c7a8f7f78e80261aa3b2a2e642586f9eb3/VSCode-win32-x64-1.32.1.zip'
+```
+
+### 16.2 curl
+
+Q: 在服务器上没有浏览器,该怎么判断服务器上的接口呢?
+
+A: 都长这么大了,要自己学会 curl 了.
+
+```sh
+[root@team-2 ~]# curl '127.0.0.1:8081/rest/answers?topicId=35&pageIndex=0&pageSize=5'
+```
+
+Q: 要是 post 需要带参数怎么办呀?
+
+A: 例子如下
+
+```sh
+[root@team-2 ~]# curl -XPOST 'http://10.33.1.111:9200/movie_lib/movies/_delete_by_query?pretty' -H 'Content-Type: application/json' -d '
+{
+  "query": {
+    "match_all": {}
+  }
+}'
+```
