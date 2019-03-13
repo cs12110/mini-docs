@@ -2,6 +2,8 @@
 
 于是,go 在这里开始了.
 
+参考资料: [菜鸟教程](http://www.runoob.com/go/go-tutorial.html)
+
 ---
 
 ## 基础语法
@@ -166,7 +168,7 @@ func main() {
 
 ### slice
 
-Q: 在go里面有定长度的数组,那么有没有像java里面的list的可变长度东西呀?
+Q: 在 go 里面有定长度的数组,那么有没有像 java 里面的 list 的可变长度东西呀?
 
 A: 有的,大人,这边请.
 
@@ -319,9 +321,52 @@ func main() {
 }
 ```
 
+### JSON 处理
+
+Q: 实体类转换成 JSON,要怎么提高重用性呀?而不是 student 一个转换方法,tree 一个转换方法?
+
+A: `interface{}`,你值得拥有.
+
+```go
+package main
+
+import (
+	"encoding/json"
+)
+
+type Teacher struct {
+	Name    string
+	Age     string
+	Subject string
+}
+
+type Tree struct {
+	Name   string
+	Height int
+	Color  string
+}
+
+func main() {
+	// teacher
+	var tea = Teacher{"haiyan", "20", "english"}
+	// tree
+	var tree = Tree{"Lemon", 170, "green"}
+
+	println(parse2JSON(tea))
+	println(parse2JSON(tree))
+}
+
+func parse2JSON(i interface{}) string {
+	value, _ := json.Marshal(i)
+	return string(value)
+}
+```
+
 ### 反射
 
-### IO
+```go
+
+```
 
 ### 多线程
 
