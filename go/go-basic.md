@@ -362,3 +362,68 @@ func parse2JSON(i interface{}) string {
 }
 ```
 
+### 反射
+
+```go
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+type Book struct {
+	Name    string
+	Author  string
+	Page    int
+	Summary string
+}
+
+// 实现DisplayInfo方法
+func (b Book) DisplayInfo() {
+	fmt.Println("this is display info method")
+}
+
+func main() {
+	book := Book{"Harry potter", "JK.罗琳", 300, "All about magic"}
+	MirrorOfEntity(book)
+}
+
+func MirrorOfEntity(obj interface{}) {
+
+	// 获取类型
+	getType := reflect.TypeOf(obj)
+	fmt.Println("Get name of type:", getType.Name())
+
+	// 获取值
+	value := reflect.ValueOf(obj)
+	fmt.Println("Get name of type:", value)
+
+	// 获取实体类里面的每一个字段以及字段的值
+	fieldSize := getType.NumField()
+	for i := 0; i < fieldSize; i++ {
+		field := getType.Field(i)
+		fieldValue := value.Field(i).Interface()
+
+		fmt.Println(field.Name, "[", field.Type, "]:", fieldValue)
+	}
+
+	// 反射获取反射
+	for i := 0; i < getType.NumMethod(); i++ {
+		method := getType.Method(i)
+		fmt.Println(method.Name, ":", method.Type)
+	}
+}
+```
+
+执行结果
+
+```go
+Get name of type: Book
+Get name of type: {Harry potter JK.罗琳 300 All about magic}
+Name [ string ]: Harry potter
+Author [ string ]: JK.罗琳
+Page [ int ]: 300
+Summary [ string ]: All about magic
+DisplayInfo : func(main.Book)
+```
