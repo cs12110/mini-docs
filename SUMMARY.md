@@ -40,6 +40,9 @@
 
 - [GO](go/README.md)
   - [Go 基础](go/go-basic.md)
+  - [Go 线程](go/go-thread.md)
+  - [Go Web](go/go-web.md)
+  - [Go Mysql](go/go-mysql.md)
 
 ---
 
