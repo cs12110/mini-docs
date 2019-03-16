@@ -112,7 +112,6 @@ hadoop249:/home/bi # rcSuSEfirewall2 restart
 
 ---
 
-
 ## 3. 服务器资源
 
 我们该如何查看服务器中的磁盘和内存呢?
