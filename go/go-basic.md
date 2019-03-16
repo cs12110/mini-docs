@@ -2,6 +2,8 @@
 
 于是,go 在这里开始了.
 
+参考资料: [菜鸟教程](http://www.runoob.com/go/go-tutorial.html)
+
 ---
 
 ## 基础语法
@@ -166,7 +168,7 @@ func main() {
 
 ### slice
 
-Q: 在go里面有定长度的数组,那么有没有像java里面的list的可变长度东西呀?
+Q: 在 go 里面有定长度的数组,那么有没有像 java 里面的 list 的可变长度东西呀?
 
 A: 有的,大人,这边请.
 
@@ -319,12 +321,109 @@ func main() {
 }
 ```
 
-### 反射
+### JSON 处理
 
-### IO
+Q: 实体类转换成 JSON,要怎么提高重用性呀?而不是 student 一个转换方法,tree 一个转换方法?
 
-### 多线程
+A: `interface{}`,你值得拥有.
 
 ```go
+package main
 
+import (
+	"encoding/json"
+)
+
+type Teacher struct {
+	Name    string
+	Age     string
+	Subject string
+}
+
+type Tree struct {
+	Name   string
+	Height int
+	Color  string
+}
+
+func main() {
+	// teacher
+	var tea = Teacher{"haiyan", "20", "english"}
+	// tree
+	var tree = Tree{"Lemon", 170, "green"}
+
+	println(parse2JSON(tea))
+	println(parse2JSON(tree))
+}
+
+func parse2JSON(i interface{}) string {
+	value, _ := json.Marshal(i)
+	return string(value)
+}
+```
+
+### 反射
+
+```go
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+type Book struct {
+	Name    string
+	Author  string
+	Page    int
+	Summary string
+}
+
+// 实现DisplayInfo方法
+func (b Book) DisplayInfo() {
+	fmt.Println("this is display info method")
+}
+
+func main() {
+	book := Book{"Harry potter", "JK.罗琳", 300, "All about magic"}
+	MirrorOfEntity(book)
+}
+
+func MirrorOfEntity(obj interface{}) {
+
+	// 获取类型
+	getType := reflect.TypeOf(obj)
+	fmt.Println("Get name of type:", getType.Name())
+
+	// 获取值
+	value := reflect.ValueOf(obj)
+	fmt.Println("Get name of type:", value)
+
+	// 获取实体类里面的每一个字段以及字段的值
+	fieldSize := getType.NumField()
+	for i := 0; i < fieldSize; i++ {
+		field := getType.Field(i)
+		fieldValue := value.Field(i).Interface()
+
+		fmt.Println(field.Name, "[", field.Type, "]:", fieldValue)
+	}
+
+	// 反射获取反射
+	for i := 0; i < getType.NumMethod(); i++ {
+		method := getType.Method(i)
+		fmt.Println(method.Name, ":", method.Type)
+	}
+}
+```
+
+执行结果
+
+```go
+Get name of type: Book
+Get name of type: {Harry potter JK.罗琳 300 All about magic}
+Name [ string ]: Harry potter
+Author [ string ]: JK.罗琳
+Page [ int ]: 300
+Summary [ string ]: All about magic
+DisplayInfo : func(main.Book)
 ```
