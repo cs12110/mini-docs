@@ -12,8 +12,8 @@
   - [Java 之 线程池](javase/java-threadpool.md)
   - [Java 之 ThreadLocal](javase/java-threadlocal.md)
   - [Java 之 Classloader](javase/java-classloder.md)
-  - [Java 之 自定义IOC](javase/java-ioc.md)
-  - [Java 之 自定义RPC](javase/java-rpc.md)
+  - [Java 之 自定义 IOC](javase/java-ioc.md)
+  - [Java 之 自定义 RPC](javase/java-rpc.md)
   - [Java 之 Proxy](javase/java-proxy.md)
   - [Java 之 优化笔记](javase/java-optimize.md)
 
@@ -48,6 +48,7 @@
 
 - [数据库](db/README.md)
   - [Sql 优化基础](db/Mysql性能优化.md)
+  - [Mysql 事务隔离](db/Mysql事务隔离机制.md)
   - [Mysql 备份与恢复](db/Mysql备份与恢复.md)
   - [Mysql 读写分离](db/Mysql之读写分离.md)
   - [Redis 集群安装](db/Redis-install.md)
