@@ -11,6 +11,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -31,8 +32,17 @@ func ToJSON(universe interface{}) string {
 // hello world, the web server
 func HelloServer(w http.ResponseWriter, req *http.Request) {
 
+	// 获取请求参数
+	req.ParseForm()
+	name := req.FormValue("name")
+	password := req.FormValue("password")
+
+	fmt.Println(name, password)
+
 	book := MyBook{"Harry Potter", "JK", 400, "About magic"}
 	log.Println(ToJSON(book))
+
+	// 回传数据给客户端
 	io.WriteString(w, ToJSON(book))
 }
 
@@ -46,4 +56,4 @@ func main() {
 }
 ```
 
-在浏览器访问: `http://127.0.0.1:12345/hello`即可.
+在浏览器访问: `http://127.0.0.1:12345/hello?name=haiyan&password=haiyan`即可.
