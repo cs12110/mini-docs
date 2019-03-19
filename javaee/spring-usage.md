@@ -998,11 +998,243 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 ---
 
-## 9. Springboot 防止重复提交
+## 9. Springboot 过滤器
+
+是时候看看 spring 里面里面怎么弄过滤器了. :"}
+
+记住: `order`的值越低,优先级越高.
+
+### 9.1 注解模式
+
+实现方式: 实现`Filter`接口,并添加`@Component`注解即可.
+
+```java
+package com.pkgs.conf.filter;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.*;
+import java.io.IOException;
+
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/3/19 8:22
+ * <p>
+ * since: 1.0.0
+ */
+@Slf4j
+@Component
+@Order(10)
+public class FirstFilter implements Filter {
+    @Override
+    public void init(FilterConfig filterConfig) {
+
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        log.info("First filter");
+
+        chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+}
+```
+
+```java
+package com.pkgs.conf.filter;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.*;
+import java.io.IOException;
+
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/3/19 8:22
+ * <p>
+ * since: 1.0.0
+ */
+@Slf4j
+@Component
+@Order(30)
+public class SecondFilter implements Filter {
+    @Override
+    public void init(FilterConfig filterConfig) {
+
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        log.info("Second filter");
+
+        chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+}
+```
+
+测试结果
+
+```java
+2019-03-19 08:38:05 INFO  c.p.c.f.FirstFilter:28 - First filter
+2019-03-19 08:38:05 INFO  c.p.c.f.SecondFilter:28 - Second filter
+```
+
+### 9.2 bean 方式
+
+Q: 那么问题来了,有没有更复杂一点的实现方法呀?
+
+A: 满足你!!!
+
+去除过滤器上面的注解,使用 bean 的方式实现,如下
+
+```java
+package com.pkgs.conf.filter;
+
+import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.*;
+import java.io.IOException;
+
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/3/19 8:22
+ * <p>
+ * since: 1.0.0
+ */
+@Slf4j
+public class FirstFilter implements Filter {
+    @Override
+    public void init(FilterConfig filterConfig) {
+
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        log.info("First filter");
+
+        chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+}
+```
+
+```java
+package com.pkgs.conf.filter;
+
+import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.*;
+import java.io.IOException;
+
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/3/19 8:22
+ * <p>
+ * since: 1.0.0
+ */
+@Slf4j
+public class SecondFilter implements Filter {
+    @Override
+    public void init(FilterConfig filterConfig) {
+
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        log.info("Second filter");
+
+        chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+}
+```
+
+```java
+package com.pkgs.conf.web;
+
+import com.pkgs.conf.filter.FirstFilter;
+import com.pkgs.conf.filter.SecondFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.servlet.Filter;
+
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/3/19 8:23
+ * <p>
+ * since: 1.0.0
+ */
+@Configuration
+public class FilterConf {
+
+    @Bean
+    public FilterRegistrationBean firstFilter() {
+        FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
+
+        // order: 值越小,优先级越高
+        registrationBean.setFilter(new FirstFilter());
+        registrationBean.setOrder(10);
+
+        return registrationBean;
+    }
+
+
+    @Bean
+    public FilterRegistrationBean secondFilter() {
+        FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
+
+        // order: 值越小,优先级越高
+        registrationBean.setFilter(new SecondFilter());
+        registrationBean.setOrder(20);
+
+        return registrationBean;
+    }
+}
+```
+
+测试结果
+
+```java
+2019-03-19 08:44:33 INFO  c.p.c.f.FirstFilter:24 - First filter
+2019-03-19 08:44:33 INFO  c.p.c.f.SecondFilter:24 - Second filter
+```
+
+---
+
+## 10. Springboot 防止重复提交
 
 借助自定义注解和拦截器防止重复提交.
 
-### 9.1 自定义注解
+### 10.1 自定义注解
 
 ```java
 import java.lang.annotation.*;
@@ -1029,7 +1261,7 @@ public @interface AntiResubmit {
 }
 ```
 
-### 9.2 切面
+### 10.2 切面
 
 ```java
 import com.alibaba.fastjson.JSON;
