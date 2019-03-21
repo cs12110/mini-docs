@@ -745,6 +745,8 @@ public class ScheduleConfig implements SchedulingConfigurer {
 
 ## 6. Spring 配置默认值
 
+### 6.1 @Value 的使用
+
 在 Spring 里面可以使用`@Value`注解在变量上获取配置文件上面的值.
 
 类似场景: 如果用户不在配置文件写这个配置,则使用系统默认参数.
@@ -761,6 +763,68 @@ private int asyncPort;
 ```java
 @Value("${async.port:12345}")
 private int asyncPort;
+```
+
+### 6.2 配置文件转换成 bean
+
+Q: 如果可以转化成一个对象,而不是全都使用@Value 来注入属性值,该怎么办?
+
+A: 可以使用`@Component`+`@ConfigurationProperties`来实现.如果对象使用`@Configuration` 注解,在转换成 `json` 字符串的时候会出现异常,所以采用`@Component` 注解.
+
+```yml
+# my entity
+my:
+  name: cs12110
+  age: 36
+  gender: male
+```
+
+```java
+package com.pkgs.entity.rookie;
+
+import com.alibaba.fastjson.JSON;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/3/21 16:41
+ * <p>
+ * since: 1.0.0
+ */
+@Data
+@Configuration
+@ConfigurationProperties(prefix = "my")
+public class MyEntity {
+    private String name;
+    private Integer age;
+    private String gender;
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
+}
+```
+
+测试代码
+
+```java
+@Autowired
+private MyEntity entity;
+
+@PostConstruct
+public void init() {
+	log.info(entity.toString());
+}
+```
+
+测试结果
+
+```java
+2019-03-21 16:50:18 INFO  com.pkgs.App:43 - {"age":36,"gender":"male","name":"cs12110"}
 ```
 
 ---
