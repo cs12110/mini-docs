@@ -1233,3 +1233,146 @@ public class SuperInvoke {
 窝草
 class com.plugin.BiSourceImpl say: 窝草
 ```
+
+---
+
+## 14. clone
+
+Q: 如果有一个对象,只想获取 ta 的副本,修改副本的时候,不改变原来的值,该怎么做呀?
+
+A: U can try clone for this, here some reference docs [link](https://blog.csdn.net/qq_33314107/article/details/80271963)
+
+### 14.1 测试代码
+
+```java
+package cn.rojao.irs.ms;
+
+import com.alibaba.fastjson.JSON;
+import lombok.Data;
+
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/3/27 9:50
+ * <p>
+ * since: 1.0.0
+ */
+public class MyClone {
+
+    @Data
+    static class Student {
+        private String name;
+        private int age;
+
+        Student(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        @Override
+        public String toString() {
+            return JSON.toJSONString(this);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Student stu1 = new Student("haiyan", 16);
+        System.out.println("stu1: " + stu1.toString());
+
+        Student stu2 = stu1;
+        stu2.name = "3306";
+
+        System.out.println("stu2 == stu1 ? " + (stu1 == stu2));
+        System.out.println("stu2: " + stu2.toString());
+        System.out.println("stu1: " + stu1.toString());
+    }
+
+}
+```
+
+测试结果
+
+```json
+stu1: {"age":16,"name":"haiyan"}
+stu2 == stu1 ? true
+stu2: {"age":16,"name":"3306"}
+stu1: {"age":16,"name":"3306"}
+```
+
+As u can see, 改变`stu2`的属性值同时改变了`stu1`的值,因为 ta 们同时指向同一个引用地址.
+
+### 14.2 clone
+
+```java
+package cn.rojao.irs.ms;
+
+import com.alibaba.fastjson.JSON;
+import lombok.Data;
+
+/**
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/3/27 9:50
+ * <p>
+ * since: 1.0.0
+ */
+public class MyClone {
+
+    /**
+     * 实现cloneable接口,并复写clone方法
+     */
+    @Data
+    static class Student implements Cloneable {
+        private String name;
+        private int age;
+
+        Student(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        @Override
+        public String toString() {
+            return JSON.toJSONString(this);
+        }
+
+        /**
+         * clone 方法
+         *
+         * @return Object
+         * @throws CloneNotSupportedException clone exception
+         */
+        public Object clone() throws CloneNotSupportedException {
+            return super.clone();
+        }
+
+    }
+
+    public static void main(String[] args) {
+        try {
+            Student stu1 = new Student("haiyan", 16);
+            System.out.println("stu1: " + stu1.toString());
+
+            Student stu2 = (Student) stu1.clone();
+            stu2.name = "3306";
+
+            System.out.println("stu2 == stu1 ? " + (stu1 == stu2));
+            System.out.println("stu2: " + stu2.toString());
+            System.out.println("stu1: " + stu1.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+```
+
+测试结果
+
+```json
+stu1: {"age":16,"name":"haiyan"}
+stu2 == stu1 ? false
+stu2: {"age":16,"name":"3306"}
+stu1: {"age":16,"name":"haiyan"}
+```
