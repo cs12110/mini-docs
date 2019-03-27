@@ -18,6 +18,43 @@ git version 1.8.3.1
 
 ## 2. 基础命令
 
+### 设置用户和邮箱
+
+在 git 里面,邮箱和用户是很重要的.
+
+查看 git 里面配置参数
+
+```sh
+$ git config --list
+http.sslcainfo=D:/Pro/Git/mingw64/ssl/certs/ca-bundle.crt
+http.sslbackend=openssl
+diff.astextplain.textconv=astextplain
+filter.lfs.clean=git-lfs clean -- %f
+filter.lfs.smudge=git-lfs smudge -- %f
+filter.lfs.process=git-lfs filter-process
+filter.lfs.required=true
+user.email=cs12110@163.com
+user.name=cs12110
+core.repositoryformatversion=0
+core.filemode=false
+core.bare=false
+core.logallrefupdates=true
+core.symlinks=false
+core.ignorecase=true
+remote.origin.url=https://github.com/cs12110/mini-docs.git
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+branch.master.remote=origin
+branch.master.merge=refs/heads/master
+```
+
+配置用户邮箱和姓名
+
+```sh
+$ git config --global user.name cs12110
+
+$ git config --global user.email cs12110@163.com
+```
+
 ### 初始化
 
 构建空的本地仓库
@@ -109,7 +146,6 @@ Switched to branch 'master'
 [root@bi141 git]# git commit -m 'merge dev'
 ```
 
-
 ### 删除分支
 
 注意:**删除分支前,记得合并分支的代码到主分支.**
@@ -117,12 +153,12 @@ Switched to branch 'master'
 **删除本地分支**
 
 ```sh
-[root@bi141 git]# git branch 
+[root@bi141 git]# git branch
   dev
 * master
 [root@bi141 git]# git branch -D dev
 Deleted branch dev (was 683c8ac).
-[root@bi141 git]# git branch 
+[root@bi141 git]# git branch
 * master
 ```
 
