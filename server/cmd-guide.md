@@ -202,6 +202,19 @@ tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      
 root     11735     1  0 Aug21 ?        00:34:09 /opt/soft/jdk/jdk1.8/bin/java -Djava.util.logging.config.file=/opt/soft/tomcat/tomcat8/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dignore.endorsed.dirs= -classpath /opt/soft/tomcat/tomcat8/bin/bootstrap.jar:/opt/soft/tomcat/tomcat8/bin/tomcat-juli.jar -Dcatalina.base=/opt/soft/tomcat/tomcat8 -Dcatalina.home=/opt/soft/tomcat/tomcat8 -Djava.io.tmpdir=/opt/soft/tomcat/tomcat8/temp org.apache.catalina.startup.Bootstrap start
 ```
 
+Q: 哈,那样子怎么 win 上面根据端口查找进程呀?
+
+A: follow me.
+
+```sh
+C:\Users\Administrator>netstat -ano|findstr 8800
+  TCP    0.0.0.0:8800           0.0.0.0:0              LISTENING       592
+  TCP    [::]:8800              [::]:0                 LISTENING       592
+
+C:\Users\Administrator>taskkill /F /PID 592
+成功: 已终止 PID 为 592 的进程。
+```
+
 ### 4.2 按进程名称
 
 - `grep -v 'str'`: 不匹配 str
