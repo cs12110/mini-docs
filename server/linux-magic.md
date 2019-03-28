@@ -796,6 +796,16 @@ A: wget,你值得拥有.命令格式: `wget 'resourceUrl' -O outputFileName`,res
 [root@team-2 ~]# wget 'https://vscode.cdn.azure.cn/stable/05f146c7a8f7f78e80261aa3b2a2e642586f9eb3/VSCode-win32-x64-1.32.1.zip'
 ```
 
+在网络不稳定的情况下,wget 会出现断开的可能,又要重新下载,这叫我情何以堪.
+
+所以可以使用 wget 的断点续传功能: `wget -c fileUrl`
+
+发现下载任务停止之后,使用`ctrl+z`(不是 ctrl+c)暂停任务,然后再使用`wget -c fileUrl`来续传下载文件.
+
+```sh
+[root@team-2 ~]# wget -c 'https://vscode.cdn.azure.cn/stable/05f146c7a8f7f78e80261aa3b2a2e642586f9eb3/VSCode-win32-x64-1.32.1.zip'
+```
+
 ### 16.2 curl
 
 Q: 在服务器上没有浏览器,该怎么判断服务器上的接口呢?
