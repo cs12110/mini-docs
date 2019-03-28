@@ -66,7 +66,7 @@
 ---
 
 - [服务器](server/README.md)
-  - [服务器常用命令](server/cmd-guide.md)
+  - [服务器常用命令](server/linux-magic.md)
   - [Nginx 指南](server/nginx-guide.md)
   - [Lanproxy 指南](server/lanproxy-guide.md)
   - [Tomcat8 指南](server/tomcat8-guide.md)
