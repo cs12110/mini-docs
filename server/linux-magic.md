@@ -10,7 +10,7 @@
 
 在生产环境里面,服务器设置静态 ip 地址是必不可少的.
 
-```sh
+```shell
 [root@dev-115 ~]# vi /etc/sysconfig/network-scripts/ifcfg-ens33
 TYPE="Ethernet"
 # 设置为static
@@ -52,25 +52,25 @@ DNS1=8.8.8.8
 
 **查看状态**
 
-```sh
+```shell
 [root@team-2 ~]# systemctl status firewalld
 ```
 
 **开启防火墙**
 
-```sh
+```shell
 [root@team-2 ~]# systemctl start firewalld
 ```
 
 **关闭防火墙**
 
-```sh
+```shell
 [root@team-2 ~]# systemctl stop firewalld
 ```
 
 **禁用防火墙**
 
-```sh
+```shell
 [root@team-2 ~]# systemctl disable firewalld
 ```
 
@@ -78,33 +78,33 @@ DNS1=8.8.8.8
 
 **开启端口**
 
-```sh
+```shell
 [root@team-2 ~]# firewall-cmd --add-port=7003/tcp --zone=public --permanent
 [root@team-2 ~]# firewall-cmd --reload
 ```
 
 **查看已开启端口**
 
-```sh
+```shell
 [root@team-2 ~]# firewall-cmd --list-port
 ```
 
 **移除端口**
 
-```sh
+```shell
 [root@team-2 ~]# firewall-cmd --remove-port=4993/tcp
 [root@team-2 ~]# firewall-cmd --reload
 ```
 
 ### 2.3 SuSE 关闭防火墙
 
-```sh
+```shell
 hadoop249:/home/bi # rcSuSEfirewall2 stop
 ```
 
 常用命令
 
-```sh
+```shell
 hadoop249:/home/bi # rcSuSEfirewall2 start
 hadoop249:/home/bi # rcSuSEfirewall2 stop
 hadoop249:/home/bi # rcSuSEfirewall2 restart
@@ -120,7 +120,7 @@ hadoop249:/home/bi # rcSuSEfirewall2 restart
 
 **查看磁盘容量**
 
-```sh
+```shell
 [root@team-2 ~]# df -h
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/vda1        40G  7.8G   30G  21% /
@@ -133,7 +133,7 @@ tmpfs           184M     0  184M   0% /run/user/0
 
 **查看当前文件夹占用大小**
 
-```sh
+```shell
 [root@team-2 opt]# du -sh *
 189M	pkgs
 8.0K	server-doc.md
@@ -148,7 +148,7 @@ tmpfs           184M     0  184M   0% /run/user/0
 - `-g`:按照 GB 来显示.
 - `-m`:按照 MB 来显示.
 
-```sh
+```shell
 [root@team-2 ~]# free -g
                 total        used        free      shared  buff/cache   available
 Mem:              1           0           0           0           0           0
@@ -163,7 +163,7 @@ Swap:           511           0         511
 
 使用 top 命令可以查看进程的 cpu 和内存占用比
 
-```sh
+```shell
 [root@team-2 ~]# top -u root
 
 Tasks:  73 total,   1 running,  72 sleeping,   0 stopped,   0 zombie
@@ -195,7 +195,7 @@ KiB Swap:   524284 total,   524284 free,        0 used.   829512 avail Mem
 
 一般`netstat`命令用来查找端口是否被使用,而使用情况要使用`ps`命令来查看.
 
-```sh
+```shell
 [root@team-2 ~]# netstat -lnp|grep 8080
 tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      11735/java
 [root@team-2 ~]# ps -ef|grep 11735
@@ -206,7 +206,7 @@ Q: 哈,那样子怎么 win 上面根据端口查找进程呀?
 
 A: follow me.
 
-```sh
+```shell
 C:\Users\Administrator>netstat -ano|findstr 8800
   TCP    0.0.0.0:8800           0.0.0.0:0              LISTENING       592
   TCP    [::]:8800              [::]:0                 LISTENING       592
@@ -219,7 +219,7 @@ C:\Users\Administrator>taskkill /F /PID 592
 
 - `grep -v 'str'`: 不匹配 str
 
-```sh
+```shell
 [root@team-2 ~]# ps -ef |grep english |grep -v 'grep'
 root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-SNAPSHOT.jar
 ```
@@ -228,7 +228,7 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 
 该命令为 java 专有,必须安装**jdk 环境**,且显示出来都是 jvm 的进程.
 
-```sh
+```shell
 [root@team-2 ~]# jps -lm
 30337 app/english-web-0.0.1-SNAPSHOT.jar
 11735 org.apache.catalina.startup.Bootstrap start
@@ -242,7 +242,7 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 
 - 命令格式: `kill -9 pid`
 
-```sh
+```shell
 [root@team-2 ~]# kill -9 11735
 ```
 
@@ -258,7 +258,7 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 
 `pkgs`: 将要被压缩的文件夹.
 
-```sh
+```shell
 [root@team-2 opt]# tar -zcvf pkgs.tar.gz pkgs/
 ```
 
@@ -268,13 +268,13 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 
 **解压 tar**
 
-```sh
+```shell
 [root@team-2 opt]# tar -xvf pkgs.tar.gz
 ```
 
 **解压 zip**
 
-```sh
+```shell
 [root@team-2 opt]# unzip yourZip.zip
 ```
 
@@ -287,7 +287,7 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 - `scp file`: 传输单个文件.
 - `scp -r pkgs/`:传输整一个文件夹.
 
-```sh
+```shell
 [root@team-2 ~]# scp -r pkgs/ root@10.10.1.224:/tmp/
 ```
 
@@ -295,13 +295,13 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 
 上传本地文件到服务器
 
-```sh
+```shell
 [root@team-2 ~]# scp -r pkgs/ root@10.10.1.224:/tmp/
 ```
 
 下载服务器文件到本地
 
-```sh
+```shell
 [root@team-2 ~]# scp -r root@10.10.1.224:/tmp/ pkgs/
 ```
 
@@ -317,7 +317,7 @@ root     30337     1  0 Sep05 ?        00:11:23 java -jar app/english-web-0.0.1-
 
 `passwd user`: 为新创建用户创建密码.
 
-```sh
+```shell
 hadoop231:~ # useradd haiyan -m -d /opt/haiyan
 hadoop231:~ # passwd haiyan
 Changing password for haiyan.
@@ -331,7 +331,7 @@ Password changed.
 
 有些时候,将某些目录赋给某个用户,让用户拥有那个目录的所有权限.
 
-```sh
+```shell
 hadoop231:/opt/soft # mkdir root-dir
 hadoop231:/opt/soft # ll
 drwxr-xr-x 2 root root 4096 Sep 15 23:15 root-dir
@@ -356,7 +356,7 @@ drwxr-xr-x 2 haiyan users 4096 Sep 15 23:15 root-dir
 
 下面的命令打包会运行 test 文件夹里面的代码,如果 test 代码要运行很久,请使用`6.2`的打包方式.
 
-```sh
+```shell
 [root@team-2 ~]# mvn clean package
 ```
 
@@ -364,7 +364,7 @@ drwxr-xr-x 2 haiyan users 4096 Sep 15 23:15 root-dir
 
 打包推荐使用如下命令
 
-```sh
+```shell
 [root@team-2 ~]# mvn clean package -Dmaven.test.skip=true
 ```
 
@@ -376,7 +376,7 @@ drwxr-xr-x 2 haiyan users 4096 Sep 15 23:15 root-dir
 
 如下`bi-plugins`有三个子模块`bi-plugins-func`,`bi-plugins-invoke`,`bi-plugins-impl`.
 
-```sh
+```shell
 Administrator@QBKF7V9BTMOUJFI MINGW64 /d/Pro/project/bi/v1.0/trunk/etl/bi-plugins
 $ mvn clean package -Dmaven.test.skip=true
 [INFO] ------------------------------------------------------------------------
@@ -403,13 +403,13 @@ $ mvn clean package -Dmaven.test.skip=true
 
 **设置日期**
 
-```sh
+```shell
 hadoop235:/etc # date -s  20181008
 ```
 
 **设置时间**
 
-```sh
+```shell
 hadoop235:/etc # date -s  10:19:40
 ```
 
@@ -419,7 +419,7 @@ hadoop235:/etc # date -s  10:19:40
 
 Suse:
 
-```sh
+```shell
 hadoop235:/etc # date -s  10:20:10
 Mon Oct  8 10:20:10 CST 2018
 hadoop235:/etc # date
@@ -431,13 +431,13 @@ Mon Oct  8 10:18:34 CST 2018
 
 CentOS,依赖`ntp`
 
-```sh
+```shell
 [root@bi143 hadoop-2.7.3]# ntpdate -u ntp1.aliyun.com
 ```
 
 加入定时任务
 
-```sh
+```shell
 hadoop235:/etc # crontab -e
 
 # 每五分钟同步一次
@@ -478,32 +478,32 @@ hadoop235:/etc # crontab -e
 
 **查找软件**
 
-```sh
+```shell
 [root@hadoop235 ~]# yum list git
 [root@hadoop235 ~]# yum list |grep git
 ```
 
 **安装软件**
 
-```sh
+```shell
 [root@hadoop235 ~]# yum install -y git.x86_64
 ```
 
 **卸载软件**
 
-```sh
+```shell
 [root@hadoop235 ~]# yum remove -y git.x86_64
 ```
 
 **查询本地是否安装**
 
-```sh
+```shell
 [root@hadoop235 ~]# yum list  installed |grep git.x86_64
 ```
 
 **只下载不安装**
 
-```sh
+```shell
 [root@hadoop235 ~]# yum install -y --downloadonly --downloaddir=git-rpm/ git.x86_64
 ```
 
@@ -513,26 +513,26 @@ hadoop235:/etc # crontab -e
 
 **安装软件**
 
-```sh
+```shell
 [root@hadoop235 git-rpm]# rpm -ivh perl-Git-1.8.3.1-14.el7_5.noarch.rpm  git-1.8.3.1-14.el7_5.x86_64.rpm
 ```
 
 **更新软件**
 
-```sh
+```shell
 [root@hadoop235 git-rpm]# rpm -Uvh git-1.8.3.1-14.el7_5.x86_64.rpm
 ```
 
 **查询软件**
 
-```sh
+```shell
 [root@hadoop235 git-rpm]# rpm -qa|grep git
 git-1.8.3.1-14.el7_5.x86_64
 ```
 
 **卸载软件**
 
-```sh
+```shell
 [root@hadoop235 git-rpm]# rpm -e --nodeps  git-1.8.3.1-14.el7_5.x86_64
 ```
 
@@ -542,7 +542,7 @@ git-1.8.3.1-14.el7_5.x86_64
 
 有时候需要修改服务器的主机名称,一般是修改`/etc/hosts`下面的文件,such as
 
-```sh
+```shell
 10.10.1.249     hadoop249
 ```
 
@@ -550,7 +550,7 @@ git-1.8.3.1-14.el7_5.x86_64
 
 那么我们现在需要使用 hostname 命令来设置一下
 
-```sh
+```shell
 hadoop249:/home/bi/.ssh # hostname hadoop249
 hadoop249:/home/bi/.ssh # hostname
 hadoop249
@@ -562,7 +562,7 @@ hadoop249
 
 首先找到 pid
 
-```sh
+```shell
 [bi@bi141 ~]$ jps -lm
 11538 org.apache.hadoop.yarn.server.resourcemanager.ResourceManager
 12836 org.apache.hadoop.hbase.master.HMaster start
@@ -578,7 +578,7 @@ hadoop249
 
 命令: `top -H -p [pid]`
 
-```sh
+```shell
 [bi@bi143 ~]$ top -H -p 27793
 top - 12:02:25 up 6 days,  1:05,  1 user,  load average: 0.01, 0.02, 0.05
 Threads:  27 total,   0 running,  27 sleeping,   0 stopped,   0 zombie
@@ -606,7 +606,7 @@ public class HexStr {
 
 获取 jvm 里面的堆栈信息
 
-```sh
+```shell
 [bi@bi143 ~]$ jstack 27793 > stackInfo.txt
 [bi@bi143 ~]$ ll stackInfo.txt
 -rw-rw-r--. 1 bi bi 14236 Nov  6 12:05 stackInfo.txt
@@ -625,7 +625,7 @@ public class HexStr {
 
 ### 12.1 head dump
 
-```sh
+```shell
 [root@team-2 ~]# jps -lm
 545 sun.tools.jps.Jps -lm
 11735 org.apache.catalina.startup.Bootstrap start
@@ -639,7 +639,7 @@ Heap dump file created
 
 这里面可以使用 jdk 自带的 jhat 来查看,当然建议使用专业的如 Eclipse MAT 来查看.
 
-```sh
+```shell
 [root@team-2 ~]# jhat -port 5500 11609.hprof
 Reading from 11609.hprof...
 Dump file created Fri Nov 23 23:19:26 CST 2018
@@ -654,7 +654,7 @@ Server is ready.
 
 ### 12.2 thread dump
 
-```sh
+```shell
 [root@team-2 ~]# jps -lm
 11735 org.apache.catalina.startup.Bootstrap start
 953 sun.tools.jps.Jps -lm
@@ -670,13 +670,13 @@ Server is ready.
 
 如果服务器尚未安装 lsof,请先安装,命令如下:
 
-```sh
+```shell
 [root@team-2 /]# yum install -y lsof
 ```
 
 查看进程关联文件
 
-```sh
+```shell
 [root@team-2 mini-docs]# lsof -p 1536
 COMMAND  PID USER   FD      TYPE DEVICE SIZE/OFF    NODE NAME
 node    1536 root  cwd       DIR  253,1     4096  527608 /opt/soft/docsify/mini-docs
@@ -763,7 +763,7 @@ Q: 为什么在阿里云上面开启这个检测之后,使用远程连接,连接
 
 A: 因为除了上面的那端口,还有其他通讯端口. ~~,需要在防火墙上开启出来.~~
 
-```sh
+```shell
 [root@team-2 4fun-spider]# jps  -lm |grep 4fun-spider
 21825 app/4fun-spider-0.0.1-SNAPSHOT.jar
 [root@team-2 4fun-spider]# netstat -lnp|grep 21825
@@ -792,7 +792,7 @@ A: wget,你值得拥有.命令格式: `wget 'resourceUrl' -O outputFileName`,res
 
 比如使用服务器下载`vscode`:
 
-```sh
+```shell
 [root@team-2 ~]# wget 'https://vscode.cdn.azure.cn/stable/05f146c7a8f7f78e80261aa3b2a2e642586f9eb3/VSCode-win32-x64-1.32.1.zip'
 ```
 
@@ -802,7 +802,7 @@ A: wget,你值得拥有.命令格式: `wget 'resourceUrl' -O outputFileName`,res
 
 发现下载任务停止之后,使用`ctrl+z`(不是 ctrl+c)暂停任务,然后再使用`wget -c fileUrl`来续传下载文件.
 
-```sh
+```shell
 [root@team-2 ~]# wget -c 'https://vscode.cdn.azure.cn/stable/05f146c7a8f7f78e80261aa3b2a2e642586f9eb3/VSCode-win32-x64-1.32.1.zip'
 ```
 
@@ -812,7 +812,7 @@ Q: 在服务器上没有浏览器,该怎么判断服务器上的接口呢?
 
 A: 都长这么大了,要自己学会 curl 了.
 
-```sh
+```shell
 [root@team-2 ~]# curl '127.0.0.1:8081/rest/answers?topicId=35&pageIndex=0&pageSize=5'
 ```
 
@@ -820,7 +820,7 @@ Q: 要是 post 需要带参数怎么办呀?
 
 A: 例子如下
 
-```sh
+```shell
 [root@team-2 ~]# curl -XPOST 'http://10.33.1.111:9200/movie_lib/movies/_delete_by_query?pretty' -H 'Content-Type: application/json' -d '
 {
   "query": {
