@@ -16,6 +16,7 @@
   - [Java 之 自定义 RPC](javase/java-rpc.md)
   - [Java 之 Proxy](javase/java-proxy.md)
   - [Java 之 优化笔记](javase/java-optimize.md)
+  - [Java 之 内置工具](javase/java-tools.md)
 
 ---
 
