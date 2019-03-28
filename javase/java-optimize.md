@@ -1376,3 +1376,138 @@ stu2 == stu1 ? false
 stu2: {"age":16,"name":"3306"}
 stu1: {"age":16,"name":"haiyan"}
 ```
+
+### 14.2 深度复制
+
+浅复制不能解决: `stu.Address` 里面 Address 的复制,所以这种嵌套类型的,要使用深度复制来解决.
+
+工具类
+
+```java
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+
+/**
+ * 深度克隆,克隆里面的每一个属性的实体类都必须实现{@link java.io.Serializable}接口,请知悉.
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/3/28 8:36
+ * <p>
+ * since: 1.0.0
+ */
+public class CloneMachineUtil {
+
+
+    /**
+     * 深度clone
+     *
+     * @param origin origin
+     * @param <T>    T
+     * @return T
+     * @throws IllegalArgumentException if we can't clone for you
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T deep(T origin) {
+        try {
+            PipedInputStream in = new PipedInputStream();
+            PipedOutputStream out = new PipedOutputStream();
+            in.connect(out);
+
+            // objOut要比objIn先创建,泪目
+            try (
+                    ObjectOutputStream objOut = new ObjectOutputStream(out);
+                    ObjectInputStream objIn = new ObjectInputStream(in)
+            ) {
+                objOut.writeObject(origin);
+                Object cloneValue = objIn.readObject();
+
+                return (T) cloneValue;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("We can't clone [" + origin + "] for you");
+    }
+}
+```
+
+测试类
+
+```java
+import com.alibaba.fastjson.JSON;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
+
+/**
+ * 各个类需要实现接口: `Serializable`
+ * <p/>
+ *
+ * @author cs12110 created at: 2019/3/28 8:56
+ * <p>
+ * since: 1.0.0
+ */
+public class DeepCloneTest {
+
+    @Getter
+    @Setter
+    private static class Address implements Serializable {
+        private String block;
+        private String house;
+        private String num;
+    }
+
+
+    @Getter
+    @Setter
+    private static class Student implements Serializable {
+        private String name;
+        private Integer id;
+        private Address address;
+    }
+
+    public static void main(String[] args) {
+
+        Address address = new Address();
+        address.setBlock("gz");
+        address.setHouse("th");
+        address.setNum("cb");
+
+        Student student = new Student();
+        student.setId(1);
+        student.setName("haiyan");
+        student.setAddress(address);
+
+        Student clone = CloneMachineUtil.deep(student);
+
+        System.out.println("origin: " + student);
+        System.out.println("origin address: " + student.getAddress());
+        System.out.println("origin json: " + JSON.toJSON(student));
+
+        System.out.println("---------------------");
+
+        System.out.println("clone: " + clone);
+        System.out.println("clone address: " + clone.getAddress());
+        System.out.println("clone json: " + JSON.toJSONString(clone));
+    }
+}
+```
+
+执行结果
+
+```java
+origin: test.pkgs.DeepCloneTest$Student@2ef1e4fa
+origin address: test.pkgs.DeepCloneTest$Address@306a30c7
+origin json: {"address":{"num":"cb","block":"gz","house":"th"},"name":"haiyan","id":1}
+---------------------
+clone: test.pkgs.DeepCloneTest$Student@574caa3f
+clone address: test.pkgs.DeepCloneTest$Address@64cee07
+clone json: {"address":{"block":"gz","house":"th","num":"cb"},"id":1,"name":"haiyan"}
+```
+
+你看,json 数据一模一样,但是引用地址改变了,深度克隆完成.
