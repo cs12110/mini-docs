@@ -586,3 +586,42 @@ public class MybatisConfiguration {
 
 }
 ```
+
+---
+
+## 3. mbp之mysql
+
+在mbp上面使用dmg安装mysql,版本为:`8.0.15`
+
+
+mysql服务所在路径如下:
+
+```sh
+mr3306:bin root# ls /usr/local//mysql/support-files/
+magic			mysql.server
+mysql-log-rotate	mysqld_multi.server
+```
+
+```sh
+# 启动MySQL服务
+/usr/local/mysql/support-files/mysql.server start
+
+# 停止MySQL服务
+/usr/local/mysql/support-files/mysql.server stop
+
+# 重启MySQL服务
+/usr/local/mysql/support-files/mysql.server restart
+```
+
+还有赋予远程登录权限的命令也修改了,变成了三个步骤.
+
+```sql
+# 创建账户
+create user 'root'@'%' identified by  'root@3306'
+
+# 赋予权限
+mysql> grant all privileges on *.* to 'root'@'%' with grant option;
+
+# 刷新权限
+mysql> flush privileges;
+```
