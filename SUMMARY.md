@@ -79,7 +79,7 @@
 
 ---
 
-- [Kill Me](killme/RAEDME.md)
+- [Kill Me](killme/README.md)
   - [Mybatis 源码阅读](killme/mybatis-doc.md)
   - [Spring 源码阅读](killme/spring-doc.md)
 
