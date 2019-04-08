@@ -2,6 +2,8 @@
 
 源连接: [MySQL 的四种事务隔离级别 link](https://www.cnblogs.com/huanongying/p/7021555.html)
 
+参考资料:[美团技术博客](https://tech.meituan.com/tags/mysql.html)
+
 ---
 
 ## 1. 基础知识
