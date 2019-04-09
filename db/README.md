@@ -32,6 +32,47 @@ Create Table: CREATE TABLE `top_answer_t` (
 
 ---
 
-## 2. Other
+## 2. 锁表与解锁
 
-要留意 mysql 的锁行,锁表以及解决方法.
+Q: 在 mysql 执行过程中,可能因为某些异常导致表被锁,那么怎么查看以及解锁呢?
+
+A: follow me.
+
+- id 为进程
+- command 为 waitting 的就是锁住的表
+- info 为执行某条语句的信息
+
+```sql
+mysql> show processlist;
++-------+------+----------------------+---------+---------+------+----------+------------------+
+| Id    | User | Host                 | db      | Command | Time | State    | Info             |
++-------+------+----------------------+---------+---------+------+----------+------------------+
+| 28069 | root | 47.98.104.252:33920  | 4fun_db | Sleep   |    3 |          | NULL             |
+| 28119 | root | 47.98.104.252:42908  | 4fun_db | Sleep   |    3 |          | NULL             |
+| 29927 | root | 47.98.104.252:36044  | 4fun_db | Sleep   |    3 |          | NULL             |
+| 30845 | root | 47.98.104.252:47180  | 4fun_db | Sleep   |    3 |          | NULL             |
+| 31246 | root | 47.98.104.252:59242  | 4fun_db | Sleep   |    3 |          | NULL             |
++-------+------+----------------------+---------+---------+------+----------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> kill idOfProcess(例如28069)
+```
+
+Command 几个重要参数如下,[详细 link](https://blog.csdn.net/sinat_25873421/article/details/80335125)
+
+| 参数值                  | 含义                     |
+| ----------------------- | ------------------------ |
+| Locked 　               | 被其他查询锁住了         |
+| Sleeping 　 　          | 正在等待客户端发送新请求 |
+| Sorting for group 　 　 | 正在为 GROUP BY 做排序   |
+| Sorting for order 　 　 | 正在为 ORDER BY 做排序   |
+
+---
+
+## 3. 锁行/锁表
+
+Q: 在什么情况下,会锁行/锁表呀?
+
+A: I don't know yet.
+
+---
