@@ -11,8 +11,8 @@
 ```sql
 mysql> show create table top_answer_t \G;
 *************************** 1. row ***************************
-       Table: top_answer_t
-Create Table: CREATE TABLE `top_answer_t` (
+       Table:top_answer_t
+Create Table:CREATE TABLE `top_answer_t` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question` varchar(256) DEFAULT NULL COMMENT '题目',
   `author` varchar(256) DEFAULT NULL COMMENT '作者',
@@ -34,9 +34,9 @@ Create Table: CREATE TABLE `top_answer_t` (
 
 ## 2. 锁表与解锁
 
-Q: 在 mysql 执行过程中,可能因为某些异常导致表被锁,那么怎么查看以及解锁呢?
+Q:在 mysql 执行过程中,可能因为某些异常导致表被锁,那么怎么查看以及解锁呢?
 
-A: follow me.
+A:follow me.
 
 - id 为进程
 - command 为 waitting 的就是锁住的表
@@ -71,8 +71,75 @@ Command 几个重要参数如下,[详细 link](https://blog.csdn.net/sinat_25873
 
 ## 3. 锁行/锁表
 
-Q: 在什么情况下,会锁行/锁表呀?
+### 3.1 条件无索引
 
-A: I don't know yet.
+第一种情况:<u>条件无索引(`nickname` 无索引)</u>
+
+a. 模拟执行,某些原因没提交事务
+
+```sql
+BEGIN;
+UPDATE mkt_user SET nickname='heeson2' WHERE nickname = 'heeson2';
+```
+
+b. 另外线程再执行：
+
+```sql
+UPDATE mkt_user SET nickname='test' WHERE nickname ='test02';
+```
+
+结果: 锁表,b 无法正常执行,需要 a 执行 `commit`,b 才能恢复正常
+
+结论:`update where` 条件无索引,导致锁表
+
+### 3.2 条件有索引
+
+第二种情况:<u>条件有索引(`boundPhone` 带索引)</u>
+
+a. 模拟执行,某些原因没提交事务
+
+```sql
+BEGIN;
+UPDATE mkt_user SET nickname='test 名字 1' WHERE boundPhone = '11552761891';
+```
+
+b. 另外线程再执行：
+
+```sql
+UPDATE mkt_user SET nickname='test 名字 2' WHERE boundPhone ='11094663082';
+```
+
+结果：b 正常执行,并不依赖 a 提交事务
+
+结论: 条件有索引,仅仅锁行
+
+### 3.3 条件有索引,in 语句复杂查询
+
+第三种情况:<u>条件有索引(`boundPhone` 带索引),in 语句是复杂查询</u>
+
+a. 模拟执行,某些原因没提交事务
+
+```sql
+BEGIN;
+UPDATE mkt_user SET nickname='test 名字 1' WHERE boundPhone in (select phone where usr_user where id = 'xxxxx');
+```
+
+b. 另外线程再执行
+
+```sql
+UPDATE mkt_user SET nickname='test 名字 1' WHERE boundPhone in (select phone where usr_user where id = 'yyyyy');
+```
+
+结果：锁表,b 执行受阻,需要 a 执行 commit,b 才能恢复正常
+
+结论:条件有索引,但 in 语句是不确定的值,导致锁表.还有条件含有`<>(非)`,`>`,`<`等不确定值的条件也会导致锁表.
+
+### 3.4 结论
+
+- update where 后面的字段有索引或者是主键的时候,只会锁住索引或者主键对应的行.
+
+- update where 后面的字段为普通字段不带索引的时候,会锁住整张表.
+
+- update where 后面的字段尽量不要用 `in`,`<>`,`>`,`<`不确定的值的条件,会锁住整张表.
 
 ---
