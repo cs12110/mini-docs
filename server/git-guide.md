@@ -284,6 +284,17 @@ Date:   Wed Feb 27 14:06:57 2019 +0800
     readme.md
 ```
 
+### 对比差异
+
+有些时候需要看看本地和远程master的分支上面有什么区别.
+
+那么可以使用下面这个命令
+
+```sh
+mr3306:spring-rookie mr3306$ git fetch
+mr3306:spring-rookie mr3306$ git diff master origin/master
+```
+
 ---
 
 ## 3. 参考资料
