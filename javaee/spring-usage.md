@@ -34,6 +34,14 @@
 
 在性能测试里面,我们需要找到某一个方法执行耗时多久的情况,这是 AOP 绝佳的一个使用场景.
 
+举个栗子: `execution (* com.sample.service..*.*(..))`,整个表达式可以分为五个部分:
+
+- execution(): 表达式主体
+- 第一个*号：表示返回类型, *号表示所有的类型.
+- 包名:表示需要拦截的包名, 后面的两个句点表示当前包和当前包的所有子包,com.sample.service 包,子孙包下所有类的方法.
+- 第二个* 号：表示类名,*号表示所有的类.
+- `*(..)`：最后这个星号表示方法名,\*号表示所有的方法,后面括弧里面表示方法的参数,两个句点表示任何参数.
+
 ```java
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -69,15 +77,12 @@ import org.springframework.stereotype.Component;
  * </pre>
  *
  * @author huanghuapeng 2017年9月18日
- * @see
  * @since 1.0
  */
 @Aspect
 @Component
 public class ServiceExecTimeCalculateInteceptor {
-
-    private static Logger logger = LoggerFactory
-            .getLogger(ServiceExecTimeCalculateInteceptor.class);
+    private static Logger logger = LoggerFactory.getLogger(ServiceExecTimeCalculateInteceptor.class);
 
     /**
      * 切面表达式

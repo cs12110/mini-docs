@@ -55,6 +55,18 @@ $ git config --global user.name cs12110
 $ git config --global user.email cs12110@163.com
 ```
 
+Q: But,如果你有多个 git 仓库需要设置不同的邮箱和用户名呢?
+
+A: 就你事多,就你事多,就你事多....
+
+进入到仓库所在位置,使用 local 设置,命令如下:
+
+```sh
+$ git config --local user.name mr3306
+
+$ git config --local user.email mr3306@163.com
+```
+
 ### 初始化
 
 构建空的本地仓库
