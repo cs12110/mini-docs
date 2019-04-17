@@ -182,6 +182,10 @@ Deleted branch dev (was 683c8ac).
 
 ### 版本回退
 
+#### checkout
+
+这个一般用于
+
 ```sh
 # 当前版本历史和相关文件
 [root@bi141 git]# git log --oneline
@@ -207,6 +211,62 @@ c091ae5 HEAD@{1}: commit: 3.txt
 e9f3128 HEAD@{2}: commit: 2.txt
 1079ee7 HEAD@{3}: commit: 1.txt
 e6def31 HEAD@{4}: commit (initial): init
+```
+
+### reset
+
+```sh
+PC@DESKTOP-DV8C0GM MINGW64 ~/Desktop/git (master)
+$ git log
+commit 5d342570b33c94c2cdeeb53448e9d44f49aeab1f
+Author: cs12110 <cs12110@163.com>
+Date:   Wed Apr 17 09:15:16 2019 +0800
+
+    merge dev
+
+commit a0065f180454424e94e30e0eecbd74e9fd48cfc3
+Author: cs12110 <cs12110@163.com>
+Date:   Wed Apr 17 09:13:57 2019 +0800
+
+    add 2.txt
+
+commit 3ebe6cce761b5d6ea7c6e1ec85636ccc079b6cbc
+Author: cs12110 <cs12110@163.com>
+Date:   Wed Apr 17 09:13:37 2019 +0800
+
+    add 1.txt
+```
+
+```sh
+PC@DESKTOP-DV8C0GM MINGW64 ~/Desktop/git (master)
+$ git reset --hard a0065f180454424e94e30e0eecbd74e9fd48cfc3
+HEAD is now at a0065f1 add 2.txt
+
+PC@DESKTOP-DV8C0GM MINGW64 ~/Desktop/git (master)
+$ git log
+commit a0065f180454424e94e30e0eecbd74e9fd48cfc3
+Author: cs12110 <cs12110@163.com>
+Date:   Wed Apr 17 09:13:57 2019 +0800
+
+    add 2.txt
+
+commit 3ebe6cce761b5d6ea7c6e1ec85636ccc079b6cbc
+Author: cs12110 <cs12110@163.com>
+Date:   Wed Apr 17 09:13:37 2019 +0800
+
+    add 1.txt
+```
+
+```sh
+PC@DESKTOP-DV8C0GM MINGW64 ~/Desktop/git (master)
+$ git reflog
+a0065f1 HEAD@{0}: reset: moving to a0065f180454424e94e30e0eecbd74e9fd48cfc3
+5d34257 HEAD@{1}: commit: merge dev
+a0065f1 HEAD@{2}: checkout: moving from dev to master
+f19f652 HEAD@{3}: commit: add 3.txt by dev
+a0065f1 HEAD@{4}: checkout: moving from master to dev
+a0065f1 HEAD@{5}: commit: add 2.txt
+3ebe6cc HEAD@{6}: commit (initial): add 1.txt
 ```
 
 ### 修改上一次提交信息
@@ -286,7 +346,7 @@ Date:   Wed Feb 27 14:06:57 2019 +0800
 
 ### 对比差异
 
-有些时候需要看看本地和远程master的分支上面有什么区别.
+有些时候需要看看本地和远程 master 的分支上面有什么区别.
 
 那么可以使用下面这个命令
 
