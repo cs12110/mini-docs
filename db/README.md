@@ -143,3 +143,25 @@ UPDATE mkt_user SET nickname='test 名字 1' WHERE boundPhone in (select phone w
 - update where 后面的字段尽量不要用 `in`,`<>`,`>`,`<`不确定的值的条件,会锁住整张表.
 
 ---
+
+## 4. 索引操作
+
+### 4.1 添加索引
+
+格式: `alter table tableName add index indexName(`columnName`);`
+
+举个栗子:
+
+```sql
+mysql> alter table top_answer_t add index questionIndex(`question`);
+```
+
+### 4.2 删除索引
+
+格式: `alter table tableName drop index indexName;`
+
+举个栗子:
+
+```sql
+mysql> alter table top_answer_t drop index questionIndex;
+```
