@@ -18,7 +18,7 @@ git version 1.8.3.1
 
 ## 2. 基础命令
 
-### 设置用户和邮箱
+### 设置全局用户和邮箱
 
 在 git 里面,邮箱和用户是很重要的.
 
@@ -54,6 +54,8 @@ $ git config --global user.name cs12110
 
 $ git config --global user.email cs12110@163.com
 ```
+
+### 设置某个 git 仓库的用户和邮箱
 
 Q: But,如果你有多个 git 仓库需要设置不同的邮箱和用户名呢?
 
@@ -101,6 +103,16 @@ remote: Total 5 (delta 0), reused 5 (delta 0), pack-reused 0
 Unpacking objects: 100% (5/5), done.
 [root@bi141 git]# ls
 4test
+```
+
+上面命令是克隆主分支的代码,如果最新代码在其他分支怎么玩?
+
+```sh
+# 显示所有的分支
+[root@bi141 git]# git branch -r
+
+# clone你想要的分支
+[root@bi141 git]# git clone -b branchName gitUrl
 ```
 
 ### push&pull
