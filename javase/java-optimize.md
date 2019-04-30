@@ -1511,3 +1511,119 @@ clone json: {"address":{"block":"gz","house":"th","num":"cb"},"id":1,"name":"hai
 ```
 
 你看,json 数据一模一样,但是引用地址改变了,深度克隆完成.
+
+---
+
+## 15. throw 与 throws
+
+Q: throw 和 throws 有什么区别呀?
+
+A: throw 用于代码手动抛出异常,throws 用在方法声明上.
+
+简单来说: throws 是用在方法上面的,表面该方法可能会产生什么样的异常. throw 呢,就用来在代码里面抛出异常.
+
+### 15.1 throw
+
+Exception 里面又会各种 exception,最主要的分支就是 RuntimeException 了.
+
+```java
+/**
+ * RuntimeException
+ *
+ * @author cs12110 create at 2019/4/30 15:22
+ * @version 1.0.0
+ */
+public class RunExp {
+
+    static class MyRunExp extends RuntimeException {
+        public MyRunExp(String message) {
+            super(message);
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            test(-1);
+        } catch (MyRunExp e) {
+            e.printStackTrace();
+        }
+        test(0);
+    }
+
+    private static void test(int index) {
+        if (index < 0) {
+            throw new MyRunExp("index must >= 0");
+        }
+        System.out.println("Ok,you will get: " + index);
+    }
+
+    //throw也可以结合trhows一起使用.
+    //private static void test1(int index) throws MyExp {
+    //    if (index < 0) {
+    //        // 如果MyRunExp extends Exception的话,在方法里面使用throw必须要try...catch
+    //        throw new MyExp("index must >= 0");
+    //    }
+    //    System.out.println("Ok,you will get: " + index);
+    //}
+}
+```
+
+测试结果
+
+```java
+com.woniubaoxian.test.RunExp$MyExp: index must >= 0
+	at com.woniubaoxian.test.RunExp.test(RunExp.java:29)
+	at com.woniubaoxian.test.RunExp.main(RunExp.java:19)
+Ok,you will get: 0
+```
+
+### 15.2 throws
+
+在方法 throws 的时候,<u>如果抛出的 exception 是继承 RuntiomeException 的,调用方法不用 try...catch 也不会报错.而抛出的是继承 Exception 的话,调用方法就必须 try...catch 了</u>.
+
+```java
+/**
+ * Exception
+ *
+ * @author cs12110 create at 2019/4/30 15:22
+ * @version 1.0.0
+ */
+public class RunExp {
+
+    static class MyExp extends Exception {
+        public MyExp(String message) {
+            super(message);
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            test(-1);
+        } catch (MyExp e) {
+            e.printStackTrace();
+        }
+        try {
+            test(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void test(int index) throws MyExp {
+        if (index < 0) {
+            // 如果MyRunExp extends Exception的话,在方法里面使用throw必须要try...catch
+            throw new MyExp("index must >= 0");
+        }
+        System.out.println("Ok,you will get: " + index);
+    }
+}
+```
+
+测试结果
+
+```java
+com.woniubaoxian.test.RunExp$MyExp: index must >= 0
+	at com.woniubaoxian.test.RunExp.test(RunExp.java:33)
+	at com.woniubaoxian.test.RunExp.main(RunExp.java:19)
+Ok,you will get: 0
+```
