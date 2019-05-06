@@ -126,6 +126,12 @@ From https://github.com/cs12110/4test
 Already up-to-date.
 ```
 
+Q: 如果想要获取所有分支的最新代码呢?
+
+```sh
+[root@bi141 4test]# git pull --all
+```
+
 push: 推送本地代码到远程服务器
 
 ```sh
