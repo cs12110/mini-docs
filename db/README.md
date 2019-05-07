@@ -165,3 +165,15 @@ mysql> alter table top_answer_t add index questionIndex(`question`);
 ```sql
 mysql> alter table top_answer_t drop index questionIndex;
 ```
+
+---
+
+## 5. 字段设计
+
+在 mysql 里面如果一个字段被设置为`boolean`类型,会被替换成 `tinyint(1)`.false 为 0,true 为 1.
+
+但是坑爹的地方是,tinyint 不止可以存 0 和 1,还可以存[0,9].
+
+Q: 在 hibernate 里面,tinyint(1)取出来会被替换成 true 和 false,你想拿数字的话,该怎么办?
+
+A: 把 tinyint 的长度改变,不设置为 1. 卧槽.
