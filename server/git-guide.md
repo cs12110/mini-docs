@@ -373,6 +373,16 @@ mr3306:spring-rookie mr3306$ git fetch
 mr3306:spring-rookie mr3306$ git diff master origin/master
 ```
 
+### force
+
+在实际中,由于自己手残把一个不该提交的文件也提交到服务器了.
+
+比如现在有 4 个提交,分别是: 1.txt 的 commit,2.txt 的 commit,3.txt 的 commit,4.txt 的 commit.
+
+Q: 但是现在发现 3.txt 根本不应该存在该怎么办?
+
+A: 首先备份当前的修改 -> git reset 2.txt 的 commit -> git push origin master --force -> git status 显示当前情况,删除 3.txt -> 添加 4.txt 到,进行 commit -> 重新推送到服务器
+
 ---
 
 ## 3. 参考资料
