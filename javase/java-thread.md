@@ -416,15 +416,13 @@ public class MyLatch {
 
 ---
 
-
 ## 4. volatile
 
 在线程里面所有操作的数据来自该线程线程的工作内存,操作完成后再刷回主存里面去.
 
-
 Q: 在执行方法的时候,有哪些数据存放到工作空间里面呀?
 
-A: 根据虚拟机规范.对于一个实例对象中的成员方法而言.如果方法中包含本地变量是基本数据类型(boolean,byte,short,char,int,long,float,double).将直接存储在工作内存的帧栈结构中.但倘若本地变量是引用类型.那么该变量的引用会存储在功能内存的帧栈中.而对象实例将存储在主内存(共享数据区域.堆)中.但对于实例对象的成员变量.不管它是基本数据类型或者包装类型(Integer、Double等)还是引用类型.都会被存储到堆区.至于static变量以及类本身相关信息将会存储在主内存中.需要注意的是.在主内存中的实例对象可以被多线程共享.倘若两个线程同时调用了同一个对象的同一个方法.那么两条线程会将要操作的数据拷贝一份到自己的工作内存中.执行完成操作后才刷新到主内存.[link](https://blog.csdn.net/javazejian/article/details/72772461)
+A: 根据虚拟机规范.对于一个实例对象中的成员方法而言.如果方法中包含本地变量是基本数据类型(boolean,byte,short,char,int,long,float,double).将直接存储在工作内存的帧栈结构中.但倘若本地变量是引用类型.那么该变量的引用会存储在功能内存的帧栈中.而对象实例将存储在主内存(共享数据区域.堆)中.但对于实例对象的成员变量.不管它是基本数据类型或者包装类型(Integer、Double 等)还是引用类型.都会被存储到堆区.至于 static 变量以及类本身相关信息将会存储在主内存中.需要注意的是.在主内存中的实例对象可以被多线程共享.倘若两个线程同时调用了同一个对象的同一个方法.那么两条线程会将要操作的数据拷贝一份到自己的工作内存中.执行完成操作后才刷新到主内存.[link](https://blog.csdn.net/javazejian/article/details/72772461)
 
 ### 4.1 测试代码
 
@@ -559,13 +557,13 @@ Run2 done
 
 ---
 
-## 5. Callable与Future
+## 5. Callable 与 Future
 
-JVM在ta的日志轻轻的写下了: 在多线程里面,时值天下三分,Thread,Runnable,Callable各成一方豪强.
+JVM 在 ta 的日志轻轻的写下了: 在多线程里面,时值天下三分,Thread,Runnable,Callable 各成一方豪强.
 
-Q: 为什么要特地说一下Callable呀?
+Q: 为什么要特地说一下 Callable 呀?
 
-A: ~~我喜欢呀.~~ 在某些特殊的场景里面,**需要线程执行完之后的结果(如mapreduce)**,Thread与Runnable都不能实现,所以选择使用Callable.
+A: ~~我喜欢呀.~~ 在某些特殊的场景里面,**需要线程执行完之后的结果(如 mapreduce)**,Thread 与 Runnable 都不能实现,所以选择使用 Callable.
 
 ### 5.1 代码
 
@@ -581,7 +579,7 @@ import java.util.function.Supplier;
 
 /**
  * callable
- * 
+ *
  * <p/>
  *
  * @author cs12110 created at: 2019/2/22 16:48
@@ -656,4 +654,139 @@ public class MyFuture {
 2019-02-22 17:18:15 pool-2 done
 2019-02-22 17:18:15 1
 2019-02-22 17:18:15 1
+```
+
+---
+
+## 6. 定时器
+
+在现实里面需要用到定时器之类的东西,但是如果一个简单的定时任务也用 quartz 这种定时框架,就有点大材小用了.
+
+so,我们看一下最基础,最简单的实现.
+
+### 6.1 timer
+
+```java
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.function.Supplier;
+
+/**
+ * @author cs12110 create at 2019/5/14 13:37
+ * @version 1.0.0
+ */
+public class SimpleTimer {
+
+    public static void main(String[] args) {
+        Timer timer = new Timer();
+        /*
+         * 设置定时任务
+         *
+         * delay: 启动线程后多少毫秒开始执行
+         *
+         * period: 周期,多少毫秒执行一次
+         */
+        timer.schedule(new MyTimer(), 2000, 3000);
+    }
+
+
+    /**
+     * 定时任务
+     */
+    static class MyTimer extends TimerTask {
+        private Supplier<String> dateSupplier = () -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            return sdf.format(new Date());
+        };
+
+        @Override
+        public void run() {
+            // do whatever you want to do
+            System.out.println(dateSupplier.get() + " - invokes");
+        }
+    }
+}
+```
+
+测试结果
+
+```java
+2019-05-14 13:49:37 - invokes
+2019-05-14 13:49:40 - invokes
+2019-05-14 13:49:43 - invokes
+2019-05-14 13:49:46 - invokes
+2019-05-14 13:49:49 - invokes
+2019-05-14 13:49:52 - invokes
+2019-05-14 13:49:55 - invokes
+2019-05-14 13:49:58 - invokes
+```
+
+### 6.2 ScheduledThreadPoolExecutor
+
+Q: 怎么可以这么 low? 如果只写 runnable 可不可以定时执行呀?
+
+A: 你这样子自问自答,让我很尴尬耶.
+
+```java
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
+
+/**
+ * @author cs12110 create at 2019/5/14 13:37
+ * @version 1.0.0
+ */
+public class SimpleTimer {
+
+    public static void main(String[] args) {
+        /*
+         * 定时调度线程池,coreSize=3
+         */
+        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(3);
+
+        /*
+         * 设置定时调度
+         *
+         * delay: 延时,period: 周期, time unit: 时间单位
+         */
+        executor.scheduleAtFixedRate(new MyRun("t-i2p4"), 2L, 4L, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(new MyRun("t-i4p8"), 4L, 8L, TimeUnit.SECONDS);
+    }
+
+
+    static class MyRun implements Runnable {
+
+        private String threadName;
+
+        MyRun(String threadName) {
+            this.threadName = threadName;
+        }
+
+        private Supplier<String> dateSupplier = () -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            return sdf.format(new Date());
+        };
+
+        @Override
+        public void run() {
+            // do whatever you want to do
+            System.out.println(dateSupplier.get() + " - " + threadName + " invoke");
+        }
+    }
+}
+```
+
+测试结果
+
+```java
+2019-05-14 13:58:19 - t-i2p4 invoke
+2019-05-14 13:58:21 - t-i4p8 invoke
+2019-05-14 13:58:23 - t-i2p4 invoke
+2019-05-14 13:58:27 - t-i2p4 invoke
+2019-05-14 13:58:29 - t-i4p8 invoke
+2019-05-14 13:58:31 - t-i2p4 invoke
 ```
