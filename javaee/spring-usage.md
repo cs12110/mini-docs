@@ -1406,3 +1406,92 @@ public class AntiResubmitAspect {
 ```
 
 ---
+
+## 11. Spring Event
+
+在 spring 里面也有事件通知时间.可以做到发布/订阅的功能.
+
+### 11.1 自定义事件
+
+```java
+import org.springframework.context.ApplicationEvent;
+
+/**
+ * 自定义事件
+ *
+ * @author cs12110 create at 2019/5/9 20:31
+ * @version 1.0.0
+ */
+public class SysEvent extends ApplicationEvent {
+    /**
+     * 事件
+     *
+     * @param source 可以传入事件特定的值
+     */
+    public SysEvent(Object source) {
+        super(source);
+    }
+}
+```
+
+### 11.2 事件处理器
+
+```java
+import com.alibaba.fastjson.JSON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
+
+/**
+ * 监听SysEvent事件
+ *
+ * @author cs12110 create at 2019/5/9 20:32
+ * @version 1.0.0
+ */
+@Component
+public class SysEventListener implements ApplicationListener<SysEvent> {
+
+    private static Logger logger = LoggerFactory.getLogger(SysEventListener.class);
+
+    @Override
+    public void onApplicationEvent(SysEvent sysEvent) {
+        try {
+            logger.info("{}", JSON.toJSONString(sysEvent.getSource()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### 11.3 事件发生器
+
+```java
+ @Autowired
+private ApplicationContext applicationContext;
+
+@PostConstruct
+public void init() {
+	log.info(entity.toString());
+	applicationContext.publishEvent(new SysEvent("1"));
+	applicationContext.publishEvent(new SysEvent("2"));
+	applicationContext.publishEvent(new SysEvent("3"));
+
+	try {
+		Thread.sleep(5000);
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	applicationContext.publishEvent(new SysEvent("4"));
+}
+```
+
+测试结果
+
+```java
+2019-05-09 20:38:11 INFO  c.p.l.SysEventListener:21 - "1"
+2019-05-09 20:38:11 INFO  c.p.l.SysEventListener:21 - "2"
+2019-05-09 20:38:11 INFO  c.p.l.SysEventListener:21 - "3"
+2019-05-09 20:38:16 INFO  c.p.l.SysEventListener:21 - "4"
+```

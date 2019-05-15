@@ -25,6 +25,7 @@
   - [Swagger 组件](javaee/swagger2.md)
   - [Velocity 代码生成器](javaee/cg-velocity.md)
   - [分库分表 之 Sharding-JDBC](javaee/sharding-jdbc.md)
+  - [分布式任务调度器](javaee/xxl-job.md)
   - [Spring 常用技巧](javaee/spring-usage.md)
   - [Spring 与 SqlSession](javaee/spring-sqlsession.md)
   - [SpringCloud 基础教程](javaee/springcloud.md)
@@ -63,6 +64,7 @@
   - [RabbitMq 使用指南](mq/rabbitmq-map.md)
   - [RabbitMq 与 Springboot](mq/rabbitmq-ee.md)
   - [Redis 发布/订阅模式](mq/redis-pubsub.md)
+  - [RocketMq 使用指南](mq/rocketmq.md)
 
 ---
 
