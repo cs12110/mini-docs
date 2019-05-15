@@ -130,6 +130,137 @@ class java.lang.Integer:123
 
 ---
 
-## 2. Spring初始化过程
+## 2. Spring 初始化过程
 
 [优秀博客 link](https://fangjian0423.github.io/)
+
+---
+
+## 3. DispatchServlet
+
+在 spring mvc 的请求响应过程里面,`DispatchServlet`可是第一主角.
+
+### 3.1 继承情况
+
+首先 DispatchServlet 最根本还是一个 Servlet, 只不过 Spring 在 Serlvet 进行了封装而已,例如 RequestMapping.
+
+```java
+public class DispatcherServlet extends FrameworkServlet {
+	...
+}
+```
+
+```java
+public abstract class FrameworkServlet extends HttpServletBean implements ApplicationContextAware {
+	...
+}
+```
+
+```java
+/**
+ * HttpServlet来自: package javax.servlet.http;
+ */
+public abstract class HttpServletBean extends HttpServlet implements EnvironmentCapable, EnvironmentAware {
+	...
+}
+```
+
+### 3.2 重要方法
+
+```java
+/**
+* Process the actual dispatching to the handler.
+* <p>The handler will be obtained by applying the servlet's HandlerMappings in order.
+* The HandlerAdapter will be obtained by querying the servlet's installed HandlerAdapters
+* to find the first that supports the handler class.
+* <p>All HTTP methods are handled by this method. It's up to HandlerAdapters or handlers
+* themselves to decide which methods are acceptable.
+* @param request current HTTP request
+* @param response current HTTP response
+* @throws Exception in case of any kind of processing failure
+*/
+protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+HttpServletRequest processedRequest = request;
+HandlerExecutionChain mappedHandler = null;
+boolean multipartRequestParsed = false;
+
+WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
+
+try {
+	ModelAndView mv = null;
+	Exception dispatchException = null;
+
+	try {
+		processedRequest = checkMultipart(request);
+		multipartRequestParsed = (processedRequest != request);
+
+		// Determine handler for the current request.
+		mappedHandler = getHandler(processedRequest);
+		if (mappedHandler == null) {
+			noHandlerFound(processedRequest, response);
+			return;
+		}
+
+		// Determine handler adapter for the current request.
+		HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
+
+		// Process last-modified header, if supported by the handler.
+		String method = request.getMethod();
+		boolean isGet = "GET".equals(method);
+		if (isGet || "HEAD".equals(method)) {
+			long lastModified = ha.getLastModified(request, mappedHandler.getHandler());
+			if (logger.isDebugEnabled()) {
+				logger.debug("Last-Modified value for [" + getRequestUri(request) + "] is: " + lastModified);
+			}
+			if (new ServletWebRequest(request, response).checkNotModified(lastModified) && isGet) {
+				return;
+			}
+		}
+
+		if (!mappedHandler.applyPreHandle(processedRequest, response)) {
+			return;
+		}
+
+		// Actually invoke the handler.
+		mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
+
+		if (asyncManager.isConcurrentHandlingStarted()) {
+			return;
+		}
+
+		applyDefaultViewName(processedRequest, mv);
+		mappedHandler.applyPostHandle(processedRequest, response, mv);
+	}
+	catch (Exception ex) {
+		dispatchException = ex;
+	}
+	catch (Throwable err) {
+		// As of 4.3, we're processing Errors thrown from handler methods as well,
+		// making them available for @ExceptionHandler methods and other scenarios.
+		dispatchException = new NestedServletException("Handler dispatch failed", err);
+	}
+	processDispatchResult(processedRequest, response, mappedHandler, mv, dispatchException);
+}
+catch (Exception ex) {
+	triggerAfterCompletion(processedRequest, response, mappedHandler, ex);
+}
+catch (Throwable err) {
+	triggerAfterCompletion(processedRequest, response, mappedHandler,
+			new NestedServletException("Handler processing failed", err));
+}
+finally {
+	if (asyncManager.isConcurrentHandlingStarted()) {
+		// Instead of postHandle and afterCompletion
+		if (mappedHandler != null) {
+			mappedHandler.applyAfterConcurrentHandlingStarted(processedRequest, response);
+		}
+	}
+	else {
+		// Clean up any resources used by a multipart request.
+		if (multipartRequestParsed) {
+			cleanupMultipart(processedRequest);
+		}
+	}
+}
+}
+```
