@@ -78,6 +78,7 @@
   - [Jenkins 指南](server/jenkins-guide.md)
   - [Docsify 指南](server/docsify-guide.md)
   - [Git 指南](server/git-guide.md)
+  - [Maven 设置](server/mvn.md)
 
 ---
 
