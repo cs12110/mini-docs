@@ -84,7 +84,7 @@
 - [Kill Me](killme/README.md)
   - [Mybatis 源码阅读](killme/mybatis-doc.md)
   - [Spring 源码阅读](killme/spring-doc.md)
-
+  - [Shiro 源码阅读](killme/shiro.md)
 ---
 
 - [大数据](tb/README.md)
