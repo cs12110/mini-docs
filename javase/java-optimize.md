@@ -1627,3 +1627,48 @@ com.woniubaoxian.test.RunExp$MyExp: index must >= 0
 	at com.woniubaoxian.test.RunExp.main(RunExp.java:19)
 Ok,you will get: 0
 ```
+
+---
+
+## 16. Assert
+
+在 Java 里面还有一个叫 Assert(断言)的家伙,用起来,泪流满面.
+
+```java
+/**
+ * 如果条件==true往后执行,否则抛出异常
+ */
+assert yourCondition: "the error message"
+```
+
+```java
+
+/**
+ * Assert
+ *
+ * @author cs12110 create at 2019/5/23 19:57
+ * @version 1.0.0
+ */
+public class AssertTest {
+
+    public static void main(String[] args) {
+        testAssert(null);
+    }
+
+    private static void testAssert(Object value) {
+        /*
+         *如果value == null 则抛出异常
+         */
+        assert value != null : "fuck this , your value is empty, don't fool me around";
+        System.out.println("Ok, you can go now, I got your back, Miss");
+    }
+}
+```
+
+测试结果
+
+```java
+Exception in thread "main" java.lang.AssertionError: fuck this , your value is empty, don't fool me around
+	at com.woniubaoxian.test.AssertTest.testAssert(AssertTest.java:16)
+	at com.woniubaoxian.test.AssertTest.main(AssertTest.java:12)
+```
