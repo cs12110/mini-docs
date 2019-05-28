@@ -21,12 +21,12 @@
 ---
 
 - [Java EE](javaee/README.md)
-  - [常用日志组件](javaee/log-guide.md)
-  - [Swagger 组件](javaee/swagger2.md)
-  - [Velocity 代码生成器](javaee/cg-velocity.md)
+  - [日志组件之 Logback/Log4j](javaee/log-guide.md)
+  - [代码生成器之 Velocity ](javaee/cg-velocity.md)
+  - [Api 组件之 Swagger](javaee/swagger2.md)
   - [分库分表 之 Sharding-JDBC](javaee/sharding-jdbc.md)
-  - [分布式任务调度器](javaee/xxl-job.md)
-  - [Spring 常用技巧](javaee/spring-usage.md)
+  - [分布式任务调度器 xxl-job](javaee/xxl-job.md)
+  - [Spring 常用代码段](javaee/spring-usage.md)
   - [Spring 与 SqlSession](javaee/spring-sqlsession.md)
   - [SpringCloud 基础教程](javaee/springcloud.md)
   - [Rpc 之 Thrift](javaee/rpc-thrift.md)
@@ -36,7 +36,7 @@
   - [Redis 之 数据导入优化](javaee/redis-import.md)
   - [JWT 使用指南](javaee/jwt-map.md)
   - [爬虫 之 HttpClient](javaee/spider-httpclient.md)
-  - [Elasticsearch](javaee/fulltext-es.md)
+  - [全文检索之 ES](javaee/fulltext-es.md)
 
 ---
 
@@ -86,6 +86,7 @@
   - [Mybatis 源码阅读](killme/mybatis-doc.md)
   - [Spring 源码阅读](killme/spring-doc.md)
   - [Shiro 源码阅读](killme/shiro.md)
+
 ---
 
 - [大数据](tb/README.md)
