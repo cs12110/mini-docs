@@ -828,3 +828,25 @@ A: 例子如下
   }
 }'
 ```
+
+---
+
+## 17. nginx
+
+自从有了服务器之后,就有点飘了.什么域名啦,什么 nginx 啦,什么 Tomcat 啦,什么 mysql 啦,全都 tmd 给我加上.万事有个 but,卧槽.
+
+Q: 在 Tomcat 里面启动的项目,怎么使用域名访问,而不是每次都是些 ip?
+
+A: 假设服务器的 tomcat 项目的访问地址为:`http://47.98.104.252:8080/schedule/views/Schedule.jsp`,那么我们需要在 nginx 加上这个项目的代理即可.
+
+```nginx
+location /schedule/ {
+  proxy_pass http://127.0.0.1:8080/schedule/;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto https;
+}
+```
+
+---
