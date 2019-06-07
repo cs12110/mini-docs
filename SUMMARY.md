@@ -24,6 +24,7 @@
   - [日志组件之 Logback/Log4j](javaee/log-guide.md)
   - [代码生成器之 Velocity ](javaee/cg-velocity.md)
   - [Api 组件之 Swagger](javaee/swagger2.md)
+  - [Api 组件之 apidoc](javaee/apidoc.md)
   - [分库分表 之 Sharding-JDBC](javaee/sharding-jdbc.md)
   - [分布式任务调度器 xxl-job](javaee/xxl-job.md)
   - [Spring 常用代码段](javaee/spring-usage.md)
