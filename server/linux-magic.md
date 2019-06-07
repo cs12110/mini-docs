@@ -92,7 +92,7 @@ DNS1=8.8.8.8
 **移除端口**
 
 ```shell
-[root@team-2 ~]# firewall-cmd --remove-port=4993/tcp
+[root@team-2 ~]# firewall-cmd --remove-port=4993/tcp  --zone=public --permanent
 [root@team-2 ~]# firewall-cmd --reload
 ```
 
