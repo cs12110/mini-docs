@@ -691,8 +691,12 @@ node    1536 root  cwd       DIR  253,1     4096  527608 /opt/soft/docsify/mini-
 ```bash
 #/bin/bash
 
+cd /opt/soft/4fun/4fun-zhihu/
+
+source /etc/profile
+
 # app name
-app_name='4fun-spider-0.0.1-SNAPSHOT.jar'
+app_name='4fun-zhihu-0.0.1-SNAPSHOT.jar'
 num_regex='^[0-9]+$'
 
 # find the pid of app
@@ -700,12 +704,23 @@ pid=`ps -ef |grep $app_name |grep -v 'grep' | awk '{print $2}'`
 
 # if exists
 if [[ "$pid" =~ $num_regex ]];then
-	echo -e "\nWe kill: " $pid " of [" $app_name “]”
+	echo -e "\nWe kill: " $pid " of:" $app_name
 	kill -9 $pid
-	rm -rf nohup.out logs
+	rm -rf nohup.out
+	rm -rf logs/*.log	
 fi
 
 # start the app
+# nohup java -jar app/$app_name &
+
+# nohup java  \
+# -Dcom.sun.management.jmxremote.rmi.port=9876 \
+# -Dcom.sun.management.jmxremote.port=9876 \
+# -Dcom.sun.management.jmxremote.ssl=false \
+# -Dcom.sun.management.jmxremote.authenticate=false \
+# -Djava.rmi.server.hostname="47.98.104.252" \
+# -jar app/$app_name >/dev/null 2>&1 &
+
 nohup java -jar app/$app_name &
 
 # sleep five seconds
@@ -719,6 +734,10 @@ if [[ "$pid" =~ $num_regex ]];then
 else
 	echo -e "\n--- Start [" $app_name "] failure ----\n"
 fi
+
+# the log of start up
+start_time=`date '+%Y-%m-%d %H:%M:%S'`
+echo $start_time > latest-log
 ```
 
 ---
