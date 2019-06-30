@@ -350,3 +350,5 @@ b. [CSDN 博客:java 使用 rocketMq](https://blog.csdn.net/zhangcongyi420/artic
 c. [轻松搞定 RocketMQ 入门](https://segmentfault.com/a/1190000015951993)
 
 d. [搭建 RocketMQ 踩的坑](https://blog.csdn.net/c_yang13/article/details/76836753)
+
+e. [RocketMq订阅关系](https://help.aliyun.com/document_detail/43523.html?spm=a2c4g.11186623.6.605.2a381da95V6B1X)
