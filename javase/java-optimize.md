@@ -1672,3 +1672,114 @@ Exception in thread "main" java.lang.AssertionError: fuck this , your value is e
 	at com.woniubaoxian.test.AssertTest.testAssert(AssertTest.java:16)
 	at com.woniubaoxian.test.AssertTest.main(AssertTest.java:12)
 ```
+
+---
+
+## 17. 对象值复制
+
+在更新数据的操作里面,需要先把之前的数据查询出来,不为空的最新值覆盖字段.
+
+如果有很多的字段,要每一个 setter/getter 这就有点.....
+
+那么,我们可以使用反射来做.
+
+测试实体类
+
+```java
+@Data
+public class Student {
+    private Integer id;
+    private String name;
+    private Date birth;
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this, true);
+    }
+
+}
+```
+
+测试方法
+
+```java
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * <p>
+ *
+ * @author cs12110 create at 2019-07-10 22:54
+ * <p>
+ * @since 1.0.0
+ */
+public class ReflectApp {
+
+    public static void main(String[] args) {
+        Student stu1 = new Student();
+        stu1.setId(1);
+        stu1.setName("haiyan");
+        stu1.setBirth(parseToDate("2017-06-11 10:20:30"));
+
+
+        Student stu2 = new Student();
+        stu2.setName("3306");
+        copyValue(stu1, stu2);
+
+
+        System.out.println(stu2.toString());
+    }
+
+
+    /**
+     * 复制值
+     *
+     * @param from from
+     * @param to   to
+     * @param <T>  Anything you want
+     */
+    private static <T> void copyValue(T from, T to) {
+        Class<?> clazz = from.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+
+        try {
+            for (Field f : fields) {
+                f.setAccessible(true);
+                Object newValue = f.get(from);
+                if (null == newValue) {
+                    f.set(to, f.get(from));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 将日期字符串转换成日期对象
+     *
+     * @param date String
+     * @return Date
+     */
+    private static Date parseToDate(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            return sdf.parse(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
+```
+
+测试结果
+
+```json
+{
+	"birth":1497147630000,
+	"id":1,
+	"name":"3306"
+}
+```
