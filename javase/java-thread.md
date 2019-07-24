@@ -790,3 +790,146 @@ public class SimpleTimer {
 2019-05-14 13:58:29 - t-i4p8 invoke
 2019-05-14 13:58:31 - t-i2p4 invoke
 ```
+
+---
+
+## 7. 信号灯
+
+在多线程里面,如果想在线程池再限制一下同时运行的线程数,那么就可以使用信号灯:`Semaphore`
+
+```java
+package com.base;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.*;
+import java.util.function.Supplier;
+
+/**
+ * <p>
+ *
+ * @author cs12110 create at 2019-07-24 21:42
+ * <p>
+ * @since 1.0.0
+ */
+public class SemaphoreApp {
+
+    /**
+     * 一次运行多少条线程
+     */
+    private static final int HOW_MUCH_THREAD_ONE_TIME = 2;
+
+
+    public static void main(String[] args) {
+        // 声明信号灯对象
+        final Semaphore semaphore = new Semaphore(HOW_MUCH_THREAD_ONE_TIME);
+
+        // 设置线程池的coreSize = 4
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+        
+        // 提交线程
+        for (int index = 0; index < 10; index++) {
+            executorService.submit(new MyRun(semaphore, "t" + index));
+        }
+
+
+        // 关闭线程池
+        executorService.shutdown();
+    }
+
+
+    static class MyRun implements Runnable {
+
+        private String threadName;
+        private Semaphore semaphore;
+
+        private Supplier<String> dateSupplier = () -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
+
+            return sdf.format(new Date());
+        };
+
+
+        public MyRun(Semaphore s, String threadName) {
+            this.semaphore = s;
+            this.threadName = threadName;
+        }
+
+        @Override
+        public void run() {
+            try {
+                // 获取到信号才执行
+                semaphore.acquire();
+
+                log("start");
+                Thread.sleep(3000);
+                log("end");
+
+                // 执行完成释放信号
+                semaphore.release();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void log(String message) {
+            System.out.println(dateSupplier.get() + " " + threadName + " " + message);
+        }
+    }
+}
+```
+
+执行结果
+
+```java
+2019-07-24 22:05:20,779 t1 start
+2019-07-24 22:05:20,779 t0 start
+2019-07-24 22:05:23,784 t0 end
+2019-07-24 22:05:23,784 t1 end
+2019-07-24 22:05:23,784 t2 start
+2019-07-24 22:05:23,784 t4 start
+2019-07-24 22:05:26,789 t2 end
+2019-07-24 22:05:26,789 t4 end
+2019-07-24 22:05:26,789 t3 start
+2019-07-24 22:05:26,789 t7 start
+2019-07-24 22:05:29,793 t7 end
+2019-07-24 22:05:29,793 t3 end
+2019-07-24 22:05:29,794 t5 start
+2019-07-24 22:05:29,794 t6 start
+2019-07-24 22:05:32,800 t5 end
+2019-07-24 22:05:32,800 t6 end
+2019-07-24 22:05:32,801 t8 start
+2019-07-24 22:05:32,801 t9 start
+2019-07-24 22:05:35,801 t9 end
+2019-07-24 22:05:35,801 t8 end
+```
+
+如果把信号灯的代码去掉,执行结果如下
+
+```java
+2019-07-24 22:07:07,256 t0 start
+2019-07-24 22:07:07,262 t1 start
+2019-07-24 22:07:07,263 t3 start
+2019-07-24 22:07:07,263 t2 start
+2019-07-24 22:07:10,260 t0 end
+2019-07-24 22:07:10,261 t4 start
+2019-07-24 22:07:10,264 t1 end
+2019-07-24 22:07:10,264 t3 end
+2019-07-24 22:07:10,264 t5 start
+2019-07-24 22:07:10,265 t2 end
+2019-07-24 22:07:10,265 t7 start
+2019-07-24 22:07:10,265 t6 start
+2019-07-24 22:07:13,267 t4 end
+2019-07-24 22:07:13,267 t8 start
+2019-07-24 22:07:13,269 t7 end
+2019-07-24 22:07:13,269 t6 end
+2019-07-24 22:07:13,269 t5 end
+2019-07-24 22:07:13,270 t9 start
+2019-07-24 22:07:16,271 t8 end
+2019-07-24 22:07:16,274 t9 end
+```
+
+所以,信号灯,还是有点用的,我想.
+
+
