@@ -123,6 +123,14 @@ api-docs	apidoc.json	rediz		sys		test
 mr3306:ctrl mr3306$ apidoc -i .  -o api-docs/
 ```
 
+Q: 如果只想生成某一个类的 api 接口文档,而不是整一个 package 的呢?
+
+A: 可以使用 `-f`来正则匹配文件来生成.
+
+```ssh
+mr3306:ctrl mr3306$ apidoc -f 'MyController.java' -i . -o d:/apidoc
+```
+
 ### 3.2 查看接口文档
 
 在上面的命令生成文件夹之后,里面有一个`index.html`文件,使用浏览器打开这个 index.html 文件即可.
