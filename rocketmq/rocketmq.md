@@ -80,6 +80,8 @@ A: 请看下面这个被复制烂的架构图.
 
 ### 2.2 消息的 ack
 
+[rocketmq ack](https://zhuanlan.zhihu.com/p/25265380)
+
 ---
 
 ## 3. 实际使用案例
@@ -122,7 +124,36 @@ version2 架构
 
 ## 4. 注意事项
 
-### 4.1 订阅关系一致
+### 4.1 消费幂等
+
+消费幂等[详情 link](https://help.aliyun.com/document_detail/44397.html),保证消息的唯一性:
+
+- 发送时消息重复
+- 投递时消息重复
+- 负载均衡时消息重复（包括但不限于网络抖动、Broker 重启以及订阅方应用重启）
+
+解决方法
+
+生产者
+
+```java
+Message message = new Message();
+message.setKey("ORDERID_100");
+SendResult sendResult = producer.send(message);
+```
+
+消费者
+
+```java
+consumer.subscribe("ons_test", "*", new MessageListener() {
+    public Action consume(Message message, ConsumeContext context) {
+        String key = message.getKey()
+        // 根据业务唯一标识的 key 做幂等处理
+    }
+});
+```
+
+### 4.2 订阅关系一致
 
 **订阅关系一致** [link](https://help.aliyun.com/document_detail/43523.html?spm=a2c4g.11186623.6.605.2a381da95V6B1X)
 
