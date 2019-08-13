@@ -80,10 +80,71 @@ A: 请看下面这个被复制烂的架构图.
 
 ### 2.2 消息的 ack
 
+[rocketmq ack](https://zhuanlan.zhihu.com/p/25265380)
+
 ### 2.3 消费模式
 
-- 多个消费者监听同一个 topic 的同一个 tag
-- 多个消费者监听同一个 topic 的不同的 tag
+#### 2.3.1 广播
+
+Q: 多个消费者监听同一个 topic,不监听 tag
+
+生产者生成两条消息到 topic:`4fun-topic`
+
+```jvaa
+Send: {index=0, value=0} to:4fun-topic.*
+Send: {index=1, value=1} to:4fun-topic.*
+```
+
+开启两个消费者,监听 topic:`4fun-topic`
+
+```java
+Consumer startup is success
+Consumer startup is success
+2019-08-13 20:25:16 - consumer-11 - 4fun-topic.*:{index=0, value=0}
+2019-08-13 20:25:16 - consumer-12 - 4fun-topic.*:{index=0, value=0}
+2019-08-13 20:25:18 - consumer-12 - 4fun-topic.*:{index=1, value=1}
+2019-08-13 20:25:18 - consumer-11 - 4fun-topic.*:{index=1, value=1}
+```
+
+#### 2.3.2
+
+Q: 多个消费者监听同一个 topic 的同一个 tag
+
+生产者往: `4fun-topic`的 tag:`tag`发送两条消息
+
+```java
+Send: {index=0, value=0} to:4fun-topic.tag
+Send: {index=1, value=1} to:4fun-topic.tag
+```
+
+开启两个消费者,监听 topic:`4fun-topic`,tag:`tag`
+
+```java
+Consumer startup is success
+Consumer startup is success
+2019-08-13 20:24:00 - consumer-12 - 4fun-topic.tag:{index=0, value=0}
+2019-08-13 20:24:00 - consumer-11 - 4fun-topic.tag:{index=0, value=0}
+2019-08-13 20:24:02 - consumer-12 - 4fun-topic.tag:{index=1, value=1}
+2019-08-13 20:24:02 - consumer-11 - 4fun-topic.tag:{index=1, value=1}
+```
+
+#### 2.3.3
+
+Q: 多个消费者监听同一个 topic 的不同的 tag
+
+生产者发送一条消息到 topic:`4fun-topic`,tag:`tag0`,发送一条消息到 topic:`4fun-topic`,tag:`tag1`
+
+```java
+Send: {index=0, value=0} to:4fun-topic.tag0
+Send: {index=1, value=1} to:4fun-topic.tag1
+```
+
+消费者 1 监听 topic:`4fun-topic`,tag:`tag0`,消费者 2 监听 topic:`4fun-topic`,tag:`tag1`
+
+```java
+2019-08-13 20:19:32 - consumer-11 - 4fun-topic.tag0:{index=0, value=0}
+2019-08-13 20:19:35 - consumer-12 - 4fun-topic.tag1:{index=1, value=1}
+```
 
 ---
 
@@ -127,7 +188,36 @@ version2 架构
 
 ## 4. 注意事项
 
-### 4.1 订阅关系一致
+### 4.1 消费幂等
+
+消费幂等[详情 link](https://help.aliyun.com/document_detail/44397.html),保证消息的唯一性:
+
+- 发送时消息重复
+- 投递时消息重复
+- 负载均衡时消息重复（包括但不限于网络抖动、Broker 重启以及订阅方应用重启）
+
+解决方法
+
+生产者
+
+```java
+Message message = new Message();
+message.setKey("ORDERID_100");
+SendResult sendResult = producer.send(message);
+```
+
+消费者
+
+```java
+consumer.subscribe("ons_test", "*", new MessageListener() {
+    public Action consume(Message message, ConsumeContext context) {
+        String key = message.getKey()
+        // 根据业务唯一标识的 key 做幂等处理
+    }
+});
+```
+
+### 4.2 订阅关系一致
 
 **订阅关系一致** [link](https://help.aliyun.com/document_detail/43523.html?spm=a2c4g.11186623.6.605.2a381da95V6B1X)
 
