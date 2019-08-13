@@ -8,6 +8,8 @@ Author: huanghuapeng@ingbaobei.com
 
 ## 1. RocketMq 基础知识
 
+[RocketMq基础知识 link](http://rocketmq.apache.org/docs/core-concept/)
+
 ### 1.1 Why RocketMq?
 
 Q: 为什么使用 rocketmq,而不使用其他的 mq 呢?
@@ -39,7 +41,7 @@ A: 官方给出的回答.
 
 Q: 那么一般高可用的 rocketmq 的架构是怎样子呢?
 
-A: 请看下面这个被复制烂的架构图.
+A: 请看下面这个被复制烂的架构图.[rocketmq 架构 link](http://rocketmq.apache.org/docs/rmq-arc/)
 
 ![](imgs/rocketmq-server.png)
 
@@ -188,7 +190,21 @@ version2 架构
 
 ## 4. 注意事项
 
-### 4.1 消费幂等
+### 4.1 topic 与 tag 的设计
+
+Q: 到底什么时候该用 Topic,什么时候该用 Tag？[详情 link](https://help.aliyun.com/document_detail/95837.html?spm=a2c4g.11186623.6.613.405c1da9JMnX5O)
+
+A: 设计参考如下:
+
+- 消息类型是否一致:如普通消息,事务消息,定时消息,顺序消息,不同的消息类型使用不同的 Topic,无法通过 Tag 进行区分.
+
+- 业务是否相关联:没有直接关联的消息,如淘宝交易消息,京东物流消息使用不同的 Topic 进行区分；而同样是天猫交易消息,电器类订单、女装类订单、化妆品类订单的消息可以用 Tag 进行区分.
+
+- 消息优先级是否一致:如同样是物流消息,盒马必须小时内送达,天猫超市 24 小时内送达,淘宝物流则相对会会慢一些,不同优先级的消息用不同的 Topic 进行区分.
+
+- 消息量级是否相当:有些业务消息虽然量小但是实时性要求高,如果跟某些万亿量级的消息使用同一个 Topic,则有可能会因为过长的等待时间而『饿死』,此时需要将不同量级的消息进行拆分,使用不同的 Topic.
+
+### 4.2 消费幂等
 
 消费幂等[详情 link](https://help.aliyun.com/document_detail/44397.html),保证消息的唯一性:
 
@@ -217,7 +233,7 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 });
 ```
 
-### 4.2 订阅关系一致
+### 4.3 订阅关系一致
 
 **订阅关系一致** [link](https://help.aliyun.com/document_detail/43523.html?spm=a2c4g.11186623.6.605.2a381da95V6B1X)
 
