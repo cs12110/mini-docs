@@ -142,6 +142,8 @@ Send: {index=1, value=1} to:4fun-topic.tag1
 消费者 1 监听 topic:`4fun-topic`,tag:`tag0`,消费者 2 监听 topic:`4fun-topic`,tag:`tag1`
 
 ```java
+Consumer startup is success
+Consumer startup is success
 2019-08-13 20:19:32 - consumer-11 - 4fun-topic.tag0:{index=0, value=0}
 2019-08-13 20:19:35 - consumer-12 - 4fun-topic.tag1:{index=1, value=1}
 ```
