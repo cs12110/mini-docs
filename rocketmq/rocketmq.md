@@ -8,7 +8,7 @@ Author: huanghuapeng@ingbaobei.com
 
 ## 1. RocketMq 基础知识
 
-[RocketMq基础知识 link](http://rocketmq.apache.org/docs/core-concept/)
+[RocketMq 基础知识 link](http://rocketmq.apache.org/docs/core-concept/)
 
 ### 1.1 Why RocketMq?
 
@@ -26,7 +26,7 @@ A: 官方给出的回答.
 大意: 在这样子的前提下,决定去弄一个新的消息引擎来处理消息,从传统的发布/订阅场景到`高容量`,`实时`,`零丢失`事务系统.
 ```
 
-所以,阿里 ta 们自己一拍脑袋,那为什么不弄一个自己的 mq 出来?(cv 工程师已哭晕在厕所.)
+所以, ta 们自己一拍脑袋,那为什么不弄一个自己的 mq 出来?(cv 工程师已哭晕在厕所.)
 
 下面是 RocketMq 和 Kafka 以及 ActiveMq 的对比(注意: 站在偏向 RocketMq 的角度的对比)
 
@@ -78,7 +78,17 @@ A: 请看下面这个被复制烂的架构图.[rocketmq 架构 link](http://rock
 
 ## 2. 高可用设计
 
-### 2.1 消息的持久化
+### 2.1 消息的存储结构
+
+rocketmq 消息存储结构如下所示(origin from `RocketMQ技术内幕`)
+
+![](imgs/rocketmq-data-struct.jpg)
+
+- CommitLog: 消息存储文件,所有消息主体的消息都存在 CommitLog 文件里面.
+- ConsumeQueue: 消息消费队列.消息到达 CommitLog 文件后,将异步转发消息到消费队列,供消费者消费.
+- IndexFile: 消息索引文件.存储消息的 key 和 offset 对应关系.
+- 事务状态: 存储每条消息的事务的状态
+- 定时消息服务: 每一个延迟级别对应一个消息消费队列,并存储延迟队列的消息拉取进度.
 
 ### 2.2 消息的 ack
 
@@ -155,6 +165,17 @@ Consumer startup is success
 ## 3. 实际使用案例
 
 ### 3.1 lians 的短信消息
+
+改造消息发送前
+
+![](imgs/lians-sms-before.jpg)
+
+改造消息发送后
+
+![](imgs/lians-sms-after.jpg)
+
+- 解耦,确定消息服务出问题的情况下,不影响主流程.
+- 保证消息发送.
 
 ### 3.2 爬虫优化
 
@@ -249,7 +270,7 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 
 ---
 
-## 5. 鞋在醉后
+## 5. The end
 
 <u>**每一个不写代码的日子,都是对生命的辜负** </u>. by `弗里德里希·这不是我说的·尼采`
 
