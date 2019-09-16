@@ -1,4 +1,4 @@
-# Rocketmq 的结构以及高可用设计
+# Hello Rocketmq
 
 Create at: 2019-08-11 12:00:00
 
@@ -25,8 +25,6 @@ A: 官方给出的回答.
 
 大意: 在这样子的前提下,决定去弄一个新的消息引擎来处理消息,从传统的发布/订阅场景到`高容量`,`实时`,`零丢失`事务系统.
 ```
-
-所以, ta 们自己一拍脑袋,那为什么不弄一个自己的 mq 出来?(cv 工程师已哭晕在厕所.)
 
 下面是 RocketMq 和 Kafka 以及 ActiveMq 的对比(注意: 站在偏向 RocketMq 的角度的对比)
 
@@ -90,74 +88,131 @@ rocketmq 消息存储结构如下所示(origin from `RocketMQ技术内幕`)
 - 事务状态: 存储每条消息的事务的状态
 - 定时消息服务: 每一个延迟级别对应一个消息消费队列,并存储延迟队列的消息拉取进度.
 
-### 2.2 消息的 ack
+commitlog 消息存放格式,如下图所示,图片来源:[link](https://segmentfault.com/a/1190000018513635?utm_source=tag-newest)
+
+![](imgs/commitlog-format.png)
+
+consumerqueue 数据格式
+
+![](imgs/consumerqueue-format.jpg)
+
+消费者根据 topic 拉取数据流程:`从ConsumeQueue里面获取CommitLog offset,消息长度` -> `从commitlog里面根据偏移量获取`
+
+### 2.2 消费模式
+
+RocketMQ 有两种消费模式:`BROADCASTING 广播模式`和`CLUSTERING 集群模式`,默认的是 `集群消费模式`.
+
+源码: `com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer`
+
+```java
+ public DefaultMQPushConsumer(String consumerGroup, RPCHook rpcHook, AllocateMessageQueueStrategy allocateMessageQueueStrategy) {
+    this.messageModel = MessageModel.CLUSTERING;
+    this.consumeFromWhere = ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET;
+    this.consumeTimestamp = UtilAll.timeMillisToHumanString3(System.currentTimeMillis() - 1800000L);
+    this.subscription = new HashMap();
+    this.consumeThreadMin = 20;
+    this.consumeThreadMax = 64;
+    this.adjustThreadPoolNumsThreshold = 100000L;
+    this.consumeConcurrentlyMaxSpan = 2000;
+    this.pullThresholdForQueue = 1000;
+    this.pullInterval = 0L;
+    this.consumeMessageBatchMaxSize = 1;
+    this.pullBatchSize = 32;
+    this.postSubscriptionWhenPull = false;
+    this.unitMode = false;
+    this.consumerGroup = consumerGroup;
+    this.allocateMessageQueueStrategy = allocateMessageQueueStrategy;
+    this.defaultMQPushConsumerImpl = new DefaultMQPushConsumerImpl(this, rpcHook);
+}
+```
+
+代码设置消费模式,示例如下
+
+```java
+ try {
+    DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(String.valueOf(id));
+    consumer.setNamesrvAddr(MqSetting.NAME_SERVER_HOST);
+    // 设置消费类型,集群还是广播
+    consumer.setMessageModel(MessageModel.BROADCASTING);
+
+
+    // 订阅主题和标签
+    consumer.subscribe(MqSetting.TOPIC_NAME, "*");
+    consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
+
+    // 注册监听器
+    consumer.registerMessageListener(new MsgListener("consumer-" + id));
+
+    consumer.start();
+} catch (Exception e) {
+    e.printStackTrace();
+}
+```
+
+#### 2.2.1 广播消费模式
+
+广播消费模式:<u>topic 下的同一条消息将被集群内的所有消费者消费一次.</u>
+
+![](imgs/consume-brocast.jpg)
+
+#### 2.2.2 集群消费模式
+
+集群消费模式:<u>topic 下的同一条消息只允许被其中一个消费者消费</u>,如下图所示.
+
+![](imgs/consume-cluster.jpg)
+
+### 2.3 消息的 ack
 
 [rocketmq ack](https://zhuanlan.zhihu.com/p/25265380)
 
-### 2.3 消费模式
-
-#### 2.3.1 广播
-
-Q: 多个消费者监听同一个 topic,不监听 tag
-
-生产者生成两条消息到 topic:`4fun-topic`
-
-```jvaa
-Send: {index=0, value=0} to:4fun-topic.*
-Send: {index=1, value=1} to:4fun-topic.*
-```
-
-开启两个消费者,监听 topic:`4fun-topic`
+**消费策略**
 
 ```java
-Consumer startup is success
-Consumer startup is success
-2019-08-13 20:25:16 - consumer-11 - 4fun-topic.*:{index=0, value=0}
-2019-08-13 20:25:16 - consumer-12 - 4fun-topic.*:{index=0, value=0}
-2019-08-13 20:25:18 - consumer-12 - 4fun-topic.*:{index=1, value=1}
-2019-08-13 20:25:18 - consumer-11 - 4fun-topic.*:{index=1, value=1}
+//默认策略，从该队列最尾开始消费，即跳过历史消息
+CONSUME_FROM_LAST_OFFSET
+
+//从队列最开始开始消费，即历史消息（还储存在broker的）全部消费一遍
+CONSUME_FROM_FIRST_OFFSET
+
+//从某个时间点开始消费，和setConsumeTimestamp()配合使用，默认是半个小时以前
+CONSUME_FROM_TIMESTAMP
 ```
 
-#### 2.3.2
-
-Q: 多个消费者监听同一个 topic 的同一个 tag
-
-生产者往: `4fun-topic`的 tag:`tag`发送两条消息
+**ack 示例**
 
 ```java
-Send: {index=0, value=0} to:4fun-topic.tag
-Send: {index=1, value=1} to:4fun-topic.tag
-```
+/**
+* 消费者
+*/
+static class MsgListener implements MessageListenerConcurrently {
+/**
+    * 线程名称
+    */
+private String threadName;
 
-开启两个消费者,监听 topic:`4fun-topic`,tag:`tag`
+private static Supplier<String> dateSupplier = () -> {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    return sdf.format(new Date());
+};
 
-```java
-Consumer startup is success
-Consumer startup is success
-2019-08-13 20:24:00 - consumer-12 - 4fun-topic.tag:{index=0, value=0}
-2019-08-13 20:24:00 - consumer-11 - 4fun-topic.tag:{index=0, value=0}
-2019-08-13 20:24:02 - consumer-12 - 4fun-topic.tag:{index=1, value=1}
-2019-08-13 20:24:02 - consumer-11 - 4fun-topic.tag:{index=1, value=1}
-```
+MsgListener(String threadName) {
+    this.threadName = threadName;
+}
 
-#### 2.3.3
+@Override
+public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
+    try {
+        Message message = list.get(0);
+        System.out.println(dateSupplier.get() + " - " + threadName + " - " + message.getTopic() + "." + message.getTags() + ":" + new String(message.getBody()));
 
-Q: 多个消费者监听同一个 topic 的不同的 tag
-
-生产者发送一条消息到 topic:`4fun-topic`,tag:`tag0`,发送一条消息到 topic:`4fun-topic`,tag:`tag1`
-
-```java
-Send: {index=0, value=0} to:4fun-topic.tag0
-Send: {index=1, value=1} to:4fun-topic.tag1
-```
-
-消费者 1 监听 topic:`4fun-topic`,tag:`tag0`,消费者 2 监听 topic:`4fun-topic`,tag:`tag1`
-
-```java
-Consumer startup is success
-Consumer startup is success
-2019-08-13 20:19:32 - consumer-11 - 4fun-topic.tag0:{index=0, value=0}
-2019-08-13 20:19:35 - consumer-12 - 4fun-topic.tag1:{index=1, value=1}
+        // 消费成功
+        return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+    } catch (Exception e) {
+        // 消费失败,重试
+        return ConsumeConcurrentlyStatus.RECONSUME_LATER;
+    }
+}
+}
 ```
 
 ---
@@ -184,7 +239,7 @@ Consumer startup is success
 现在获取到的话题数量
 
 ```sql
-mysql> select count(1) from t_zhihu_topic;
+mysql> select count(1) from t_zhihu_topic
 +----------+
 | count(1) |
 +----------+
@@ -206,8 +261,6 @@ version1 架构
 version2 架构
 
 ![](imgs/zhihu-v2.png)
-
-注: 爬虫服务器数量和银行卡余额成正比关系.
 
 ---
 
@@ -270,17 +323,11 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 
 ---
 
-## 5. The end
-
-<u>**每一个不写代码的日子,都是对生命的辜负** </u>. by `弗里德里希·这不是我说的·尼采`
-
----
-
-## 6. 参考资料
+## 5. 参考资料
 
 | 文档名称                                 | 连接地址                                                         |
 | ---------------------------------------- | ---------------------------------------------------------------- |
 | RocketMq 官方文档                        | [link](http://rocketmq.apache.org/docs/quick-start/)             |
 | RocketMq 博客                            | [link](https://www.cnblogs.com/qdhxhz/p/11094624.html)           |
 | RocketMQ 消息发送的高可用设计            | [link](http://objcoding.com/2019/04/06/rocketmq-fault-strategy/) |
-| 分布式开放消息系统(RocketMQ)的原理与实践 | [link](https://www.jianshu.com/p/453c6e7ff81c)                   |
+| 分布式开放消息系统(RocketMQ)的原理与实践 | [link](https://www.cnblogs.com/xuwc/p/9034352.html)              |
