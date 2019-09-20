@@ -50,7 +50,7 @@ A: 请看下面这个被复制烂的架构图.[rocketmq 架构 link](http://rock
 | `Producer`          | 消息生产者,位于用户的进程内,Producer 通过 NameServer 获取所有 Broker 的路由信息,根据负载均衡策略选择将消息发到哪个 Broker,然后调用 Broker 接口提交消息.                                                                                                                                                                                      |
 | `Producer Group`    | 生产者组,简单来说就是多个发送同一类消息的生产者称之为一个生产者组.                                                                                                                                                                                                                                                                           |
 | `Consumer`          | 消息消费者,位于用户进程内.Consumer 通过 NameServer 获取所有 broker 的路由信息后,向 Broker 发送 Pull 请求来获取消息数据.Consumer 可以以两种模式启动,广播（Broadcast）和集群（Cluster）,广播模式下,一条消息会发送给所有 Consumer,集群模式下消息只会发送给一个 Consumer.                                                                        |
-| `Consumer Group`    | 消费者组,和生产者类似,消费同一类消息的多个 Consumer 实例组成一个消费者组.                                                                                                                                                                                                                                                                    |
+| `Consumer Group`    | 消费者组,和生产者类似,消费同一类消息的多个 Consumer 实例组成一个消费者组.<span style="color:red">(记住 ta,这个超重要的!!!)<span>                                                                                                                                                                                                             |
 | `Topic`             | Topic 用于将消息按主题做划分,Producer 将消息发往指定的 Topic,Consumer 订阅该 Topic 就可以收到这条消息.Topic 跟发送方和消费方都没有强关联关系,发送方可以同时往多个 Topic 投放消息,消费方也可以订阅多个 Topic 的消息.在 RocketMQ 中,Topic 是一个上逻辑概念.消息存储不会按 Topic 分开.                                                          |
 | `Message`           | 代表一条消息,使用 MessageId 唯一识别,用户在发送时可以设置 messageKey,便于之后查询和跟踪.一个 Message 必须指定 Topic,相当于寄信的地址.Message 还有一个可选的 Tag 设置,以便消费端可以基于 Tag 进行过滤消息.也可以添加额外的键值对,例如你需要一个业务 key 来查找 Broker 上的消息,方便在开发过程中诊断问题.                                      |
 | `Tag`               | 标签可以被认为是对 Topic 进一步细化.一般在相同业务模块中通过引入标签来标记不同用途的消息.                                                                                                                                                                                                                                                    |
@@ -72,11 +72,15 @@ A: 请看下面这个被复制烂的架构图.[rocketmq 架构 link](http://rock
 
 两种方式的根本区别在于线程消耗问题,由于 MQ 服务器的线程资源相对客户端更加宝贵,Push 方式会占用服务器过多的线程从而难以适应高并发的消息场景.同时当某一消费者离线一段时间再次上线后,大量积压消息处理会消耗大量 MQ 线程从而拖累其它消费者的消息处理,所以 Pull 方式相对来说更好.
 
+BY the way,现在账号服务那边使用的是:`push`模式.
+
 ---
 
 ## 2. 高可用设计
 
 ### 2.1 消息的存储结构
+
+#### 2.1.1 存储结构
 
 rocketmq 消息存储结构如下所示(origin from `RocketMQ技术内幕`)
 
@@ -96,16 +100,25 @@ consumerqueue 数据格式
 
 ![](imgs/consumerqueue-format.jpg)
 
-消费者根据 topic 拉取数据流程:`从ConsumeQueue里面获取CommitLog offset,消息长度` -> `从commitlog里面根据偏移量获取`
+消费者根据 topic 拉取数据流程:`从ConsumeQueue里面获取CommitLog offset,消息长度` -> `从commitlog里面根据偏移量获取` -> 卧槽,看不懂.
+
+#### 2.1.2 topic-queue 设计
+
+Q: 在 rocketmq 里面,一个 topic 可以对应多个 queue,那么我们该怎么有效的设置 topic 与 queue 的数量呢?
+
+![](imgs/topic-queue.jpg)
+
+A: TOPIC_A 在一个 Broker 上的 Topic 分片有 5 个 Queue,一个 Consumer Group 内有 2 个 Consumer 按照集群消费的方式消费消息,按照平均分配策略进行负载均衡得到的结果是:第一个 Consumer 消费 3 个 Queue,第二个 Consumer 消费 2 个 Queue.如果增加 Consumer,每个 Consumer 分配到的 Queue 会相应减少.Rocket MQ 的负载均衡策略规定:**<u>Consumer 数量应该小于等于 Queue 数量,如果 Consumer 超过 Queue 数量,那么多余的 Consumer 将不能消费消息</u>**.在一个 Consumer Group 内,Queue 和 Consumer 之间的对应关系是一对多的关系:一个 Queue 最多只能分配给一个 Consumer,一个 Cosumer 可以分配得到多个 Queue.这样的分配规则,每个 Queue 只有一个消费者,可以避免消费过程中的多线程处理和资源锁定,有效提高各 Consumer 消费的并行度和处理效率.[origin link](https://mp.weixin.qq.com/s/1pFddUuf_j9Xjl58MBnvTQ)
 
 ### 2.2 消费模式
 
-RocketMQ 有两种消费模式:`BROADCASTING 广播模式`和`CLUSTERING 集群模式`,默认的是 `集群消费模式`.
+RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群模式)`,默认的是 `集群消费模式`.
 
 源码: `com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer`
 
 ```java
  public DefaultMQPushConsumer(String consumerGroup, RPCHook rpcHook, AllocateMessageQueueStrategy allocateMessageQueueStrategy) {
+    // MessageModel.CLUSTERING为集群消费模式
     this.messageModel = MessageModel.CLUSTERING;
     this.consumeFromWhere = ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET;
     this.consumeTimestamp = UtilAll.timeMillisToHumanString3(System.currentTimeMillis() - 1800000L);
@@ -155,11 +168,17 @@ RocketMQ 有两种消费模式:`BROADCASTING 广播模式`和`CLUSTERING 集群�
 
 ![](imgs/consume-brocast.jpg)
 
+适用场景: req -> ehcache -> redis -> db,使用 mq 来做 ehcache 缓存的数据清理.
+
 #### 2.2.2 集群消费模式
 
-集群消费模式:<u>topic 下的同一条消息只允许被其中一个消费者消费</u>,如下图所示.
+集群消费模式:<u>topic 下的同一条消息只允许被其中一个消费者消费</u>
+
+FBI WARNING: **在集群消费模式下,一个 Topic 的消息被多个 Consumer Group 消费的行为比较特殊.每个 Consumer Group 会分别将该 Topic 的消息消费一遍;在每一个 Consumer Group 内,各 Consumer 通过负载均衡的方式消费该 Topic 的消息.**
 
 ![](imgs/consume-cluster.jpg)
+
+适用场景: 如 lians 的手机通知短信的发送(存在多个手机短信 mq 消费端).
 
 ### 2.3 消息的 ack
 
@@ -168,13 +187,13 @@ RocketMQ 有两种消费模式:`BROADCASTING 广播模式`和`CLUSTERING 集群�
 **消费策略**
 
 ```java
-//默认策略，从该队列最尾开始消费，即跳过历史消息
+//默认策略,从该队列最尾开始消费,即跳过历史消息
 CONSUME_FROM_LAST_OFFSET
 
-//从队列最开始开始消费，即历史消息（还储存在broker的）全部消费一遍
+//从队列最开始开始消费,即历史消息（还储存在broker的）全部消费一遍
 CONSUME_FROM_FIRST_OFFSET
 
-//从某个时间点开始消费，和setConsumeTimestamp()配合使用，默认是半个小时以前
+//从某个时间点开始消费,和setConsumeTimestamp()配合使用,默认是半个小时以前
 CONSUME_FROM_TIMESTAMP
 ```
 
@@ -217,7 +236,9 @@ public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeCo
 
 ---
 
-## 3. 实际使用案例
+## 3. 使用案例
+
+mq 的使用场景.
 
 ### 3.1 lians 的短信消息
 
@@ -331,3 +352,11 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 | RocketMq 博客                            | [link](https://www.cnblogs.com/qdhxhz/p/11094624.html)           |
 | RocketMQ 消息发送的高可用设计            | [link](http://objcoding.com/2019/04/06/rocketmq-fault-strategy/) |
 | 分布式开放消息系统(RocketMQ)的原理与实践 | [link](https://www.cnblogs.com/xuwc/p/9034352.html)              |
+
+---
+
+## 6. 写在最后
+
+这里面的人个个都是人才,写代码又厉害,超喜欢在里面的.
+
+谢谢各位.
