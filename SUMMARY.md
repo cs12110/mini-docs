@@ -4,6 +4,11 @@
 
 ---
 
+- [RocketMQ](rocketmq/README.md)
+  - [RocketMQ](rocketmq/rocketmq.md)
+
+---
+
 - [Java SE](javase/README.md)
   - [Java 之 Mockito](javase/java-mockito.md)
   - [Java 之 Lambda](javase/java-lambda.md)
