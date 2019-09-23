@@ -327,7 +327,7 @@ A: 设计参考如下:
 
 Q: 那我可不可以把 tag 设置为 topic 呀?
 
-A: 江湖有一句话,可以,但是没必要. 微笑.jpg
+A: 江湖有一句老话,`可以,但是没必要`. 微笑.jpg
 
 ### 4.2 消费幂等
 
@@ -339,7 +339,7 @@ A: 江湖有一句话,可以,但是没必要. 微笑.jpg
 
 Fun fact: `rocketmq确认消息肯定会被消费>=1次`.
 
-所以在一些被消费一次的消息里面,做幂等校验,相当重要.如转账啦,灭霸的响指啦.
+所以在一些被消费一次的消息里面,做幂等校验,相当重要.如转账啦,灭霸的响指啦(此处有争议).
 
 **解决方法**
 
@@ -365,7 +365,7 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 });
 ```
 
-场景: lians 手机发送消息消费端,如果使用`msg_id`来做 mq 消息去重的处理.(`t_template_sms.mq_message_id`,如果我没猜错的话)
+场景: lians 手机发送消息消费端,如果使用`msg_id`来做 mq 消息去重的处理.(`t_template_sms.mq_message_id`,如果没猜错的话)
 
 ### 4.3 订阅关系一致
 
@@ -378,6 +378,8 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 - 订阅的 Topic 必须一致
 
 - 订阅的 Topic 中的 Tag 必须一致
+
+所以,订阅关系的一致性几乎是整一个 rocketmq 正常运行的前提,不要浪,不要浪,不要浪,over!!!
 
 ---
 
