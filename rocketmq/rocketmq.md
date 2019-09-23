@@ -1,14 +1,16 @@
 # Hello Rocketmq
 
-Create at: 2019-08-11 12:00:00
+| 文档名称       | 创建人                                                  | 创建时间   | 描述                    |
+| -------------- | ------------------------------------------------------- | ---------- | ----------------------- |
+| Hello Rocketmq | <u style='color:#95a5a6'>huanghuapeng@ingbaobei.com</u> | 2019-08-11 | RocketMq 基础知识与应用 |
 
-Author: huanghuapeng@ingbaobei.com
+多年以后,站在敬老院的门前,我将会回想起今天给各位大佬瑟瑟发抖的讲述 rocket 那个遥远的下午.
 
 ---
 
 ## 1. RocketMq 基础知识
 
-[RocketMq 基础知识 link](http://rocketmq.apache.org/docs/core-concept/)
+[RocketMq 基础知识官方文档 link](http://rocketmq.apache.org/docs/core-concept/)
 
 ### 1.1 Why RocketMq?
 
@@ -72,7 +74,7 @@ A: 请看下面这个被复制烂的架构图.[rocketmq 架构 link](http://rock
 
 两种方式的根本区别在于线程消耗问题,由于 MQ 服务器的线程资源相对客户端更加宝贵,Push 方式会占用服务器过多的线程从而难以适应高并发的消息场景.同时当某一消费者离线一段时间再次上线后,大量积压消息处理会消耗大量 MQ 线程从而拖累其它消费者的消息处理,所以 Pull 方式相对来说更好.
 
-BY the way,现在账号服务那边使用的是:`push`模式.
+By the way,现在账号服务那边使用的是:`push`模式.
 
 ---
 
@@ -108,7 +110,7 @@ Q: 在 rocketmq 里面,一个 topic 可以对应多个 queue,那么我们该怎�
 
 ![](imgs/topic-queue.jpg)
 
-A: TOPIC_A 在一个 Broker 上的 Topic 分片有 5 个 Queue,一个 Consumer Group 内有 2 个 Consumer 按照集群消费的方式消费消息,按照平均分配策略进行负载均衡得到的结果是:第一个 Consumer 消费 3 个 Queue,第二个 Consumer 消费 2 个 Queue.如果增加 Consumer,每个 Consumer 分配到的 Queue 会相应减少.Rocket MQ 的负载均衡策略规定:**<u>Consumer 数量应该小于等于 Queue 数量,如果 Consumer 超过 Queue 数量,那么多余的 Consumer 将不能消费消息</u>**.在一个 Consumer Group 内,Queue 和 Consumer 之间的对应关系是一对多的关系:一个 Queue 最多只能分配给一个 Consumer,一个 Cosumer 可以分配得到多个 Queue.这样的分配规则,每个 Queue 只有一个消费者,可以避免消费过程中的多线程处理和资源锁定,有效提高各 Consumer 消费的并行度和处理效率.[origin link](https://mp.weixin.qq.com/s/1pFddUuf_j9Xjl58MBnvTQ)
+A: TOPIC_A 在一个 Broker 上的 Topic 分片有 5 个 Queue,一个 Consumer Group 内有 2 个 Consumer 按照集群消费的方式消费消息,按照平均分配策略进行负载均衡得到的结果是:第一个 Consumer 消费 3 个 Queue,第二个 Consumer 消费 1 个 Queue.如果增加 Consumer,每个 Consumer 分配到的 Queue 会相应减少.Rocket MQ 的负载均衡策略规定:**<u style='color:#e74c3c'>Consumer 数量应该小于等于 Queue 数量,如果 Consumer 超过 Queue 数量,那么多余的 Consumer 将不能消费消息</u>**.在一个 Consumer Group 内,Queue 和 Consumer 之间的对应关系是一对多的关系:一个 Queue 最多只能分配给一个 Consumer,一个 Cosumer 可以分配得到多个 Queue.这样的分配规则,每个 Queue 只有一个消费者,可以避免消费过程中的多线程处理和资源锁定,有效提高各 Consumer 消费的并行度和处理效率.[origin link](https://mp.weixin.qq.com/s/1pFddUuf_j9Xjl58MBnvTQ)
 
 ### 2.2 消费模式
 
@@ -174,7 +176,7 @@ RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群
 
 集群消费模式:<u>topic 下的同一条消息只允许被其中一个消费者消费</u>
 
-FBI WARNING: **在集群消费模式下,一个 Topic 的消息被多个 Consumer Group 消费的行为比较特殊.每个 Consumer Group 会分别将该 Topic 的消息消费一遍;在每一个 Consumer Group 内,各 Consumer 通过负载均衡的方式消费该 Topic 的消息.**
+<span style='color:#e74c3c'>FBI WARNING</span>: **在集群消费模式下,一个 Topic 的消息被多个 Consumer Group 消费的行为比较特殊.每个 Consumer Group 会分别将该 Topic 的消息消费一遍;在每一个 Consumer Group 内,各 Consumer 通过负载均衡的方式消费该 Topic 的消息.**
 
 ![](imgs/consume-cluster.jpg)
 
@@ -182,9 +184,9 @@ FBI WARNING: **在集群消费模式下,一个 Topic 的消息被多个 Consumer
 
 ### 2.3 消息的 ack
 
-[rocketmq ack](https://zhuanlan.zhihu.com/p/25265380)
+[rocketmq ack 消费确认机制 link](https://zhuanlan.zhihu.com/p/25265380)
 
-**消费策略**
+#### 2.3.1 消费策略
 
 ```java
 //默认策略,从该队列最尾开始消费,即跳过历史消息
@@ -197,7 +199,7 @@ CONSUME_FROM_FIRST_OFFSET
 CONSUME_FROM_TIMESTAMP
 ```
 
-**ack 示例**
+#### 2.3.2 ack 代码示例
 
 ```java
 /**
@@ -205,8 +207,8 @@ CONSUME_FROM_TIMESTAMP
 */
 static class MsgListener implements MessageListenerConcurrently {
 /**
-    * 线程名称
-    */
+ * 线程名称
+ */
 private String threadName;
 
 private static Supplier<String> dateSupplier = () -> {
@@ -301,6 +303,32 @@ A: 设计参考如下:
 
 - 消息量级是否相当:有些业务消息虽然量小但是实时性要求高,如果跟某些万亿量级的消息使用同一个 Topic,则有可能会因为过长的等待时间而『饿死』,此时需要将不同量级的消息进行拆分,使用不同的 Topic.
 
+场景: 比如会员成长值的增长,使用 topic:`sys_xyz_topic`,tag 有如下类型值:
+
+```json
+{
+  "SCAN_MATERIAL": "浏览内容",
+  "FIRST_UPLOAD_POLICY": "首次完成上传保单",
+  "DAILY_SIGNED": "每日签到",
+  "REGISTRATION_SUCCESS": "完成付费（支付成功），挂号",
+  "BIND_WX_CODE": "绑定微信号",
+  "SUBSCRIBE": "关注公众号",
+  "SHARE_MATERIAL": "分享内容",
+  "FIRST_REGISTRATION": "首次挂号",
+  "POLICY_SUCCESS": "完成付费（支付成功），投保",
+  "BIND_PHONE": "绑定手机号",
+  "INVITE_USER": "邀请用户",
+  "FIRST_BUY_POLICY": "首次投保",
+  "FIRST_PRODUCT_EVALUATE": "首次查看某个产品分析或上传产品",
+  "FIRST_DIAGNOSTIC": "首次完成智诊",
+  "BIRTHDAY_INSURE": "生日投保"
+}
+```
+
+Q: 那我可不可以把 tag 设置为 topic 呀?
+
+A: 江湖有一句话,可以,但是没必要. 微笑.jpg
+
 ### 4.2 消费幂等
 
 消费幂等[详情 link](https://help.aliyun.com/document_detail/44397.html),保证消息的唯一性:
@@ -309,7 +337,11 @@ A: 设计参考如下:
 - 投递时消息重复
 - 负载均衡时消息重复（包括但不限于网络抖动、Broker 重启以及订阅方应用重启）
 
-解决方法
+Fun fact: `rocketmq确认消息肯定会被消费>=1次`.
+
+所以在一些被消费一次的消息里面,做幂等校验,相当重要.如转账啦,灭霸的响指啦.
+
+**解决方法**
 
 生产者
 
@@ -326,15 +358,20 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
     public Action consume(Message message, ConsumeContext context) {
         String key = message.getKey()
         // 根据业务唯一标识的 key 做幂等处理
+        if(isUniqueOrderKey(key)){
+            // continue do anything you want.
+        }
     }
 });
 ```
+
+场景: lians 手机发送消息消费端,如果使用`msg_id`来做 mq 消息去重的处理.(`t_template_sms.mq_message_id`,如果我没猜错的话)
 
 ### 4.3 订阅关系一致
 
 **订阅关系一致** [link](https://help.aliyun.com/document_detail/43523.html?spm=a2c4g.11186623.6.605.2a381da95V6B1X)
 
-订阅关系一致指的是同一个消费者 Group ID 下所有 Consumer 实例的处理逻辑必须完全一致.一旦订阅关系不一致,消息消费的逻辑就会混乱,甚至导致消息丢失.消息队列 RocketMQ 里的一个消费者 Group ID 代表一个 Consumer 实例群组.对于大多数分布式应用来说,一个消费者 Group ID 下通常会挂载多个 Consumer 实例.
+订阅关系一致指的是同一个消费者 Group ID 下所有 Consumer 实例的处理逻辑必须完全一致.<u style='color:#e74c3c'>一旦订阅关系不一致,消息消费的逻辑就会混乱,甚至导致消息丢失</u>.消息队列 RocketMQ 里的一个消费者 Group ID 代表一个 Consumer 实例群组.对于大多数分布式应用来说,一个消费者 Group ID 下通常会挂载多个 Consumer 实例.
 
 由于消息队列 RocketMQ 的订阅关系主要由 Topic + Tag 共同组成,因此,保持订阅关系一致意味着同一个消费者 Group ID 下所有的实例需在以下两方面均保持一致:
 
@@ -359,4 +396,4 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 
 这里面的人个个都是人才,写代码又厉害,超喜欢在里面的.
 
-谢谢各位.
+谢谢各位,如果有任何疑问请联系`huanghuapeng@ingbaobei.com`.
