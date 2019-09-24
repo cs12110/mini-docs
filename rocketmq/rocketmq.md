@@ -82,11 +82,13 @@ By the way,现在账号服务那边使用的是:`push`模式.
 
 ### 2.1 消息的存储结构
 
+[rocketmq 存储结构优秀文档 link](https://github.com/apache/rocketmq/blob/master/docs/cn/design.md)
+
 #### 2.1.1 存储结构
 
 rocketmq 消息存储结构如下所示(origin from `RocketMQ技术内幕`)
 
-![](imgs/rocketmq-data-struct.jpg)
+![](imgs/rocketmq-design.png)
 
 - CommitLog: 消息存储文件,所有消息主体的消息都存在 CommitLog 文件里面.
 - ConsumeQueue: 消息消费队列.消息到达 CommitLog 文件后,将异步转发消息到消费队列,供消费者消费.
@@ -102,7 +104,9 @@ consumerqueue 数据格式
 
 ![](imgs/consumerqueue-format.jpg)
 
-消费者根据 topic 拉取数据流程:`从ConsumeQueue里面获取CommitLog offset,消息长度` -> `从commitlog里面根据偏移量获取` -> 卧槽,看不懂.
+消费者根据 topic 拉取数据流程:`从ConsumeQueue里面获取CommitLog offset,消息长度` -> `从commitlog里面根据偏移量获取` -> 卧槽,我竟然看不懂.
+
+简要流程: ConsumeQueue（逻辑消费队列）作为消费消息的索引，保存了指定 Topic 下的队列消息在 CommitLog 中的起始物理偏移量 offset，消息大小 size 和消息 Tag 的 HashCode 值
 
 #### 2.1.2 topic-queue 设计
 
@@ -110,7 +114,7 @@ Q: 在 rocketmq 里面,一个 topic 可以对应多个 queue,那么我们该怎�
 
 ![](imgs/topic-queue.jpg)
 
-A: TOPIC_A 在一个 Broker 上的 Topic 分片有 5 个 Queue,一个 Consumer Group 内有 2 个 Consumer 按照集群消费的方式消费消息,按照平均分配策略进行负载均衡得到的结果是:第一个 Consumer 消费 3 个 Queue,第二个 Consumer 消费 1 个 Queue.如果增加 Consumer,每个 Consumer 分配到的 Queue 会相应减少.Rocket MQ 的负载均衡策略规定:**<u style='color:#e74c3c'>Consumer 数量应该小于等于 Queue 数量,如果 Consumer 超过 Queue 数量,那么多余的 Consumer 将不能消费消息</u>**.在一个 Consumer Group 内,Queue 和 Consumer 之间的对应关系是一对多的关系:一个 Queue 最多只能分配给一个 Consumer,一个 Cosumer 可以分配得到多个 Queue.这样的分配规则,每个 Queue 只有一个消费者,可以避免消费过程中的多线程处理和资源锁定,有效提高各 Consumer 消费的并行度和处理效率.[origin link](https://mp.weixin.qq.com/s/1pFddUuf_j9Xjl58MBnvTQ)
+A: TOPIC_A 在一个 Broker 上的 Topic 分片有 5 个 Queue,一个 Consumer Group 内有 2 个 Consumer 按照集群消费的方式消费消息,按照平均分配策略进行负载均衡得到的结果是:第一个 Consumer 消费 3 个 Queue,第二个 Consumer 消费 1 个 Queue.如果增加 Consumer,每个 Consumer 分配到的 Queue 会相应减少.Rocket MQ 的负载均衡策略规定:**<u style='color:#e74c3c'>Consumer 数量应该小于等于 Queue 数量,如果 Consumer 超过 Queue 数量,那么多余的 Consumer 将不能消费消息</u>**.在一个 Consumer Group 内,Queue 和 Consumer 之间的对应关系是一对多的关系:`一个 Queue 最多只能分配给一个 Consumer,一个 Cosumer 可以分配得到多个 Queue`.这样的分配规则,每个 Queue 只有一个消费者,可以避免消费过程中的多线程处理和资源锁定,有效提高各 Consumer 消费的并行度和处理效率.[origin link](https://mp.weixin.qq.com/s/1pFddUuf_j9Xjl58MBnvTQ)
 
 ### 2.2 消费模式
 
@@ -385,12 +389,13 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 
 ## 5. 参考资料
 
-| 文档名称                                 | 连接地址                                                         |
+| name                                     | link                                                             |
 | ---------------------------------------- | ---------------------------------------------------------------- |
 | RocketMq 官方文档                        | [link](http://rocketmq.apache.org/docs/quick-start/)             |
 | RocketMq 博客                            | [link](https://www.cnblogs.com/qdhxhz/p/11094624.html)           |
 | RocketMQ 消息发送的高可用设计            | [link](http://objcoding.com/2019/04/06/rocketmq-fault-strategy/) |
 | 分布式开放消息系统(RocketMQ)的原理与实践 | [link](https://www.cnblogs.com/xuwc/p/9034352.html)              |
+| RocketMq 分布式事务                      | [link](https://www.jianshu.com/p/cc5c10221aa1)                   |
 
 ---
 
