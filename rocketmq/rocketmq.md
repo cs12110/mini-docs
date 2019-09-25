@@ -343,7 +343,7 @@ A: 江湖有一句老话,`可以,但是没必要`. 微笑.jpg
 
 Fun fact: `rocketmq确认消息肯定会被消费>=1次`.
 
-所以在一些被消费一次的消息里面,做幂等校验,相当重要.如转账啦,灭霸的响指啦(此处有争议).
+所以在一些被消费一次的消息里面,做幂等校验,相当重要.如转账之类的业务场景.
 
 **解决方法**
 
@@ -389,13 +389,14 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 
 ## 5. 参考资料
 
-| name                                     | link                                                             |
-| ---------------------------------------- | ---------------------------------------------------------------- |
-| RocketMq 官方文档                        | [link](http://rocketmq.apache.org/docs/quick-start/)             |
-| RocketMq 博客                            | [link](https://www.cnblogs.com/qdhxhz/p/11094624.html)           |
-| RocketMQ 消息发送的高可用设计            | [link](http://objcoding.com/2019/04/06/rocketmq-fault-strategy/) |
-| 分布式开放消息系统(RocketMQ)的原理与实践 | [link](https://www.cnblogs.com/xuwc/p/9034352.html)              |
-| RocketMq 分布式事务                      | [link](https://www.jianshu.com/p/cc5c10221aa1)                   |
+| name                                     | link                                                                               |
+| ---------------------------------------- | ---------------------------------------------------------------------------------- |
+| RocketMq 官方文档                        | [link](http://rocketmq.apache.org/docs/quick-start/)                               |
+| RocketMq 博客                            | [link](https://www.cnblogs.com/qdhxhz/p/11094624.html)                             |
+| RocketMQ 消息发送的高可用设计            | [link](http://objcoding.com/2019/04/06/rocketmq-fault-strategy/)                   |
+| 分布式开放消息系统(RocketMQ)的原理与实践 | [link](https://www.cnblogs.com/xuwc/p/9034352.html)                                |
+| RocketMq 分布式事务                      | [link](https://www.jianshu.com/p/cc5c10221aa1)                                     |
+| RocketMq 优秀样例                        | [link](https://github.com/apache/rocketmq/blob/master/docs/cn/RocketMQ_Example.md) |
 
 ---
 
