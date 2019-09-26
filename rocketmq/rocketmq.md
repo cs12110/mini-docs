@@ -399,8 +399,6 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 | 分布式开放消息系统(RocketMQ)的原理与实践 | [link](https://www.cnblogs.com/xuwc/p/9034352.html)                                |
 | RocketMq 分布式事务                      | [link](https://www.jianshu.com/p/cc5c10221aa1)                                     |
 | RocketMq 优秀样例                        | [link](https://github.com/apache/rocketmq/blob/master/docs/cn/RocketMQ_Example.md) |
->>>>>>> dc3e9cc84ca308b941c2a7c12a5be58a7c8d153c
-
 
 ## 6. 写在最后
 
