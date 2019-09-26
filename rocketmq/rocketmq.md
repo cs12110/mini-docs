@@ -41,9 +41,11 @@ A: 官方给出的回答.
 
 Q: 那么一般高可用的 rocketmq 的架构是怎样子呢?
 
-A: 请看下面这个被复制烂的架构图.[rocketmq 架构 link](http://rocketmq.apache.org/docs/rmq-arc/)
+A: 请看下面高可用的 rocketmq 架构图.
 
-![](imgs/rocketmq-server.png)
+<!-- ![](imgs/rocketmq-server.png) -->
+
+![](imgs/rocketmq.png)
 
 Q: 为什么使用 2 个 master 与 salve?
 
@@ -81,7 +83,6 @@ A:
 
 两种方式的根本区别在于线程消耗问题,由于 MQ 服务器的线程资源相对客户端更加宝贵,Push 方式会占用服务器过多的线程从而难以适应高并发的消息场景.同时当某一消费者离线一段时间再次上线后,大量积压消息处理会消耗大量 MQ 线程从而拖累其它消费者的消息处理,所以 Pull 方式相对来说更好.
 
-By the way,现在账号服务那边使用的是:`push`模式.
 
 ---
 
@@ -117,7 +118,7 @@ consumerqueue 数据格式
 
 ### 2.1 topic-queue 设计
 
-Q: 在 rocketmq 里面,一个 topic 可以对应多个 queue,那么我们该怎么有效的设置 topic 与 queue 的数量呢?
+Q: 在 rocketmq 里面,一个 topic 可以对应多个 queue,那么我们该怎么有效的设置 topic 与 queue 的数量呢?(queue 与 tag 的关系是什么???)
 
 ![](imgs/topic-queue.jpg)
 
@@ -187,7 +188,7 @@ RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群
 
 Q: 如果存在其他的广播的消费者 down 掉的情况,mq 会不会堆积消息?
 
-A:
+A: [link](https://blog.csdn.net/prestigeding/article/details/79090848)
 
 #### 2.2.2 集群消费模式
 
@@ -397,6 +398,17 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 - 订阅的 Topic 中的 Tag 必须一致
 
 所以,订阅关系的一致性几乎是整一个 rocketmq 正常运行的前提,不要浪,不要浪,不要浪,over!!!
+
+Q: 为什么要保持消费组的订阅一致性呢?
+
+A: 在 broker 里面消费者都是以 group 来划分的,管理关系如下,如果不一致的话,后面注册订阅信息会覆盖原来的注册订阅信息.
+
+`org.apache.rocketmq.broker.client.ConsumerManager`:
+
+```java
+private final ConcurrentMap<String/* Group */, ConsumerGroupInfo> consumerTable =
+  new ConcurrentHashMap<String, ConsumerGroupInfo>(1024);
+```
 
 ---
 
