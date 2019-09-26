@@ -114,6 +114,8 @@ A: TOPIC_A 在一个 Broker 上的 Topic 分片有 5 个 Queue,一个 Consumer G
 
 ### 2.2 消费模式
 
+MQ 说: 不要堆积,于是便有了消费者.
+
 RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群模式)`,默认的是 `集群消费模式`.
 
 源码: `com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer`
@@ -385,12 +387,13 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 
 ## 5. 参考资料
 
-| 文档名称                                 | 连接地址                                                         |
-| ---------------------------------------- | ---------------------------------------------------------------- |
-| RocketMq 官方文档                        | [link](http://rocketmq.apache.org/docs/quick-start/)             |
-| RocketMq 博客                            | [link](https://www.cnblogs.com/qdhxhz/p/11094624.html)           |
-| RocketMQ 消息发送的高可用设计            | [link](http://objcoding.com/2019/04/06/rocketmq-fault-strategy/) |
-| 分布式开放消息系统(RocketMQ)的原理与实践 | [link](https://www.cnblogs.com/xuwc/p/9034352.html)              |
+| 文档名称                                 | 连接地址                                                           |
+| ---------------------------------------- | ------------------------------------------------------------------ |
+| RocketMq 官方文档                        | [link](http://rocketmq.apache.org/docs/quick-start/)               |
+| RocketMq 架构原理                        | [link](https://www.cnblogs.com/qdhxhz/p/11094624.html)             |
+| RocketMQ 消息发送的高可用设计            | [link](http://objcoding.com/2019/04/06/rocketmq-fault-strategy/)   |
+| 分布式开放消息系统(RocketMQ)的原理与实践 | [link](https://www.cnblogs.com/xuwc/p/9034352.html)                |
+| RocketMq 负载均衡策略                    | [link](https://blog.csdn.net/mxlmxlmxl33/article/details/85949429) |
 
 ---
 
