@@ -45,6 +45,13 @@ A: 请看下面这个被复制烂的架构图.[rocketmq 架构 link](http://rock
 
 ![](imgs/rocketmq-server.png)
 
+Q: 为什么使用 2 个 master 与 salve?
+
+A:
+
+[link1](http://www.pianshen.com/article/8593126888/)
+[link2](https://www.cnblogs.com/liuruilongdn/p/8117997.html)
+
 名称解释
 
 | 名称                | 说明                                                                                                                                                                                                                                                                                                                                         |
@@ -78,9 +85,9 @@ By the way,现在账号服务那边使用的是:`push`模式.
 
 ---
 
-## 2. 高可用设计
+## 2. 使用设计
 
-### 2.1 消息的存储结构
+<!-- ### 2.1 消息的存储结构
 
 [rocketmq 存储结构优秀文档 link](https://github.com/apache/rocketmq/blob/master/docs/cn/design.md)
 
@@ -106,15 +113,15 @@ consumerqueue 数据格式
 
 消费者根据 topic 拉取数据流程:`从ConsumeQueue里面获取CommitLog offset,消息长度` -> `从commitlog里面根据偏移量获取` -> 卧槽,我竟然看不懂.
 
-简要流程: ConsumeQueue（逻辑消费队列）作为消费消息的索引，保存了指定 Topic 下的队列消息在 CommitLog 中的起始物理偏移量 offset，消息大小 size 和消息 Tag 的 HashCode 值
+简要流程: ConsumeQueue（逻辑消费队列）作为消费消息的索引，保存了指定 Topic 下的队列消息在 CommitLog 中的起始物理偏移量 offset，消息大小 size 和消息 Tag 的 HashCode 值 -->
 
-#### 2.1.2 topic-queue 设计
+### 2.1 topic-queue 设计
 
 Q: 在 rocketmq 里面,一个 topic 可以对应多个 queue,那么我们该怎么有效的设置 topic 与 queue 的数量呢?
 
 ![](imgs/topic-queue.jpg)
 
-A: TOPIC_A 在一个 Broker 上的 Topic 分片有 5 个 Queue,一个 Consumer Group 内有 2 个 Consumer 按照集群消费的方式消费消息,按照平均分配策略进行负载均衡得到的结果是:第一个 Consumer 消费 3 个 Queue,第二个 Consumer 消费 1 个 Queue.如果增加 Consumer,每个 Consumer 分配到的 Queue 会相应减少.Rocket MQ 的负载均衡策略规定:**<u style='color:#e74c3c'>Consumer 数量应该小于等于 Queue 数量,如果 Consumer 超过 Queue 数量,那么多余的 Consumer 将不能消费消息</u>**.在一个 Consumer Group 内,Queue 和 Consumer 之间的对应关系是一对多的关系:`一个 Queue 最多只能分配给一个 Consumer,一个 Cosumer 可以分配得到多个 Queue`.这样的分配规则,每个 Queue 只有一个消费者,可以避免消费过程中的多线程处理和资源锁定,有效提高各 Consumer 消费的并行度和处理效率.[origin link](https://mp.weixin.qq.com/s/1pFddUuf_j9Xjl58MBnvTQ)
+A: TOPIC_A 在一个 Broker 上的 Topic 分片有 4 个 Queue,一个 Consumer Group 内有 2 个 Consumer 按照集群消费的方式消费消息,按照平均分配策略进行负载均衡得到的结果是:第一个 Consumer 消费 3 个 Queue,第二个 Consumer 消费 1 个 Queue.如果增加 Consumer,每个 Consumer 分配到的 Queue 会相应减少.Rocket MQ 的负载均衡策略规定:**<u style='color:#e74c3c'>Consumer 数量应该小于等于 Queue 数量,如果 Consumer 超过 Queue 数量,那么多余的 Consumer 将不能消费消息</u>**.在一个 Consumer Group 内,Queue 和 Consumer 之间的对应关系是一对多的关系:`一个 Queue 最多只能分配给一个 Consumer,一个 Cosumer 可以分配得到多个 Queue`.这样的分配规则,每个 Queue 只有一个消费者,可以避免消费过程中的多线程处理和资源锁定,有效提高各 Consumer 消费的并行度和处理效率.[origin link](https://mp.weixin.qq.com/s/1pFddUuf_j9Xjl58MBnvTQ)
 
 ### 2.2 消费模式
 
@@ -177,6 +184,10 @@ RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群
 ![](imgs/consume-brocast.jpg)
 
 适用场景: req -> ehcache -> redis -> db,使用 mq 来做 ehcache 缓存的数据清理.
+
+Q: 如果存在其他的广播的消费者 down 掉的情况,mq 会不会堆积消息?
+
+A:
 
 #### 2.2.2 集群消费模式
 
@@ -297,7 +308,7 @@ version2 架构
 
 ### 4.1 topic 与 tag 的设计
 
-Q: 到底什么时候该用 Topic,什么时候该用 Tag？[详情 link](https://help.aliyun.com/document_detail/95837.html?spm=a2c4g.11186623.6.613.405c1da9JMnX5O)
+Q: 到底什么时候该用 Topic,什么时候该用 Tag?[详情 link](https://help.aliyun.com/document_detail/95837.html?spm=a2c4g.11186623.6.613.405c1da9JMnX5O)
 
 A: 设计参考如下:
 
