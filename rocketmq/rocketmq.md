@@ -8,7 +8,7 @@
 
 ---
 
-## 1. RocketMq 基础知识
+## 1. 基础知识
 
 [RocketMq 基础知识官方文档 link](http://rocketmq.apache.org/docs/core-concept/)
 
@@ -131,7 +131,7 @@ MQ 说: 不要堆积,于是便有了消费者.
 
 RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群模式)`,默认的是 `集群消费模式`.
 
-源码: `com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer`
+源码: `com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer`(都是使用 pull 方式拉取消息)
 
 ```java
  public DefaultMQPushConsumer(String consumerGroup, RPCHook rpcHook, AllocateMessageQueueStrategy allocateMessageQueueStrategy) {
@@ -172,6 +172,9 @@ RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群
 
     // 调节pull时间间隔,5s
     consumer.setPullInterval(5 * 1000);
+
+    // 控制每次pull次消息数量
+    consumer.setPullBatchSize(1);
 
     // 注册监听器
     consumer.registerMessageListener(new MsgListener("consumer-" + id));
