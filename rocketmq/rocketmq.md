@@ -47,9 +47,9 @@ A: 请看下面高可用的 rocketmq 架构图.
 
 ![](imgs/rocketmq.png)
 
-Q: 为什么使用 2 个 master 与 salve?
+<!-- Q: 为什么使用 2 个 master 与 salve?
 
-A:
+A: -->
 
 [link1](http://www.pianshen.com/article/8593126888/)
 [link2](https://www.cnblogs.com/liuruilongdn/p/8117997.html)
@@ -82,7 +82,6 @@ A:
 | `Pull` | 由消费者轮询调用 API 去获取消息,不消耗服务器 MQ 线程,消费者更加主动,虽然消费者的处理逻辑变得稍稍复杂.                                   |
 
 两种方式的根本区别在于线程消耗问题,由于 MQ 服务器的线程资源相对客户端更加宝贵,Push 方式会占用服务器过多的线程从而难以适应高并发的消息场景.同时当某一消费者离线一段时间再次上线后,大量积压消息处理会消耗大量 MQ 线程从而拖累其它消费者的消息处理,所以 Pull 方式相对来说更好.
-
 
 ---
 
@@ -127,6 +126,8 @@ A: TOPIC_A 在一个 Broker 上的 Topic 分片有 4 个 Queue,一个 Consumer G
 ### 2.2 消费模式
 
 MQ 说: 不要堆积,于是便有了消费者.
+
+消费流程: `服务端获取订阅关系,得到tag的hash集合codeSet` -> `ConsumerQueue获取一条记录，判断记录的hashCode是否在codeSet中，以达到消息过滤的目的，决定是否将该消息发送给consumer` -> `客户度过滤:tag的字符串值做对比,不相等的不返回给消费者`.
 
 RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群模式)`,默认的是 `集群消费模式`.
 
@@ -184,11 +185,11 @@ RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群
 
 ![](imgs/consume-brocast.jpg)
 
-适用场景: req -> ehcache -> redis -> db,使用 mq 来做 ehcache 缓存的数据清理.
+适用场景: `req -> ehcache -> redis -> db,使用 mq 来做 ehcache 缓存的数据清理`.
 
-Q: 如果存在其他的广播的消费者 down 掉的情况,mq 会不会堆积消息?
+<!-- Q: 如果存在其他的广播的消费者 down 掉的情况,mq 会不会堆积消息?
 
-A: [link](https://blog.csdn.net/prestigeding/article/details/79090848)
+A: [link](https://blog.csdn.net/prestigeding/article/details/79090848) -->
 
 #### 2.2.2 集群消费模式
 
@@ -198,7 +199,7 @@ A: [link](https://blog.csdn.net/prestigeding/article/details/79090848)
 
 ![](imgs/consume-cluster.jpg)
 
-适用场景: 如 lians 的手机通知短信的发送(存在多个手机短信 mq 消费端).
+适用场景: `如 lians 的手机通知短信的发送(存在多个手机短信 mq 消费端)`.
 
 ### 2.3 消息的 ack
 
@@ -256,58 +257,9 @@ public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeCo
 
 ---
 
-## 3. 使用案例
+## 3. 注意事项
 
-mq 的使用场景.
-
-### 3.1 lians 的短信消息
-
-改造消息发送前
-
-![](imgs/lians-sms-before.jpg)
-
-改造消息发送后
-
-![](imgs/lians-sms-after.jpg)
-
-- 解耦,确定消息服务出问题的情况下,不影响主流程.
-- 保证消息发送.
-
-### 3.2 爬虫优化
-
-偶尔喜欢刷知乎,所以弄了一个爬虫去爬取知乎的高赞回答.
-
-现在获取到的话题数量
-
-```sql
-mysql> select count(1) from t_zhihu_topic
-+----------+
-| count(1) |
-+----------+
-|     7058 |
-+----------+
-1 row in set (0.00 sec)
-```
-
-如果每一个话题下面有 10(如生活下面那种话题,远远大这个数量) 个回答,那么总回答大概在: 7058x10 个.因为知乎存在反爬,同一个 ip 要请求间隔要>10s 才不会被禁用(另一个方案是使用 ip 代理池).这个可以看出一台服务器的话,爬取这个知乎答案,简直就是锻炼耐性.是的,你没猜错,现在就是一台服务器在爬取. 泪流满面.gif
-
-Q:那么该怎么改进这个爬取的玩意呢?
-
-A:把那些知乎话题下面的回答的 url,放到 mq 里面,在多个服务器上面,开启多个消费端来消费,这样子就能加快爬取的速度了.
-
-version1 架构
-
-![](imgs/zhihu-v1.png)
-
-version2 架构
-
-![](imgs/zhihu-v2.png)
-
----
-
-## 4. 注意事项
-
-### 4.1 topic 与 tag 的设计
+### 3.1 topic 与 tag 的设计
 
 Q: 到底什么时候该用 Topic,什么时候该用 Tag?[详情 link](https://help.aliyun.com/document_detail/95837.html?spm=a2c4g.11186623.6.613.405c1da9JMnX5O)
 
@@ -347,7 +299,7 @@ Q: 那我可不可以把 tag 设置为 topic 呀?
 
 A: 江湖有一句老话,`可以,但是没必要`. 微笑.jpg
 
-### 4.2 消费幂等
+### 3.2 消费幂等
 
 消费幂等[详情 link](https://help.aliyun.com/document_detail/44397.html),保证消息的唯一性:
 
@@ -385,11 +337,11 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 
 场景: lians 手机发送消息消费端,如果使用`msg_id`来做 mq 消息去重的处理.(`t_template_sms.mq_message_id`,如果没猜错的话)
 
-### 4.3 订阅关系一致
+### 3.3 订阅关系一致
 
 **订阅关系一致** [link](https://help.aliyun.com/document_detail/43523.html?spm=a2c4g.11186623.6.605.2a381da95V6B1X)
 
-订阅关系一致指的是同一个消费者 Group ID 下所有 Consumer 实例的处理逻辑必须完全一致.<u style='color:#e74c3c'>一旦订阅关系不一致,消息消费的逻辑就会混乱,甚至导致消息丢失</u>.消息队列 RocketMQ 里的一个消费者 Group ID 代表一个 Consumer 实例群组.对于大多数分布式应用来说,一个消费者 Group ID 下通常会挂载多个 Consumer 实例.
+订阅关系一致指的是同一个消费者 Group ID 下所有 Consumer 实例的处理逻辑必须完全一致.<u style='color:#e74c3c'>一旦订阅关系不一致,消息消费的逻辑就会混乱,甚至导致消息丢失</u>.
 
 由于消息队列 RocketMQ 的订阅关系主要由 Topic + Tag 共同组成,因此,保持订阅关系一致意味着同一个消费者 Group ID 下所有的实例需在以下两方面均保持一致:
 
@@ -409,6 +361,55 @@ A: 在 broker 里面消费者都是以 group 来划分的,管理关系如下,如
 private final ConcurrentMap<String/* Group */, ConsumerGroupInfo> consumerTable =
   new ConcurrentHashMap<String, ConsumerGroupInfo>(1024);
 ```
+
+---
+
+## 4. 使用案例
+
+mq 的使用场景.
+
+### 4.1 lians 的短信消息
+
+改造消息发送前
+
+![](imgs/lians-sms-before.jpg)
+
+改造消息发送后
+
+![](imgs/lians-sms-after.jpg)
+
+- 解耦,确定消息服务出问题的情况下,不影响主流程.
+- 保证消息发送.
+
+### 4.2 爬虫优化
+
+知乎的一个小爬虫,现在获取到的话题数量.
+
+```sql
+mysql> select count(1) from t_zhihu_topic
++----------+
+| count(1) |
++----------+
+|     7058 |
++----------+
+1 row in set (0.00 sec)
+```
+
+如果每一个话题下面有 10(如生活下面那种话题,远远大这个数量) 个回答,那么总回答大概在: 7058x10 个.因为知乎存在反爬,同一个 ip 要请求间隔要>10s 才不会被禁用(另一个方案是使用 ip 代理池).这个可以看出一台服务器的话,爬取这个知乎答案,简直就是锻炼耐性.是的,你没猜错,现在就是一台服务器在爬取. 泪流满面.gif
+
+Q:那么该怎么改进这个爬取的玩意呢?
+
+A:把那些知乎话题下面的回答的 url,放到 mq 里面,在多个服务器上面,开启多个消费端来消费,这样子就能加快爬取的速度了.
+
+**version1 架构**
+
+![](imgs/zhihu-v1.png)
+
+**version2 架构**
+
+![](imgs/zhihu-v2.png)
+
+- 易于横向扩展
 
 ---
 
