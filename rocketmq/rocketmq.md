@@ -51,8 +51,8 @@ A: 请看下面高可用的 rocketmq 架构图.
 
 A: -->
 
-[link1](http://www.pianshen.com/article/8593126888/)
-[link2](https://www.cnblogs.com/liuruilongdn/p/8117997.html)
+<!-- [link1](http://www.pianshen.com/article/8593126888/)
+[link2](https://www.cnblogs.com/liuruilongdn/p/8117997.html) -->
 
 名称解释
 
@@ -127,7 +127,7 @@ A: TOPIC_A 在一个 Broker 上的 Topic 分片有 4 个 Queue,一个 Consumer G
 
 MQ 说: 不要堆积,于是便有了消费者.
 
-消费流程: `服务端获取订阅关系,得到tag的hash集合codeSet` -> `ConsumerQueue获取一条记录，判断记录的hashCode是否在codeSet中，以达到消息过滤的目的，决定是否将该消息发送给consumer` -> `客户度过滤:tag的字符串值做对比,不相等的不返回给消费者`.
+消费流程: `服务端获取订阅关系,得到tag的hash集合codeSet` -> `遍历ConsumerQueue记录,判断标签hashCode是否在codeSet中` -> `客户度过滤:tag的字符串值做对比`.
 
 RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群模式)`,默认的是 `集群消费模式`.
 
@@ -169,6 +169,9 @@ RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群
     // 订阅主题和标签
     consumer.subscribe(MqSetting.TOPIC_NAME, "*");
     consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
+
+    // 调节pull时间间隔,5s
+    consumer.setPullInterval(5 * 1000);
 
     // 注册监听器
     consumer.registerMessageListener(new MsgListener("consumer-" + id));
