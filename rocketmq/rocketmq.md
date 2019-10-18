@@ -6,8 +6,6 @@
 
 多年以后,站在敬老院的门前,我将会回想起今天给各位大佬瑟瑟发抖的讲述 rocket 那个遥远的下午.
 
-I lost with you, I lost without you.
-
 ---
 
 ## 1. 基础知识
@@ -45,9 +43,7 @@ Q: 那么一般高可用的 rocketmq 的架构是怎样子呢?
 
 A: 请看下面高可用的 rocketmq 架构图.
 
-
 ![](imgs/rocketmq.png)
-
 
 名称解释
 
@@ -81,7 +77,6 @@ A: 请看下面高可用的 rocketmq 架构图.
 ---
 
 ## 2. 使用设计
-
 
 ### 2.1 topic-queue 设计
 
