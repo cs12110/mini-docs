@@ -43,16 +43,7 @@ Q: 那么一般高可用的 rocketmq 的架构是怎样子呢?
 
 A: 请看下面高可用的 rocketmq 架构图.
 
-<!-- ![](imgs/rocketmq-server.png) -->
-
 ![](imgs/rocketmq.png)
-
-<!-- Q: 为什么使用 2 个 master 与 salve?
-
-A: -->
-
-<!-- [link1](http://www.pianshen.com/article/8593126888/)
-[link2](https://www.cnblogs.com/liuruilongdn/p/8117997.html) -->
 
 名称解释
 
@@ -86,34 +77,6 @@ A: -->
 ---
 
 ## 2. 使用设计
-
-<!-- ### 2.1 消息的存储结构
-
-[rocketmq 存储结构优秀文档 link](https://github.com/apache/rocketmq/blob/master/docs/cn/design.md)
-
-#### 2.1.1 存储结构
-
-rocketmq 消息存储结构如下所示(origin from `RocketMQ技术内幕`)
-
-![](imgs/rocketmq-design.png)
-
-- CommitLog: 消息存储文件,所有消息主体的消息都存在 CommitLog 文件里面.
-- ConsumeQueue: 消息消费队列.消息到达 CommitLog 文件后,将异步转发消息到消费队列,供消费者消费.
-- IndexFile: 消息索引文件.存储消息的 key 和 offset 对应关系.
-- 事务状态: 存储每条消息的事务的状态
-- 定时消息服务: 每一个延迟级别对应一个消息消费队列,并存储延迟队列的消息拉取进度.
-
-commitlog 消息存放格式,如下图所示,图片来源:[link](https://segmentfault.com/a/1190000018513635?utm_source=tag-newest)
-
-![](imgs/commitlog-format.png)
-
-consumerqueue 数据格式
-
-![](imgs/consumerqueue-format.jpg)
-
-消费者根据 topic 拉取数据流程:`从ConsumeQueue里面获取CommitLog offset,消息长度` -> `从commitlog里面根据偏移量获取` -> 卧槽,我竟然看不懂.
-
-简要流程: ConsumeQueue（逻辑消费队列）作为消费消息的索引，保存了指定 Topic 下的队列消息在 CommitLog 中的起始物理偏移量 offset，消息大小 size 和消息 Tag 的 HashCode 值 -->
 
 ### 2.1 topic-queue 设计
 
@@ -192,10 +155,6 @@ RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群
 ![](imgs/consume-brocast.jpg)
 
 适用场景: `req -> ehcache -> redis -> db,使用 mq 来做 ehcache 缓存的数据清理`.
-
-<!-- Q: 如果存在其他的广播的消费者 down 掉的情况,mq 会不会堆积消息?
-
-A: [link](https://blog.csdn.net/prestigeding/article/details/79090848) -->
 
 #### 2.2.2 集群消费模式
 
