@@ -292,9 +292,9 @@ public class RedissionLock {
 		public void run() {
 			RLock lock = redisson.getLock(lockKey);
 
-			/* 
+			/*
 			 * 如果本jvm获得锁,在释放锁前down掉了,那么锁一直没能被释放,其他获取不到,就相当于死锁了!!!
-			 * 
+			 *
 			 * 所以,建议采用: void lock(long leaseTime, TimeUnit unit);
 			 */
 			lock.lock();
@@ -405,6 +405,12 @@ return commandExecutor.evalWriteAsync(getName(), LongCodec.INSTANCE, RedisComman
 }
 ```
 
+KEYS[1]代表的是你加锁的那个 key,比如说:`RLock lock = redisson.getLock("myLock");`这里你自己设置了加锁的那个锁 key 就是“myLock”.
+
+ARGV[1]代表的就是锁 key 的默认生存时间,默认 30 秒.
+
+ARGV[2]代表的是加锁的客户端的 ID,类似于下面这样:8743c9c0-0795-4907-87fd-6c719a6b4586:1
+
 **解锁源码**
 
 ```java
@@ -438,6 +444,47 @@ public void unlock() {
 	}
 }
 ```
+
+### 2.5 问题
+
+Q: 如果获取锁的线程在运行过程中挂掉了,没有释放锁,会不会出现死锁情况?
+
+A: 不会的,因为在`tryLock`这种没有明显设置超时时间的情况,其实也是默认设置了一个 30s 的超时时间.
+
+```java
+ private Future<Long> tryAcquireAsync(long leaseTime, TimeUnit unit, long threadId) {
+	// leaseTime设置的情况
+	if (leaseTime != -1) {
+		return tryLockInnerAsync(leaseTime, unit, threadId);
+	}
+	// leaseTime没设置的情况
+	return tryLockInnerAsync(threadId);
+}
+
+private Future<Long> tryLockInnerAsync(final long threadId) {
+	// 这里面设置30秒的超时时间
+	Future<Long> ttlRemaining = tryLockInnerAsync(LOCK_EXPIRATION_INTERVAL_SECONDS, TimeUnit.SECONDS, threadId);
+	ttlRemaining.addListener(new FutureListener<Long>() {
+		@Override
+		public void operationComplete(Future<Long> future) throws Exception {
+			if (!future.isSuccess()) {
+				return;
+			}
+
+			Long ttlRemaining = future.getNow();
+			// lock acquired
+			if (ttlRemaining == null) {
+				scheduleExpirationRenewal();
+			}
+		}
+	});
+	return ttlRemaining;
+}
+```
+
+Q: 那线程在没设置超时时间的话,只有 30s,运行时间超过了 30s 的情况,是怎么做到自动续约?
+
+A: 这个我现在也还不知道. 但这个博客可以参考一下: [link](https://www.jianshu.com/p/2a90bba8922f)
 
 ---
 
