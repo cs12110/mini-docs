@@ -177,3 +177,41 @@ mysql> alter table top_answer_t drop index questionIndex;
 Q: 在 hibernate 里面,tinyint(1)取出来会被替换成 true 和 false,你想拿数字的话,该怎么办?
 
 A: 把 tinyint 的长度改变,不设置为 1. 卧槽.
+
+---
+
+## 6. 新增字段
+
+Q: 新增字段有什么好写的?
+
+A: 主要是`after`之类的使用啦.
+
+```mysql> show create table t_my\G;
+*************************** 1. row ***************************
+       Table: t_my
+Create Table: CREATE TABLE `t_my` (
+  `id` int(11) NOT NULL,
+  `name` varchar(32) DEFAULT NULL,
+  `gender` tinyint(2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+```
+
+一般增加字段只能增加在最后面,但是如果可以增加在某个字段后面,岂不美哉?
+
+```sql
+mysql> alter table t_my  add column age int(4) default 0  after name;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table t_my\G;
+*************************** 1. row ***************************
+       Table: t_my
+Create Table: CREATE TABLE `t_my` (
+  `id` int(11) NOT NULL,
+  `name` varchar(32) DEFAULT NULL,
+  `age` int(4) DEFAULT '0',
+  `gender` tinyint(2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+```
