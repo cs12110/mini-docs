@@ -215,3 +215,80 @@ Create Table: CREATE TABLE `t_my` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 ```
+
+---
+
+## 7. 最左原则
+
+参考文档 [link](https://blog.csdn.net/LJFPHP/article/details/90056936)
+
+在表只有三个字段建立索引
+
+```sql
+CREATE TABLE `t_my` (
+  `id` int(11) NOT NULL,
+  `name` varchar(32) DEFAULT NULL,
+  `age` int(4) DEFAULT '0',
+  `gender` tinyint(2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_name_age_gender` (`name`,`age`,`gender`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+```
+
+那么如下 sql 也是可以使用索引的
+
+```sql
+mysql> explain select * from t_my where age =1 \G;
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: t_my
+   partitions: NULL
+         type: index
+possible_keys: NULL
+          key: idx_name_age_gender
+      key_len: 106
+          ref: NULL
+         rows: 1
+     filtered: 100.00
+        Extra: Using where; Using index
+1 row in set, 1 warning (0.00 sec)
+```
+
+执行计划可以看出,即使使用了`age`来查询也是能使用到索引的,卧槽.
+
+That world is so crazy!!!
+
+Q: 那么如果表里面有其他的字段呢?
+
+```sql
+CREATE TABLE `t_my` (
+  `id` int(11) NOT NULL,
+  `name` varchar(32) DEFAULT NULL,
+  `age` int(4) DEFAULT '0',
+  `gender` tinyint(2) DEFAULT NULL,
+  `addr` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_name_age_gender` (`name`,`age`,`gender`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+```
+
+然后执行上面那条 sql 会是怎样?
+
+```sql
+mysql> explain select * from t_my where age =1 \G;
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: t_my
+   partitions: NULL
+         type: ALL
+possible_keys: NULL
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 1
+     filtered: 100.00
+        Extra: Using where
+1 row in set, 1 warning (0.00 sec)
+```
