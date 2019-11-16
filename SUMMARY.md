@@ -71,7 +71,8 @@
   - [RabbitMq 使用指南](mq/rabbitmq-map.md)
   - [RabbitMq 与 Springboot](mq/rabbitmq-ee.md)
   - [Redis 发布/订阅模式](mq/redis-pubsub.md)
-  - [RocketMq 使用指南](mq/rocketmq.md)
+  - [RocketMq 安装指南](mq/rocketmq.md)
+  - [RocketMq 使用指南](mq/rocketmq-ee.md)
 
 ---
 

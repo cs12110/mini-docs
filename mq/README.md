@@ -1,3 +1,3 @@
-# RabbitMq
+# Mq
 
-RabbitMq的简单使用指南.
+消息队列的使用.
