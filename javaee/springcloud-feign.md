@@ -17,6 +17,98 @@ Feign 是一个声明式的 Web Service 客户端.它的出现使开发 Web Serv
 
 ### 1.2 helloworld
 
+```java
+
+package com.ms.pkgs;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
+
+/**
+ * Feign客户端
+ *
+ *
+ * <p>
+ *
+ * feign继承了ribbon和hystrix,可以实现负载均衡+熔断
+ *
+ * @author cs12110 2018年12月6日
+ * @since 1.0
+ */
+@SpringBootApplication
+@EnableDiscoveryClient
+@EnableFeignClients
+public class FeignApp {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FeignApp.class, args);
+	}
+}
+```
+
+```java
+package com.ms.pkgs.service;
+
+import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ms.pkgs.service.fallback.FeginServiceFallbackImpl;
+
+
+/**
+ * 调用接口
+ *
+ *
+ * <p>
+ *
+ * <pre>
+ *
+ * `@FeignClient` 里面的name为服务项目的名称
+ *
+ * `@RequestMapping` 为 服务的请求地址
+ * </pre>
+ *
+ * @author cs12110 2018年12月6日
+ * @since 1.0
+ */
+@FeignClient(name = "ms-service", fallback = FeginServiceFallbackImpl.class)
+public interface FeignService {
+
+    @RequestMapping("/hello/say")
+    public String say(String something);
+}
+```
+
+```java
+package com.ms.pkgs.service.fallback;
+
+import org.springframework.stereotype.Component;
+
+import com.ms.pkgs.service.FeignService;
+
+/**
+ * fallback
+ *
+ *
+ *
+ * <p>
+ *
+ * @author cs12110 2018年12月17日下午1:35:03
+ * @since 1.0
+ */
+@Component
+public class FeginServiceFallbackImpl implements FeignService {
+
+    @Override
+    public String say(String something) {
+        return "fallback say: " + something;
+    }
+
+}
+```
+
 ---
 
 ## 2. 常用配置与注解
@@ -83,6 +175,10 @@ feign 常用配置如下:
 ## 3. Feign 工作原理
 
 ### 3.1 工作原理
+
+```java
+
+```
 
 ### 3.2 替换 http
 
