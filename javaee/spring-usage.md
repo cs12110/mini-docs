@@ -1497,3 +1497,154 @@ public void init() {
 2019-05-09 20:38:11 INFO  c.p.l.SysEventListener:21 - "3"
 2019-05-09 20:38:16 INFO  c.p.l.SysEventListener:21 - "4"
 ```
+
+---
+
+## 12. 文件上传/下载
+
+![postman上传文件](https://blog.csdn.net/maowendi/article/details/80537304)
+
+设置文件上传 size:
+
+```yml
+spring:
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    prefix: classpath:/template
+  servlet:
+    multipart:
+      # Single file max size  即单个文件大小
+      max-file-size: 50Mb
+      # All files max size    即总上传的数据大小
+      max-request-size: 50Mb
+```
+
+### 12.1 文件上传
+
+**controller**
+
+```java
+/**
+    * 上传文件
+    *
+    * @param multipartFile file
+    * @return String
+    */
+@RequestMapping("/uploadFile")
+@ResponseBody
+public String uploadFile(@RequestParam("file") MultipartFile multipartFile) {
+    Map<String, Object> map = magixService.uploadFile(multipartFile);
+
+    return JSON.toJSONString(map);
+}
+```
+
+**service**
+
+```java
+private static final String FILE_STORAGE_PATH = "/opt/";
+
+public Map<String, Object> uploadFile(MultipartFile multipartFile) {
+Map<String, Object> map = new HashMap<>(2);
+map.put("status", 0);
+if (multipartFile == null) {
+    log.warn("Function[uploadFile] file is null");
+    map.put("message", "file is null");
+} else {
+    try {
+
+        String filename = multipartFile.getOriginalFilename();
+        byte[] values = multipartFile.getBytes();
+
+        String filePath = FILE_STORAGE_PATH + buildFileName(filename);
+        FileOutputStream out = new FileOutputStream(filePath);
+        out.write(values);
+        out.flush();
+        out.close();
+
+        map.put("url",filePath);
+        map.put("status", 1);
+    } catch (Exception e) {
+        map.put("status", 0);
+        map.put("message", e.getMessage());
+        log.error("Function[uploadFile]", e);
+    }
+}
+log.info("Function[uploadFile] result:{}", JSON.toJSONString(map));
+
+return map;
+}
+
+private String buildFileName(String fileName) {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+    String format = sdf.format(new Date());
+    if (null == fileName) {
+        return format;
+    }
+
+    int last = fileName.lastIndexOf(".");
+    if (-1 == last) {
+        return fileName + format;
+    }
+    String suffix = fileName.substring(last);
+    String name = fileName.substring(0, last);
+
+    return name + format + suffix;
+}
+```
+
+### 12.2 文件下载
+
+**controller**
+
+```java
+/**
+* 下载文件
+*
+* @param request  request
+* @param response response
+*/
+@RequestMapping("/downloadFile")
+public void downloadFile(HttpServletRequest request, HttpServletResponse response) {
+    String fileName = request.getParameter("fileName");
+
+    log.info("Function[downloadFile] download file:{}", fileName);
+
+    magixService.downloadFile(response, fileName);
+}
+```
+
+**service**
+
+```java
+public void downloadFile(HttpServletResponse response, String fileName) {
+    try {
+        File file = new File(fileName);
+        if (!file.exists()) {
+            log.warn("Function[download] File:{} is null", fileName);
+            return;
+        }
+
+        // 设置头部文件和文件路名中文
+        response.setHeader("content-type", "application/octet-stream");
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment;filename=" + java.net.URLEncoder.encode(fileName, "UTF-8"));
+
+
+        ServletOutputStream outputStream = response.getOutputStream();
+        byte[] arr = new byte[1024];
+        int len = 0;
+
+        FileInputStream inputStream = new FileInputStream(file);
+        while (-1 != (len = inputStream.read(arr))) {
+            outputStream.write(arr, 0, len);
+        }
+
+        outputStream.flush();
+        outputStream.close();
+    } catch (Exception e) {
+        log.error("Function[downloadFile],fileName:" + fileName, e);
+    }
+}
+```
