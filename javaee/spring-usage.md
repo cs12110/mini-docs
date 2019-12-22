@@ -1411,6 +1411,8 @@ public class AntiResubmitAspect {
 
 在 spring 里面也有事件通知时间.可以做到发布/订阅的功能.
 
+Warning: **`事件都是同步的,如果发布事件处的业务存在事务,监听器处理也会在相同的事务中.如果对于事件的处理不想受到影响,可以在app运行类上开启异步处理@EnableAsync,listener的onApplicationEvent方法上加@Aync支持异步.`**
+
 ### 11.1 自定义事件
 
 ```java

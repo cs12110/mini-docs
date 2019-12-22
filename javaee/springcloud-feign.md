@@ -309,7 +309,9 @@ feign:
 
 ## 4. 其他组件
 
-spring cloud 的框架流程如下
+spring cloud 的框架如下
+
+![](img/springcloud-struct.png)
 
 ---
 
