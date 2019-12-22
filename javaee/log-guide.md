@@ -298,6 +298,146 @@ public class LogbackApp {
 
 ---
 
-## 3. 参考资料
+## 3. MDC
+
+在现实里面,要追踪一条日志是很麻烦的事,超级麻烦的.
+
+例如: `controller(my#saveOrUpdate) -> service(my#saveOrUpdate,my#isExistsValue) -> dao(my#saveOrUpdate).`
+
+所以需要像 uuid 一样的东西`traceId`,在 controller 的执行前设置到 ThreadLocal 里面去,在这个 controller 调用过程里面,每一个调用到的方法的日志都添加上这个 uuid,那样子就能清晰的知道这调用流程和涉及的 exception 了(只要你在 controller 那里打印当前调用的标志,如 userId,根据 userId 获得 traceId,根据 traceId 获得整一个调用链路).
+
+那么,MDC 可以助你一臂之力.
+
+#### 3.1 设置 Filter
+
+```java
+package com.pkgs.component.filter;
+
+import org.slf4j.MDC;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+
+import javax.servlet.*;
+import java.io.IOException;
+import java.util.UUID;
+
+
+/**
+ * <p>
+ *
+ * @author cs12110 create at 2019-12-22 16:33
+ * <p>
+ * @since 1.0.0
+ */
+@Order(0)
+@Configuration
+public class TraceFilter implements Filter {
+
+    private static final String TRACE_ID_KEY = "traceId";
+
+    @Override
+    public void init(FilterConfig filterConfig) {
+
+    }
+
+    @Override
+    public void doFilter(
+            ServletRequest request,
+            ServletResponse response,
+            FilterChain chain
+    ) throws IOException, ServletException {
+        // 设置mdc
+        MDC.put(TRACE_ID_KEY, buildTraceId());
+        chain.doFilter(request, response);
+        // 移除mdc
+        MDC.remove(TRACE_ID_KEY);
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+
+    /**
+     * 获取uuid
+     *
+     * @return String
+     */
+    private String buildTraceId() {
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString().replace("-", "").toLowerCase();
+    }
+}
+```
+
+### 3.2 设置日志输出格式
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 控制台标志化输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{16}:%L  [%X{traceId}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 将日志写入日志文件 -->
+    <!-- <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>log/spark-all-cms.log</file>
+        <append>true</append>日志追加
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{32}::%method - %msg%n</pattern>
+        </encoder>
+    </appender> -->
+
+    <appender name="ROLLING"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/sys.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/rookie%d{yyyyMMdd}-%i.log</fileNamePattern>
+            <!-- each file capacity 10mb -->
+            <maxFileSize>128MB</maxFileSize>
+            <!-- keep 7 days -->
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{32}:%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 如需打印sql,请开启 -->
+
+    <logger name="org.apache.http" level="ERROR"/>
+    <logger name="org.springboot.sample" level="ERROR"/>
+    <logger name="org.springframework.web" level="ERROR"/>
+    <logger name="org.springframework.context" level="ERROR"/>
+    <logger name="springfox.documentation" level="ERROR"/>
+    <logger name="org.springframework.jmx" level="ERROR"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ROLLING"/>
+    </root>
+
+</configuration>
+```
+
+### 3.3 测试
+
+```java
+2019-12-22 17:05:25 INFO  c.p.c.a.ReqLogInterceptor:49  [f884503e1cc141d2a5a360b49eeef87b] - req:{"method":"POST","url":"http://127.0.0.1:4321/magix/sendMessage","mapping":"MagixController#sendMessage"}
+2019-12-22 17:05:25 INFO  c.p.c.m.MagixController:33  [f884503e1cc141d2a5a360b49eeef87b] - Function[sendMessage] message:helloworld
+2019-12-22 17:05:25 INFO  c.p.s.m.MagixService:23  [f884503e1cc141d2a5a360b49eeef87b] - Function[sendMessage] send:helloworld
+2019-12-22 17:05:26 INFO  c.p.c.a.ReqLogInterceptor:49  [e86f902c29d948eba62cffb9a8b0e587] - req:{"method":"POST","url":"http://127.0.0.1:4321/magix/sendMessage","mapping":"MagixController#sendMessage"}
+2019-12-22 17:05:26 INFO  c.p.c.m.MagixController:33  [e86f902c29d948eba62cffb9a8b0e587] - Function[sendMessage] message:helloworld
+2019-12-22 17:05:26 INFO  c.p.s.m.MagixService:23  [e86f902c29d948eba62cffb9a8b0e587] - Function[sendMessage] send:helloworld
+```
+
+---
+
+## 4. 参考资料
 
 a. [logback 日志输出](https://www.cnblogs.com/wenbronk/p/6529161.html)
