@@ -28,10 +28,4 @@ Github 地址:[Github 地址](https://github.com/cs12110/mini-docs)
 
 ## 3. 捐助
 
-**开源改变世界.**
-
-Q: 如果我非要捐赠呢?
-
-A: 请扫描如下二维码.
-
 皇帝的二维码.jpg
