@@ -886,7 +886,7 @@ $ ls -i
 
 # 删除文件
 # mr3306 @ mr3306 in /opt/videos [23:13:54]
-$ ls -i |grep 6943951 | awk '{print $2}' | xargs rm -f {}
+$ ls -i |grep 6943951 | awk '{print $2}' | xargs rm -f
 
 # mr3306 @ mr3306 in /opt/videos [23:14:58]
 $ ls
