@@ -707,7 +707,7 @@ if [[ "$pid" =~ $num_regex ]];then
 	echo -e "\nWe kill: " $pid " of:" $app_name
 	kill -9 $pid
 	rm -rf nohup.out
-	rm -rf logs/*.log	
+	rm -rf logs/*.log
 fi
 
 # start the app
@@ -869,3 +869,26 @@ location /schedule/ {
 ```
 
 ---
+
+## 18. 删除特殊符号文件
+
+在服务器上面有时候存在一个很恼人的情况,就是文件名称含有特殊符号,用 `rm -rf fileName`删除不了.
+
+那么,你可以尝试如下的删除操作 :"}
+
+[linux xrags 命令 link](https://www.runoob.com/linux/linux-comm-xargs.html)
+
+```sh
+# ls -i 获取文件的iNode
+# mr3306 @ mr3306 in /opt/videos [23:13:10]
+$ ls -i
+3358869 movies   6943951 test.txt
+
+# 删除文件
+# mr3306 @ mr3306 in /opt/videos [23:13:54]
+$ ls -i |grep 6943951 | awk '{print $2}' | xargs rm -f {}
+
+# mr3306 @ mr3306 in /opt/videos [23:14:58]
+$ ls
+movies
+```
