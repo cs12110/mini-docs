@@ -334,3 +334,5 @@ b. [深入理解 Java 并发之 synchronized 实现原理](https://blog.csdn.net
 c. [Java 并发编程系列之十六：Lock 锁](https://blog.csdn.net/u011116672/article/details/51064186?utm_source=blogxgwz0)
 
 d. [IBM:ReentrantLock 和 synchronized 对比](https://www.ibm.com/developerworks/cn/java/j-jtp10264/index.html)
+
+e. [悲观锁与乐观锁](https://blog.csdn.net/qq_34337272/article/details/81072874)
