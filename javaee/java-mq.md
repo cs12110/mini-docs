@@ -15,17 +15,26 @@
 本文档使用 ons 依赖,请知悉
 
 ```xml
-<dependency>
-    <groupId>com.aliyun.openservices</groupId>
-    <artifactId>ons-client</artifactId>
-    <version>1.8.0.Final</version>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>com.aliyun.openservices</groupId>
+        <artifactId>ons-client</artifactId>
+        <version>1.8.0.Final</version>
+    </dependency>
 
-<dependency>
-    <groupId>com.alibaba</groupId>
-    <artifactId>fastjson</artifactId>
-    <version>1.2.32</version>
-</dependency>
+    <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>1.2.32</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.10</version>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
 ```
 
 ### 1.2 rocketmq 连接配置
@@ -267,6 +276,25 @@ public class RocketMqProducer {
 2020-02-15 17:51:52 - SendResult[topic=rocket-mq-topic, messageId=C0A801677B6E18B4AAC24BEE5BF9001A]
 ```
 
+### 2.4 源码
+
+在 rocketmq 里面发送消息会有重试机制. 调用流程:`ProducerImpl#send`->`defaultMQProducer#send` -> `DefaultMQProducerImpl#sendDefaultImpl`
+
+```java
+// 获取重试次数,默认同步发送次数为:2+1
+// defaultMQProducer.getRetryTimesWhenSendFailed()默认为2
+int timesTotal = communicationMode == CommunicationMode.SYNC ? 1 + this.defaultMQProducer.getRetryTimesWhenSendFailed() : 1;
+int times = 0;
+String[] brokersSent = new String[timesTotal];
+for (; times < timesTotal; times++) {
+    // 发送成功则break掉,否则continue
+}
+```
+
+Q: 那么应该在哪里设置这个参数呀?
+
+A: 我也没找到设置的地方. orz
+
 ---
 
 ## 3. 消费者[`consumer`]
@@ -407,11 +435,270 @@ public class RocketMqConsumer {
 
 ---
 
-## 参考文档
+## 4. 事务消息
+
+哇咔咔,终于到了这里了.
+
+### 4.1 基础知识
+
+##### 流程图
+
+流程图如下所示:
+
+![](img/rocketmq-tx.png)
+
+##### 事务状态
+
+| 状态                                  | 备注                                                                                    |
+| ------------------------------------- | --------------------------------------------------------------------------------------- |
+| TransactionStatus.CommitTransaction   | 提交事务,允许订阅方消费该消息                                                           |
+| TransactionStatus.RollbackTransaction | 回滚事务,消息将被丢弃不允许消费                                                         |
+| TransactionStatus.Unknow              | 无法判断状态,期待消息队列 RocketMQ 版的 Broker 向发送方再次询问该消息对应的本地事务的状 |
+
+##### 消息接口
+
+发送事务消息:
+
+```java
+/**
+* 该方法用来发送一条事务型消息. 一条事务型消息发送分为三个步骤:
+* <ol>
+*     <li>本服务实现类首先发送一条半消息到到消息服务器;</li>
+*     <li>通过<code>executer</code>执行本地事务;</li>
+*     <li>根据上一步骤执行结果, 决定发送提交或者回滚第一步发送的半消息;</li>
+* </ol>
+* @param message 要发送的事务型消息
+* @param executer 本地事务执行器
+* @param arg 应用自定义参数，该参数可以传入本地事务执行器
+* @return 发送结果.
+*/
+SendResult send(final Message message,final LocalTransactionExecuter executer,final Object arg);
+```
+
+### 4.2 构建事务生产者
+
+```java
+package com.mq.producer;
+
+import com.alibaba.fastjson.JSON;
+import com.aliyun.openservices.ons.api.*;
+import com.aliyun.openservices.ons.api.transaction.LocalTransactionChecker;
+import com.aliyun.openservices.ons.api.transaction.LocalTransactionExecuter;
+import com.aliyun.openservices.ons.api.transaction.TransactionProducer;
+import com.aliyun.openservices.ons.api.transaction.TransactionStatus;
+import com.mq.conf.RocketMqConf;
+import com.mq.util.SysUtil;
+import lombok.Data;
+
+import java.util.Properties;
+
+/**
+ * <p>
+ *
+ * @author cs12110 create at 2020-02-15 17:20
+ * <p>
+ * @since 1.0.0
+ */
+public class TxRocketMqProducer {
+
+    @Data
+    public static class Person {
+        private String id;
+        private String name;
+        private Integer age;
+
+        @Override
+        public String toString() {
+            return JSON.toJSONString(this);
+        }
+    }
+
+
+    /**
+     * 模拟现实场景里面spring的service
+     */
+    public static class BusinessService {
+
+        public boolean save(Person person) {
+            // 年龄不合法
+            if (person.getAge() == 0) {
+                return false;
+            }
+
+            return true;
+        }
+
+    }
+
+
+    /**
+     * 本地事务回调检查监听器
+     */
+    public static class MyLocalTransactionChecker implements LocalTransactionChecker {
+
+        @Override
+        public TransactionStatus check(Message msg) {
+
+            System.out.println("MyLocalTransactionChecker" + " " + SysUtil.getTime() + " check, message:" + new String(msg.getBody()));
+
+            return TransactionStatus.CommitTransaction;
+        }
+    }
+
+    /**
+     * 本地事务执行器
+     */
+    @Data
+    public static class MyLocalTransactionExecutor implements LocalTransactionExecuter {
+
+        private BusinessService businessService;
+
+        @Override
+        public TransactionStatus execute(Message msg, Object arg) {
+            TransactionStatus status = TransactionStatus.Unknow;
+            try {
+                Person p = (Person) arg;
+
+                /*
+                 * 当age=1时,返回Unknow状态,broker会回调本地的事务检查监听器
+                 *
+                 * 当age=0时,因为本地校验参数不合法,返回RollbackTransaction,broker删除半消息
+                 *
+                 * 当age=2时,本地事务执行完成,半消息投递给消费端
+                 */
+                if (p.getAge() != 1) {
+                    boolean result = businessService.save(p);
+                    if (result) {
+                        status = TransactionStatus.CommitTransaction;
+                    } else {
+                        status = TransactionStatus.RollbackTransaction;
+                    }
+                }
+
+                System.out.println("Deal with:" + arg + " status: " + status);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // 本地事务成功,发送确认消息状态,半消息才会投递到消费者
+            return status;
+        }
+    }
+
+    public static void main(String[] args) {
+        TransactionProducer producer = buildMqProducer();
+
+        // 初始化businessService并且设置如executor
+        BusinessService businessService = new BusinessService();
+        MyLocalTransactionExecutor transactionExecutor = new MyLocalTransactionExecutor();
+        transactionExecutor.setBusinessService(businessService);
+        try {
+            //使用前必须开启生产者
+            producer.start();
+
+            for (int index = 0; index < 3; index++) {
+                try {
+                    Person person = new Person();
+                    person.setId("P" + System.currentTimeMillis());
+                    person.setAge(index);
+                    person.setName("alice" + index);
+
+                    Message message = new Message(RocketMqConf.TOPIC, RocketMqConf.TAGS, person.getId(), JSON.toJSONString(person).getBytes());
+
+                    /*
+                     * message: 消息主体
+                     *
+                     * transactionExecutor: 事务执行器
+                     *
+                     * arg: 传递到执行器的参数
+                     */
+                    SendResult result = producer.send(message, transactionExecutor, person);
+                    display(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 因为事务消息需要回调本地事务检查器,所以不能关闭生产者
+            //producer.shutdown();
+        }
+    }
+
+
+    /**
+     * 打印日志信息
+     *
+     * @param value 值
+     */
+    private static void display(Object value) {
+        String simpleName = TxRocketMqProducer.class.getSimpleName();
+        System.out.println(simpleName + " " + SysUtil.getTime() + " - " + value);
+    }
+
+    /**
+     * 创建生产者
+     *
+     * @return {@link Producer}
+     */
+    private static TransactionProducer buildMqProducer() {
+
+        Properties properties = new Properties();
+        properties.setProperty(PropertyKeyConst.NAMESRV_ADDR, RocketMqConf.NAME_SERVER);
+        properties.setProperty(PropertyKeyConst.AccessKey, RocketMqConf.ACCESS_ID);
+        properties.setProperty(PropertyKeyConst.SecretKey, RocketMqConf.ACCESS_KEY);
+        properties.setProperty(PropertyKeyConst.GROUP_ID, RocketMqConf.GID);
+
+        return ONSFactory.createTransactionProducer(properties, new MyLocalTransactionChecker());
+    }
+
+}
+```
+
+#### 4.3 测试
+
+开启消费者(因为消费端沿用上面的消费端,所以这里面不重复代码) -> 开启生产者
+
+模拟情况:
+
+- 当 age=0 时,直接发送 rollback,消费端不会接收到该消息.
+- 当 age=1 发送 unknown 回调本地事务检查器之后,提交半消息,消费端才能接收消息.
+- 当 age=2 直接投递,消费者消费到消息.
+
+生产者打印信息如下:
+
+```java
+Deal with:{"age":0,"id":"P1581773152483","name":"alice0"} status: RollbackTransaction
+java.lang.RuntimeException: local transaction branch failed ,so transaction rollback
+	at com.aliyun.openservices.ons.api.impl.rocketmq.TransactionProducerImpl.send(TransactionProducerImpl.java:135)
+	at com.mq.producer.TxRocketMqProducer.main(TxRocketMqProducer.java:135)
+Deal with:{"age":1,"id":"P1581773153511","name":"alice1"} status: Unknow
+TxRocketMqProducer 2020-02-15 21:25:53 - SendResult[topic=rocket-mq-topic, messageId=C0A80167807A18B4AAC24CB24CE70002]
+Deal with:{"age":2,"id":"P1581773153639","name":"alice2"} status: CommitTransaction
+TxRocketMqProducer 2020-02-15 21:25:53 - SendResult[topic=rocket-mq-topic, messageId=C0A80167807A18B4AAC24CB24D670005]
+MyLocalTransactionChecker 2020-02-15 21:25:57 check, message:{"age":1,"id":"P1581773153511","name":"alice1"}
+```
+
+消费者打印日志如下:
+
+```java
+RocketMqConsumer 2020-02-15 21:25:53 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:P1581773153639,body:{"age":2,"id":"P1581773153639","name":"alice2"}
+RocketMqConsumer 2020-02-15 21:25:57 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:P1581773153511,body:{"age":1,"id":"P1581773153511","name":"alice1"}
+```
+
+**结论**: <u>符合 rocketmq 所描述的事务最终一致性</u>.
+
+---
+
+## 5. 参考文档
 
 a. [官方文档 link](https://help.aliyun.com/document_detail/114448.html?spm=5176.ons.0.2.b11f176fCYbeCm)
 
-b. 配置参数
+b. [rocketmq 消息博客](https://www.jianshu.com/p/60528f097223)
+
+c. 配置参数
 
 ```java
 package com.aliyun.openservices.ons.api;
