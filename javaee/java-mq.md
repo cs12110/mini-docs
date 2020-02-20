@@ -692,7 +692,134 @@ RocketMqConsumer 2020-02-15 21:25:57 - topic:rocket-mq-topic,tag:tag-a,tag-b,biz
 
 ---
 
-## 5. 参考文档
+### 5. 顺序消息
+
+在现实环境里面,可能要求消息被按照生产消息顺序的先后被消费.
+
+#### 5.1 顺序消息生产者
+
+最大的区别也就是生产者使用的`OrderProducer`,而不是普通的`Producer`.
+
+```java
+package com.mq.order.producer;
+
+import com.aliyun.openservices.ons.api.*;
+import com.aliyun.openservices.ons.api.order.OrderProducer;
+import com.mq.conf.RocketMqConf;
+import com.mq.util.SysUtil;
+
+import java.util.Properties;
+
+/**
+ * @author huanghuapeng create at 2020/2/20 9:57
+ * @version 1.0.0
+ */
+public class RocketMqOrderProducer {
+
+    public static void main(String[] args) {
+        OrderProducer producer = buildMqProducer();
+        try {
+            //使用前必须开启生产者
+            producer.start();
+            int times = 10;
+
+            for (int i = 0; i < times; i++) {
+                String body = "message:" + i;
+                String shardingKey = "key:" + i;
+                // message key,作为消费者幂等校验,如订单id
+                String bizId = "ORDER-" + i;
+
+                // 同步发送消息
+                Message message = new Message(RocketMqConf.TOPIC, RocketMqConf.TAGS, bizId, body.getBytes());
+                SendResult result = producer.send(message, shardingKey);
+
+                display(result);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭生产者
+            producer.shutdown();
+        }
+    }
+
+
+    /**
+     * 打印日志信息
+     *
+     * @param value 值
+     */
+    private static void display(Object value) {
+        System.out.println(SysUtil.getTime() + " - " + value);
+    }
+
+    /**
+     * 创建顺序消息生产者
+     *
+     * @return {@link Producer}
+     */
+    private static OrderProducer buildMqProducer() {
+
+        Properties properties = new Properties();
+        properties.setProperty(PropertyKeyConst.NAMESRV_ADDR, RocketMqConf.NAME_SERVER);
+        properties.setProperty(PropertyKeyConst.AccessKey, RocketMqConf.ACCESS_ID);
+        properties.setProperty(PropertyKeyConst.SecretKey, RocketMqConf.ACCESS_KEY);
+        properties.setProperty(PropertyKeyConst.GROUP_ID, RocketMqConf.GID);
+        properties.setProperty("retryTimesWhenSendFailed", "" + 5);
+
+
+        return ONSFactory.createOrderProducer(properties);
+    }
+
+}
+```
+
+### 5.2 顺序消息消费者
+
+沿用之前普通消息消费者即可.
+
+### 5.3 测试结果
+
+生产者发送消息
+
+```java
+2020-02-20 10:01:39 - SendResult[topic=rocket-mq-topic, messageId=AC10070C147C18B4AAC263FFA8640000]
+2020-02-20 10:01:39 - SendResult[topic=rocket-mq-topic, messageId=AC10070C147C18B4AAC263FFAA2D0002]
+2020-02-20 10:01:39 - SendResult[topic=rocket-mq-topic, messageId=AC10070C147C18B4AAC263FFAA530004]
+2020-02-20 10:01:39 - SendResult[topic=rocket-mq-topic, messageId=AC10070C147C18B4AAC263FFAA790008]
+2020-02-20 10:01:39 - SendResult[topic=rocket-mq-topic, messageId=AC10070C147C18B4AAC263FFAAA1000B]
+2020-02-20 10:01:39 - SendResult[topic=rocket-mq-topic, messageId=AC10070C147C18B4AAC263FFAAC8000E]
+2020-02-20 10:01:39 - SendResult[topic=rocket-mq-topic, messageId=AC10070C147C18B4AAC263FFAAEF0011]
+2020-02-20 10:01:39 - SendResult[topic=rocket-mq-topic, messageId=AC10070C147C18B4AAC263FFAB160014]
+2020-02-20 10:01:39 - SendResult[topic=rocket-mq-topic, messageId=AC10070C147C18B4AAC263FFAB3D0017]
+2020-02-20 10:01:39 - SendResult[topic=rocket-mq-topic, messageId=AC10070C147C18B4AAC263FFAB64001A]
+```
+
+测试结果
+
+`消费者1`消费消息如下:
+
+```java
+RocketMqConsumer1 2020-02-20 10:10:25,738 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-0,body:message:0
+RocketMqConsumer1 2020-02-20 10:10:25,791 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-1,body:message:1
+RocketMqConsumer1 2020-02-20 10:10:25,828 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-2,body:message:2
+```
+
+`消费者2`消费消息如下:
+
+```java
+RocketMqConsumer2 2020-02-20 10:10:25,877 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-3,body:message:3
+RocketMqConsumer2 2020-02-20 10:10:25,912 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-4,body:message:4
+RocketMqConsumer2 2020-02-20 10:10:25,949 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-5,body:message:5
+RocketMqConsumer2 2020-02-20 10:10:25,990 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-6,body:message:6
+RocketMqConsumer2 2020-02-20 10:10:26,039 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-7,body:message:7
+RocketMqConsumer2 2020-02-20 10:10:26,091 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-8,body:message:8
+RocketMqConsumer2 2020-02-20 10:10:26,129 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-9,body:message:9
+```
+
+---
+
+## 6. 参考文档
 
 a. [官方文档 link](https://help.aliyun.com/document_detail/114448.html?spm=5176.ons.0.2.b11f176fCYbeCm)
 
