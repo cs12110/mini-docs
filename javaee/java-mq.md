@@ -819,7 +819,157 @@ RocketMqConsumer2 2020-02-20 10:10:26,129 - topic:rocket-mq-topic,tag:tag-a,tag-
 
 ---
 
-## 6. 参考文档
+## 6. 定时消息
+
+### 6.1 定时消息生产者
+
+```java
+package com.mq.common.producer;
+
+import com.alibaba.fastjson.JSON;
+import com.aliyun.openservices.ons.api.*;
+import com.mq.conf.RocketMqConf;
+import com.mq.util.SysUtil;
+import lombok.Data;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+import java.util.function.Supplier;
+
+/**
+ * <p>
+ *
+ * @author cs12110 create at 2020-02-15 17:20
+ * <p>
+ * @since 1.0.0
+ */
+public class RocketMqOnTimeProducer {
+
+    private static Supplier<String> dateSupplier = () -> {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date());
+    };
+
+
+    @Data
+    private static class MsgInfo {
+        private String id;
+        private String timestamp;
+
+    }
+
+    public static void main(String[] args) {
+        Producer producer = buildMqProducer();
+        try {
+            //使用前必须开启生产者
+            producer.start();
+            int times = 10;
+
+            for (int i = 0; i < times; i++) {
+
+                MsgInfo info = new MsgInfo();
+                info.setId("OnTime message:" + i);
+                info.setTimestamp(dateSupplier.get());
+
+                // message key,作为消费者幂等校验,如订单id
+                String bizId = "OT" + System.currentTimeMillis();
+
+                // 同步发送消息
+                Message message = new Message(RocketMqConf.TOPIC,
+                        RocketMqConf.TAGS, bizId, JSON.toJSONString(info).getBytes());
+
+                /*
+                 * 设置5s后投递
+                 *
+                 * 这里还有种定时的操作,使用SimpleDateFormatter转换日期格式字符串,获取到毫秒数
+                 */
+                message.setStartDeliverTime(System.currentTimeMillis() + 5000);
+                SendResult result = producer.send(message);
+
+
+                display(message.getMsgID(), result);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭生产者
+            producer.shutdown();
+        }
+
+
+    }
+
+
+    /**
+     * 打印日志信息
+     *
+     * @param value 值
+     */
+    private static void display(String messageId, Object value) {
+        System.out.println(SysUtil.getTime() + " - " + value + ", messageId:" + messageId);
+    }
+
+    /**
+     * 创建生产者
+     *
+     * @return {@link Producer}
+     */
+    private static Producer buildMqProducer() {
+
+        Properties properties = new Properties();
+        properties.setProperty(PropertyKeyConst.NAMESRV_ADDR, RocketMqConf.NAME_SERVER);
+        properties.setProperty(PropertyKeyConst.AccessKey, RocketMqConf.ACCESS_ID);
+        properties.setProperty(PropertyKeyConst.SecretKey, RocketMqConf.ACCESS_KEY);
+        properties.setProperty(PropertyKeyConst.GROUP_ID, RocketMqConf.GID);
+        properties.setProperty("retryTimesWhenSendFailed", "" + 5);
+
+        return ONSFactory.createProducer(properties);
+    }
+}
+```
+
+### 6.2 定时消息消费者
+
+使用普通消费者,这里就不累赘重复写代码了,请知悉. :"}
+
+### 6.3 测试结果
+
+生产者发送消息
+
+```java
+2020-02-20 22:38:06 - SendResult[topic=rocket-mq-topic, messageId=C0A801663B5218B4AAC266B437C60000]
+2020-02-20 22:38:07 - SendResult[topic=rocket-mq-topic, messageId=C0A801663B5218B4AAC266B4388A0002]
+2020-02-20 22:38:07 - SendResult[topic=rocket-mq-topic, messageId=C0A801663B5218B4AAC266B439120005]
+2020-02-20 22:38:07 - SendResult[topic=rocket-mq-topic, messageId=C0A801663B5218B4AAC266B4397C0008]
+2020-02-20 22:38:07 - SendResult[topic=rocket-mq-topic, messageId=C0A801663B5218B4AAC266B439E9000B]
+2020-02-20 22:38:07 - SendResult[topic=rocket-mq-topic, messageId=C0A801663B5218B4AAC266B43A78000E]
+2020-02-20 22:38:07 - SendResult[topic=rocket-mq-topic, messageId=C0A801663B5218B4AAC266B43ADF0011]
+2020-02-20 22:38:07 - SendResult[topic=rocket-mq-topic, messageId=C0A801663B5218B4AAC266B43B680014]
+2020-02-20 22:38:08 - SendResult[topic=rocket-mq-topic, messageId=C0A801663B5218B4AAC266B43BCF0017]
+2020-02-20 22:38:08 - SendResult[topic=rocket-mq-topic, messageId=C0A801663B5218B4AAC266B43C89001A]
+```
+
+消费者消费消息
+
+```java
+RocketMqConsumer2 2020-02-20 22:38:11 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582209486111,body:{"id":"OnTime message:0","timestamp":"2020-02-20 22:38:06"}
+RocketMqConsumer2 2020-02-20 22:38:11 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582209486986,body:{"id":"OnTime message:1","timestamp":"2020-02-20 22:38:06"}
+RocketMqConsumer2 2020-02-20 22:38:12 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582209487823,body:{"id":"OnTime message:8","timestamp":"2020-02-20 22:38:07"}
+RocketMqConsumer2 2020-02-20 22:38:12 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582209488009,body:{"id":"OnTime message:9","timestamp":"2020-02-20 22:38:08"}
+RocketMqConsumer2 2020-02-20 22:38:13 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582209487480,body:{"id":"OnTime message:5","timestamp":"2020-02-20 22:38:07"}
+RocketMqConsumer2 2020-02-20 22:38:13 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582209487720,body:{"id":"OnTime message:7","timestamp":"2020-02-20 22:38:07"}
+RocketMqConsumer2 2020-02-20 22:38:13 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582209487336,body:{"id":"OnTime message:4","timestamp":"2020-02-20 22:38:07"}
+RocketMqConsumer2 2020-02-20 22:38:13 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582209487122,body:{"id":"OnTime message:2","timestamp":"2020-02-20 22:38:07"}
+RocketMqConsumer2 2020-02-20 22:38:13 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582209487583,body:{"id":"OnTime message:6","timestamp":"2020-02-20 22:38:07"}
+RocketMqConsumer2 2020-02-20 22:38:13 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582209487228,body:{"id":"OnTime message:3","timestamp":"2020-02-20 22:38:07"}
+```
+
+可以看出这个定时投递,在消费者消费过程耗时也不一定严格遵守(可能网络传输导致延时什么的),但是应对一般时效性不高的消息,这个也是足够用的.
+
+---
+
+## 7. 参考文档
 
 a. [官方文档 link](https://help.aliyun.com/document_detail/114448.html?spm=5176.ons.0.2.b11f176fCYbeCm)
 
