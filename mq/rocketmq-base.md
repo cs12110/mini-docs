@@ -72,9 +72,143 @@ A: 请看下面高可用的 rocketmq 架构图.
 
 ---
 
-## 2. 使用设计
+## 2. 安装 rocketmq
 
-### 2.1 topic-queue 设计
+rocketmq 官方文档 [link](http://rocketmq.apache.org/docs/quick-start/)
+
+### 2.1 依赖环境
+
+| 依赖软件 | 版本 | 备注           |
+| -------- | ---- | -------------- |
+| jdk      | 1.8  | 需配置环境变量 |
+| maven    | 3.6  | 需配置环境变量 |
+| rocketmq | 4.4  | -              |
+
+### 2.2 安装 rocketmq
+
+```sh
+[root@dev rocketmq-all-4.4.0]# mvn -Prelease-all -DskipTests clean install -U
+# 在经历整一个世纪之后
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Apache RocketMQ 4.4.0 4.4.0:
+[INFO]
+[INFO] Apache RocketMQ 4.4.0 .............................. SUCCESS [03:55 min]
+[INFO] rocketmq-logging 4.4.0 ............................. SUCCESS [ 22.315 s]
+[INFO] rocketmq-remoting 4.4.0 ............................ SUCCESS [ 10.185 s]
+[INFO] rocketmq-common 4.4.0 .............................. SUCCESS [  6.032 s]
+[INFO] rocketmq-client 4.4.0 .............................. SUCCESS [ 10.901 s]
+[INFO] rocketmq-store 4.4.0 ............................... SUCCESS [  6.126 s]
+[INFO] rocketmq-srvutil 4.4.0 ............................. SUCCESS [  3.311 s]
+[INFO] rocketmq-filter 4.4.0 .............................. SUCCESS [  2.393 s]
+[INFO] rocketmq-acl 4.4.0 ................................. SUCCESS [  3.019 s]
+[INFO] rocketmq-broker 4.4.0 .............................. SUCCESS [  6.887 s]
+[INFO] rocketmq-tools 4.4.0 ............................... SUCCESS [  3.265 s]
+[INFO] rocketmq-namesrv 4.4.0 ............................. SUCCESS [  1.572 s]
+[INFO] rocketmq-logappender 4.4.0 ......................... SUCCESS [  2.571 s]
+[INFO] rocketmq-openmessaging 4.4.0 ....................... SUCCESS [  2.747 s]
+[INFO] rocketmq-example 4.4.0 ............................. SUCCESS [  1.834 s]
+[INFO] rocketmq-test 4.4.0 ................................ SUCCESS [  6.574 s]
+[INFO] rocketmq-distribution 4.4.0 ........................ SUCCESS [01:52 min]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  07:20 min
+[INFO] Finished at: 2019-05-13T16:45:32+08:00
+[INFO] ------------------------------------------------------------------------
+
+[root@dev rocketmq-all-4.4.0]# cd distribution/target/apache-rocketmq/
+[root@dev apache-rocketmq]# ls
+benchmark  bin  conf  lib  LICENSE  NOTICE  README.md
+```
+
+### 2.3 启动 name server
+
+```sh
+[root@dev apache-rocketmq]# nohup sh bin/mqnamesrv &
+[1] 16726
+[root@dev apache-rocketmq]# tail -f ~/logs/rocketmqlogs/namesrv.log
+2019-05-13 16:53:45 INFO main - tls.client.keyPath = null
+2019-05-13 16:53:45 INFO main - tls.client.keyPassword = null
+2019-05-13 16:53:45 INFO main - tls.client.certPath = null
+2019-05-13 16:53:45 INFO main - tls.client.authServer = false
+2019-05-13 16:53:45 INFO main - tls.client.trustCertPath = null
+2019-05-13 16:53:46 INFO main - Using OpenSSL provider
+2019-05-13 16:53:46 INFO main - SSLContext created for server
+2019-05-13 16:53:46 INFO NettyEventExecutor - NettyEventExecutor service started
+2019-05-13 16:53:46 INFO main - The Name Server boot success. serializeType=JSON
+2019-05-13 16:53:46 INFO FileWatchService - FileWatchService service starte
+```
+
+### 2.4 启动 broker
+
+```sh
+[root@dev apache-rocketmq]# nohup sh bin/mqbroker -n localhost:9876 &
+```
+
+**由于虚拟机只有 2g 内存,但是默认使用内存为 8g,在不修改配置的前提下,出现如下异常**
+
+```bash
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 8589934592 bytes for committing reserved memory.
+# An error report file with more information is saved as:
+# /opt/soft/rocketmq/rocketmq-all-4.4.0/distribution/target/apache-rocketmq/hs_err_pid16823.log
+Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x00000005c0000000, 8589934592, 0) failed; error='Cannot allocate memory' (errno=12)
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 8589934592 bytes for committing reserved memory.
+# An error report file with more information is saved as:
+# /opt/soft/rocketmq/rocketmq-all-4.4.0/distribution/target/apache-rocketmq/hs_err_pid16880.log
+```
+
+解决方案: 修改 bin 目录里面的 runbroker.sh 脚本配置参数如下,调小 broker 的运行所需内存.
+
+```properties
+JAVA_OPT="${JAVA_OPT} -server -Xms256m -Xmx512m -Xmn256m"
+```
+
+修改后重新启动
+
+```sh
+[root@dev apache-rocketmq]# nohup sh bin/mqbroker -n localhost:9876 &
+[2] 17014
+[root@dev apache-rocketmq]# jps -lm
+17081 sun.tools.jps.Jps -lm
+16732 org.apache.rocketmq.namesrv.NamesrvStartup
+17021 org.apache.rocketmq.broker.BrokerStartup -n localhost:9876
+```
+
+### 2.5 测试使用
+
+```sh
+# 设置name sever的位置,这里使用export设置
+[root@dev apache-rocketmq]# export NAMESRV_ADDR=localhost:9876
+
+# 生产者生成消息,经过输出一段不明觉厉的东西之后,就停止了
+[root@dev apache-rocketmq]# sh bin/tools.sh org.apache.rocketmq.example.quickstart.Producer
+...
+SendResult [sendStatus=SEND_OK, msgId=C0A863CDAED07D4991AD417FF08303E7, offsetMsgId=C0A863CD00002A9F000000000002BDFE, messageQueue=MessageQueue [topic=TopicTest, brokerName=dev, queueId=2], queueOffset=249]
+...
+
+# 启动消费者
+[root@dev apache-rocketmq]# sh bin/tools.sh org.apache.rocketmq.example.quickstart.Consumer
+...
+ConsumeMessageThread_20 Receive New Messages: [MessageExt [queueId=3, storeSize=180, queueOffset=106, sysFlag=0, bornTimestamp=1557738901467, bornHost=/192.168.99.205:54720, storeTimestamp=1557738901469, storeHost=/192.168.99.205:10911, msgId=C0A863CD00002A9F00000000000129B2, commitLogOffset=76210, bodyCRC=865372478, reconsumeTimes=0, preparedTransactionOffset=0, toString()=Message{topic='TopicTest', flag=0, properties={MIN_OFFSET=0, MAX_OFFSET=250, CONSUME_START_TIME=1557739065653, UNIQ_KEY=C0A863CDAED07D4991AD417FE7DB01A8, WAIT=true, TAGS=TagA}, body=[72, 101, 108, 108, 111, 32, 82, 111, 99, 107, 101, 116, 77, 81, 32, 52, 50, 52], transactionId='null'}]]
+...
+```
+
+### 2.6 shutdown
+
+```sh
+[root@dev apache-rocketmq]# sh bin/mqshutdown broker
+
+[root@dev apache-rocketmq]# sh bin/mqshutdown namesrv
+```
+
+---
+
+## 3. 使用设计
+
+### 3.1 topic-queue 设计
 
 Q: 在 rocketmq 里面,一个 topic 可以对应多个 queue,那么我们该怎么有效的设置 topic 与 queue 的数量呢?(queue 与 tag 的关系是什么???)
 
@@ -82,7 +216,7 @@ Q: 在 rocketmq 里面,一个 topic 可以对应多个 queue,那么我们该怎�
 
 A: TOPIC_A 在一个 Broker 上的 Topic 分片有 4 个 Queue,一个 Consumer Group 内有 2 个 Consumer 按照集群消费的方式消费消息,按照平均分配策略进行负载均衡得到的结果是:第一个 Consumer 消费 3 个 Queue,第二个 Consumer 消费 1 个 Queue.如果增加 Consumer,每个 Consumer 分配到的 Queue 会相应减少.Rocket MQ 的负载均衡策略规定:**<u style='color:#e74c3c'>Consumer 数量应该小于等于 Queue 数量,如果 Consumer 超过 Queue 数量,那么多余的 Consumer 将不能消费消息</u>**.在一个 Consumer Group 内,Queue 和 Consumer 之间的对应关系是一对多的关系:`一个 Queue 最多只能分配给一个 Consumer,一个 Cosumer 可以分配得到多个 Queue`.这样的分配规则,每个 Queue 只有一个消费者,可以避免消费过程中的多线程处理和资源锁定,有效提高各 Consumer 消费的并行度和处理效率.[origin link](https://mp.weixin.qq.com/s/1pFddUuf_j9Xjl58MBnvTQ)
 
-### 2.2 消费模式
+### 3.2 消费模式
 
 MQ 说: 不要堆积,于是便有了消费者.
 
@@ -144,7 +278,7 @@ RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群
 }
 ```
 
-#### 2.2.1 广播消费模式
+#### 3.2.1 广播消费模式
 
 广播消费模式:<u>topic 下的同一条消息将被集群内的所有消费者消费一次.</u>
 
@@ -152,7 +286,7 @@ RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群
 
 适用场景: `req -> ehcache -> redis -> db,使用 mq 来做 ehcache 缓存的数据清理`.
 
-#### 2.2.2 集群消费模式
+#### 3.2.2 集群消费模式
 
 集群消费模式:<u>topic 下的同一条消息只允许被其中一个消费者消费</u>
 
@@ -162,11 +296,11 @@ RocketMQ 有两种消费模式:`BROADCASTING(广播模式)`和`CLUSTERING(集群
 
 适用场景: `如 lians 的手机通知短信的发送(存在多个手机短信 mq 消费端)`.
 
-### 2.3 消息的 ack
+### 3.3 消息的 ack
 
 [rocketmq ack 消费确认机制 link](https://zhuanlan.zhihu.com/p/25265380)
 
-#### 2.3.1 消费策略
+#### 3.3.1 消费策略
 
 ```java
 //默认策略,从该队列最尾开始消费,即跳过历史消息
@@ -179,7 +313,7 @@ CONSUME_FROM_FIRST_OFFSET
 CONSUME_FROM_TIMESTAMP
 ```
 
-#### 2.3.2 ack 代码示例
+#### 3.3.2 ack 代码示例
 
 ```java
 /**
@@ -218,9 +352,9 @@ public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeCo
 
 ---
 
-## 3. 注意事项
+## 4. 注意事项
 
-### 3.1 topic 与 tag 的设计
+### 4.1 topic 与 tag 的设计
 
 Q: 到底什么时候该用 Topic,什么时候该用 Tag?[详情 link](https://help.aliyun.com/document_detail/95837.html?spm=a2c4g.11186623.6.613.405c1da9JMnX5O)
 
@@ -260,7 +394,7 @@ Q: 那我可不可以把 tag 设置为 topic 呀?
 
 A: 江湖有一句老话,`可以,但是没必要`. 微笑.jpg
 
-### 3.2 消费幂等
+### 4.2 消费幂等
 
 消费幂等[详情 link](https://help.aliyun.com/document_detail/44397.html),保证消息的唯一性:
 
@@ -298,7 +432,7 @@ consumer.subscribe("ons_test", "*", new MessageListener() {
 
 场景: lians 手机发送消息消费端,如果使用`msg_id`来做 mq 消息去重的处理.(`t_template_sms.mq_message_id`,如果没猜错的话)
 
-### 3.3 订阅关系一致
+### 4.3 订阅关系一致
 
 **订阅关系一致** [link](https://help.aliyun.com/document_detail/43523.html?spm=a2c4g.11186623.6.605.2a381da95V6B1X)
 
@@ -325,11 +459,11 @@ private final ConcurrentMap<String/* Group */, ConsumerGroupInfo> consumerTable 
 
 ---
 
-## 4. 使用案例
+## 5. 使用案例
 
 mq 的使用场景.
 
-### 4.1 lians 的短信消息
+### 5.1 lians 的短信消息
 
 改造消息发送前
 
@@ -342,7 +476,7 @@ mq 的使用场景.
 - 解耦,确定消息服务出问题的情况下,不影响主流程.
 - 保证消息发送.
 
-### 4.2 爬虫优化
+### 5.2 爬虫优化
 
 知乎的一个小爬虫,现在获取到的话题数量.
 
@@ -374,13 +508,17 @@ A:把那些知乎话题下面的回答的 url,放到 mq 里面,在多个服务�
 
 ---
 
-## 5. 参考资料
+## 6. 参考资料
 
-| name                                     | link                                                                               |
-| ---------------------------------------- | ---------------------------------------------------------------------------------- |
-| RocketMq 官方文档                        | [link](http://rocketmq.apache.org/docs/quick-start/)                               |
-| RocketMq 博客                            | [link](https://www.cnblogs.com/qdhxhz/p/11094624.html)                             |
-| RocketMQ 消息发送的高可用设计            | [link](http://objcoding.com/2019/04/06/rocketmq-fault-strategy/)                   |
-| 分布式开放消息系统(RocketMQ)的原理与实践 | [link](https://www.cnblogs.com/xuwc/p/9034352.html)                                |
-| RocketMq 分布式事务                      | [link](https://www.jianshu.com/p/cc5c10221aa1)                                     |
-| RocketMq 优秀样例                        | [link](https://github.com/apache/rocketmq/blob/master/docs/cn/RocketMQ_Example.md) |
+| name                                     | link                                                                                               |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| RocketMq 官方文档                        | [link](http://rocketmq.apache.org/docs/quick-start/)                                               |
+| RocketMq 博客                            | [link](https://www.cnblogs.com/qdhxhz/p/11094624.html)                                             |
+| RocketMQ 消息发送的高可用设计            | [link](http://objcoding.com/2019/04/06/rocketmq-fault-strategy/)                                   |
+| 分布式开放消息系统(RocketMQ)的原理与实践 | [link](https://www.cnblogs.com/xuwc/p/9034352.html)                                                |
+| RocketMq 分布式事务                      | [link](https://www.jianshu.com/p/cc5c10221aa1)                                                     |
+| RocketMq 优秀样例                        | [link](https://github.com/apache/rocketmq/blob/master/docs/cn/RocketMQ_Example.md)                 |
+| CSDN 博客:java 使用 rocketMq             | [link](https://blog.csdn.net/zhangcongyi420/article/details/82593982)                              |
+| 轻松搞定 RocketMQ 入门                   | [link](https://segmentfault.com/a/1190000015951993)                                                |
+| 搭建 RocketMQ 踩的坑                     | [link](https://blog.csdn.net/c_yang13/article/details/76836753)                                    |
+| RocketMq 订阅关系                        | [link](https://help.aliyun.com/document_detail/43523.html?spm=a2c4g.11186623.6.605.2a381da95V6B1X) |
