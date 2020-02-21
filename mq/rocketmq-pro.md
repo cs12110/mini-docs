@@ -445,7 +445,7 @@ public class RocketMqConsumer {
 
 流程图如下所示:
 
-![](img/rocketmq-tx.png)
+![](imgs/rocketmq-tx.png)
 
 ##### 事务状态
 
