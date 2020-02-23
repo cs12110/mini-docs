@@ -10,6 +10,22 @@
 
 主要包括 mq 的依赖,配置和工具类等.
 
+FYI: 消息订阅的时候,有两种方式:`集群模式`和`广播模式`,默认为:`集群模式`. u know what I mean.jpg
+
+设置为`集群模式`:
+
+```java
+// 集群订阅方式设置（不设置的情况下，默认为集群订阅方式）
+properties.put(PropertyKeyConst.MessageModel, PropertyValueConst.CLUSTERING);
+```
+
+设置为`广播模式`:
+
+```java
+// 广播订阅方式设置
+properties.put(PropertyKeyConst.MessageModel, PropertyValueConst.BROADCASTING);
+```
+
 ### 1.1 pom.xml
 
 本文档使用 ons 依赖,请知悉
@@ -437,7 +453,7 @@ public class RocketMqConsumer {
 
 ## 4. 事务消息
 
-哇咔咔,终于到了这里了.
+哇咔咔,终于到这里了,我的事务消息.
 
 ### 4.1 基础知识
 
@@ -692,11 +708,11 @@ RocketMqConsumer 2020-02-15 21:25:57 - topic:rocket-mq-topic,tag:tag-a,tag-b,biz
 
 ---
 
-### 5. 顺序消息
+## 5. 顺序消息
 
 在现实环境里面,可能要求消息被按照生产消息顺序的先后被消费.
 
-#### 5.1 顺序消息生产者
+### 5.1 顺序消息生产者
 
 最大的区别也就是生产者使用的`OrderProducer`,而不是普通的`Producer`.
 
