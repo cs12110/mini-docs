@@ -719,18 +719,39 @@ RocketMqConsumer 2020-02-15 21:25:57 - topic:rocket-mq-topic,tag:tag-a,tag-b,biz
 ```java
 package com.mq.order.producer;
 
+import com.alibaba.fastjson.JSON;
 import com.aliyun.openservices.ons.api.*;
 import com.aliyun.openservices.ons.api.order.OrderProducer;
 import com.mq.conf.RocketMqConf;
 import com.mq.util.SysUtil;
+import lombok.Data;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
+import java.util.function.Supplier;
 
 /**
- * @author huanghuapeng create at 2020/2/20 9:57
- * @version 1.0.0
+ * <p>
+ *
+ * @author cs12110 create at 2020-02-15 17:20
+ * <p>
+ * @since 1.0.0
  */
 public class RocketMqOrderProducer {
+
+    private static Supplier<String> dateSupplier = () -> {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date());
+    };
+
+
+    @Data
+    private static class MsgInfo {
+        private String id;
+        private String timestamp;
+
+    }
 
     public static void main(String[] args) {
         OrderProducer producer = buildMqProducer();
@@ -740,16 +761,24 @@ public class RocketMqOrderProducer {
             int times = 10;
 
             for (int i = 0; i < times; i++) {
-                String body = "message:" + i;
-                String shardingKey = "key:" + i;
+
+                MsgInfo info = new MsgInfo();
+                info.setId("OnTime message:" + i);
+                info.setTimestamp(dateSupplier.get());
+
                 // message key,作为消费者幂等校验,如订单id
-                String bizId = "ORDER-" + i;
+                String bizId = "OT" + System.currentTimeMillis();
+
+                // 这个key非常重要,如果是同一个顺序的消息请设置为同一个key
+                String shardingKey = "SHARDING_3306";
 
                 // 同步发送消息
-                Message message = new Message(RocketMqConf.TOPIC, RocketMqConf.TAGS, bizId, body.getBytes());
+                Message message = new Message(RocketMqConf.TOPIC,
+                        RocketMqConf.TAGS, bizId, JSON.toJSONString(info).getBytes());
+
                 SendResult result = producer.send(message, shardingKey);
 
-                display(result);
+                display(message.getMsgID(), result);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -759,18 +788,17 @@ public class RocketMqOrderProducer {
         }
     }
 
-
     /**
      * 打印日志信息
      *
      * @param value 值
      */
-    private static void display(Object value) {
-        System.out.println(SysUtil.getTime() + " - " + value);
+    private static void display(String messageId, Object value) {
+        System.out.println(SysUtil.getTime() + " - " + value + ", messageId:" + messageId);
     }
 
     /**
-     * 创建顺序消息生产者
+     * 创建生产者
      *
      * @return {@link Producer}
      */
@@ -781,12 +809,9 @@ public class RocketMqOrderProducer {
         properties.setProperty(PropertyKeyConst.AccessKey, RocketMqConf.ACCESS_ID);
         properties.setProperty(PropertyKeyConst.SecretKey, RocketMqConf.ACCESS_KEY);
         properties.setProperty(PropertyKeyConst.GROUP_ID, RocketMqConf.GID);
-        properties.setProperty("retryTimesWhenSendFailed", "" + 5);
-
 
         return ONSFactory.createOrderProducer(properties);
     }
-
 }
 ```
 
@@ -796,7 +821,7 @@ public class RocketMqOrderProducer {
 
 ### 5.3 测试结果
 
-生产者发送消息
+首先开启`2个`消费者,生产者发送消息
 
 ```java
 2020-02-20 10:01:39 - SendResult[topic=rocket-mq-topic, messageId=AC10070C147C18B4AAC263FFA8640000]
@@ -816,22 +841,19 @@ public class RocketMqOrderProducer {
 `消费者1`消费消息如下:
 
 ```java
-RocketMqConsumer1 2020-02-20 10:10:25,738 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-0,body:message:0
-RocketMqConsumer1 2020-02-20 10:10:25,791 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-1,body:message:1
-RocketMqConsumer1 2020-02-20 10:10:25,828 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-2,body:message:2
+RocketMqConsumer1 2020-02-23 14:10:38 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582438237824,body:{"id":"OnTime message:0","timestamp":"2020-02-23 14:10:37"}
+RocketMqConsumer1 2020-02-23 14:10:38 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582438238536,body:{"id":"OnTime message:1","timestamp":"2020-02-23 14:10:38"}
+RocketMqConsumer1 2020-02-23 14:10:38 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582438238582,body:{"id":"OnTime message:2","timestamp":"2020-02-23 14:10:38"}
+RocketMqConsumer1 2020-02-23 14:10:38 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582438238650,body:{"id":"OnTime message:3","timestamp":"2020-02-23 14:10:38"}
+RocketMqConsumer1 2020-02-23 14:10:38 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582438238696,body:{"id":"OnTime message:4","timestamp":"2020-02-23 14:10:38"}
+RocketMqConsumer1 2020-02-23 14:10:38 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582438238743,body:{"id":"OnTime message:5","timestamp":"2020-02-23 14:10:38"}
+RocketMqConsumer1 2020-02-23 14:10:38 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582438238793,body:{"id":"OnTime message:6","timestamp":"2020-02-23 14:10:38"}
+RocketMqConsumer1 2020-02-23 14:10:38 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582438238841,body:{"id":"OnTime message:7","timestamp":"2020-02-23 14:10:38"}
+RocketMqConsumer1 2020-02-23 14:10:39 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582438238888,body:{"id":"OnTime message:8","timestamp":"2020-02-23 14:10:38"}
+RocketMqConsumer1 2020-02-23 14:10:39 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:OT1582438238976,body:{"id":"OnTime message:9","timestamp":"2020-02-23 14:10:38"}
 ```
 
-`消费者2`消费消息如下:
-
-```java
-RocketMqConsumer2 2020-02-20 10:10:25,877 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-3,body:message:3
-RocketMqConsumer2 2020-02-20 10:10:25,912 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-4,body:message:4
-RocketMqConsumer2 2020-02-20 10:10:25,949 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-5,body:message:5
-RocketMqConsumer2 2020-02-20 10:10:25,990 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-6,body:message:6
-RocketMqConsumer2 2020-02-20 10:10:26,039 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-7,body:message:7
-RocketMqConsumer2 2020-02-20 10:10:26,091 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-8,body:message:8
-RocketMqConsumer2 2020-02-20 10:10:26,129 - topic:rocket-mq-topic,tag:tag-a,tag-b,bizId:ORDER-9,body:message:9
-```
+消费者 2 并没有消费消息,<u>因为顺序消息在发送只会被发送到同一个 topic 的同一个 message queue 里面,在消费的时候,也只能被同一个消费者的同一个线程消费.</u>
 
 ---
 
