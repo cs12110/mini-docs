@@ -1,47 +1,60 @@
-# Java
+# Java EE
 
-本章节主要对 Java 框架知识点进行梳理,如 Spring,mybatis.
+本章节笔记为 EE 场景,请知悉.
 
 ---
 
-#### 布隆过滤器
+## 1. 基础知识
 
-[布隆过滤器原理与使用 link](https://www.jianshu.com/p/2104d11ee0a2)
+各种一言难尽的基础理论知识,你值得拥有. 泪目
 
-redis 里面没有自带的布隆过滤器,所以需要安装插件.
+#### 1.1 CAP
 
-```sh
-# 安装路径
-[root@team-2 module]# pwd
-/opt/soft/redis-4.0.8/module
+分布式系统不可能同时满足`一致性(C:Consistency)`,`可用性(A:Availability)`和`分区容错性(P:Partition tolerance)`.
 
-# git下载模块
-[root@team-2 module]# git clone https://github.com/RedisBloom/RedisBloom.git
-[root@team-2 module]# cd RedisBloom/
-[root@team-2 RedisBloom]# make &make install
+这三个基本需求,最多只能同时满足其中的两项.
 
-[root@team-2 RedisBloom]# ls
-changelog  contrib  Dockerfile  docs  LICENSE  Makefile  mkdocs.yml  ramp.yml  README.md  redisbloom.so  rmutil  src  tests
+| 概念名称   | 释义                                                                                                              |
+| ---------- | ----------------------------------------------------------------------------------------------------------------- |
+| 一致性     | 跟新操作使各节点的数据一致.                                                                                       |
+| 可用性     | 能够在有限的时间内返回明确的结果.                                                                                 |
+| 分区容错性 | 分布式系统在遇到任何网络分区故障时,任然需要能够保证对外提供满足一致性和可用性服务,除非是整个网络环境都发生了故障. |
 
-# 启动布隆过滤器
-[root@team-2 redis-4.0.8]# redis-server ./redis.conf --loadmodule ./module/RedisBloom/redisbloom.so
-```
+分布式系统无法同时满足上述单个需求,而只能满足其中的两项.
 
-布隆过滤器使用
+因此在进行对 CAP 理论的应用时,就需要抛弃其中的一项.
 
-```sh
-# 创建布隆过滤器
-47.98.104.252:6336> bf.reserve myboom 0.01 10000
-OK
+场景说明如下:
 
-# 新增值
-47.98.104.252:6336>
+![](img/sys-cap.jpg)
 
-# 判断值是否存在
-47.98.104.252:6336> bf.add myboom haiyan
-(integer) 1
-47.98.104.252:6336> bf.exists myboom haiyan
-(integer) 1
-47.98.104.252:6336> bf.exists myboom haiyan1
-(integer) 0
-```
+#### 1.2 BASE
+
+BASE 理论是对 CAP 理论的延伸,核心思想是即使无法做到强一致性`(Strong Consistency,CAP 的一致性就是强一致性)`,可以采用适合的方式达到`最终一致性(Eventual Consitency)`.
+
+BASE: <u>`基本可用(Basically Available)`,`软状态(Soft State)`,`最终一致性(Eventual Consistency)`.</u>
+
+**基本可用**: 分布式系统在出现故障的时候,允许损失部分可用性,即保证核心可用(如熔断和服务降级).
+
+**软状态**: 系统存在中间状态,而该中间状态不会影响系统整体可用性.(如分布式存储中一般一份数据至少会有三个副本,允许不同节点间副本同步的延时就是软状态的体现.mysql replication 的异步复制也是一种体现.)
+
+**最终一致性**: 系统中的所有数据副本经过一定时间后,最终能够达到一致的状态(如 rocketmq 的事务消息).
+
+#### 1.3 ACID
+
+ACID 基础知识
+
+| 名称               | 释义                                                                                              |
+| ------------------ | ------------------------------------------------------------------------------------------------- |
+| 原子性(Atomic)     | 事务中各项操作,要么全做要么全不做,任何一项操作的失败都会导致整个事务的失败.                       |
+| 一致性(Consistent) | 事务结束后系统状态是一致的.                                                                       |
+| 隔离性(Isolated)   | 并发执行的事务彼此无法看到对方的中间状态.                                                         |
+| 持久性(Durable)    | 事务完成后所做的改动都会被持久化.即使发生灾难性的失败,通过日志和同步备份可以在故障发生后重建数据. |
+
+---
+
+## 2. 参考资料
+
+a. [CAP 与 BASE 博客](https://blog.csdn.net/Y0Q2T57s/article/details/84332551)
+
+b. [ACID 博客](https://blog.csdn.net/troubleshooter/article/details/78390957)
