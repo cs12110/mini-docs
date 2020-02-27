@@ -12,25 +12,28 @@ Maven 搭建私服`Nexus`.
 
 ```sh
 # 解压路径
-[root@team-2 nexus-pro-2.14] pwd
-/opt/soft/mvn-nexus/nexus-pro-2.14
+[root@team-2 mvn-nexus]# pwd
+/opt/soft/mvn-nexus
+[root@team-2 mvn-nexus]# ls
+nexus-2.14  sonatype-work
 
-# 修改默认端口号,可以在conf/nexus.properties
-[root@team-2 nexus-pro-2.14]# ls
-bin  conf  lib  logs  nexus  NOTICE.txt  tmp
+# 修改默认端口号,可以在conf/nexus.properties,设置端口号为:9400
+[root@team-2 mvn-nexus]# cd nexus-2.14/
+[root@team-2 nexus-2.14]# ls
+bin  conf  lib  LICENSE.txt  logs  nexus  NOTICE.txt  tmp
 ```
 
 需要设置运行的用户
 
 ```sh
-[root@team-2 nexus-pro-2.14]# bin/nexus start
+[root@team-2 nexus-2.14]# bin/nexus start
 ****************************************
 WARNING - NOT RECOMMENDED TO RUN AS ROOT
 ****************************************
 If you insist running as root, then set the environment variable RUN_AS_USER=root before running this script.
 
 # 设置nexus脚本里面的RUN_AS_USER的值
-[root@team-2 nexus-pro-2.14]# vim bin/nexus
+[root@team-2 nexus-2.14]# vim bin/nexus
 #  port needs to be allocated prior to the user being changed.
 RUN_AS_USER=root
 ```
@@ -39,7 +42,7 @@ RUN_AS_USER=root
 
 ```sh
 # 开启nexus
-[root@team-2 nexus-pro-2.14]# bin/nexus start
+[root@team-2 nexus-2.14]# bin/nexus start
 ****************************************
 WARNING - NOT RECOMMENDED TO RUN AS ROOT
 ****************************************
@@ -47,7 +50,7 @@ Starting Nexus Repository Manager...
 Started Nexus Repository Manager.
 
 # 关闭nexus
-[root@team-2 nexus-pro-2.14]# bin/nexus stop
+[root@team-2 nexus-2.14]# bin/nexus stop
 ****************************************
 WARNING - NOT RECOMMENDED TO RUN AS ROOT
 ****************************************
