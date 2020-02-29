@@ -84,6 +84,8 @@ success
 
 要是安装好,不使用,那有什么用???
 
+推荐使用方式: `host 库(放置自己的 jar)+代理库(使用第三方代理,如阿里云等),然后放入对应的群组里面,在本地配置对应的群组.`
+
 #### 2.1 nexus 设置 repo
 
 ![](imgs/mvn-nexus-repo.png)
@@ -91,6 +93,14 @@ success
 新增完仓库之后可以看到仓库的信息
 
 ![](imgs/mvn-nexus-repo-info.png)
+
+新增阿里云代理库
+
+![](imgs/mvn-nexus-proxy.jpg)
+
+新增群组并设置群组里面的仓库
+
+![](imgs/mvn-nexus-repo-group.jpg)
 
 #### 2.2 上传 jar
 
@@ -106,12 +116,14 @@ success
 
 本地使用 maven 需要设置一下 mirror,假设为`mvn-nexus-setting.xml`.
 
+配置群组的地址,如下所示
+
 ```xml
 <mirror>
     <id>nexus</id>
-    <mirrorOf>central</mirrorOf>
+    <mirrorOf>*</mirrorOf>
     <name>my repo</name>
-    <url>http://47.98.104.252:9400/nexus/content/repositories/pro-mvn</url>
+    <url>http://47.98.104.252:9400/nexus/content/groups/my-group/</url>
 </mirror>
 ```
 
@@ -119,12 +131,28 @@ success
 
 在项目中需要引用`mvn-nexus-setting.xml`配置,请知悉.
 
+- my-common 从 host 仓库下载
+- mysql 和 lombok 从阿里云代理库下载
+
 ```xml
 <dependencies>
     <dependency>
         <groupId>my-common</groupId>
         <artifactId>my-common</artifactId>
         <version>1.0.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.0</version>
+        <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.18</version>
     </dependency>
 </dependencies>
 ```
@@ -164,3 +192,5 @@ public class SysUtilInvoker {
 ## 3. 参考资料
 
 a. [Maven 入门:搭建 Nexus](https://www.cnblogs.com/huangwentian/p/9182819.html)
+
+b. [Nexus 配置代理库](https://www.cnblogs.com/duanguyuan/p/11648584.html)
