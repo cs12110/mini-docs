@@ -474,6 +474,7 @@ private Future<Long> tryLockInnerAsync(final long threadId) {
 			Long ttlRemaining = future.getNow();
 			// lock acquired
 			if (ttlRemaining == null) {
+				// 自动续约逻辑
 				scheduleExpirationRenewal();
 			}
 		}
@@ -484,7 +485,92 @@ private Future<Long> tryLockInnerAsync(final long threadId) {
 
 Q: 那线程在没设置超时时间的话,只有 30s,运行时间超过了 30s 的情况,是怎么做到自动续约?
 
-A: 这个我现在也还不知道. 但这个博客可以参考一下: [link](https://www.jianshu.com/p/2a90bba8922f)
+A: Let check this out.
+
+在使用 redisson 分布式锁的时候,有一块`很重要,很重要,很重要的代码`.特别,特别,特别要注意`leaseTime`的情况.
+
+```java
+/**
+* reidsson分布式方法
+*
+* @param leaseTime 锁持有时间
+* @param unit      时间类型
+* @param threadId  线程id
+* @return RFuture
+*/
+private RFuture<Boolean> tryAcquireOnceAsync(long leaseTime, TimeUnit unit, final long threadId) {
+
+	/*
+	*如果在使用锁时候,声明了锁的持有时间,则不走自动续约的流程
+	*
+	* 比如声明leaseTime=10s,但是程序执行需要15s,那么也会在10s的释放锁.
+	*
+	* 声明leaseTime适合用在那种明确知道程序执行耗时的边界值的场景,不然就不要骚了.
+	*/
+	if (leaseTime != -1L) {
+		return this.tryLockInnerAsync(leaseTime, unit, threadId, RedisCommands.EVAL_NULL_BOOLEAN);
+	} else {
+	   /*
+		* watchdog 自动续约逻辑
+		*/
+		RFuture<Boolean> ttlRemainingFuture = this.tryLockInnerAsync(this.commandExecutor.getConnectionManager().getCfg().getLockWatchdogTimeout(), TimeUnit.MILLISECONDS, threadId, RedisCommands.EVAL_NULL_BOOLEAN);
+		ttlRemainingFuture.addListener(new FutureListener<Boolean>() {
+			public void operationComplete(Future<Boolean> future) throws Exception {
+				if (future.isSuccess()) {
+					Boolean ttlRemaining = (Boolean) future.getNow();
+					if (ttlRemaining) {
+						// 自动续约逻辑
+						RedissonLock.this.scheduleExpirationRenewal(threadId);
+					}
+
+				}
+			}
+		});
+		return ttlRemainingFuture;
+   }
+}
+```
+
+现在看看自动续约的逻辑
+
+```java
+/**
+* 自动续约
+*
+* @param threadId 线程id
+*/
+private void scheduleExpirationRenewal(final long threadId) {
+if (!expirationRenewalMap.containsKey(this.getEntryName())) {
+	/*
+	*  构建定时器,每`this.internalLockLeaseTime / 3L`定时去续约`internalLockLeaseTime`时长,这样子也就解决了死锁的问题
+	*
+	*  因为不会一直持有,如果你设置的时间和合理的话,默认为30s.
+	*/
+	Timeout task = this.commandExecutor.getConnectionManager().newTimeout(new TimerTask() {
+		public void run(Timeout timeout) throws Exception {
+			RFuture<Boolean> future = RedissonLock.this.commandExecutor.evalWriteAsync(RedissonLock.this.getName(), LongCodec.INSTANCE, RedisCommands.EVAL_BOOLEAN, "if (redis.call('hexists', KEYS[1], ARGV[2]) == 1) then redis.call('pexpire', KEYS[1], ARGV[1]); return 1; end; return 0;", Collections.singletonList(RedissonLock.this.getName()), new Object[]{RedissonLock.this.internalLockLeaseTime, RedissonLock.this.getLockName(threadId)});
+			future.addListener(new FutureListener<Boolean>() {
+				public void operationComplete(Future<Boolean> future) throws Exception {
+					RedissonLock.expirationRenewalMap.remove(RedissonLock.this.getEntryName());
+					if (!future.isSuccess()) {
+						RedissonLock.log.error("Can't update lock " + RedissonLock.this.getName() + " expiration", future.cause());
+					} else {
+						if ((Boolean) future.getNow()) {
+							RedissonLock.this.scheduleExpirationRenewal(threadId);
+						}
+
+					}
+				}
+			});
+		}
+	}, this.internalLockLeaseTime / 3L, TimeUnit.MILLISECONDS);
+	if (expirationRenewalMap.putIfAbsent(this.getEntryName(), task) != null) {
+		task.cancel();
+	}
+
+}
+}
+```
 
 ---
 
@@ -497,3 +583,5 @@ A: 这个我现在也还不知道. 但这个博客可以参考一下: [link](htt
 ## 4. 参考资料
 
 a. [Redission 分布式锁实现原理](https://www.cnblogs.com/diegodu/p/8185480.html)
+
+b. [Redisson 分布式锁自动续约]((https://www.jianshu.com/p/2a90bba8922f)

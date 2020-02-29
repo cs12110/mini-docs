@@ -167,7 +167,13 @@ Sub spend: 53
 
 ---
 
-## 4. List 初始化
+## 4. List&Map 初始化
+
+Q: 常见的 List 和 Map,有什么好写的?
+
+A: 那你用对了吗?
+
+### 4.1 List 初始化
 
 哈,List 里面的根本组成就是`Object[] values`.如果在初始化,不进行长度的控制,默认长度初始化为`10`,那么在 add 新的元素的时候,当数组长度达到(size+1>length)的时候,就会按照`length*1.5`倍来增长数组.也就是在默认初始化的情况下:
 
@@ -210,6 +216,48 @@ public class LengthOfList {
 可能 11 个长度太小没什么影响,那么请想象一下 100w 或者 100 个并发,每个并发使用 1w 长度的数组,这样子就省下不少空间了.
 
 所以,在明确长度的情况下,请使用`new ArrayList(int capacity)`来构造 List.
+
+### 4.2 Map 初始化
+
+前提: <u>HashMap 默认初始化为 16 个节点,每个节点是链表或者 tree,当节点的链表的长度>=8 时,演化成 tree.当节点长度>16\*0.75(12)的时候,开始扩充节点数(resize)为 2 倍(newCap = oldCap << 1).</u>
+
+平常使用里面,一般都是
+
+```java
+Map<String, Object> map = new HashMap<>(4);
+map.put("k1", 1);
+map.put("k2", 1);
+map.put("k3", 1);
+map.put("k4", 1);
+```
+
+但这里有一点小小的问题,在 map 初始化的时候声明长度的时候,调用`HashMap#tableSize`获取应该初始化的节点长度(必须为 2 的幂).
+
+比如是 4 的话,则返回 4,如果是 6 的话,返回 8,如果是 80 的话,返回 124,如此类推.
+
+```java
+/**
+* Returns a power of two size for the given target capacity.
+*/
+static final int tableSizeFor(int cap) {
+	int n = cap - 1;
+	n |= n >>> 1;
+	n |= n >>> 2;
+	n |= n >>> 4;
+	n |= n >>> 8;
+	n |= n >>> 16;
+	System.out.println("n:" + n);
+	return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+}
+```
+
+Q: 那么上面那个`new HashMap<>(4)`问题出现在哪里?
+
+A: 当 put 进第 4 个元素的时候(4>=4\*0.75)就要 resize 了,那么和减少无用的空间浪费是违背的.
+
+Q: 那么该怎么改进?
+
+A: 声明的时候,同时声明 loadFactor. 比如:`new HashMap(4,1)`.或者直接不声明 capacity 大小,全都交给 java 默认来做. 笑哭脸.jpg
 
 ---
 
@@ -1778,8 +1826,8 @@ public class ReflectApp {
 
 ```json
 {
-	"birth":1497147630000,
-	"id":1,
-	"name":"3306"
+  "birth": 1497147630000,
+  "id": 1,
+  "name": "3306"
 }
 ```
