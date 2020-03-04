@@ -1,4 +1,6 @@
-# docker
+# docker map
+
+**该文档操作系统为:`centos7`,请知悉.**
 
 我: Hi,docker,can I call you dog???
 
@@ -55,6 +57,10 @@ yum remove docker \
 
 # 安装docker
 [root@team-2 ~]# yum -y install docker-ce docker-ce-cli containerd.io
+
+# 安装完成之后可以看到版本号,同时docker的配置文件在/etc/docker/里面
+root@team-2 ~]# docker --version
+Docker version 19.03.6, build 369ce74a3c
 ```
 
 如果上面都完成了,那么我们该 `Hello world`.
@@ -112,15 +118,21 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 a27f9a637d62        5e35e350aded        "bin/bash"          29 minutes ago      Up 28 minutes                           centos7-v1
 ```
 
+**文件操作命令**
+
+```sh
+# 将主机/www/runoob目录拷贝到容器a27f9a637d62的/www目录下.
+[root@team-2 soft]# docker cp /www/runoob a27f9a637d62:/www/
+
+# 将容器a27f9a637d62的/www目录拷贝到主机的/tmp目录中.
+[root@team-2 soft]# docker cp  a27f9a637d62:/www /tmp/
+```
+
 ---
 
 ## 2. docker 使用
 
-docker 要使用才叫 docker 呀.
-
 ### 2.1 获取镜像
-
-使用国内的镜像会比较快
 
 Q: 那么问题来了,该怎么找镜像?
 
@@ -129,6 +141,7 @@ A: 可以在这个网站找到镜像,然后根据名称下载. [hub link](https:
 ```sh
 [root@team-2 ~]# cd /etc/docker/
 
+# 使用国内的镜像会比较快
 # 如果daemon.json不存在,则新建并写入如下json内容
 [root@team-2 docker]# cat daemon.json
 {"registry-mirrors":["https://registry.docker-cn.com"]}
@@ -154,10 +167,11 @@ centos              7                   5e35e350aded        3 months ago        
 hello-world         latest              fce289e99eb9        14 months ago       1.84kB
 ```
 
+### 2.2 创建容器
+
 首次创建容器并运行
 
 ```sh
-#
 # -i: 以交互模式运行容器,通常与 -t 同时使用
 # -t: 为容器重新分配一个伪输入终端,通常与 -i 同时使用
 # -p: 指定端口映射,格式为:`主机(宿主)端口:容器端口`
@@ -166,7 +180,7 @@ hello-world         latest              fce289e99eb9        14 months ago       
 #
 [root@team-2 ~]# docker run -it --name centos7-box centos:7
 
-# 这个终端已经是容器里面的了
+# 这个终端已经是容器里面
 [root@0695454bfe8e /]# exit
 
 # 查看所有的容器
@@ -192,7 +206,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 [root@0695454bfe8e /]#
 ```
 
-Q: 要是我想安装 jdk 环境该怎么安装?
+Q: 要是想安装 jdk 环境该怎么安装?
 
 A: 把本地的 jdk 安装包传到容器里面,该怎么配置就怎么配置.
 
@@ -215,7 +229,7 @@ jdk1.8.tar.gz
 将当前容器提交成镜像
 
 ```sh
-# commit 容器id 
+# commit 容器id
 [root@team-2 soft]# docker commit a27f9a637d62 centos7-with-jdk-tomcat
 [root@team-2 soft]# docker  images
 REPOSITORY                TAG                 IMAGE ID            CREATED             SIZE
@@ -227,16 +241,54 @@ hello-world               latest              fce289e99eb9        14 months ago 
 [root@team-2 soft]# docker run -it -p 9500:8080 8e0001d8989c  /bin/bash
 ```
 
-### 2.2 搬家
+启动容器里面的 tomcat 之后,就可以通过浏览器访问了.
+
+### 2.3 搬家
+
+Q: 好的,我现在已经安装好整一个容器的环境,那我该怎么移植到一台服务器上面去?
+
+A: 将容器导出来,然后搬到另一台服务器,导进去.
+
+流程: `47.98.104.252导出容器` -> `scp到118.89.113.147` -> `118.89.113.147导入目标容器`.
+
+#### 导出容器
 
 ```sh
+[root@team-2 ~]# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+8753e1d3e736        8e0001d8989c        "/bin/bash"         7 hours ago         Up 7 hours          0.0.0.0:9500->8080/tcp   centos7-v2
+
+# 根据容器id导出容器
+[root@team-2 ~]# docker export 8753e1d3e736 > /opt/soft/pkgs/centos7-jdk.tar.gz
+
+# 导出成功之后,可以在目标文件夹看到压缩包
+[root@team-2 ~]# ls -alh /opt/soft/pkgs/ |grep centos
+-rw-r--r--  1 root root 724M Mar  4 21:50 centos7-jdk.tar.gz
+
+# scp到另一台服务器
+[root@team-2 pkgs]# scp centos7-jdk.tar.gz root@118.89.113.147:/opt/soft
+```
+
+#### 导入容器
+
+```sh
+# 系统原有镜像
+[root@team3 ~]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+docker.io/mysql     latest              7a3923452254        37 hours ago        465 MB
+docker.io/centos    7                   5e35e350aded        3 months ago        203 MB
+docker.io/centos    centos7             5e35e350aded        3 months ago        203 MB
+
+# 导入目标镜像
+
+
+# 启动目标镜像容器
+
 
 ```
 
 ---
 
-## 参考资料
+## 3. 参考资料
 
-a. [菜鸟教程 docker link](https://www.runoob.com/docker/centos-docker-install.html)
-
-b. [个人之前笔记 link](https://app.yinxiang.com/shard/s51/nl/10635036/daa5e83e-d01f-4050-9e6d-5bc335f6d217?title=Docker%2BCentOS7)
+a. [菜鸟教程 docker](https://www.runoob.com/docker/centos-docker-install.html)
