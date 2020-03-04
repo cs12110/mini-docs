@@ -275,16 +275,40 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 # 系统原有镜像
 [root@team3 ~]# docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-docker.io/mysql     latest              7a3923452254        37 hours ago        465 MB
-docker.io/centos    7                   5e35e350aded        3 months ago        203 MB
-docker.io/centos    centos7             5e35e350aded        3 months ago        203 MB
 
 # 导入目标镜像
+[root@team3 soft]# docker import centos7-jdk.tar.gz centos7-jdk:centos7-jdk
+sha256:dfd317699f590bf4e0c6ecf9db93e0aa930c6b47e0aef37013de1182de6c99a2
 
+[root@team3 soft]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+centos7-jdk         centos7-jdk         dfd317699f59        31 seconds ago      749 MB
 
 # 启动目标镜像容器
+root@team3 soft]# docker run -it --name centos7-jdk -p 9500:8080 dfd317699f59 /bin/bash
 
+# 进入容器并且启动tomcat
+[root@9816335bf0b1 /]# source /etc/profile
+[root@9816335bf0b1 /]# cd /opt/soft/tomcat8.5/
+[root@9816335bf0b1 tomcat8.5]# bin/startup.sh
+Using CATALINA_BASE:   /opt/soft/tomcat8.5
+Using CATALINA_HOME:   /opt/soft/tomcat8.5
+Using CATALINA_TMPDIR: /opt/soft/tomcat8.5/temp
+Using JRE_HOME:        /opt/soft/jdk/jdk1.8/
+Using CLASSPATH:       /opt/soft/tomcat8.5/bin/bootstrap.jar:/opt/soft/tomcat8.5/bin/tomcat-juli.jar
+Tomcat started.
 
+# 检查是否正常启动
+[root@9816335bf0b1 tomcat8.5]# curl http://127.0.0.1:8080
+[root@9816335bf0b1 tomcat8.5]# exit
+
+# 因为不是守护进程的开启,所以又要重新进去容器开启tomcat
+[root@team3 soft]# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES
+9816335bf0b1        dfd317699f59        "/bin/bash"         6 minutes ago       Up 2 minutes        0.0.0.0:9500->8080/tcp   centos7-jdk
+
+# 检查能否联通容器内部的tomcat
+[root@team3 soft]# curl  http://127.0.0.1:9500
 ```
 
 ---
