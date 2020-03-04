@@ -90,6 +90,28 @@ This message shows that your installation appears to be working correctly.
 [root@team-2 ~]# systemctl restart docker
 ```
 
+**镜像和容器管理**
+
+```sh
+#删除镜像,首先要删除该镜像关联的容器
+[root@team-2 ~]# docker rm containerId
+
+#删除镜像
+[root@team-2 ~]# docker rmi -f imageId
+```
+
+**容器重命名**
+
+```sh
+[root@team-2 soft]# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+a27f9a637d62        5e35e350aded        "bin/bash"          28 minutes ago      Up 27 minutes                           serene_mcnulty
+[root@team-2 soft]# docker rename serene_mcnulty centos7-v1
+[root@team-2 soft]# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+a27f9a637d62        5e35e350aded        "bin/bash"          29 minutes ago      Up 28 minutes                           centos7-v1
+```
+
 ---
 
 ## 2. docker 使用
@@ -132,7 +154,84 @@ centos              7                   5e35e350aded        3 months ago        
 hello-world         latest              fce289e99eb9        14 months ago       1.84kB
 ```
 
-### 2.2
+首次创建容器并运行
+
+```sh
+#
+# -i: 以交互模式运行容器,通常与 -t 同时使用
+# -t: 为容器重新分配一个伪输入终端,通常与 -i 同时使用
+# -p: 指定端口映射,格式为:`主机(宿主)端口:容器端口`
+# -v: 绑定一个卷
+# --name: 指定容器的名称
+#
+[root@team-2 ~]# docker run -it --name centos7-box centos:7
+
+# 这个终端已经是容器里面的了
+[root@0695454bfe8e /]# exit
+
+# 查看所有的容器
+# docker ps: 查看正在运行的容器
+[root@team-2 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
+0695454bfe8e        centos:7            "/bin/bash"         5 minutes ago       Exited (0) 4 minutes ago                       centos7-box
+0aee31e4df9d        hello-world         "/hello"            10 hours ago        Exited (0) 10 hours ago                        hungry_einstein
+
+# 关闭容器
+[root@team-2 ~]# docker stop centos7-box
+[root@team-2 ~]# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
+# 重新启动该容器
+[root@team-2 ~]# docker start 0695454bfe8e
+0695454bfe8e
+[root@team-2 ~]# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+0695454bfe8e        centos:7            "/bin/bash"         10 minutes ago      Up 7 seconds                            centos7-box
+# 进入容器并进行相关操作
+[root@team-2 ~]# docker exec -it 0695454bfe8e /bin/bash
+[root@0695454bfe8e /]#
+```
+
+Q: 要是我想安装 jdk 环境该怎么安装?
+
+A: 把本地的 jdk 安装包传到容器里面,该怎么配置就怎么配置.
+
+```sh
+[root@team-2 soft]# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+a27f9a637d62        5e35e350aded        "bin/bash"          9 minutes ago       Up 9 minutes                            serene_mcnulty
+
+# a27f9a637d62: 容器id
+# /opt/soft/jdk: 保存容器的文件夹首先存在
+[root@team-2 soft]# docker cp /opt/soft/docker/jdk1.8.tar.gz a27f9a637d62:/opt/soft/jdk
+
+# 进入容器
+[root@team-2 soft]# docker exec -it a27f9a637d62 /bin/bash
+[root@a27f9a637d62 /]# cd /opt/soft/jdk/
+[root@a27f9a637d62 jdk]# ls
+jdk1.8.tar.gz
+```
+
+将当前容器提交成镜像
+
+```sh
+# commit 容器id 
+[root@team-2 soft]# docker commit a27f9a637d62 centos7-with-jdk-tomcat
+[root@team-2 soft]# docker  images
+REPOSITORY                TAG                 IMAGE ID            CREATED             SIZE
+centos7-with-jdk-tomcat   latest              8e0001d8989c        6 minutes ago       749MB
+centos                    7                   5e35e350aded        3 months ago        203MB
+hello-world               latest              fce289e99eb9        14 months ago       1.84kB
+
+# 使用新的镜像运行的容器,并映射端口
+[root@team-2 soft]# docker run -it -p 9500:8080 8e0001d8989c  /bin/bash
+```
+
+### 2.2 搬家
+
+```sh
+
+```
 
 ---
 
