@@ -154,7 +154,7 @@ A: 可以在这个网站找到镜像,然后根据名称下载. [hub link](https:
 
 ```sh
 # 查找符合条件的镜像
-[root@team-2 docker]# systemctl restart docker
+[root@team-2 docker]# docker search centos
 
 # 下载centos到本地
 [root@team-2 docker]# docker pull centos:7
@@ -224,6 +224,17 @@ a27f9a637d62        5e35e350aded        "bin/bash"          9 minutes ago       
 [root@a27f9a637d62 /]# cd /opt/soft/jdk/
 [root@a27f9a637d62 jdk]# ls
 jdk1.8.tar.gz
+```
+
+Q: <font color="red">可是为什么每次进入容器,都要执行`source /etc/profile`,jdk 环境才能生效?</font>
+
+A: 解决方法是在容器里面的`/etc/bashrc`文件末尾处添加如下命令,以后每次登陆就不用刷新. :"}
+
+小知识点:`/etc/bashrc:为每一个运行bash shell的用户执行此文件.当bash shell被打开时,该文件被读取.`
+
+```sh
+# set refresh /etc/profile
+source /etc/profile
 ```
 
 将当前容器提交成镜像
@@ -316,3 +327,5 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 ## 3. 参考资料
 
 a. [菜鸟教程 docker](https://www.runoob.com/docker/centos-docker-install.html)
+
+b. [菜鸟教程 dockerfile](https://www.runoob.com/docker/docker-dockerfile.html)
