@@ -4,6 +4,8 @@ PostgreSQL:`免费的对象-关系数据库服务器(ORDBMS),Slogan 是 "世界�
 
 By the way,please call me: `post-gress-ql`.
 
+此篇文档建立在熟悉 SQL 语法的前提上,请知悉.
+
 ---
 
 ## 1. 安装 PostgreSQL
@@ -224,17 +226,183 @@ ORDER BY
 	class_t.relname DESC;
 ```
 
+##### 表结构操作
+
+```sh
+# 修改表名称: t_asset_info -> t_asset
+pg_db=# alter table t_asset_info rename to t_asset
+
+# 修改表字段名称
+pg_db=# alter table t_asset_info rename personid to person_id;
+```
+
+##### 索引操作
+
+```sh
+# 在没有添加索引的执行计划
+pg_db=# explain analyze  select t_person_info.id ,t_person_info.name , t_person_info.age ,t_asset_info.asset_name , t_asset_info.price  from t_person_info left join t_asset_info on t_asset_info.person_id = t_person_info.id;
+                                                       QUERY PLAN
+
+----------------------------------------------------------------------------------------------------
+--------------------
+ Hash Right Join  (cost=15.85..27.63 rows=260 width=804) (actual time=0.034..0.038 rows=1 loops=1)
+   Hash Cond: (t_asset_info.person_id = t_person_info.id)
+   ->  Seq Scan on t_asset_info  (cost=0.00..11.40 rows=140 width=528) (actual time=0.003..0.003 row
+s=1 loops=1)
+   ->  Hash  (cost=12.60..12.60 rows=260 width=280) (actual time=0.018..0.018 rows=1 loops=1)
+         Buckets: 1024  Batches: 1  Memory Usage: 9kB
+         ->  Seq Scan on t_person_info  (cost=0.00..12.60 rows=260 width=280) (actual time=0.012..0.
+013 rows=1 loops=1)
+ Planning Time: 0.149 ms
+ Execution Time: 0.073 ms
+(8 rows)
+```
+
+添加索引
+
+```sh
+# 创建唯一索引: CREATE UNIQUE INDEX index_name  on table_name (column_name);
+# 组合索引: CREATE INDEX index_name ON table_name (column1_name, column2_name);
+# 创建idx_person_id索引如下所示
+pg_db=# create index idx_person_id on t_asset_info(person_id);
+
+pg_db=# \d t_asset_info;
+                     Table "public.t_asset_info"
+   Column   |          Type          | Collation | Nullable | Default
+------------+------------------------+-----------+----------+---------
+ id         | integer                |           | not null |
+ person_id  | integer                |           | not null |
+ asset_name | character varying(256) |           | not null |
+ price      | money                  |           | not null |
+Indexes:
+    "t_asset_info_pkey" PRIMARY KEY, btree (id)
+    "idx_person_id" btree (person_id)
+
+# 如果要删除索引,这有点奇怪,如果多张表有同一个名称的索引,怎么办???
+pg_db=# drop index idx_person_id ;
+DROP INDEX
+```
+
+新的执行计划
+
+```sh
+pg_db=# explain analyze  select t_person_info.id ,t_person_info.name , t_person_info.age ,t_asset_info.asset_name , t_asset_info.price  from t_person_info left join t_asset_info on t_asset_info.person_id = t_person_info.id;
+                                                     QUERY PLAN
+
+----------------------------------------------------------------------------------------------------
+----------------
+ Hash Left Join  (cost=1.02..14.61 rows=260 width=804) (actual time=0.026..0.028 rows=1 loops=1)
+   Hash Cond: (t_person_info.id = t_asset_info.person_id)
+   ->  Seq Scan on t_person_info  (cost=0.00..12.60 rows=260 width=280) (actual time=0.007..0.008 ro
+ws=1 loops=1)
+   ->  Hash  (cost=1.01..1.01 rows=1 width=528) (actual time=0.009..0.009 rows=1 loops=1)
+         Buckets: 1024  Batches: 1  Memory Usage: 9kB
+         ->  Seq Scan on t_asset_info  (cost=0.00..1.01 rows=1 width=528) (actual time=0.005..0.006
+rows=1 loops=1)
+ Planning Time: 0.317 ms
+ Execution Time: 0.057 ms
+(8 rows)
+```
+
 ---
 
 ## 3. 增删改查
 
+Here we go.
+
+使用表结构如下
+
+```sh
+pg_db=# \d t_person_info;
+                   Table "public.t_person_info"
+ Column |          Type          | Collation | Nullable | Default
+--------+------------------------+-----------+----------+---------
+ id     | integer                |           | not null |
+ name   | character varying(128) |           | not null |
+ age    | smallint               |           | not null |
+```
+
+```sh
+pg_db=# \d t_asset_info;
+                     Table "public.t_asset_info"
+   Column   |          Type          | Collation | Nullable | Default
+------------+------------------------+-----------+----------+---------
+ id         | integer                |           | not null |
+ personid   | integer                |           | not null |
+ asset_name | character varying(256) |           | not null |
+ price      | money                  |           | not null |
+```
+
 #### 3.1 增加数据
+
+看起来这个和 mysql 的语法没什么区别.
+
+```sh
+# 新增数据
+pg_db=# insert into t_person_info(id,name,age) values(1,'3306',33);
+INSERT 0 1
+
+# 查询数据
+pg_db=# select id as pid,name ,age from t_person_info where id =1;
+ pid | name | age
+-----+------+-----
+   1 | 3306 |  33
+(1 row)
+
+# 批量插入数据
+pg_db=# insert into t_person_info(id,name,age) values(2,'haiyan',30),(3,'Aya',20);
+INSERT 0 2
+pg_db=# select id as pid,name ,age from t_person_info;
+ pid |  name  | age
+-----+--------+-----
+   1 | 3306   |  33
+   2 | haiyan |  30
+   3 | Aya    |  **20**
+```
 
 #### 3.2 删除数据
 
+```sql
+# 删除名称不为'haiyan'的数据
+pg_db=# delete from t_person_info where name not like 'haiyan';
+DELETE 2
+
+pg_db=# select * from t_person_info;
+ id |  name  | age
+----+--------+-----
+  2 | haiyan |  30
+```
+
 #### 3.3 更新数据
 
+```sql
+g_db=# update t_person_info set age = 18 where id =2 ;
+UPDATE 1
+pg_db=# select * from t_person_info;
+ id |  name  | age
+----+--------+-----
+  2 | haiyan |  18
+```
+
 #### 3.4 查询数据
+
+关联多表查询的`join`和 SQL 里面的`join`相似,请知悉.
+
+```sh
+# 资产表信息
+pg_db=# insert into t_asset_info(id,personid,asset_name,price) values(1,2,'car',1900.90);
+INSERT 0 1
+pg_db=# select * from t_asset_info;
+ id | personid | asset_name |   price
+----+----------+------------+-----------
+  1 |        2 | car        | $1,900.90
+
+# 查询
+pg_db=# select t_person_info.id ,t_person_info.name , t_person_info.age ,t_asset_info.asset_name , t_asset_info.price  from t_person_info left join t_asset_info on t_asset_info.personid = t_person_info.id;
+ id |  name  | age | asset_name |   price
+----+--------+-----+------------+-----------
+  2 | haiyan |  18 | car        | $1,900.90
+```
 
 ---
 
@@ -251,3 +419,5 @@ ORDER BY
 a. [postgresql 官网](https://www.postgresql.org/docs/manuals/)
 
 b. [菜鸟教程 postgresql 教程](https://www.runoob.com/postgresql/postgresql-tutorial.html)
+
+c. [postgresql 执行计划](https://blog.csdn.net/JAVA528416037/article/details/91998019)
