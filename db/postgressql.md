@@ -75,6 +75,43 @@ $ systemctl restart postgresql-12
 $ systemctl stop postgresql-12
 ```
 
+### 1.3 开启远程访问
+
+```sh
+# 找到配置文件位置
+# root @ team-2 in /usr/pgsql-12/lib [14:42:09]
+$ find / -name postgresql.conf
+/var/lib/pgsql/12/data/postgresql.conf
+
+# 修改postgresql.conf
+# root @ team-2 in /var/lib/pgsql/12/data [14:43:51]
+$ vim postgresql.conf
+
+listen_addresses = '*'
+port = 5432
+
+# 修改pg_hba.conf
+# root @ team-2 in /var/lib/pgsql/12/data [14:46:49]
+$ vim pg_hba.conf
+local   replication     all                                     peer
+host    all             all             127.0.0.1/32            ident
+host    all             all             0.0.0.0/0               md5
+```
+
+```sh
+# 修改密码
+postgres=# alter role postgres with password 'postgres@5432';
+ALTER ROLE
+postgres=# \q
+```
+
+重启`postgresql`服务之后,就可以使用远程登录了
+
+```sh
+-bash-4.2$ ./psql -h 47.98.104.252 -p 5432 -U postgres  pg_db;
+Password for user postgres:
+```
+
 ---
 
 ## 2. postgrsql 语法
