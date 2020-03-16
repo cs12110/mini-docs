@@ -204,6 +204,42 @@ Indexes:
     "t_person_info_pkey" PRIMARY KEY, btree (id)
 ```
 
+Q: 如果要设置 id 自增该怎么办?
+
+A: 可以使用 `SERIAL`.
+
+```sh
+# id声明为serial
+pg_db=#
+create table t_bank_card_info(
+id serial primary key,
+bank_name varchar(128) not null,
+card_no varchar(32) not null);
+
+CREATE TABLE
+
+# 显示表信息,默认创建了t_bank_card_info_id_seq序列
+pg_db=# \d t_bank_card_info
+                                     Table "public.t_bank_card_info"
+  Column   |          Type          | Collation | Nullable |                   Default
+-----------+------------------------+-----------+----------+----------------------------------------------
+ id        | integer                |           | not null | nextval('t_bank_card_info_id_seq'::regclass)
+ bank_name | character varying(128) |           | not null |
+ card_no   | character varying(32)  |           | not null |
+Indexes:
+    "t_bank_card_info_pkey" PRIMARY KEY, btree (id)
+
+
+# 插入数据
+pg_db=# insert into t_bank_card_info(bank_name,card_no) values('工商银行','112358');
+INSERT 0 1
+pg_db=# select * from t_bank_card_info;
+ id | bank_name | card_no 
+----+-----------+---------
+  1 | 工商银行  | 112358
+
+```
+
 ##### 删除表
 
 ```sh
@@ -211,7 +247,7 @@ pg_db=# drop table if exists t_person_info;
 DROP TABLE
 ```
 
-##### 注解
+##### 注释
 
 在 postgresql 里面的注释和 mysql 的差别比较大.
 
@@ -229,7 +265,7 @@ A: 但你能想到`\d t_person_info`看不到注释吗?
 
 Q: What???
 
-A: 所以要用特殊的方式来看了.流下来没有技术的眼泪.
+A: 所以要用特殊的方式来看了.流下来没有技术的眼泪.jpg
 
 ```sql
 -- 查看表的注释
@@ -445,9 +481,215 @@ pg_db=# select t_person_info.id ,t_person_info.name , t_person_info.age ,t_asset
 
 ## 4. J&P
 
+Java say hi to postgresql.
+
 #### 4.1 deps
 
+```xml
+<dependency>
+   <groupId>org.postgresql</groupId>
+   <artifactId>postgresql</artifactId>
+   <version>42.1.1</version>
+</dependency>
+```
+
 #### 4.2 code
+
+##### 配置
+
+```java
+package com.pg;
+
+/**
+ * @author cs12110 create at 2020/3/16 10:12
+ * @version 1.0.0
+ */
+public class PostgresqlConf {
+
+    /**
+     * URL地址
+     */
+    public static final String URL = "jdbc:postgresql://47.98.104.252:5432/pg_db";
+
+    /**
+     * 数据库用户
+     */
+    public static final String USER = "postgres";
+
+    /**
+     * 登录密码
+     */
+    public static final String PASSWORD = "postgres@5432";
+}
+```
+
+##### 工具类
+
+```java
+package com.pg;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+/**
+ * @author cs12110 create at 2020/3/16 10:10
+ * @version 1.0.0
+ */
+public class PostgresqlFactory {
+
+    /**
+     * 数据库连接驱动名称
+     */
+    private static final String POSTGRESQL_DRIVER_NAME = "org.postgresql.Driver";
+
+    /**
+     * 获取数据库连接
+     *
+     * @param url      url
+     * @param user     user
+     * @param password password
+     * @return Connection
+     */
+    public static Connection getConnection(String url, String user, String password) {
+        Connection conn = null;
+        try {
+            Class.forName(POSTGRESQL_DRIVER_NAME);
+            conn = DriverManager.getConnection(url, user, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return conn;
+    }
+
+}
+```
+
+##### 测试使用
+
+```java
+package com.pg;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+/**
+ * @author cs12110 create at 2020/3/16 10:15
+ * @version 1.0.0
+ */
+public class PostgresqlMocker {
+
+    public static void main(String[] args) {
+        try (
+                Connection connection = PostgresqlFactory.getConnection(
+                        PostgresqlConf.URL,
+                        PostgresqlConf.USER,
+                        PostgresqlConf.PASSWORD
+                )) {
+
+            select(connection);
+            update(connection);
+            insert(connection);
+            delete(connection);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 选择数据
+     *
+     * @param connection connection
+     */
+    private static void select(Connection connection) {
+        String sql = "select * from t_person_info where id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setObject(1, 2);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                System.out.println("Person name: " + resultSet.getString("name"));
+            }
+
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 更新数据
+     *
+     * @param connection connection
+     */
+    private static void update(Connection connection) {
+        String sql = "update t_person_info set name = ? where id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setObject(1, "Miss haiyan");
+            preparedStatement.setObject(2, 2);
+
+            int update = preparedStatement.executeUpdate();
+
+            System.out.println("Update result: " + update);
+
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 新增数据
+     *
+     * @param connection connection
+     */
+    private static void insert(Connection connection) {
+        String sql = "insert into t_person_info (id,name,age) values(?,?,?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setObject(1, 10);
+            preparedStatement.setObject(2, "Mr 3306");
+            preparedStatement.setObject(3, 36);
+
+            int update = preparedStatement.executeUpdate();
+            // 获取自增主键
+            // ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+
+            System.out.println("Insert result: " + update);
+
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除数据
+     *
+     * @param connection connection
+     */
+    private static void delete(Connection connection) {
+        String sql = "delete from t_person_info where id = ? ";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setObject(1, 10);
+
+            int update = preparedStatement.executeUpdate();
+
+            System.out.println("Delete result: " + update);
+
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
 
 ---
 
@@ -458,3 +700,5 @@ a. [postgresql 官网](https://www.postgresql.org/docs/manuals/)
 b. [菜鸟教程 postgresql 教程](https://www.runoob.com/postgresql/postgresql-tutorial.html)
 
 c. [postgresql 执行计划](https://blog.csdn.net/JAVA528416037/article/details/91998019)
+
+d. [postgresql 主键自增](https://blog.csdn.net/u011042248/article/details/49422305)

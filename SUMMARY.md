@@ -57,13 +57,14 @@
 ---
 
 - [数据库](db/README.md)
-  - [Sql 优化基础](db/Mysql性能优化.md)
-  - [Mysql 事务隔离](db/Mysql事务隔离机制.md)
-  - [Mysql 备份与恢复](db/Mysql备份与恢复.md)
-  - [Mysql 读写分离](db/Mysql之读写分离.md)
-  - [Redis 集群安装](db/Redis-install.md)
-  - [Redis 数据备份](db/Redis数据备份.md)
-  - [Redis 事务管理](db/Redis事务.md)
+  - [Sql 优化基础](db/mysql-opt.md)
+  - [Mysql 事务隔离](db/mysql-tx.md)
+  - [Mysql 备份与恢复](db/mysql-backup-recover.md)
+  - [Mysql 读写分离](db/mysql-read-write.md)
+  - [Redis 集群安装](db/redis-install.md)
+  - [Redis 数据备份](db/redis-backup.md)
+  - [Redis 事务管理](db/redis-tx.md)
+  - [PostgreSQL 基础](db/postgresql.md)
 
 ---
 
