@@ -30,6 +30,8 @@
 <dependencies>
 ```
 
+---
+
 ## 2. 切面计算执行耗时
 
 在性能测试里面,我们需要找到某一个方法执行耗时多久的情况,这是 AOP 绝佳的一个使用场景.
@@ -76,7 +78,7 @@ import org.springframework.stereotype.Component;
  * <code>Around</code>:环绕执行
  * </pre>
  *
- * @author huanghuapeng 2017年9月18日
+ * @author cs12110 2017年9月18日
  * @since 1.0
  */
 @Aspect
@@ -830,6 +832,39 @@ public void init() {
 
 ```java
 2019-03-21 16:50:18 INFO  com.pkgs.App:43 - {"age":36,"gender":"male","name":"cs12110"}
+```
+
+Q: wait.要是我的配置并不在 application.yml 里面怎么办?
+
+A: 可以使用`@ConfigurationProperties`+`@PropertySource`指定配置文件.
+
+比如`bank.properties`配置位于`resources/config/`文件夹里面.
+
+```java
+@Data
+@PropertySource("classpath:config/bank.properties")
+@ConfigurationProperties(prefix = "bank")
+@Component
+public class MyBankProperties {
+
+    private String name;
+    private String address;
+    private Integer level;
+
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
+}
+```
+
+配置文件内容如下
+
+```properties
+bank.name=my bank
+bank.address=my pocket
+bnak.level=5
 ```
 
 ---
@@ -1645,6 +1680,140 @@ public void downloadFile(HttpServletResponse response, String fileName) {
         outputStream.close();
     } catch (Exception e) {
         log.error("Function[downloadFile],fileName:" + fileName, e);
+    }
+}
+```
+
+---
+
+## 13. 全局异常
+
+全局异常也挺重要的,心累.
+
+### 13.1 定义业务异常
+
+```java
+import com.alibaba.fastjson.JSON;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+/**
+ * @author cs12110 create at 2020/3/17 13:59
+ * @version 1.0.0
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class BizException extends RuntimeException {
+
+    @AllArgsConstructor
+    @Getter
+    enum StatusEnum {
+
+        /**
+         * 操作成功:1
+         */
+        SUCCESS(1, "成功"),
+        /**
+         * 操作失败:0
+         */
+        FAILURE(0, "失败");
+
+        private final int value;
+        private final String desc;
+    }
+
+    private Integer status;
+    private String message;
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
+}
+```
+
+### 13.2 全局异常处理
+
+```java
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * @author cs12110 create at 2020/3/17 14:01
+ * @version 1.0.0
+ */
+@ControllerAdvice
+@Slf4j
+public class GlobalExceptionHandler {
+
+    /**
+     * 全局异常
+     *
+     * @param e e
+     */
+    @ResponseBody
+    @ExceptionHandler(value = Exception.class)
+    public BizException handleWithGlobalException(Exception e) {
+        log.error("handleWithGlobalException", e);
+
+        BizException exception = new BizException();
+        exception.setMessage(e.getMessage());
+        exception.setStatus(BizException.StatusEnum.FAILURE.getValue());
+
+        return exception;
+    }
+
+}
+```
+
+---
+
+## 14. 跨域问题
+
+```java
+import org.springframework.stereotype.Component;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * TODO: 跨域访问拦截器
+ *
+ * @author cs12110 create at: 2019/3/17 14:11
+ * Since: 1.0.0
+ */
+@Component
+public class CrossOriginFilter implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) {
+
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+
+        // 设置允许跨域访问
+        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET,PUT, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+
+        filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }
 ```

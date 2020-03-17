@@ -264,3 +264,9 @@ finally {
 }
 }
 ```
+
+---
+
+## 参考资料
+
+a. [spring bean 的生命周期](https://www.jianshu.com/p/1dec08d290c1)
