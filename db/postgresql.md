@@ -678,8 +678,6 @@ public class PostgresqlMocker {
             preparedStatement.setObject(3, 36);
 
             int update = preparedStatement.executeUpdate();
-            // 获取自增主键
-            // ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
 
             System.out.println("Insert result: " + update);
 
@@ -708,6 +706,47 @@ public class PostgresqlMocker {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+}
+```
+
+### 4.3 碎碎念
+
+哈,在这里我们要怎么获取出来自动增长的 key 呢?就像 mybatis 插入数据后,会组装 id 到对象里面,很惊艳,对不对?
+
+```java
+/**
+* 新增数据
+*
+* @param connection connection
+*/
+private static void insert(Connection connection) {
+    String sql = "insert into t_asset_info (owner_id,asset_name ,price,create_time) values(?,?,?,now())";
+    try {
+        // 使用参数: Statement.RETURN_GENERATED_KEYS,设置返回主键
+        PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        for (int index = 0; index < 10; index++) {
+            preparedStatement.setObject(1, "OWNER-" + index);
+            preparedStatement.setObject(2, "ASSET-" + index);
+            preparedStatement.setObject(3, BigDecimal.valueOf(index));
+            preparedStatement.addBatch();
+        }
+
+        // 执行批量查询操作,并获取插入数据主键的result set
+        int[] values = preparedStatement.executeBatch();
+        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+
+        // 获取自动增长的组建
+        List<Object> genIdList = new ArrayList<>();
+        while (generatedKeys.next()) {
+            genIdList.add(generatedKeys.getObject(1));
+        }
+
+        System.out.println(JSON.toJSONString(genIdList));
+        System.out.println("Insert result: " + JSON.toJSONString(values));
+        preparedStatement.close();
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 }
 ```
