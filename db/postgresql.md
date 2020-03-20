@@ -234,7 +234,7 @@ Indexes:
 pg_db=# insert into t_bank_card_info(bank_name,card_no) values('工商银行','112358');
 INSERT 0 1
 pg_db=# select * from t_bank_card_info;
- id | bank_name | card_no 
+ id | bank_name | card_no
 ----+-----------+---------
   1 | 工商银行  | 112358
 
@@ -311,70 +311,78 @@ pg_db=# alter table t_asset_info rename personid to person_id;
 
 ##### 索引操作
 
-```sh
-# 在没有添加索引的执行计划
-pg_db=# explain analyze  select t_person_info.id ,t_person_info.name , t_person_info.age ,t_asset_info.asset_name , t_asset_info.price  from t_person_info left join t_asset_info on t_asset_info.person_id = t_person_info.id;
-                                                       QUERY PLAN
+表里面需要 **`足够多的数据`** 才会走索引,泪目.
 
-----------------------------------------------------------------------------------------------------
---------------------
- Hash Right Join  (cost=15.85..27.63 rows=260 width=804) (actual time=0.034..0.038 rows=1 loops=1)
-   Hash Cond: (t_asset_info.person_id = t_person_info.id)
-   ->  Seq Scan on t_asset_info  (cost=0.00..11.40 rows=140 width=528) (actual time=0.003..0.003 row
-s=1 loops=1)
-   ->  Hash  (cost=12.60..12.60 rows=260 width=280) (actual time=0.018..0.018 rows=1 loops=1)
-         Buckets: 1024  Batches: 1  Memory Usage: 9kB
-         ->  Seq Scan on t_person_info  (cost=0.00..12.60 rows=260 width=280) (actual time=0.012..0.
-013 rows=1 loops=1)
- Planning Time: 0.149 ms
- Execution Time: 0.073 ms
-(8 rows)
+```sh
+# 数据表里面有10001条数据
+pg_db=# select count(1) as num from t_asset_info;
+  num
+-------
+ 10001
+
+# 表结构,owner_id没添加索引
+g_db=# \d t_asset_info;
+                                         Table "public.t_asset_info"
+   Column    |            Type             | Collation | Nullable |                 Default
+-------------+-----------------------------+-----------+----------+------------------------------------------
+ id          | integer                     |           | not null | nextval('t_asset_info_id_seq'::regclass)
+ owner_id    | character varying(32)       |           | not null |
+ asset_name  | character varying(128)      |           | not null |
+ price       | money                       |           | not null |
+ create_time | timestamp without time zone |           |          |
 ```
 
-添加索引
+在`owner_id`没有索引的情况下,执行计划:`Seq Scan`全表扫描.
 
 ```sh
-# 创建唯一索引: CREATE UNIQUE INDEX index_name  on table_name (column_name);
-# 组合索引: CREATE INDEX index_name ON table_name (column1_name, column2_name);
-# 创建idx_person_id索引如下所示
-pg_db=# create index idx_person_id on t_asset_info(person_id);
+pg_db=# explain analyze select * from t_asset_info where owner_id ='OWNER-1000';
+                                               QUERY PLAN
+---------------------------------------------------------------------------------------------------------
+ Seq Scan on t_asset_info  (cost=0.00..218.01 rows=1 width=40) (actual time=0.222..2.132 rows=1 loops=1)
+   Filter: ((owner_id)::text = 'OWNER-1000'::text)
+   Rows Removed by Filter: 10000
+ Planning Time: 2.886 ms
+ Execution Time: 2.192 ms
+```
 
+在`owner_id`有索引的情况下,执行计划:`Index Cond`.
+
+```sh
+# 添加索引
+pg_db=# create index idx_t_asset_info_owener_id on t_asset_info(owner_id);
+CREATE INDEX
 pg_db=# \d t_asset_info;
-                     Table "public.t_asset_info"
-   Column   |          Type          | Collation | Nullable | Default
-------------+------------------------+-----------+----------+---------
- id         | integer                |           | not null |
- person_id  | integer                |           | not null |
- asset_name | character varying(256) |           | not null |
- price      | money                  |           | not null |
+                                         Table "public.t_asset_info"
+   Column    |            Type             | Collation | Nullable |                 Default
+-------------+-----------------------------+-----------+----------+------------------------------------------
+ id          | integer                     |           | not null | nextval('t_asset_info_id_seq'::regclass)
+ owner_id    | character varying(32)       |           | not null |
+ asset_name  | character varying(128)      |           | not null |
+ price       | money                       |           | not null |
+ create_time | timestamp without time zone |           |          |
 Indexes:
-    "t_asset_info_pkey" PRIMARY KEY, btree (id)
-    "idx_person_id" btree (person_id)
+    "idx_t_asset_info_owener_id" btree (owner_id)
 
+pg_db=# explain analyze select * from t_asset_info where owner_id ='OWNER-1000';
+                                                                QUERY PLAN
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+-
+ Index Scan using idx_t_asset_info_owener_id on t_asset_info  (cost=0.29..8.30 rows=1 width=40) (actual time=0.139..0.140 rows=1 loops=1)
+   Index Cond: ((owner_id)::text = 'OWNER-1000'::text)
+ Planning Time: 8.327 ms
+ Execution Time: 0.194 ms
+(4 rows)
+```
+
+Q: 那我不要想要这些索引了,该怎么删除呀?
+
+A: 当初叫人家小索引....
+
+```sh
 # 如果要删除索引,这有点奇怪,如果多张表有同一个名称的索引,怎么办???
 pg_db=# drop index idx_person_id ;
 DROP INDEX
-```
-
-新的执行计划
-
-```sh
-pg_db=# explain analyze  select t_person_info.id ,t_person_info.name , t_person_info.age ,t_asset_info.asset_name , t_asset_info.price  from t_person_info left join t_asset_info on t_asset_info.person_id = t_person_info.id;
-                                                     QUERY PLAN
-
-----------------------------------------------------------------------------------------------------
-----------------
- Hash Left Join  (cost=1.02..14.61 rows=260 width=804) (actual time=0.026..0.028 rows=1 loops=1)
-   Hash Cond: (t_person_info.id = t_asset_info.person_id)
-   ->  Seq Scan on t_person_info  (cost=0.00..12.60 rows=260 width=280) (actual time=0.007..0.008 ro
-ws=1 loops=1)
-   ->  Hash  (cost=1.01..1.01 rows=1 width=528) (actual time=0.009..0.009 rows=1 loops=1)
-         Buckets: 1024  Batches: 1  Memory Usage: 9kB
-         ->  Seq Scan on t_asset_info  (cost=0.00..1.01 rows=1 width=528) (actual time=0.005..0.006
-rows=1 loops=1)
- Planning Time: 0.317 ms
- Execution Time: 0.057 ms
-(8 rows)
 ```
 
 ---
@@ -482,6 +490,19 @@ pg_db=# select t_person_info.id ,t_person_info.name , t_person_info.age ,t_asset
 ## 4. J&P
 
 Java say hi to postgresql.
+
+在 java 处理 postgresql 的 money 类型的数据时候,使用 double 获取会出现问题,需要进行转换,心累
+
+```sql
+select create_time,price::numeric from t_asset_info where owner_id = ?
+```
+
+在程序里面然后可以使用`BigDecimal`处理
+
+```java
+Date createTime = (Date) resultSet.getObject("create_time");
+BigDecimal price = (BigDecimal) resultSet.getObject("price");
+```
 
 #### 4.1 deps
 
