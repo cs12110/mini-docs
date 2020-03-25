@@ -399,3 +399,180 @@ public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
   }
 }
 ```
+
+---
+
+## 3. Mapper 的构建
+
+Q: 像下面这个代码是怎么和 mybatis 产生关联的呀?
+
+```java
+SqlSession session = sqlSessionFactory.openSession();
+NoteMapper mapper = session.getMapper(NoteMapper.class);
+NoteBean note = mapper.selectNote(1);
+```
+
+A: 从`session.getMapper(NoteMapper.class);`开始,一步,一步,一步,一步,一步往下走.
+
+```java
+// org.apache.ibatis.session.Configuration#mapperRegistry
+public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+  return mapperRegistry.getMapper(type, sqlSession);
+}
+
+@SuppressWarnings("unchecked")
+public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+  final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownMappers.get(type);
+  if (mapperProxyFactory == null) {
+    throw new BindingException("Type " + type + " is not known to the MapperRegistry.");
+  }
+  try {
+    // 使用Proxy来生成代理类
+    return mapperProxyFactory.newInstance(sqlSession);
+  } catch (Exception e) {
+    throw new BindingException("Error getting mapper instance. Cause: " + e, e);
+  }
+}
+```
+
+```java
+public class MapperProxyFactory<T> {
+
+  private final Class<T> mapperInterface;
+  private final Map<Method, MapperMethod> methodCache = new ConcurrentHashMap<Method, MapperMethod>();
+
+  public MapperProxyFactory(Class<T> mapperInterface) {
+    this.mapperInterface = mapperInterface;
+  }
+
+  public Class<T> getMapperInterface() {
+    return mapperInterface;
+  }
+
+  public Map<Method, MapperMethod> getMethodCache() {
+    return methodCache;
+  }
+
+  @SuppressWarnings("unchecked")
+  protected T newInstance(MapperProxy<T> mapperProxy) {
+    // 使用Proxy.newProxyInstance生成代理类
+    return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface }, mapperProxy);
+  }
+
+  public T newInstance(SqlSession sqlSession) {
+    // 构建MapperProxy
+    final MapperProxy<T> mapperProxy = new MapperProxy<T>(sqlSession, mapperInterface, methodCache);
+    return newInstance(mapperProxy);
+  }
+
+}
+```
+
+```java
+package org.apache.ibatis.binding;
+
+import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Map;
+
+import org.apache.ibatis.lang.UsesJava7;
+import org.apache.ibatis.reflection.ExceptionUtil;
+import org.apache.ibatis.session.SqlSession;
+
+/**
+ * @author Clinton Begin
+ * @author Eduardo Macarron
+ */
+ // 实现java里面的InvocationHandler接口
+public class MapperProxy<T> implements InvocationHandler, Serializable {
+
+  private static final long serialVersionUID = -6424540398559729838L;
+  private final SqlSession sqlSession;
+  private final Class<T> mapperInterface;
+  private final Map<Method, MapperMethod> methodCache;
+
+  public MapperProxy(SqlSession sqlSession, Class<T> mapperInterface, Map<Method, MapperMethod> methodCache) {
+    this.sqlSession = sqlSession;
+    this.mapperInterface = mapperInterface;
+    this.methodCache = methodCache;
+  }
+
+  @Override
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    try {
+      if (Object.class.equals(method.getDeclaringClass())) {
+        return method.invoke(this, args);
+      } else if (isDefaultMethod(method)) {
+        return invokeDefaultMethod(proxy, method, args);
+      }
+    } catch (Throwable t) {
+      throw ExceptionUtil.unwrapThrowable(t);
+    }
+    // 放入缓存
+    // mapperMethod.execute()获取mybatis的id,获取对应M
+    final MapperMethod mapperMethod = cachedMapperMethod(method);
+    return mapperMethod.execute(sqlSession, args);
+  }
+
+  private MapperMethod cachedMapperMethod(Method method) {
+    MapperMethod mapperMethod = methodCache.get(method);
+    if (mapperMethod == null) {
+      mapperMethod = new MapperMethod(mapperInterface, method, sqlSession.getConfiguration());
+      methodCache.put(method, mapperMethod);
+    }
+    return mapperMethod;
+  }
+
+  @UsesJava7
+  private Object invokeDefaultMethod(Object proxy, Method method, Object[] args)
+      throws Throwable {
+    final Constructor<MethodHandles.Lookup> constructor = MethodHandles.Lookup.class
+        .getDeclaredConstructor(Class.class, int.class);
+    if (!constructor.isAccessible()) {
+      constructor.setAccessible(true);
+    }
+    final Class<?> declaringClass = method.getDeclaringClass();
+    return constructor
+        .newInstance(declaringClass,
+            MethodHandles.Lookup.PRIVATE | MethodHandles.Lookup.PROTECTED
+                | MethodHandles.Lookup.PACKAGE | MethodHandles.Lookup.PUBLIC)
+        .unreflectSpecial(method, declaringClass).bindTo(proxy).invokeWithArguments(args);
+  }
+
+  /**
+   * Backport of java.lang.reflect.Method#isDefault()
+   */
+  private boolean isDefaultMethod(Method method) {
+    return ((method.getModifiers()
+        & (Modifier.ABSTRACT | Modifier.PUBLIC | Modifier.STATIC)) == Modifier.PUBLIC)
+        && method.getDeclaringClass().isInterface();
+  }
+}
+```
+
+```java
+// mybatis构建接口里面方法对应的key,然后在执行方法的时候根据这个key获取绑定的方法
+private MappedStatement resolveMappedStatement(Class<?> mapperInterface, String methodName,
+        Class<?> declaringClass, Configuration configuration) {
+  String statementId = mapperInterface.getName() + "." + methodName;
+  if (configuration.hasStatement(statementId)) {
+    return configuration.getMappedStatement(statementId);
+  } else if (mapperInterface.equals(declaringClass)) {
+    return null;
+  }
+  for (Class<?> superInterface : mapperInterface.getInterfaces()) {
+    if (declaringClass.isAssignableFrom(superInterface)) {
+      MappedStatement ms = resolveMappedStatement(superInterface, methodName,
+          declaringClass, configuration);
+      if (ms != null) {
+        return ms;
+      }
+    }
+  }
+  return null;
+}
+```
