@@ -32,7 +32,7 @@
   - [Api 组件之 apidoc](javaee/apidoc.md)
   - [分库分表 之 Sharding-JDBC](javaee/sharding-jdbc.md)
   - [分布式任务调度器 xxl-job](javaee/xxl-job.md)
-  - [Spring 常用代码段](javaee/spring-usage.md)
+  - [Spring 常用代码段](javaee/spring-segment.md)
   - [Spring 与 SqlSession](javaee/spring-sqlsession.md)
   - [SpringBoot 基础配置项](javaee/springboot-properties.md)
   - [SpringCloud 基础教程](javaee/springcloud.md)
