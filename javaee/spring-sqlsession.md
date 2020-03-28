@@ -4,7 +4,7 @@
 
 Q: 那么在 Spring 里面里面会是怎样子的呢?
 
-A: 默认是每一次的增删改查都从新获取 SqlSession,执行完则关闭 SqlSession,所以一级缓存是没有任何作用.
+A: 默认是每一次的增删改查都从新获取 SqlSession,`如果当前没有事务的前提下,执行完则关闭 SqlSession,所以一级缓存是没有任何作用`.
 
 ---
 
@@ -111,6 +111,7 @@ public static void closeSqlSession(SqlSession session, SqlSessionFactory session
     notNull(session, NO_SQL_SESSION_SPECIFIED);
     notNull(sessionFactory, NO_SQL_SESSION_FACTORY_SPECIFIED);
 
+    // 获取当前事务,如果当前没有事务,则关闭session
     SqlSessionHolder holder = (SqlSessionHolder) TransactionSynchronizationManager.getResource(sessionFactory);
     if ((holder != null) && (holder.getSqlSession() == session)) {
         if (LOGGER.isDebugEnabled()) {

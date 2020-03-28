@@ -34,6 +34,7 @@
   - [分布式任务调度器 xxl-job](javaee/xxl-job.md)
   - [Spring 常用代码段](javaee/spring-usage.md)
   - [Spring 与 SqlSession](javaee/spring-sqlsession.md)
+  - [Spring 多数据源](javaee/spring-datasources.md)
   - [SpringBoot 基础配置项](javaee/springboot-properties.md)
   - [SpringCloud 基础教程](javaee/springcloud.md)
   - [Rpc 之 Thrift](javaee/rpc-thrift.md)
