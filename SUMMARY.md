@@ -35,6 +35,7 @@
   - [Spring 常用代码段](javaee/spring-segment.md)
   - [Spring 与 SqlSession](javaee/spring-sqlsession.md)
   - [Spring 多数据源](javaee/spring-datasources.md)
+  - [Spring Seata 分布式事务](javaee/spring-seata.md)
   - [SpringBoot 基础配置项](javaee/springboot-properties.md)
   - [SpringCloud 基础教程](javaee/springcloud.md)
   - [Rpc 之 Thrift](javaee/rpc-thrift.md)
