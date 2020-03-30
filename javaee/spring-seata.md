@@ -8,6 +8,10 @@
 
 ## 1. 安装 seata
 
+首先需要了解一下[seata at 模式 link](https://seata.io/zh-cn/docs/overview/what-is-seata.html),这样子就知道 seata 大概是什么了.
+
+### 1.1 seata 安装
+
 下载安装包
 
 ```sh
@@ -50,6 +54,16 @@ success
 $ nohup bin/seata-server.sh -p 8091 -h 118.89.113.147 -m file &
 ```
 
+### 1.2 基础知识
+
+执行流程: <u>AT 模式下,把每个数据库被当做是一个 Resource,Seata 里称为 DataSource Resource.业务通过 JDBC 标准接口访问数据库资源时,Seata 框架会对所有请求进行拦截,做一些操作.每个本地事务提交时,Seata RM(Resource Manager,资源管理器)都会向 TC(Transaction Coordinator,事务协调器)注册一个分支事务.当请求链路调用完成后,发起方通知 TC 提交或回滚分布式事务,进入二阶段调用流程.此时,TC 会根据之前注册的分支事务回调到对应参与者去执行对应资源的第二阶段.</u>
+
+| 组件                        | 作用                                                                                                     | 备注         |
+| --------------------------- | -------------------------------------------------------------------------------------------------------- | ------------ |
+| TC(transaction coordinator) | 事务协调者:维护全局和分支事务的状态,驱动全局事务提交或回滚.                                              | seata 服务器 |
+| TM(transaction manager)     | 事务管理器:定义全局事务的范围,开始全局事务、提交或回滚全局事务.                                          | 客户端       |
+| RM(resource manager)        | 资源管理器:管理分支事务处理的资源,与 TC 交谈以注册分支事务和报告分支事务的状态,并驱动分支事务提交或回滚. | 客户端       |
+
 ---
 
 ## 2. 项目使用
@@ -79,7 +93,7 @@ seata 的依赖如下:
 </dependency>
 ```
 
-相关配置,涉及到全局事务的都要配置
+相关配置,涉及到全局事务的项目都要配置
 
 ```properties
 seata.tx-service-group=spring_tx_group
@@ -435,6 +449,38 @@ $ curl 'http://127.0.0.1:8000/api/business/deal?commitOrder=true&commitStorage=t
 $ curl 'http://127.0.0.1:8000/api/business/deal?commitOrder=true&commitStorage=false'
 ```
 
+### 2.5 fun fact
+
+#### 代理数据源
+
+在 BusinessApp 里面添加
+
+```java
+@Autowired
+private DataSource dataSource;
+
+@PostConstruct
+public void displayDataSource() {
+    log.info("Function[displayDataSource] dataSource:{}", dataSource);
+}
+```
+
+打印日志
+
+```java
+2020-03-30 08:56:55 INFO  com.spring.seata.tx.business.BusinessApp:35 - Function[displayDataSource] dataSource:io.seata.rm.datasource.DataSourceProxy@766a49c7
+2020-03-30 08:56:55 INFO  com.spring.seata.tx.common.conf.RestTemplateConfiguration:35 - Function[createRestTemplate] timeout:30s
+2020-03-30 08:56:56 INFO  io.seata.spring.annotation.GlobalTransactionScanner:240 - Bean[com.spring.seata.tx.business.service.BusinessService] with name [businessService] would use interceptor [io.seata.spring.annotation.GlobalTransactionalInterceptor]
+```
+
+可以看出: DataSource 被 seata 代理,`io.seata.rm.datasource.DataSourceProxy`,同时注解有`GlobalTransaction`的方法被`GlobalTransactionalInterceptor`拦截器拦截.
+
+#### 本地事务和分布式事务
+
+Q: AT 模式和 Spring @Transactional 注解连用时需要注意什么 [link](https://seata.io/zh-cn/docs/overview/faq.html)?
+
+A: @Transactional 可与 DataSourceTransactionManager 和 JTATransactionManager 连用分别表示本地事务和 XA 分布式事务,大家常用的是与本地事务结合.当与本地事务结合时,@Transactional 和@GlobalTransaction 连用,@Transactional 只能位于标注在@GlobalTransaction 的同一方法层次或者位于@GlobalTransaction 标注方法的内层.这里 **`分布式事务的概念要大于本地事务`**,若将 @Transactional 标注在外层会导致分布式事务空提交,当@Transactional 对应的 connection 提交时会报全局事务正在提交或者全局事务的 xid 不存在.
+
 ---
 
 ## 3. 总结
@@ -452,3 +498,5 @@ a. [seata 官网](https://seata.io/zh-cn/docs/overview/what-is-seata.html)
 b. [seata samples](https://github.com/seata/seata-samples)
 
 c. [springboot 与 seata 整合 blog](https://www.cnblogs.com/huanchupkblog/p/12185851.html)
+
+d. [seata at 原理分析](https://zhuanlan.zhihu.com/p/72408725)
