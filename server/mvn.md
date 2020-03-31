@@ -85,8 +85,24 @@ maven 呀,maven,你怎么那么不听话呢???
 </profiles>
 ```
 
-指定执行环境,如:`mvn clean install -P test`
+指定执行`test`环境,如:`mvn clean install -P test`
 
 ```sh
 mvn clean install -P profileId
+```
+
+---
+
+## 4. mvn 打包
+
+使用 maven 命令打包
+
+```sh
+mvn clean package -Dskiptest=true
+```
+
+使用 maven 命令安装 jar 到本地,`source:jar`包含注释.
+
+```sh
+mvn clean install source:jar -Dskiptest=true
 ```
