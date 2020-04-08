@@ -38,27 +38,28 @@ Q:在 mysql 执行过程中,可能因为某些异常导致表被锁,那么怎么
 
 A:follow me.
 
-- id 为进程
-- command 为 waitting 的就是锁住的表
-- info 为执行某条语句的信息
+查看 mysql 数据库里面的事务状态
 
 ```sql
-mysql> show processlist;
-+-------+------+----------------------+---------+---------+------+----------+------------------+
-| Id    | User | Host                 | db      | Command | Time | State    | Info             |
-+-------+------+----------------------+---------+---------+------+----------+------------------+
-| 28069 | root | 47.98.104.252:33920  | 4fun_db | Sleep   |    3 |          | NULL             |
-| 28119 | root | 47.98.104.252:42908  | 4fun_db | Sleep   |    3 |          | NULL             |
-| 29927 | root | 47.98.104.252:36044  | 4fun_db | Sleep   |    3 |          | NULL             |
-| 30845 | root | 47.98.104.252:47180  | 4fun_db | Sleep   |    3 |          | NULL             |
-| 31246 | root | 47.98.104.252:59242  | 4fun_db | Sleep   |    3 |          | NULL             |
-+-------+------+----------------------+---------+---------+------+----------+------------------+
-5 rows in set (0.00 sec)
-
-mysql> kill idOfProcess(例如28069)
+# 获取正在运行的mysql事务, 重要参数:
+# trx_id: 事务id
+# trx_state: 事务状态
+# trx_query: 执行SQL语句
+# trx_mysql_thread_id: mysql线程id
+mysql> SELECT * FROM	information_schema.innodb_trx;
 ```
 
-Command 几个重要参数如下,[详细 link](https://blog.csdn.net/sinat_25873421/article/details/80335125)
+如果`trx_state`=`LOCK_WAIT`的话,获取具体执行时间信息
+
+```sql
+# 使用trx_mysql_thread_id获取状态
+mysql> SELECT * FROM information_schema.`PROCESSLIST` WHERE	ID = '@trx_mysql_thread_id';
+
+# 确认锁住的threadId之后,杀掉这条线程
+mysql> kill @trx_mysql_thread_id
+```
+
+`PROCESSLIST`.`Command`几个重要参数如下,[详细 link](https://blog.csdn.net/sinat_25873421/article/details/80335125)
 
 | 参数值                  | 含义                     |
 | ----------------------- | ------------------------ |
@@ -186,7 +187,8 @@ Q: 新增字段有什么好写的?
 
 A: 主要是`after`之类的使用啦.
 
-```mysql> show create table t_my\G;
+```sql
+mysql> show create table t_my\G;
 *************************** 1. row ***************************
        Table: t_my
 Create Table: CREATE TABLE `t_my` (
@@ -292,3 +294,9 @@ possible_keys: NULL
         Extra: Using where
 1 row in set, 1 warning (0.00 sec)
 ```
+
+---
+
+## 参考资料
+
+a. [老男孩-标杆班级-MySQL-lesson12-优化](https://www.jianshu.com/p/5dbb5e095c9a)
