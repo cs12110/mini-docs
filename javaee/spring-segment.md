@@ -1942,3 +1942,240 @@ public static <V> V copy(Object from, Class<V> to) {
     return v;
 }
 ```
+
+---
+
+## 16. Aop 与 Spel
+
+如果使用 Spel 可以实现一些比较灵活的东西,如:redis 的分布式锁,使用切面实现.
+
+### 16.1 自定义注解
+
+```java
+package com.springboot.universe.anno;
+
+import java.lang.annotation.*;
+
+/**
+ * 自定义注解
+ * <p>
+ *
+ * @author cs12110 create at 2020-04-10 23:56
+ * <p>
+ * @since 1.0.0
+ */
+@Documented
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD})
+public @interface LeaveMeAlone {
+
+    /**
+     * 前缀
+     *
+     * @return String
+     */
+    String prefix();
+
+    /**
+     * 是否属于spel表达式,默认:false
+     *
+     * @return boolean
+     */
+    boolean spel() default false;
+
+    /**
+     * value,如果spel为true,不获取该值
+     *
+     * @return String
+     */
+    String value() default "";
+
+    /**
+     * spel表达式
+     *
+     * @return String
+     */
+    String expression() default "";
+}
+```
+
+### 16.2 定义切面
+
+```java
+package com.springboot.universe.interceptor;
+
+import com.springboot.universe.anno.LeaveMeAlone;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+
+/**
+ * <p>
+ *
+ * @author cs12110 create at 2020-04-11 00:00
+ * <p>
+ * @since 1.0.0
+ */
+@Slf4j
+@Aspect
+@Component
+public class LeaveMeAloneInterceptor {
+
+    private ExpressionParser expressionParser = new SpelExpressionParser();
+    private LocalVariableTableParameterNameDiscoverer discoverer = new LocalVariableTableParameterNameDiscoverer();
+
+
+    @Around("@annotation(com.springboot.universe.anno.LeaveMeAlone)")
+    public Object leaveMeAlone(ProceedingJoinPoint joinPoint) {
+
+        try {
+            //获取到key,使用key作为分布式锁的key,添加分布式锁逻辑
+            String lockKey = dealWithKey(joinPoint);
+            log.info("Function[leaveMeAlone] key:{}", lockKey);
+
+            return joinPoint.proceed();
+        } catch (Throwable e) {
+            log.error("Function[leaveMeAlone]", e);
+            throw new RuntimeException("Can't proceeding leave me alone");
+        }
+    }
+
+    /**
+     * 获取key
+     *
+     * @param proceedingJoinPoint joinPoint
+     * @return String
+     */
+    private String dealWithKey(ProceedingJoinPoint proceedingJoinPoint) {
+        MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
+        Method method = signature.getMethod();
+        LeaveMeAlone leaveMeAlone = method.getAnnotation(LeaveMeAlone.class);
+
+
+        // 直接拼凑字符
+        if (!leaveMeAlone.spel()) {
+            return leaveMeAlone.prefix() + "-" + leaveMeAlone.value();
+        }
+
+        // 获取expression
+        Object[] args = proceedingJoinPoint.getArgs();
+        String[] parameterNames = discoverer.getParameterNames(method);
+        String expression = leaveMeAlone.expression();
+
+        if (null == parameterNames || parameterNames.length == 0) {
+            throw new RuntimeException("Method must carry some parameter");
+        }
+
+
+        return leaveMeAlone.prefix() + "-" + dealWithSpringExpression(args, parameterNames, expression);
+    }
+
+    /**
+     * 处理expression获取表达式的值
+     *
+     * @param args           方法参数值
+     * @param parameterNames 方法参数名称
+     * @param expressionStr  表达式
+     * @return String
+     */
+    private String dealWithSpringExpression(Object[] args, String[] parameterNames, String expressionStr) {
+
+        StandardEvaluationContext evaluationContext = new StandardEvaluationContext();
+
+        for (int index = 0, len = parameterNames.length; index < len; index++) {
+            String parameterName = parameterNames[index];
+            Object parameterValue = args[index];
+
+            evaluationContext.setVariable(parameterName, parameterValue);
+        }
+
+        Expression expression = expressionParser.parseExpression(expressionStr);
+
+        Object value = expression.getValue(evaluationContext);
+
+        return String.valueOf(value);
+
+    }
+
+}
+```
+
+### 16.3 测试
+
+```java
+@Data
+public class PersonInfo {
+    private String id;
+    private String name;
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
+}
+```
+
+```java
+package com.springboot.universe.service;
+
+import com.springboot.universe.anno.LeaveMeAlone;
+import com.springboot.universe.entity.PersonInfo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ *
+ * @author cs12110 create at 2020-04-11 00:16
+ * <p>
+ * @since 1.0.0
+ */
+@Service
+@Slf4j
+public class BusinessService {
+
+    @LeaveMeAlone(
+            prefix = "person",
+            value = "normal"
+    )
+    public Object normal(PersonInfo personInfo) {
+
+        log.info("Function[normal] person info:{}", personInfo);
+
+        return personInfo;
+    }
+
+
+    @LeaveMeAlone(
+            prefix = "person",
+            spel = true,
+            expression = "#personInfo.id"
+    )
+    public Object blackMagic(PersonInfo personInfo) {
+
+        log.info("Function[blackMagic] person info:{}", personInfo);
+
+        return personInfo;
+    }
+
+}
+```
+
+```java
+2020-04-11 01:04:44.375  INFO 17704 --- [nio-8080-exec-3] c.s.u.i.LeaveMeAloneInterceptor          : Function[leaveMeAlone] key:person-normal
+2020-04-11 01:04:44.375  INFO 17704 --- [nio-8080-exec-3] c.s.universe.service.BusinessService     : Function[normal] person info:{"id":"cs12110","name":"Mr 3306"}
+2020-04-11 01:04:46.636  INFO 17704 --- [nio-8080-exec-4] c.s.u.i.LeaveMeAloneInterceptor          : Function[leaveMeAlone] key:person-cs12110
+2020-04-11 01:04:46.637  INFO 17704 --- [nio-8080-exec-4] c.s.universe.service.BusinessService     : Function[blackMagic] person info:{"id":"cs12110","name":"Mr 3306"}
+
+```
