@@ -35,6 +35,52 @@ spring,springbooot,spring cloud 各种 issues.
 | @ConditionalOnClass        | 当给定的类名在类路径上存在,则实例化当前 Bean   | -    |
 | @ConditionalOnMissingClass | 当给定的类名在类路径上不存在,则实例化当前 Bean | -    |
 
+
+
+### 1.3 @ConditionalOnProperty
+
+在 feign 的`HttpClientFeignLoadBalancedConfiguration`里面有下面的注解
+
+```java
+@ConditionalOnProperty(
+    value = {"feign.httpclient.enabled"},
+    matchIfMissing = true
+)
+```
+
+Q: 那么这些都是些啥玩意呢?
+
+A: 来,来,来.
+
+```yml
+student:
+  name: haiyan
+  age: 18
+  #stu-no: cs12110
+```
+
+```java
+/**
+ * `@ConditionalOnProperty(prefix = "student", name = "stu-no", matchIfMissing = true)`
+ * 即使配置文件里面的student配置缺少stu-no字段时,也可以加载
+ * <p>
+ * `@ConditionalOnProperty(prefix = "student", name = "stu-no", matchIfMissing = false)`
+ * 当使配置文件里面的student配置缺少stu-no字段时,不可以加载并抛出异常
+ *
+ * @author cs12110 create at 2020/4/9 18:22
+ * @version 1.0.0
+ */
+@Data
+@Component
+@ConditionalOnProperty(prefix = "student", name = "stu-no", matchIfMissing = true)
+@ConfigurationProperties(prefix = "student")
+public class StudentConf {
+    private String stuNo;
+    private String name;
+    private Integer age;
+}
+```
+
 ---
 
 ## 2. SpringCloud
