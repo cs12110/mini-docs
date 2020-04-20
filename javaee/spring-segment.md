@@ -2177,5 +2177,59 @@ public class BusinessService {
 2020-04-11 01:04:44.375  INFO 17704 --- [nio-8080-exec-3] c.s.universe.service.BusinessService     : Function[normal] person info:{"id":"cs12110","name":"Mr 3306"}
 2020-04-11 01:04:46.636  INFO 17704 --- [nio-8080-exec-4] c.s.u.i.LeaveMeAloneInterceptor          : Function[leaveMeAlone] key:person-cs12110
 2020-04-11 01:04:46.637  INFO 17704 --- [nio-8080-exec-4] c.s.universe.service.BusinessService     : Function[blackMagic] person info:{"id":"cs12110","name":"Mr 3306"}
+```
 
+---
+
+## 17. 配置 Fastjson 时间格式化
+
+在项目里面已经引用了 Fastjson,但是回传的数据的时候,fastjson 使用`@JSONField(format="yyyy-MM-dd HH:mm:ss")`注解并没有生效.
+
+```java
+@JSONField(format="yyyy-MM-dd HH:mm:ss")
+private Date time;
+```
+
+Q: 那我们要怎么样子做呀?
+
+A: 配置 fastjson 转换器呀.
+
+```java
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 配置fast json的时间格式化
+ *
+ * @author cs12110 create at 2020/4/20 8:50
+ * @version 1.0.0
+ */
+@Configuration
+public class FastJsonDateFormatConfiguration extends WebMvcConfigurationSupport {
+
+
+    /**
+     * 配置json为fastjson
+     *
+     * @param converters 转换器
+     */
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
+        FastJsonConfig fastJsonConfig = new FastJsonConfig();
+        // 处理中文乱码问题
+        List<MediaType> fastMediaTypes = new ArrayList<>();
+        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+        fastConverter.setSupportedMediaTypes(fastMediaTypes);
+        fastConverter.setFastJsonConfig(fastJsonConfig);
+        converters.add(fastConverter);
+    }
+}
 ```
