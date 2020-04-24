@@ -38,20 +38,20 @@ A: let me show you some black magic.
 
   <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
   <script>
-    $(function() {
+    $(function () {
       // 动态新增元素绑定事件
       $("#test-area")
         .off("click", ".class-2")
-        .on("click", ".class-2", function() {
+        .on("click", ".class-2", function () {
           console.log("this is class 2");
         });
 
       // 这种绑定对动态新增元素无效.
-      $(".class-2").on("click", function() {
+      $(".class-2").on("click", function () {
         console.log("This is on .class-2");
       });
 
-      $(".class-1").on("click", function() {
+      $(".class-1").on("click", function () {
         var id = $(this).data("id");
         var name = $(this).data("name");
         console.log("id: " + id + " , name: " + name);
@@ -84,13 +84,13 @@ A: let me show you some black magic.
   <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
   <script>
     // 在加载页面的时候,执行function(){}里面的东西
-    $(function() {
-      $("#confirm-btn").on("click", function() {
+    $(function () {
+      $("#confirm-btn").on("click", function () {
         var value = $("#app input[name='gender-radio']:checked").val();
         console.log(value);
       });
 
-      $("#change-btn").on("click", function() {
+      $("#change-btn").on("click", function () {
         var value = $("#app input[name='gender-radio']:checked").val();
         if (value == 1) {
           $("#app input[name='gender-radio'][value='0']").prop(
@@ -129,12 +129,12 @@ A: let me show you some black magic.
 
   <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
   <script>
-    $(function() {
-      $("#get-it").on("click", function() {
+    $(function () {
+      $("#get-it").on("click", function () {
         var inputArr = $("#app").find("input");
         var values = new Array();
 
-        inputArr.each(function() {
+        inputArr.each(function () {
           var key = $(this).attr("name");
           var value = $(this).val();
 
