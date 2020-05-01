@@ -4,7 +4,7 @@
 
 ---
 
-## 1. 基础知识
+## 1. 分布式基础知识
 
 各种一言难尽的基础理论知识,你值得拥有. 泪目
 
@@ -55,7 +55,49 @@ ACID 基础知识
 
 ---
 
-## 2. 参考资料
+## 2. Restful 接口设计
+
+在设计 api 接口的时候,最好遵循以下 restful 风格. 微笑脸.jpg
+
+### 2.1 请求动作
+
+| 请求动作 | 备注                   |
+| -------- | ---------------------- |
+| `GET`    | 检索特定资源或资源列表 |
+| `POST`   | 创建一个新的资源       |
+| `PUT`    | 更新服务器上的资源     |
+| `DELETE` | 删除资源               |
+
+Q: 那么在实际上面怎么设置请求的方法的动作吗?
+
+A: 可以通过`RequestMethod`设置规定的动作.
+
+```java
+@RequestMapping(
+    value = "/users",
+    method = RequestMethod.GET
+)
+```
+
+### 2.2 请求示例
+
+Q: 说了那么多,又不见你写出来!
+
+A: 能写就别哔哔???
+
+| 请求动作 | Restful 地址                         | 备注                 |
+| -------- | ------------------------------------ | -------------------- |
+| GET      | /api/books                           | 列出所有书本         |
+| POST     | /api/books                           | 新建一本书           |
+| GET      | /api/books/{id}                      | 获取书本的信息       |
+| PUT      | /api/books/{id}                      | 更新某个指书的信息   |
+| DELETE   | /api/books/{id}                      | 删除某本书           |
+| GET      | /api/books/{id}/chapters             | 列出书的所有章节     |
+| DELETE   | /api/books/{id}/chapters/{chapterId} | 删除某个指定书的章节 |
+
+---
+
+## 3. 参考资料
 
 a. [CAP 与 BASE 博客](https://blog.csdn.net/Y0Q2T57s/article/details/84332551)
 
