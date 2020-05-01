@@ -385,6 +385,37 @@ A: 首先备份当前的修改 -> git reset 2.txt 的 commit -> git push origin 
 
 ---
 
-## 3. 参考资料
+## 3. 显示信息
+
+在某些时候需要了解文件的`提交历史`和`修改内容`.
+
+```sh
+# 这里是显示所有文件
+$ git log --pretty=oneline
+237209aab7f5d4ae27ddaff58c5d4840016c9259 (HEAD -> master) remember me
+d3b2f0141829490d8652d3fbf27192be95c86048 update readme doc
+f92d1f2326839a9f18ab1536916cb66f866999c3 init
+
+# 显示单个文件历史
+$ git log -- readme.md
+commit d3b2f0141829490d8652d3fbf27192be95c86048
+Author: cs12110 <cs12110@163.com>
+Date:   Fri Apr 24 14:21:13 2020 +0800
+
+    update readme doc
+
+commit f92d1f2326839a9f18ab1536916cb66f866999c3
+Author: cs12110 <cs12110@163.com>
+Date:   Fri Apr 24 14:20:43 2020 +0800
+
+    init
+
+# 显示某个文件,某次提交的修改内容
+$ git show d3b2f0141829490d8652d3fbf27192be95c86048:readme.md
+# 1. readme
+this is second times
+```
+
+## 4. 参考资料
 
 a. [廖雪峰 Git 教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
