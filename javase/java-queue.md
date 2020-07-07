@@ -49,6 +49,46 @@ java.util.concurrent 中加入了 BlockingQueue 接口和五个阻塞队列类.�
 | put     | 添加一个元素             | 如果队列满,则阻塞                                   |
 | take    | 移除并返回队列头部的元素 | 如果队列为空,则阻塞                                 |
 
+### 1.3 关于 Queue
+
+在构建线程池里面里面,最常用的有两个 queue:`ArrayBlockingQueue`,`LinkedBlockingQueue`.
+
+对于`ArrayBlockingQueue`: 有边界的 queue
+
+```java
+Person person = new Person();
+person.setId("id");
+
+// 声明只能队列里面只能容纳一个元素,构造时需要制定队列大小
+ArrayBlockingQueue<Person> arrayBlockingQueue = new ArrayBlockingQueue<>(1);
+arrayBlockingQueue.add(person);
+
+// 尝试装入第二个元素时出错
+//arrayBlockingQueue.add(person);
+```
+
+对于`LinkedBlockingQueue`: 其实这个也是有边界的队列(如果没制定大小,默认 queue 容纳元素为`Integer.MAX_VALUE`)
+
+```java
+Person person = new Person();
+person.setId("id");
+
+// 默认使用Integer.MAX_VALUE
+LinkedBlockingQueue<Person> linkedBlockingQueue = new LinkedBlockingQueue<>();
+linkedBlockingQueue.add(person);
+linkedBlockingQueue.add(person);
+
+// 指定长度为1
+linkedBlockingQueue = new LinkedBlockingQueue<>(1);
+linkedBlockingQueue.add(person);
+// 加入第二个元素时出错
+// linkedBlockingQueue.add(person);
+```
+
+关于`SynchronousQueue`:其中每个 put 必须等待一个 take
+
+---
+
 ## 2. 简单代码
 
 面临问题: 如消息堆积,该怎么办?这个可能会把服务器给撑爆了.(还没想到好的解决方法,可以给消息队列设置 size 大小,当大于某个值的时候,开始丢弃,如果业务允许的话)
@@ -235,6 +275,125 @@ public class TinyMQTest2 {
 
 ---
 
-## 4. 参考资料
+## 4. 优化
+
+看到自己写的黑历史,尴尬.
+
+上面的东西其实在 java 里面完全可以使用`SynchronousQueue`来实现.
+
+### 4.1 代码
+
+```java
+package com.mock.pkgs.service;
+
+import com.alibaba.fastjson.JSON;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.SynchronousQueue;
+
+import lombok.Data;
+
+/**
+ * queue
+ *
+ * @author cs12110
+ * @version V1.0
+ * @since 2020-07-07 10:57
+ */
+public class SyncQueue {
+
+    /**
+     * Queue
+     */
+    private static final SynchronousQueue<Person> SYNC_QUEUE = new SynchronousQueue<>(true);
+
+    @Data
+    static class Person {
+        private String id;
+        private String name;
+
+        @Override
+        public String toString() {
+            return JSON.toJSONString(this);
+        }
+    }
+
+    /**
+     * 消息生产者
+     */
+    static class QueueProvider implements Runnable {
+
+        private String prefix;
+        private long sleep;
+
+        public QueueProvider(String prefix, long sleep) {
+            this.prefix = prefix;
+            this.sleep = sleep;
+        }
+
+        @Override
+        public void run() {
+            for (int index = 0; index < 3; index++) {
+                Person body = new Person();
+                body.setId(prefix + index);
+                body.setName(prefix + index);
+                try {
+                    // 生产消息
+                    SYNC_QUEUE.put(body);
+
+                    // 等待3s
+                    Thread.sleep(sleep);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 消息消费者
+     */
+    static class QueueConsumer implements Runnable {
+        @Override
+        public void run() {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
+            for (; ; ) {
+                try {
+                    Person body = SYNC_QUEUE.take();
+                    System.out.println(sdf.format(new Date()) + "\t" + body);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // 生产者1
+        new Thread(new QueueProvider("t1-", 1000)).start();
+        // 生产者2
+        new Thread(new QueueProvider("t2-", 2000)).start();
+
+        // 消费者
+        new Thread(new QueueConsumer()).start();
+    }
+}
+```
+
+### 4.2 测试
+
+```java
+2020-07-07 11:27:02,285	{"id":"t1-0","name":"t1-0"}
+2020-07-07 11:27:02,496	{"id":"t2-0","name":"t2-0"}
+2020-07-07 11:27:03,290	{"id":"t1-1","name":"t1-1"}
+2020-07-07 11:27:04,294	{"id":"t1-2","name":"t1-2"}
+2020-07-07 11:27:04,501	{"id":"t2-1","name":"t2-1"}
+2020-07-07 11:27:06,506	{"id":"t2-2","name":"t2-2"}
+```
+
+---
+
+## 5. 参考资料
 
 a. [低调人生的博客](https://www.cnblogs.com/lemon-flm/p/7877898.html)
