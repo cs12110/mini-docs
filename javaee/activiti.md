@@ -139,6 +139,18 @@ Completion condition (Multi-instance)参数解析
 
 例如: 多个用户任务完成流转到下一个流程节点的条件,设置为`${nrOfCompletedInstances/nrOfInstances == 1 }`表示所有任务都被执行才流转到下一个节点,`${nrOfCompletedInstances/nrOfInstances <= 0.5 }`表示假如总共 4 个任务,执行了 2 个任务之后就流转到下一个节点.
 
+在代码设置多个审批人,`VacationApp#classAudit`
+
+```java
+// 动态指定多个级主任
+List<String> list = Arrays.asList(gradeMonitor.split(","));
+map.put("gradeMonitorList", list);
+map.put("applyInfo", applyInfo);
+
+// 同意学生请假,流转到级主任节点
+taskService.complete(task.getId(), map);
+```
+
 ---
 
 ### 3. 整合 Spring

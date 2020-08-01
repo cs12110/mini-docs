@@ -48,6 +48,7 @@
   - [JWT 使用指南](javaee/jwt-map.md)
   - [爬虫 之 HttpClient](javaee/spider-httpclient.md)
   - [全文检索之 ES](javaee/fulltext-es.md)
+  - [工作流Activiti](javaee/activiti.md)
 
 ---
 
