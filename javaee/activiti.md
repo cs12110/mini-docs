@@ -223,7 +223,13 @@ spring.datasource.password=Team@3306
 logging.config=classpath:logback.xml
 ```
 
-#### 3.2 测试运行
+#### 3.2 监听器配置
+
+修改为 bean 的名称即可.
+
+![](img/activiti-spring-listener.png)
+
+#### 3.3 测试运行
 
 **学生请假**
 
@@ -494,6 +500,97 @@ b. [Activiti 参考文档](https://segmentfault.com/a/1190000013839729)
       <bpmndi:BPMNEdge bpmnElement="sid-D4EE0B4C-8690-481C-84A3-93DD9DAA16B4" id="BPMNEdge_sid-D4EE0B4C-8690-481C-84A3-93DD9DAA16B4">
         <omgdi:waypoint x="75.0" y="70.0"></omgdi:waypoint>
         <omgdi:waypoint x="150.0" y="70.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
+```
+
+#### spring-vacation
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="spring-vacation" name="spring-vacation" isExecutable="true">
+    <documentation>vacation flow work</documentation>
+    <startEvent id="start"></startEvent>
+    <userTask id="firstAudit" name="班主任审批" activiti:assignee="${classMonitor}">
+      <extensionElements>
+        <activiti:executionListener event="end" class="com.pkgs.listener.VacationExecutionListener"></activiti:executionListener>
+        <activiti:taskListener event="complete" delegateExpression="${vacationTaskListener}"></activiti:taskListener>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <userTask id="gradeAudit" name="级主任审批" activiti:assignee="${gradeMonitorValue}">
+      <extensionElements>
+        <activiti:taskListener event="complete" delegateExpression="${vacationTaskListener}"></activiti:taskListener>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="${gradeMonitorList}" activiti:elementVariable="gradeMonitorValue">
+        <completionCondition>${nrOfCompletedInstances&gt;0}</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <exclusiveGateway id="sid-3FC5E931-3647-4A80-BE58-D777D2159392"></exclusiveGateway>
+    <sequenceFlow id="sid-C297E320-8846-4684-AADB-27FCEB2F7694" sourceRef="vacationApply" targetRef="firstAudit"></sequenceFlow>
+    <sequenceFlow id="sid-D4EE0B4C-8690-481C-84A3-93DD9DAA16B4" sourceRef="start" targetRef="vacationApply"></sequenceFlow>
+    <endEvent id="sid-E7C08E26-4376-4375-8E3E-CABB34576008"></endEvent>
+    <sequenceFlow id="sid-233578BE-63EC-4CBA-9AD0-764508976569" sourceRef="firstAudit" targetRef="sid-3FC5E931-3647-4A80-BE58-D777D2159392"></sequenceFlow>
+    <userTask id="vacationApply" name="填写请求单" activiti:assignee="${applyStudent}">
+      <extensionElements>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="sid-2F8E0CB4-9F3B-4A4C-8585-CEB75CE8E876" sourceRef="gradeAudit" targetRef="sid-E7C08E26-4376-4375-8E3E-CABB34576008"></sequenceFlow>
+    <sequenceFlow id="sid-05ADCC85-060C-4546-83B3-B16D4B2A0B87" name="${days&gt;3}" sourceRef="sid-3FC5E931-3647-4A80-BE58-D777D2159392" targetRef="gradeAudit">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${days>3}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-14CBDEB8-9291-4C80-A87A-CD1B7DCFC5F1" name="${days&lt;=3}" sourceRef="sid-3FC5E931-3647-4A80-BE58-D777D2159392" targetRef="sid-E7C08E26-4376-4375-8E3E-CABB34576008">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${days<=3}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_spring-vacation">
+    <bpmndi:BPMNPlane bpmnElement="spring-vacation" id="BPMNPlane_spring-vacation">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="45.0" y="55.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="firstAudit" id="BPMNShape_firstAudit">
+        <omgdc:Bounds height="80.0" width="100.0" x="319.4039767913553" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="gradeAudit" id="BPMNShape_gradeAudit">
+        <omgdc:Bounds height="80.00000000000003" width="100.0" x="435.0" y="165.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-3FC5E931-3647-4A80-BE58-D777D2159392" id="BPMNShape_sid-3FC5E931-3647-4A80-BE58-D777D2159392">
+        <omgdc:Bounds height="40.0" width="40.0" x="465.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-E7C08E26-4376-4375-8E3E-CABB34576008" id="BPMNShape_sid-E7C08E26-4376-4375-8E3E-CABB34576008">
+        <omgdc:Bounds height="28.0" width="28.0" x="700.5" y="53.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="vacationApply" id="BPMNShape_vacationApply">
+        <omgdc:Bounds height="80.0" width="100.0" x="135.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-233578BE-63EC-4CBA-9AD0-764508976569" id="BPMNEdge_sid-233578BE-63EC-4CBA-9AD0-764508976569">
+        <omgdi:waypoint x="419.4039767913553" y="70.0"></omgdi:waypoint>
+        <omgdi:waypoint x="465.0" y="70.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-05ADCC85-060C-4546-83B3-B16D4B2A0B87" id="BPMNEdge_sid-05ADCC85-060C-4546-83B3-B16D4B2A0B87">
+        <omgdi:waypoint x="485.0" y="90.0"></omgdi:waypoint>
+        <omgdi:waypoint x="485.0" y="165.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-2F8E0CB4-9F3B-4A4C-8585-CEB75CE8E876" id="BPMNEdge_sid-2F8E0CB4-9F3B-4A4C-8585-CEB75CE8E876">
+        <omgdi:waypoint x="535.0" y="174.9346405228758"></omgdi:waypoint>
+        <omgdi:waypoint x="702.5020238270478" y="74.21446933275558"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-C297E320-8846-4684-AADB-27FCEB2F7694" id="BPMNEdge_sid-C297E320-8846-4684-AADB-27FCEB2F7694">
+        <omgdi:waypoint x="235.0" y="70.0"></omgdi:waypoint>
+        <omgdi:waypoint x="319.4039767913553" y="70.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-14CBDEB8-9291-4C80-A87A-CD1B7DCFC5F1" id="BPMNEdge_sid-14CBDEB8-9291-4C80-A87A-CD1B7DCFC5F1">
+        <omgdi:waypoint x="504.741935483871" y="69.74193548387098"></omgdi:waypoint>
+        <omgdi:waypoint x="700.5011959678819" y="67.18299090238064"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D4EE0B4C-8690-481C-84A3-93DD9DAA16B4" id="BPMNEdge_sid-D4EE0B4C-8690-481C-84A3-93DD9DAA16B4">
+        <omgdi:waypoint x="75.0" y="70.0"></omgdi:waypoint>
+        <omgdi:waypoint x="135.0" y="70.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
