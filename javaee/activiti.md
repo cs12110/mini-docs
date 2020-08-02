@@ -90,7 +90,7 @@ total 4.0K
 
 #### 任务设置
 
-**设置填写请求单节点**
+**设置填写请求单节点**ß
 
 ![](img/activiti-apply-node.png)
 
@@ -154,6 +154,248 @@ taskService.complete(task.getId(), map);
 ---
 
 ### 3. 整合 Spring
+
+[github 地址](https://github.com/cs12110/activiti-project),模块: `activiti-javaee`,运行程序为:`com.pkgs.App`.
+
+总体来看整合 springboot 之后使用起来更简单了.
+
+#### 3.1 配置文件
+
+maven 依赖
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-parent</artifactId>
+            <version>2.1.4.RELEASE</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+<dependencies>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.activiti</groupId>
+        <artifactId>activiti-spring-boot-starter-basic</artifactId>
+        <version>6.0.0</version>
+    </dependency>
+</dependencies>
+```
+
+application.properties
+
+```properties
+# 项目基础配置
+server.port=8090
+spring.application.name=springboot-activiti
+server.servlet.context-path=/api/activiti/
+
+# activiti配置
+# 自动检查,部署流程文件
+spring.activiti.check-process-definitions=true
+# 自动更新数据库结构
+spring.activiti.database-schema-update=true
+# 定义流程文件存放目录
+spring.activiti.process-definition-location-prefix=classpath:/workflow/
+
+# 配置数据源
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://118.89.113.147:3306/spring_act_db?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+spring.datasource.username=root
+spring.datasource.password=Team@3306
+
+
+# 日志配置
+logging.config=classpath:logback.xml
+```
+
+#### 3.2 测试运行
+
+**学生请假**
+
+请求地址:`127.0.0.1:8090/api/activiti/apply/start`
+
+请求参数:
+
+```json
+{
+  "applyStudent": "cs12110",
+  "days": 20,
+  "reason": "要搬砖解决温饱"
+}
+```
+
+返回参数
+
+```json
+{
+  "status": 1,
+  "message": null,
+  "value": "已提交请求申请,申请Id:5"
+}
+```
+
+**班主任审批**
+
+获取审批数据请求地址:`127.0.0.1:8090/api/activiti/audit/tasks?user=haiyan`
+
+返回参数:
+
+```json
+{
+  "status": 1,
+  "message": null,
+  "value": [
+    {
+      "id": "75",
+      "applyStudent": "cs12110",
+      "days": 20,
+      "reason": "要搬砖解决温饱",
+      "applyDate": "2020-08-02T06:08:40.159+0000"
+    }
+  ]
+}
+```
+
+审批接口请求地址:`127.0.0.1:8090/api/activiti/audit/agree`
+
+请求数据:
+
+```json
+{
+  "id": "75",
+  "agree": true,
+  "comment": "班主任同意"
+}
+```
+
+返回参数
+
+```json
+{
+  "status": 1,
+  "message": null,
+  "value": "审批通过"
+}
+```
+
+**级主任审批**
+
+获取审批数据请求地址:`127.0.0.1:8090/api/activiti/audit/tasks?user=haiyan`
+
+返回参数:
+
+```json
+{
+  "status": 1,
+  "message": null,
+  "value": [
+    {
+      "id": "102",
+      "applyStudent": "cs12110",
+      "days": 20,
+      "reason": "要搬砖解决温饱",
+      "applyDate": "2020-08-02T06:11:38.454+0000"
+    }
+  ]
+}
+```
+
+审批接口请求地址:`127.0.0.1:8090/api/activiti/audit/agree`
+
+请求数据:
+
+```json
+{
+  "id": "102",
+  "agree": true,
+  "comment": "级主任同意"
+}
+```
+
+返回参数:
+
+```json
+{
+  "status": 1,
+  "message": null,
+  "value": "审批通过"
+}
+```
+
+**历史查询**
+
+请求地址:`127.0.0.1:8090/api/activiti/history/trace?processId=60`
+
+返回数据:
+
+```json
+{
+  "status": 1,
+  "message": null,
+  "value": [
+    {
+      "taskName": "级主任审批",
+      "startTime": "2020-08-02 14:11:38",
+      "assignee": "3307",
+      "endTime": "2020-08-02 14:12:35",
+      "localVars": {}
+    },
+    {
+      "taskName": "级主任审批",
+      "startTime": "2020-08-02 14:11:38",
+      "assignee": "3306",
+      "endTime": "2020-08-02 14:12:35",
+      "localVars": {
+        "gradeMonitorList": ["3306", "3307"],
+        "level": null,
+        "comment": "级主任同意",
+        "id": "102",
+        "agree": true
+      }
+    },
+    {
+      "taskName": "班主任审批",
+      "startTime": "2020-08-02 14:08:40",
+      "assignee": "haiyan",
+      "endTime": "2020-08-02 14:11:38",
+      "localVars": {
+        "gradeMonitorList": ["3306", "3307"],
+        "level": null,
+        "comment": "班主任同意",
+        "id": "75",
+        "agree": true
+      }
+    },
+    {
+      "taskName": "填写请求单",
+      "startTime": "2020-08-02 14:08:37",
+      "assignee": "cs12110",
+      "endTime": "2020-08-02 14:08:40",
+      "localVars": {
+        "reason": "要搬砖解决温饱",
+        "classMonitor": "haiyan",
+        "days": 20,
+        "applyStudent": "cs12110"
+      }
+    }
+  ]
+}
+```
 
 ---
 
