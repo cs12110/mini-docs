@@ -256,6 +256,120 @@ $ java -jar xxl-job-executor-sample-springboot-2.0.2.jar
 
 ---
 
-## 4. 参考文档
+## 4. 自动注册
+
+Q: 上面都是手动注册进去的执行器,那么我们可以自动注册没?
+
+A: 可以的,都可以的.
+
+### 4.1 项目配置
+
+```properties
+# web port
+server.port=8081
+
+# log config
+logging.config=classpath:logback.xml
+
+
+### xxl-job admin address list, such as "http://address" or "http://address01,http://address02"
+xxl.job.admin.addresses=http://127.0.0.1:8080/xxl-job-admin
+
+### xxl-job executor address
+xxl.job.executor.appname=xxl-job-executor-sample
+xxl.job.executor.ip=
+xxl.job.executor.port=9999
+
+### xxl-job, access token
+xxl.job.accessToken=
+
+### xxl-job log path
+xxl.job.executor.logpath=/data/applogs/xxl-job/jobhandler
+### xxl-job log retention days
+xxl.job.executor.logretentiondays=30
+```
+
+### 4.2 执行器配置
+
+```java
+package com.xxl.job.executor.core.config;
+
+import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * xxl-job config
+ *
+ * @author xuxueli 2017-04-28
+ */
+@Configuration
+public class XxlJobConfig {
+    private Logger logger = LoggerFactory.getLogger(XxlJobConfig.class);
+
+    @Value("${xxl.job.admin.addresses}")
+    private String adminAddresses;
+
+    @Value("${xxl.job.executor.appname}")
+    private String appName;
+
+    @Value("${xxl.job.executor.ip}")
+    private String ip;
+
+    @Value("${xxl.job.executor.port}")
+    private int port;
+
+    @Value("${xxl.job.accessToken}")
+    private String accessToken;
+
+    @Value("${xxl.job.executor.logpath}")
+    private String logPath;
+
+    @Value("${xxl.job.executor.logretentiondays}")
+    private int logRetentionDays;
+
+
+    @Bean
+    public XxlJobSpringExecutor xxlJobExecutor() {
+        logger.info(">>>>>>>>>>> xxl-job config init.");
+        XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
+        xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
+        xxlJobSpringExecutor.setAppName(appName);
+        xxlJobSpringExecutor.setIp(ip);
+        xxlJobSpringExecutor.setPort(port);
+        xxlJobSpringExecutor.setAccessToken(accessToken);
+        xxlJobSpringExecutor.setLogPath(logPath);
+        xxlJobSpringExecutor.setLogRetentionDays(logRetentionDays);
+
+        return xxlJobSpringExecutor;
+    }
+
+    /**
+     * 针对多网卡、容器内部署等情况，可借助 "spring-cloud-commons" 提供的 "InetUtils" 组件灵活定制注册IP；
+     *
+     *      1、引入依赖：
+     *          <dependency>
+     *             <groupId>org.springframework.cloud</groupId>
+     *             <artifactId>spring-cloud-commons</artifactId>
+     *             <version>${version}</version>
+     *         </dependency>
+     *
+     *      2、配置文件，或者容器启动变量
+     *          spring.cloud.inetutils.preferred-networks: 'xxx.xxx.xxx.'
+     *
+     *      3、获取IP
+     *          String ip_ = inetUtils.findFirstNonLoopbackHostInfo().getIpAddress();
+     */
+
+
+}
+```
+
+---
+
+## 5. 参考文档
 
 a. [xxl-job 官方文档](http://www.xuxueli.com/xxl-job/#/)
