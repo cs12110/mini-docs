@@ -2,10 +2,6 @@
 
 **该文档操作系统为:`centos7`,请知悉.**
 
-我: Hi,docker,can I call you dog???
-
-Docker: You can call me anything you want. Also fuck ya!!!.
-
 ---
 
 ## 1. 安装 docker
@@ -324,7 +320,83 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 ---
 
-## 3. 参考资料
+## 3. 安装 mysql 集群
+
+嗯,是的,又开始了,瞎折腾. [docker 安装 mysql 主从复制 参考文档](https://www.cnblogs.com/songwenjie/p/9371422.html)
+
+### 3.1 安装 mysql
+
+端口规划
+
+| 名称          | 端口 | 用户       | 密码   |
+| ------------- | ---- | ---------- | ------ |
+| mysql-master1 | 5000 | root,team2 | 123456 |
+| mysql-slave11 | 5100 | root       | 123456 |
+| mysql-slave12 | 5200 | root       | 123456 |
+
+安装 mysql5.7 镜像
+
+```sh
+# root @ team3 in ~ [15:54:01] C:20
+$  docker pull kiratalent/mysql:5.7
+
+# root @ team3 in ~ [16:08:33]
+$ docker images
+REPOSITORY                   TAG                 IMAGE ID            CREATED             SIZE
+docker.io/kiratalent/mysql   5.7                 3ac2290b7c6e        21 months ago       372 MB
+
+# root @ team3 in ~ [17:13:58] C:1
+$ docker tag docker.io/kiratalent/mysql:5.7  msyql5.7:5.7
+
+# root @ team3 in ~ [17:14:09]
+$ docker images
+REPOSITORY                   TAG                 IMAGE ID            CREATED             SIZE
+docker.io/kiratalent/mysql   5.7                 3ac2290b7c6e        21 months ago       372 MB
+msyql5.7                     5.7                 3ac2290b7c6e        21 months ago       372 MB
+
+# root @ team3 in ~ [17:15:10] C:1
+$ docker rmi docker.io/kiratalent/mysql:5.7
+Untagged: docker.io/kiratalent/mysql:5.7
+Untagged: docker.io/kiratalent/mysql@sha256:9241ee408033b2ce35ea406aa896aead7afcc5134fe6318e37c1979e9810030b
+
+# root @ team3 in ~ [17:15:16]
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+msyql5.7            5.7                 3ac2290b7c6e        21 months ago       372 MB
+```
+
+运行 mysql 镜像
+
+```sh
+# root @ team3 in ~ [17:21:16]
+$ docker run -p 5000:3306 --name mysql-master1 -e MYSQL_ROOT_PASSWORD=123456 -d 3ac2290b7c6e
+fcf65ec1be42a770bf1c55e95cd8080759ebaf08bd4bb00ec29bb8035c0b2828
+
+# root @ team3 in ~ [17:21:24]
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+fcf65ec1be42        3ac2290b7c6e        "docker-entrypoint..."   9 seconds ago       Up 8 seconds        33060/tcp, 0.0.0.0:5000->3306/tcp   mysql-master1
+
+# root @ team3 in ~ [17:21:24]
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES
+fcf65ec1be42        3ac2290b7c6e        "docker-entrypoint..."   9 seconds ago       Up 8 seconds        33060/tcp, 0.0.0.0:5000->3306/tcp   mysql-master1
+
+# 登录进去docker的mysql
+# root @ team3 in ~ [17:21:33]
+$ mysql -h 118.89.113.147 -P 5000  -u root -p
+
+mysql> create user 'team2'@'%'identified by '123456';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant replication slave,replication client on *.* TO 'team2'@'%';
+Query OK, 0 rows affected (0.00 sec)
+
+```
+
+---
+
+## 4. 参考资料
 
 a. [菜鸟教程 docker](https://www.runoob.com/docker/centos-docker-install.html)
 
