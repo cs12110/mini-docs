@@ -6,6 +6,7 @@
 
 - [Web](web/README.md)
   - [jQuery 教程](web/jq.md)
+  - [Vue 教程](web/vue.md)
 
 ---
 
@@ -104,7 +105,7 @@
   - [Spring 源码阅读](killme/spring-doc.md)
   - [Shiro 源码阅读](killme/shiro.md)
 
----- 
+----
 
 - [大数据](tb/README.md)
  - [Hadoop](tb/hadoop/README.md)
