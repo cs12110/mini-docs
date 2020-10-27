@@ -27,33 +27,34 @@ $ npm run serve
 
 ---
 
-## 2. vue
+## 2. vue 组件
 
-### 2.1 issue
+Vue 组件就像 Java 里面的 maven 引入依赖一样,需要的就 import 进来.
 
-#### runtime 警告
+### 2.0 vue
 
-在 vue-cli 3 里面有很多变态的东西 orz.
+使用脚手架来做,觉得好不习惯. 流下了没有技术的泪水.
 
-```
-[Vue warn]: You are using the runtime-only build of Vue where the template compiler is not available. Either pre-compile the templates into render functions, or use the compiler-included build.
-```
+Q: 如果要在页面加载的时候执行自己定义的方法,该怎么办?
 
-在根目录创建`vue.config.js`,里面填写如下内容:
+A: follow me.
 
 ```js
-module.exports = {
-  configureWebpack: {
-    resolve: {
-      alias: {
-        vue$: "vue/dist/vue.esm.js",
-      },
-    },
+// 4. 创建和挂载根实例。
+new Vue({
+  router,
+  render: (h) => h(App),
+  mounted: function() {
+    // 自己定义需要加载的方法
+    loadAuth();
   },
-};
+}).$mount("#app");
 ```
 
-### 2.2 vue-router
+
+### 2.1 vue-router
+
+tmd,一直卡在这一块,权限处理呀,卧槽.
 
 官方文档:[link](https://router.vuejs.org/zh/installation.html)
 
@@ -77,7 +78,40 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 ```
 
+### 2.2 Axios
+
+主要用于封装请求的组件,类似于 jQuery 里面的 ajax.
+
+官网地址:[link](http://www.axios-js.com/zh-cn/docs/index.html)
+
+进入前端项目所在路径,进行组件安装
+
+```sh
+# mr3306 @ mr3306 in ~/Box/projects/web/vue-shop on git:master x [17:26:10]
+$ pwd
+/Users/mr3306/Box/projects/web/vue-shop
+
+# mr3306 @ mr3306 in ~/Box/projects/web/vue-shop on git:master x [17:27:35]
+$  npm install axios
+
+# 最新版本的vue-axios需要vue3.0以上,所以指定旧版本
+# mr3306 @ mr3306 in ~/Box/projects/web/vue-shop on git:master x [17:27:35]
+$  npm install --save vue-axios@2.1.0
+```
+
+引入 axios 组件
+
+```js
+import Vue from "vue";
+import axios from "axios";
+import VueAxios from "vue-axios";
+
+Vue.use(VueAxios, axios);
+```
+
 ### 2.3 ElementUI
+
+一个挺好看的前端的 vue ui 组件,
 
 官方文档:[link](https://element.eleme.cn/#/en-US/component/installation)
 
@@ -108,31 +142,64 @@ new Vue({
 });
 ```
 
-### 2.4 Axios
+### 2.4 vuex
 
-官网地址:[link](http://www.axios-js.com/zh-cn/docs/index.html)
+Q: 你给我翻译,翻译,什么叫他妈的vuex,什么叫tmd vuex
 
-进入前端项目所在路径,进行组件安装
 
-```sh
-# mr3306 @ mr3306 in ~/Box/projects/web/vue-shop on git:master x [17:26:10]
-$ pwd
-/Users/mr3306/Box/projects/web/vue-shop
+A: Vuex是一个专为Vue.js应用程序开发的状态管理模式,采用集中式存储管理应用的所有组件的状态.可简单理解为一个全局的状态管理器,我们可以把一些全局的状态存储在里面.当多个组件中显示这些状态时,只要在任意一个组件中改变这个状态,其余组件中的这个状态均会改变.
 
-# mr3306 @ mr3306 in ~/Box/projects/web/vue-shop on git:master x [17:27:35]
-$  npm install axios
 
-# 最新版本的vue-axios需要vue3.0以上,所以指定旧版本
-# mr3306 @ mr3306 in ~/Box/projects/web/vue-shop on git:master x [17:27:35]
-$  npm install --save vue-axios@2.1.0
+|名称|概念|备注|
+|---| ---| ----|
+|Store|相当于一个容器,它包含着应用中大部分的状态|
+|State|Store中存储的状态,由于使用了单一状态树,即Vuex中存储的状态只存在一份,当这个状态发生改变时,和它绑定的组件中的这个状态均会发生改变|
+|Getter|从State中派生出的一些状态，可以认为是State的计算属性|
+|Mutation|状态的变化,更改Vuex中的State的唯一方法是提交Mutation|
+|Action|用于提交Mutation的动作,从而更改Vuex中的State|
+|Module|Store中的模块,由于使用单一状态树,应用的所有状态会集中到一个比较大的对象.为了解决以上问题,Vuex允许我们将Store分割成模块|
+
+
+
+---
+
+## 3. Issue
+
+记录各种异常.
+
+### 3.1 runtime 警告
+
+在 vue-cli 3 里面有很多变态的东西 orz.
+
+```
+[Vue warn]: You are using the runtime-only build of Vue where the template compiler is not available. Either pre-compile the templates into render functions, or use the compiler-included build.
 ```
 
-引入 axios 组件
+在根目录创建`vue.config.js`,里面填写如下内容:
 
 ```js
-import Vue from "vue";
-import axios from "axios";
-import VueAxios from "vue-axios";
-
-Vue.use(VueAxios, axios);
+module.exports = {
+  configureWebpack: {
+    resolve: {
+      alias: {
+        vue$: "vue/dist/vue.esm.js",
+      },
+    },
+  },
+};
 ```
+
+### 3.2 组件的使用
+
+在vue里面,各种this,这是何等的卧槽啊.
+
+比如现在在项目里面引入了ElementUI,但是想使用ta的消息组件:`message`,按照官网的
+
+```js
+this.$message('This is a message.');
+```
+
+这种this让我哭出了声.
+
+
+

@@ -106,3 +106,34 @@ mvn clean package -Dskiptest=true
 ```sh
 mvn clean install source:jar -Dskiptest=true
 ```
+
+---
+
+## 5. maven 依赖
+
+分析 maven 依赖,便于找出一些重复的依赖,在项目模块下使用如下命令即可.
+
+```sh
+# mr3306 @ mr3306 in ~/Box/projects/lst-new/lst-admin on git:dev1.0 x [20:53:58]
+$ mvn dependency:tree
+```
+
+在 pom.xml 排除依赖例子
+
+```xml
+<dependency>
+    <groupId>net.oschina.j2cache</groupId>
+    <artifactId>j2cache-core</artifactId>
+    <version>${j2cache.version}</version>
+    <exclusions>
+        <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
