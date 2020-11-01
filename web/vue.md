@@ -44,13 +44,12 @@ A: follow me.
 new Vue({
   router,
   render: (h) => h(App),
-  mounted: function() {
+  mounted: function () {
     // 自己定义需要加载的方法
     loadAuth();
   },
 }).$mount("#app");
 ```
-
 
 ### 2.1 vue-router
 
@@ -144,22 +143,60 @@ new Vue({
 
 ### 2.4 vuex
 
-Q: 你给我翻译,翻译,什么叫他妈的vuex,什么叫tmd vuex
+[vuex 官网地址 link](https://vuex.vuejs.org/zh/guide/actions.html)
 
+Q: 你给我翻译,翻译,什么叫他妈的 vuex,什么叫 tmd vuex
 
-A: Vuex是一个专为Vue.js应用程序开发的状态管理模式,采用集中式存储管理应用的所有组件的状态.可简单理解为一个全局的状态管理器,我们可以把一些全局的状态存储在里面.当多个组件中显示这些状态时,只要在任意一个组件中改变这个状态,其余组件中的这个状态均会改变.
+A: Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式,采用集中式存储管理应用的所有组件的状态.可简单理解为一个全局的状态管理器,我们可以把一些全局的状态存储在里面.当多个组件中显示这些状态时,只要在任意一个组件中改变这个状态,其余组件中的这个状态均会改变.
 
+| 名称     | 概念                                                                                                                               | 备注 |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| Store    | 相当于一个容器,它包含着应用中大部分的状态                                                                                          |
+| State    | Store 中存储的状态,由于使用了单一状态树,即 Vuex 中存储的状态只存在一份,当这个状态发生改变时,和它绑定的组件中的这个状态均会发生改变 |
+| Getter   | 从 State 中派生出的一些状态，可以认为是 State 的计算属性                                                                           |
+| Mutation | 状态的变化,更改 Vuex 中的 State 的唯一方法是提交 Mutation                                                                          |
+| Action   | 用于提交 Mutation 的动作,从而更改 Vuex 中的 State                                                                                  |
+| Module   | Store 中的模块,由于使用单一状态树,应用的所有状态会集中到一个比较大的对象.为了解决以上问题,Vuex 允许我们将 Store 分割成模块         |
 
-|名称|概念|备注|
-|---| ---| ----|
-|Store|相当于一个容器,它包含着应用中大部分的状态|
-|State|Store中存储的状态,由于使用了单一状态树,即Vuex中存储的状态只存在一份,当这个状态发生改变时,和它绑定的组件中的这个状态均会发生改变|
-|Getter|从State中派生出的一些状态，可以认为是State的计算属性|
-|Mutation|状态的变化,更改Vuex中的State的唯一方法是提交Mutation|
-|Action|用于提交Mutation的动作,从而更改Vuex中的State|
-|Module|Store中的模块,由于使用单一状态树,应用的所有状态会集中到一个比较大的对象.为了解决以上问题,Vuex允许我们将Store分割成模块|
+`mutations`示例:
 
+```js
+const store = new Vuex.Store({
+  state: {
+    count: 1,
+  },
+  mutations: {
+    increment(state) {
+      // 变更状态
+      state.count++;
+    },
+  },
+});
+```
 
+通过`commit`调用: `store.commit('increment')`
+
+`actions`示例
+
+```js
+const store = new Vuex.Store({
+  state: {
+    count: 0,
+  },
+  mutations: {
+    increment(state) {
+      state.count++;
+    },
+  },
+  actions: {
+    increment(context) {
+      context.commit("increment");
+    },
+  },
+});
+```
+
+通过`dispatch`调用: `store.dispatch('increment')`
 
 ---
 
@@ -191,15 +228,12 @@ module.exports = {
 
 ### 3.2 组件的使用
 
-在vue里面,各种this,这是何等的卧槽啊.
+在 vue 里面,各种 this,这是何等的卧槽啊.
 
-比如现在在项目里面引入了ElementUI,但是想使用ta的消息组件:`message`,按照官网的
+比如现在在项目里面引入了 ElementUI,但是想使用 ta 的消息组件:`message`,按照官网的
 
 ```js
-this.$message('This is a message.');
+this.$message("This is a message.");
 ```
 
-这种this让我哭出了声.
-
-
-
+这种 this 让我哭出了声.
