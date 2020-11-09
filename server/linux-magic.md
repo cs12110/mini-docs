@@ -858,6 +858,8 @@ Q: 在 Tomcat 里面启动的项目,怎么使用域名访问,而不是每次都�
 
 A: 假设服务器的 tomcat 项目的访问地址为:`http://47.98.104.252:8080/schedule/views/Schedule.jsp`,那么我们需要在 nginx 加上这个项目的代理即可.
 
+注意: **location的路径最好和proxy_pass里面的那个一致**.
+
 ```nginx
 location /schedule/ {
   proxy_pass http://127.0.0.1:8080/schedule/;
@@ -892,3 +894,33 @@ $ ls -i |grep 6943951 | awk '{print $2}' | xargs rm -f
 $ ls
 movies
 ```
+
+---
+## 19. 监控网络流量
+
+因为发现服务器的网速变慢了很多,需要监控一下是什么进程占用了大部分流量.
+
+Q: 那么使用什么软件在centos上监控流量比较好呀?
+
+A: 推荐使用`nethogs`,因为可以yum安装. 流下了没有技术的眼泪.
+
+```sh
+[root@izwz9i5n2y2vnpulvrtfirz ~]# yum install -y nethogs
+[root@izwz9i5n2y2vnpulvrtfirz ~]# nethogs
+
+    PID USER     PROGRAM                                        DEV        SENT      RECEIVED
+      ? root     172.16.36.35:25165-108.179.219.12:52718                    0.000	0.000 KB/sec
+      ? root     172.16.36.35:5949-89.248.160.193:51523                     0.000	0.000 KB/sec
+      ? root     172.16.36.35:6336-120.235.177.205:10726                    0.000	0.000 KB/sec
+      ? root     172.16.36.35:51910-94.102.51.28:52656                      0.000	0.000 KB/sec
+      ? root     172.16.36.35:1433-124.166.252.194:65513                    0.000	0.000 KB/sec
+   1283 root     /etc/LINUXTIANFA                               eth0        0.029	0.000 KB/sec
+  19419 mysql    /usr/sbin/mysqld                               eth0        0.000	0.000 KB/sec
+   1280 root     /etc/LINUXTIANFA                               eth0        0.014	0.000 KB/sec
+  20437 root     sshd: root@pts/1                               eth0        0.000	0.000 KB/sec
+      ? root     unknown TCP                                                0.000	0.000 KB/sec
+
+  TOTAL                                                                     0.043       0.000 KB/sec
+```
+
+可惜的是,上面的有一些pid都是?,惆怅.
