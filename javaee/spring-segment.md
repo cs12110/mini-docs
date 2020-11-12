@@ -2233,3 +2233,35 @@ public class FastJsonDateFormatConfiguration extends WebMvcConfigurationSupport 
     }
 }
 ```
+
+---
+
+## 18. 替换bean
+
+这个黑魔法是从这个大佬的[博客 link](https://crossoverjie.top/2018/10/15/SpringBoot/SpringBoot-tips/)看来.
+
+```java
+@Component
+public class OrderMockServiceConfig implements CommandLineRunner {
+    private final static Logger logger = LoggerFactory.getLogger(OrderMockServiceConfig.class);
+    @Autowired
+    private ApplicationContext applicationContext;
+    @Value("${excute.env}")
+    private String env;
+    @Override
+    public void run(String... strings) throws Exception {
+        // 非本地环境不做处理
+        if ("dev".equals(env) || "test".equals(env) || "pro".equals(env)) {
+            return;
+        }
+        DefaultListableBeanFactory defaultListableBeanFactory = (DefaultListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
+        OrderServiceClient orderServiceClient = defaultListableBeanFactory.getBean(OrderServiceClient.class);
+        logger.info("======orderServiceClient {}=====", orderServiceClient.getClass());
+        defaultListableBeanFactory.removeBeanDefinition(OrderServiceClient.class.getCanonicalName());
+        OrderServiceClient mockOrderApi = PowerMockito.mock(OrderServiceClient.class,
+                invocationOnMock -> BaseResponse.createSuccess(DateUtil.getLongTime() + "", "mock orderNo success"));
+        defaultListableBeanFactory.registerSingleton(OrderServiceClient.class.getCanonicalName(), mockOrderApi);
+        logger.info("======mockOrderApi {}=====", mockOrderApi.getClass());
+    }
+}
+```
