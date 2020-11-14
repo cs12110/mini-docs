@@ -14,6 +14,7 @@
   - [Java 之 Mockito](javase/java-mockito.md)
   - [Java 之 Lambda](javase/java-lambda.md)
   - [Java 之 IO](javase/java-ios.md)
+  - [Java 之 常用加密/解密](javase/java-encode.md)
   - [Java 之 线程](javase/java-thread.md)
   - [Java 之 线程池](javase/java-threadpool.md)
   - [Java 之 ThreadLocal](javase/java-threadlocal.md)
