@@ -43,15 +43,15 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoie1wibmFtZVwiOlwiaGFpeWFuXCI
 
 **标准注册声明**
 
-| 标志  | 备注                                                        |
-| :---: | ----------------------------------------------------------- |
-|  iss  | jwt签发者                                                   |
-|  sub  | jwt所面向的用户                                             |
-|  aud  | 接收jwt的一方                                               |
-|  exp  | jwt的过期时间,这个过期时间必须要大于签发时间                |
-|  nbf  | 定义在什么时间之前,该jwt都是不可用的                        |
-|  iat  | jwt的签发时间                                               |
-|  jti  | jwt的唯一身份标识,主要用来作为一次性token,从而回避重放攻击. |
+| 标志 | 备注                                                          |
+| :--: | ------------------------------------------------------------- |
+| iss  | jwt 签发者                                                    |
+| sub  | jwt 所面向的用户                                              |
+| aud  | 接收 jwt 的一方                                               |
+| exp  | jwt 的过期时间,这个过期时间必须要大于签发时间                 |
+| nbf  | 定义在什么时间之前,该 jwt 都是不可用的                        |
+| iat  | jwt 的签发时间                                                |
+| jti  | jwt 的唯一身份标识,主要用来作为一次性 token,从而回避重放攻击. |
 
 **公共声明**: 公共的声明可以添加任何的信息,一般添加用户的相关信息或其他业务需要的必要信息.但不建议添加敏感信息,因为该部分在客户端可解密.
 
@@ -296,7 +296,9 @@ payload: {"name":"haiyan","id":12110}
 
 ### 4.3 刷新 token
 
-刷新 token 是一门学问.
+Q: 因为 jwt 生成 token 之后是不能改变,那么在差不多过时的时候,要怎么进行 token 的刷新呀?
+
+A: 在之前了解的情况下,大概有如下实现代码,但是好像也不能实现,因为这样子已经另一个 token.
 
 ```java
  @Test
@@ -329,8 +331,31 @@ public void refresh() {
 {status=200}
 ```
 
+Q: 所以,要怎么实现一个比较通用一点的续费逻辑?
+
+A: 在网上看见一个借助 redis 的实现方式,[jwt 自动续约](https://www.cnblogs.com/kevinblandy/p/13429695.html)
+
+重点: `过期时间不交付给 jwt 托管,交由 redis 的 key 的过期时间托管.`
+
+```mermaid
+sequenceDiagram
+autoNumber
+
+前端 ->> 后台: 头部token
+后台 ->> 后台: jwt解释token,获得redis的key
+后台 ->> redis: 重新设置key的过期时间
+redis -->> 后台: 设置过期时间
+后台 -->> 前端: 操作完后
+```
+
+Q: 那这样子为什么还要使用 jwt 呀?那个 token 使用 AES 双向加密什么的不是一样子可以吗?
+
+A: 这个也是我疑惑的地方. orz
+
 ---
 
 ## 5. 参考资料
 
 a. [jwt 校验博客](https://blog.csdn.net/u011277123/article/details/78918390)
+
+b. [jwt 自动续约](https://www.cnblogs.com/kevinblandy/p/13429695.html)
