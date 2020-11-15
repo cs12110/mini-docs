@@ -1826,6 +1826,8 @@ public class CrossOriginFilter implements Filter {
 
 那么 Spring 的 BeanUtils,值得拥有.
 
+FBI warnning: `字段名称相同,属性不一样是不能给该字段正常复制值`.
+
 ### 15.1 定义类
 
 ```java
@@ -2181,7 +2183,11 @@ public class BusinessService {
 
 ---
 
-## 17. 配置 Fastjson 时间格式化
+## 17. 时间格式化
+
+如果不配置时间格式化的话,返回的格式是时间戳类型.
+
+### 17.1 fastjson 时间格式化
 
 在项目里面已经引用了 Fastjson,但是回传的数据的时候,fastjson 使用`@JSONField(format="yyyy-MM-dd HH:mm:ss")`注解并没有生效.
 
@@ -2234,9 +2240,63 @@ public class FastJsonDateFormatConfiguration extends WebMvcConfigurationSupport 
 }
 ```
 
+### 17.2 jackson 时间格式化
+
+在 springboot 里面默认使用的 json 序列化工具为 jackson.如果使用配置
+
+```properties
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+```
+
+只能序列化`Date`数据类型的成员属性.如果字段属性为`LocalDateTime`字段,那么就序列化不了.
+
+Q: 那么该怎么解决这个问题呀?
+
+A: 可以设立配置类来解决.
+
+```java
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * @author cs12110
+ * @version V1.0
+ * @since 2020-11-15 15:40
+ */
+@Configuration
+public class JacksonTimeFormatterConfig {
+
+    @Bean
+    public LocalDateTimeSerializer createLocalDateTimeSerializer() {
+        return new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer createObjectMapper(
+        final LocalDateTimeSerializer localDateTimeSerializer) {
+        //        new Jackson2ObjectMapperBuilderCustomizer() {
+        //            @Override
+        //            public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
+        //                jacksonObjectMapperBuilder.serializerByType(LocalDate.class, localDateTimeSerializer);
+        //            }
+        //        };
+        return (builder) -> builder.serializerByType(LocalDateTime.class, localDateTimeSerializer);
+    }
+}
+```
+
 ---
 
-## 18. 替换bean
+## 18. 替换 bean
 
 这个黑魔法是从这个大佬的[博客 link](https://crossoverjie.top/2018/10/15/SpringBoot/SpringBoot-tips/)看来.
 
@@ -2265,3 +2325,5 @@ public class OrderMockServiceConfig implements CommandLineRunner {
     }
 }
 ```
+
+---
