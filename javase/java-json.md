@@ -105,6 +105,16 @@ Issue: [fastjson 的 Long 类型数据精度丢失](https://my.oschina.net/simpl
     <artifactId>jackson-core</artifactId>
     <version>2.11.0</version>
 </dependency>
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.11.0</version>
+</dependency>
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-annotations</artifactId>
+    <version>2.11.0</version>
+</dependency>
 ```
 
 #### 2.2 案例
