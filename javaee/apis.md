@@ -460,9 +460,93 @@ public String saveUser(@RequestBody @ApiParam(name="用户对象",value="传入j
 
 ---
 
-## Yapi
+##  ~~Yapi(安装失败)~~
+
+使用 yapi 好像没什么好描述的,那么这里来看一下是怎么安装 yapi 的.
 
 ### 1. 安装 yapi
+
+使用 docker 安装 yapi
+
+```sh
+# root @ team-2 in ~ [14:08:01]
+$ docker pull silsuer/yapi
+```
+
+如果下载镜像比较慢,可以切换为阿里云的镜像
+
+```sh
+# root @ team-2 in ~ [14:21:39]
+$ cat /etc/docker/daemon.json
+{"registry-mirrors":["https://f9dk003m.mirror.aliyuncs.com"]}
+```
+
+启动 yapi
+
+```sh
+
+# -p 27017 指 mongodb 数据库端口
+# -p 9600 指 Yapi 初始化配置端口
+# -p 9700 指 Yapi 实际运行端口
+# root @ team-2 in ~ [14:25:31]
+$ docker run --name yapi -dit -p 27017:27017 -p 9600:9600 -p 9700:9700 silsuer/yapi bash
+aacfe4acd5ba1014b7bf90e68b4c10f17aaaeee73b42f216a4683a247fed6e9c
+
+# root @ team-2 in ~ [14:25:44]
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                                                                      NAMES
+aacfe4acd5ba        silsuer/yapi        "bash"              19 seconds ago      Up 17 seconds       0.0.0.0:9600->9600/tcp, 0.0.0.0:9700->9700/tcp, 0.0.0.0:27017->27017/tcp   yapi
+
+# 进入容器内部
+# root @ team-2 in ~ [14:26:05]
+$ docker exec -it yapi /bin/bash
+# yapi依赖 node,mongodb,git
+# 启动容器里的mongodb
+root@aacfe4acd5ba:/# service mongodb start
+ * Starting database mongodb         [ OK ]
+
+# 安装git
+root@aacfe4acd5ba:/# apt-get install git
+
+# 修改默认端口配置
+root@aacfe4acd5ba:/# find / -name server.js
+/usr/lib/node_modules/npm/node_modules/request/node_modules/hawk/lib/server.js
+/usr/lib/node_modules/yapi-cli/node_modules/mongodb-core/lib/topologies/server.js
+/usr/lib/node_modules/yapi-cli/node_modules/mongodb/lib/server.js
+/usr/lib/node_modules/yapi-cli/src/commands/server.js
+root@aacfe4acd5ba:/# cd /usr/lib/node_modules/yapi-cli/src/commands/
+root@aacfe4acd5ba:/usr/lib/node_modules/yapi-cli/src/commands# vim server.js
+root@aacfe4acd5ba:/usr/lib/node_modules/yapi-cli/src/commands# cat server.js |grep 9600
+    app.listen(9600)
+
+# 启动yapi服务
+root@aacfe4acd5ba:/# yapi server --port 9600
+在浏览器打开 http://0.0.0.0:9600 访问。非本地服务器，请将 0.0.0.0 替换成指定的域名或ip
+/bin/sh: 1: xdg-open: not found
+```
+
+使用 docker-compose 安装 yapi,[github link](https://github.com/Ryan-Miao/docker-yapi)
+
+tips: docker-compose 安装文档地址 [菜鸟教程 link](https://www.runoob.com/docker/docker-compose.html)
+
+```sh
+# root @ team-2 in /opt/soft/yapi/docker-yapi on git:master x [11:18:19] C:127
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+# root @ team-2 in /opt/soft/yapi/docker-yapi
+$ sudo chmod +x /usr/local/bin/docker-compose
+创建软链：
+
+# root @ team-2 in /opt/soft/yapi/docker-yapi
+$ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+测试是否安装成功：
+
+# root @ team-2 in /opt/soft/yapi/docker-yapi
+$ docker-compose --version
+cker-compose version 1.24.1, build 4667896b
+```
+
+
 
 ---
 
