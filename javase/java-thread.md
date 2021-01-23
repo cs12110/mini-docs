@@ -131,6 +131,8 @@ thread-2 持有锁`0x00000000d65ac450`,在等待 ~~`0x00000000d65ac450`~~ `0x000
 
 面试中经常遇到的`生产者/消费者`模式,经典的`wait/notify`的使用场景.
 
+tips: 无论是`wait`还是`notify`都是在`synchronized`代码块里面操作的.
+
 ### 2.1 基础知识
 
 重点: **wait 会释放锁,进入 blocked 状态,当被 notify 的时候再重新进行 ready-to-run 里面.**
@@ -827,7 +829,7 @@ public class SemaphoreApp {
         // 设置线程池的coreSize = 4
         ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-        
+
         // 提交线程
         for (int index = 0; index < 10; index++) {
             executorService.submit(new MyRun(semaphore, "t" + index));
@@ -931,5 +933,3 @@ public class SemaphoreApp {
 ```
 
 所以,信号灯,还是有点用的,我想.
-
-
