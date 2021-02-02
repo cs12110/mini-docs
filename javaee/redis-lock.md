@@ -633,7 +633,7 @@ private <T, R> RFuture<R> evalAsync(NodeSource nodeSource, boolean readOnlyMode,
 }
 ```
 
-Redis 中使用 EVAL 命令来直接执行指定的 Lua 脚本。
+Redis 中使用 EVAL 命令来直接执行指定的 Lua 脚本.[参考 link](https://www.cnblogs.com/felordcn/p/13838321.html)
 
 ```sh
 EVAL luascript numkeys key [key ...] arg [arg ...]
@@ -650,4 +650,4 @@ EVAL luascript numkeys key [key ...] arg [arg ...]
 
 a. [Redission 分布式锁实现原理](https://www.cnblogs.com/diegodu/p/8185480.html)
 
-b. [Redisson 分布式锁自动续约]((https://www.jianshu.com/p/2a90bba8922f)
+b. [Redisson 分布式锁自动续约](https://www.jianshu.com/p/2a90bba8922f)
