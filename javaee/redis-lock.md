@@ -578,6 +578,72 @@ if (!expirationRenewalMap.containsKey(this.getEntryName())) {
 
 如果使用分布式锁,建议使用 `redission` 来做.
 
+Q: 看 redisson 里面的加锁/释放都是使用 lua 脚本,那么这些脚本代表是什么意思呀?
+
+例如:`org.redisson.RedissonLock#tryLockInnerAsync`加锁的代码
+
+```java
+<T> RFuture<T> tryLockInnerAsync(long waitTime, long leaseTime, TimeUnit unit, long threadId, RedisStrictCommand<T> command) {
+	internalLockLeaseTime = unit.toMillis(leaseTime);
+
+	return evalWriteAsync(getName(), LongCodec.INSTANCE, command,
+			"if (redis.call('exists', KEYS[1]) == 0) then " +
+					"redis.call('hincrby', KEYS[1], ARGV[2], 1); " +
+					"redis.call('pexpire', KEYS[1], ARGV[1]); " +
+					"return nil; " +
+					"end; " +
+					"if (redis.call('hexists', KEYS[1], ARGV[2]) == 1) then " +
+					"redis.call('hincrby', KEYS[1], ARGV[2], 1); " +
+					"redis.call('pexpire', KEYS[1], ARGV[1]); " +
+					"return nil; " +
+					"end; " +
+					"return redis.call('pttl', KEYS[1]);",
+			Collections.singletonList(getName()), internalLockLeaseTime, getLockName(threadId));
+}
+```
+
+A: 首先`lua数组下标默认是从1开始`,惊不惊喜意不意外.
+
+那么看看: `org.redisson.command.CommandAsyncService#evalAsync`是怎么解析的
+
+```java
+/**
+ * List<Object> keys: 为脚本里面的KEYS[number]的取值数组,下标从1开始
+ *
+ * Object... params: 为脚本ARGV[number]的取值数据,下标从1开始
+ *
+ */
+private <T, R> RFuture<R> evalAsync(NodeSource nodeSource, boolean readOnlyMode, Codec codec, RedisCommand<T> evalCommandType, String script, List<Object> keys, Object... params) {
+
+	RPromise<R> promise = new RedissonPromise<R>();
+	String sha1 = calcSHA(script);
+	RedisCommand cmd = new RedisCommand(evalCommandType, "EVALSHA");
+
+	// 组装请求数据
+	List<Object> args = new ArrayList<Object>(2 + keys.size() + params.length);
+	args.add(sha1);
+	args.add(keys.size());
+	args.addAll(keys);
+	args.addAll(Arrays.asList(params));
+
+    // 发送脚本和参数,交给redis服务器解析
+	RedisExecutor<T, R> executor = new RedisExecutor<>(readOnlyMode, nodeSource, codec, cmd,
+												args.toArray(), promise, false, connectionManager, objectBuilder);
+	executor.execute();
+}
+```
+
+Redis 中使用 EVAL 命令来直接执行指定的 Lua 脚本。
+
+```sh
+EVAL luascript numkeys key [key ...] arg [arg ...]
+- EVAL 命令的关键字
+- luascript Lua 脚本
+- numkeys 脚本需要处理键的数量,key数组的长度
+- key 零到多个键,空格隔开,通过KEYS[index]来获取对应的值,其中1 <= index <= keys.length
+- arg 零到多个附加参数,空格隔开,通过ARGV[index]来获取对应的值，其中1 <= index <= args.length
+```
+
 ---
 
 ## 4. 参考资料
