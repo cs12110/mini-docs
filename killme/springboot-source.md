@@ -158,6 +158,52 @@ private <T> Collection<T> getSpringFactoriesInstances(Class<T> type, Class<?>[] 
 }
 ```
 
+准备上下文: `org.springframework.boot.SpringApplication#prepareContext`里面的`org.springframework.boot.SpringApplication#load`
+
+```java
+/**
+  * Load beans into the application context.
+  * @param context the context to load beans into
+  * @param sources the sources to load
+  */
+protected void load(ApplicationContext context, Object[] sources) {
+  if (logger.isDebugEnabled()) {
+    logger.debug("Loading source " + StringUtils.arrayToCommaDelimitedString(sources));
+  }
+  // 构建BeanDefinitionLoader有很重要的东西
+  BeanDefinitionLoader loader = createBeanDefinitionLoader(getBeanDefinitionRegistry(context), sources);
+  if (this.beanNameGenerator != null) {
+    loader.setBeanNameGenerator(this.beanNameGenerator);
+  }
+  if (this.resourceLoader != null) {
+    loader.setResourceLoader(this.resourceLoader);
+  }
+  if (this.environment != null) {
+    loader.setEnvironment(this.environment);
+  }
+  loader.load();
+}
+```
+
+```java
+BeanDefinitionLoader(BeanDefinitionRegistry registry, Object... sources) {
+  Assert.notNull(registry, "Registry must not be null");
+  Assert.notEmpty(sources, "Sources must not be empty");
+  this.sources = sources;
+  // 注解形式的Bean定义读取器 比如:@Configuration,@Bean,@Component,@Controller,@Service
+  this.annotatedReader = new AnnotatedBeanDefinitionReader(registry);
+  // XML形式的Bean定义读取器
+  this.xmlReader = new XmlBeanDefinitionReader(registry);
+  if (isGroovyPresent()) {
+    this.groovyReader = new GroovyBeanDefinitionReader(registry);
+  }
+  // 类路径扫描器
+  this.scanner = new ClassPathBeanDefinitionScanner(registry);
+  // 扫描器添加排除过滤器
+  this.scanner.addExcludeFilter(new ClassExcludeFilter(sources));
+}
+```
+
 准备环境
 
 ```java
@@ -321,7 +367,7 @@ protected final void refreshBeanFactory() throws BeansException {
     DefaultListableBeanFactory beanFactory = createBeanFactory();
     beanFactory.setSerializationId(getId());
     customizeBeanFactory(beanFactory);
-    // 这里面最重要,把bean加载到ioc???
+    // 这里面最重要,把bean加载到ioc
     loadBeanDefinitions(beanFactory);
     synchronized (this.beanFactoryMonitor) {
       this.beanFactory = beanFactory;
