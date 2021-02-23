@@ -394,6 +394,111 @@ public class SyncQueue {
 
 ---
 
-## 5. 参考资料
+### 5. DelayQueue
+
+Q: 在现实使用场景中,经常会遇到延时处理的问题,除了使用定时器扫描,还有什么好的方法没?
+
+A: `DelayQueue`可以做到简单的延时消费. :"}
+
+```java
+
+import com.alibaba.fastjson.JSON;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.DelayQueue;
+import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
+
+
+import lombok.Data;
+
+/**
+ * @author cs12110
+ * @version V1.0
+ * @since 2021-02-23 14:33
+ */
+public class DelayQueueTest {
+
+    @Data
+    static class MyDelayTask implements Delayed {
+
+        private long ttl;
+        private Object payload;
+
+        public static MyDelayTask create(int delaySeconds, Object payload) {
+            MyDelayTask instance = new MyDelayTask();
+            instance.setTtl(System.currentTimeMillis() + delaySeconds * 1000);
+            instance.setPayload(payload);
+
+            return instance;
+        }
+
+        @Override
+        public long getDelay(TimeUnit unit) {
+            long diffTime = ttl - System.currentTimeMillis();
+            return unit.convert(diffTime, TimeUnit.MILLISECONDS);
+        }
+
+        @Override
+        public int compareTo(Delayed o) {
+            /*
+             * compare默认都是升序,e1.compareTo(e2)
+             *
+             * 当compare=-1时,e1<e2,e1排在e2前面
+             *
+             * 当compare=0时,e1=e2
+             *
+             * 当compare=1时,e1>e2,e2排在e1前面
+             */
+            return (int) (this.ttl - ((MyDelayTask) o).getTtl());
+        }
+
+        @Override
+        public String toString() {
+            return JSON.toJSONString(this);
+        }
+    }
+
+    public static void main(String[] args) {
+        DelayQueue<MyDelayTask> delayQueue = new DelayQueue<>();
+
+        MyDelayTask task1 = MyDelayTask.create(1, "123");
+        delayQueue.offer(task1);
+
+        MyDelayTask task2 = MyDelayTask.create(5, "456");
+        delayQueue.offer(task2);
+
+        display("Start up");
+
+        while (true) {
+            try {
+                MyDelayTask target = delayQueue.take();
+
+                display(target.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void display(String log) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        System.out.println(sdf.format(new Date()) + "\t" + log);
+    }
+}
+```
+
+测试结果
+
+```java
+2021-02-23 14:44:50.656	Start up
+2021-02-23 14:44:51.762	{"payload":"123","ttl":1614062691591}
+2021-02-23 14:44:55.596	{"payload":"456","ttl":1614062695591}
+```
+
+---
+
+## 6. 参考资料
 
 a. [低调人生的博客](https://www.cnblogs.com/lemon-flm/p/7877898.html)

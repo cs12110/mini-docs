@@ -540,3 +540,31 @@ public static String decapitalize(String name) {
     return new String(chars);
 }
 ```
+
+我一直很好奇,springboot 是怎么把各种`Controller`,`Service`注册进去 ioc 里面的,跟踪代码可以看到走到了这里: `org.springframework.context.support.AbstractApplicationContext#invokeBeanFactoryPostProcessors`这里实现了黑魔法.
+
+```java
+/**
+  * Instantiate and invoke all registered BeanFactoryPostProcessor beans,
+  * respecting explicit order if given.
+  * <p>Must be called before singleton instantiation.
+  */
+protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
+  // 这里面把spring注解的bean加载到的ioc里面
+  PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
+
+  // Detect a LoadTimeWeaver and prepare for weaving, if found in the meantime
+  // (e.g. through an @Bean method registered by ConfigurationClassPostProcessor)
+  // 默认为null,不走这一块逻辑,所以最重要的是上面那一块
+  if (beanFactory.getTempClassLoader() == null && beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {
+    beanFactory.addBeanPostProcessor(new LoadTimeWeaverAwareProcessor(beanFactory));
+    beanFactory.setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()));
+  }
+}
+```
+
+这一块最重要:`org.springframework.context.support.PostProcessorRegistrationDelegate#invokeBeanFactoryPostProcessors(org.springframework.beans.factory.config.ConfigurableListableBeanFactory, java.util.List<org.springframework.beans.factory.config.BeanFactoryPostProcessor>)`
+
+然后追着代码往下走:`org.springframework.context.annotation.ConfigurationClassPostProcessor#processConfigBeanDefinitions` -> `org.springframework.context.annotation.ConfigurationClassParser#parse(java.util.Set<org.springframework.beans.factory.config.BeanDefinitionHolder>)`
+
+`org.springframework.context.annotation.ComponentScanAnnotationParser#parse`
