@@ -1,62 +1,50 @@
-# ElasticSearch文档
+# ElasticSearch 文档
 
-Elasticsearch是建立在全文搜索引擎` Apache Lucene™ `基础上的搜索引擎,用它做全文搜索只需要使用统一开发好的API即可,而不需要了解Lucene的运行原理.
+Elasticsearch 是建立在全文搜索引擎`Apache Lucene™`基础上的搜索引擎,用它做全文搜索只需要使用统一开发好的 API 即可,而不需要了解 Lucene 的运行原理.
 
-Elasticsearch是一个**实时的分布式搜索和分析引擎**.它可以帮助你用前所未有的速度去处理大规模数据.
+Elasticsearch 是一个**实时的分布式搜索和分析引擎**.它可以帮助你用前所未有的速度去处理大规模数据.
 
-Elasticsearch并不仅仅是Lucene这么简单,它不但包括了全文搜索功能,还可以:
+Elasticsearch 并不仅仅是 Lucene 这么简单,它不但包括了全文搜索功能,还可以:
 
 - 分布式实时文件存储,并将每一个字段都编入索引,使其可以被搜索.
 
-
 - 实时分析的分布式搜索引擎.
 
+- 可以扩展到上百台服务器,处理 PB 级别的结构化或非结构化数据.
 
-- 可以扩展到上百台服务器,处理PB级别的结构化或非结构化数据.
+Java 参考代码:[github 地址](https://github.com/cs12110/demo-box/tree/master/elasticsearch-demo)
 
-
-Java参考代码:[github地址](https://github.com/cs12110/demo-box/tree/master/elasticsearch-demo)
-
-入坑: **你甚至可以拥有自己的搜索引擎.  :"}**
-
+入坑: **你甚至可以拥有自己的搜索引擎. :"}**
 
 ---
 
 ## 1. 全文检索
 
-### 1.1  基本概念
+### 1.1 基本概念
 
 现实中的数据结构分为两种: `结构化数据` 和 `非结构化数据`.
 
-* 结构化数据: 指具有固定格式或有限长度的数据,如数据库,元数据等.
-* 非结构化数据: 指不定长或无固定格式的数据,如邮件,word文档等.
+- 结构化数据:  指具有固定格式或有限长度的数据,如数据库,元数据等.
+- 非结构化数据: 指不定长或无固定格式的数据,如邮件,word 文档等.
 
 说明: **非结构化数据又一种叫法叫全文数据**
 
 按照数据的分类,搜索也分为两种:
 
-* 对结构化数据的搜索 : 如对数据库的搜索,用SQL语句.再如对元数据的搜索,如利用windows搜索对文件名,类型,修改时间进行搜索等.
-* 对非结构化数据的搜索: 如利用windows的搜索也可以搜索文件内容,Linux下的grep命令,再如用Google和百度可以搜索大量内容数据.
-
+- 对结构化数据的搜索  : 如对数据库的搜索,用 SQL 语句.再如对元数据的搜索,如利用 windows 搜索对文件名,类型,修改时间进行搜索等.
+- 对非结构化数据的搜索: 如利用 windows 的搜索也可以搜索文件内容,Linux 下的 grep 命令,再如用 Google 和百度可以搜索大量内容数据.
 
 对全文数据的搜索主要有两种方法:
 
-a. **顺序扫描法** :  所谓顺序扫描,比如要找内容包含某一个字符串的文件,就是一个文档一个文档的看,对于每一个文档,从头看到尾,如果此文档包含此字符串,则此文档为我们要找的文件,接着看下一个文件,直到扫描完所有的文件.
-
+a. **顺序扫描法** :   所谓顺序扫描,比如要找内容包含某一个字符串的文件,就是一个文档一个文档的看,对于每一个文档,从头看到尾,如果此文档包含此字符串,则此文档为我们要找的文件,接着看下一个文件,直到扫描完所有的文件.
 
 b. **全文索引法**：将非结构化数据中的一部分信息提取出来,重新组织,使其变得有一定结构,然后对此有一定结构的数据进行搜索,从而达到搜索相对较快的目的.这种先建立索引,再对索引进行搜索的过程就叫全文检索(Full-text Search).
 
-
-
 索引概念: 从非结构化数据中提取出的然后重新组织的信息,我们称之**索引** .
-
-
 
 举个栗子
 
->比如字典,字典的拼音表和部首检字表就相当于字典的索引,对每一个字的解释是非结构化的,如果字典没有音节表和部首检字表,在茫茫辞海中找一个字只能顺序扫描.然而字的某些信息可以提取出来进行结构化处理,比如读音,就比较结构化,分声母和韵母,分别只有几种可以一一列举,于是将读音拿出来按一定的顺序排列,每一项读音都指向此字的详细解释的页数.我们搜索时按结构化的拼音搜到读音,然后按其指向的页数,便可找到我们的非结构化数据——也即对字的解释 
-
-
+> 比如字典,字典的拼音表和部首检字表就相当于字典的索引,对每一个字的解释是非结构化的,如果字典没有音节表和部首检字表,在茫茫辞海中找一个字只能顺序扫描.然而字的某些信息可以提取出来进行结构化处理,比如读音,就比较结构化,分声母和韵母,分别只有几种可以一一列举,于是将读音拿出来按一定的顺序排列,每一项读音都指向此字的详细解释的页数.我们搜索时按结构化的拼音搜到读音,然后按其指向的页数,便可找到我们的非结构化数据——也即对字的解释
 
 ### 1.2 全文检索流程
 
@@ -64,24 +52,21 @@ b. **全文索引法**：将非结构化数据中的一部分信息提取出来,
 
 ![](img/fullsearch.png)
 
-
-
 细分流程如下
 
-建立索引流程: 1->4 
+建立索引流程: 1->4
 
 搜索流程: a -> g
 
 ![1531704553052](img/search-process.png)
 
-
 ### 1.3 索引相关概念
 
 **索引概念**: 从非结构化数据中提取出的然后重新组织的信息,我们称之**索引** .
 
-在全文检索里面,会出现一个叫**反向索引**的东西? 那么反向索引是什么呢? 
+在全文检索里面,会出现一个叫**反向索引**的东西? 那么反向索引是什么呢?
 
-[知乎用户耗子的回答 link]( https://www.zhihu.com/question/23202010/answer/23901671 )
+[知乎用户耗子的回答 link](https://www.zhihu.com/question/23202010/answer/23901671)
 
 ```
 渣翻译的例子之一.
@@ -96,8 +81,7 @@ b. **全文索引法**：将非结构化数据中的一部分信息提取出来,
 而Inverted index 指的是将单词或记录作为索引,将文档ID作为记录,这样便可以方便地通过单词或记录查找到其所在的文档.
 ```
 
-
-[知乎用户良张的回答 link](https://www.zhihu.com/question/23202010/answer/23928943 )
+[知乎用户良张的回答 link](https://www.zhihu.com/question/23202010/answer/23928943)
 
 ```
 我喜欢叫她"反向索引"(索引那么萌的东西,当然要用“她”啦！^_^ )
@@ -111,31 +95,25 @@ b. **全文索引法**：将非结构化数据中的一部分信息提取出来,
 可能是因为将正常的索引倒过来了吧，所以大家叫他倒排索引，可我依然喜欢叫他反向索引~
 ```
 
-
-
-
-
 **索引创建流程**
 
 创建索引流程如下图所示:
 
 ![54](img/index-process.png)
 
-**分词组件**[此过程称为Tokenize]
+**分词组件**[此过程称为 Tokenize]
 
->a. 将文档分成一个一个单独的单词;
+> a. 将文档分成一个一个单独的单词;
 >
->b. 去除标点符号;
+> b. 去除标点符号;
 >
->c. 去除停用词(Stop word);
->所谓停用词(Stop word)就是一种语言中最普通的一些单词,由于没有特别的意义,因而大多数情况下不能成为搜索的关键词,因而创建索引时,这种词会被去掉而减少索引的大小.
->英语中停词(Stop word)如：“the”,“a”,“this”等.
->对于每一种语言的分词组件(Tokenizer),都有一个停词(stop word)集合.
->经过分词(Tokenizer)后得到的结果称为词次(Token).
+> c. 去除停用词(Stop word);
+> 所谓停用词(Stop word)就是一种语言中最普通的一些单词,由于没有特别的意义,因而大多数情况下不能成为搜索的关键词,因而创建索引时,这种词会被去掉而减少索引的大小.
+> 英语中停词(Stop word)如：“the”,“a”,“this”等.
+> 对于每一种语言的分词组件(Tokenizer),都有一个停词(stop word)集合.
+> 经过分词(Tokenizer)后得到的结果称为词次(Token).
 >
->d. 将词次(Token)传给语言处理组件(Linguistic Processor)
-
-
+> d. 将词次(Token)传给语言处理组件(Linguistic Processor)
 
 **语言处理组件(linguistic processor)**
 
@@ -152,50 +130,40 @@ b. **全文索引法**：将非结构化数据中的一部分信息提取出来,
 >
 > d. 将词元(Term)传给索引组件(Indexer)
 
-
-
 **索引组件(Indexer)**
 
->a. 利用得到的词(Term)创建一个字典(Term-DocumentID)
+> a. 利用得到的词(Term)创建一个字典(Term-DocumentID)
 >
->b. 对字典按字母顺序进行排序.
+> b. 对字典按字母顺序进行排序.
 >
->c. 合并相同的词元(Term)成为文档倒排(Posting List)链表.
+> c. 合并相同的词元(Term)成为文档倒排(Posting List)链表.
 >
->在此表中,有几个定义：
+> 在此表中,有几个定义：
 >
->Document Frequency 即文档频次,表示总共有多少文件包含此词(Term).
+> Document Frequency 即文档频次,表示总共有多少文件包含此词(Term).
 >
->Frequency 即词频率,表示此文件中包含了几个此词(Term).
-
-
+> Frequency 即词频率,表示此文件中包含了几个此词(Term).
 
 影响一个词(Term)在一篇文档中的重要性主要有两个因素:
 
-- Term Frequency (tf):即此Term在此文档中出现了多少次.tf 越大说明越重要.
-- Document Frequency (df):即有多少文档包含次Term.df 越大说明越不重要.
+- Term Frequency (tf):即此 Term 在此文档中出现了多少次.tf 越大说明越重要.
+- Document Frequency (df):即有多少文档包含次 Term.df 越大说明越不重要.
 
-词(Term)在文档中出现的次数越多,说明此词(Term)对该文档越重要,如“搜索”这个词,在本文档中出现的次数很多,说明本文档主要就是讲这方面的事的.然而在一篇英语文档中,this出现的次数更多,就说明越重要吗?不是的,这是由第二个因素进行调整,第二个因素说明,有越多的文档包含此词(Term), 说明此词(Term)太普通,不足以区分这些文档,因而重要性越低.
-
-
-
-
+词(Term)在文档中出现的次数越多,说明此词(Term)对该文档越重要,如“搜索”这个词,在本文档中出现的次数很多,说明本文档主要就是讲这方面的事的.然而在一篇英语文档中,this 出现的次数更多,就说明越重要吗?不是的,这是由第二个因素进行调整,第二个因素说明,有越多的文档包含此词(Term), 说明此词(Term)太普通,不足以区分这些文档,因而重要性越低.
 
 ### 1.4 反向索引搜索样例
 
-例子来自CSDN博客: [博客地址](https://blog.csdn.net/forfuture1978/article/details/4711308/)
+例子来自 CSDN 博客: [博客地址](https://blog.csdn.net/forfuture1978/article/details/4711308/)
 
 反向索引保存的信息(词典-倒排表)
 
-假设文档集合里面有100篇文档,为了方便表示,我们为文档编号从1到100,得到下面的结构
+假设文档集合里面有 100 篇文档,为了方便表示,我们为文档编号从 1 到 100,得到下面的结构
 
 ![img](img/reverse-index.png)
 
 左边保存的是一系列字符串,称为词典.
 每个字符串都指向包含此字符串的文档(Document)链表,此文档链表称为倒排表(Posting List).
 有了索引,便使保存的信息和要搜索的信息一致,可以大大加快搜索的速度.
-
-
 
 反向索引查询示例
 
@@ -210,16 +178,15 @@ c. 通过合并链表,找出既包含“lucene”又包含“solr”的文件.
 
 ---
 
-
 ## 2. elasticsearch
 
-### 2.1 为什么是elasticsearch?
+### 2.1 为什么是 elasticsearch?
 
-在Java的全文检索里面有两大牛逼玩意,分别是倚天`solr`和屠龙`elasticsearch`.
+在 Java 的全文检索里面有两大牛逼玩意,分别是倚天`solr`和屠龙`elasticsearch`.
 
-为什么是elasticsearch,而不是solr呢? 是不是确认过眼神?
+为什么是 elasticsearch,而不是 solr 呢? 是不是确认过眼神?
 
-那么来看看solr和elasticsearch的对比:
+那么来看看 solr 和 elasticsearch 的对比:
 
 ![](img/es-solr-compare.png)
 
@@ -227,7 +194,7 @@ c. 通过合并链表,找出既包含“lucene”又包含“solr”的文件.
 
 a. Solr 利用 Zookeeper 进行分布式管理,而 Elasticsearch 自身带有分布式协调管理功能.
 
-b. Solr 支持更多格式的数据,而 Elasticsearch 仅支持json文件格式.
+b. Solr 支持更多格式的数据,而 Elasticsearch 仅支持 json 文件格式.
 
 c. Solr 官方提供的功能更多,而 Elasticsearch 本身更注重于核心功能,高级功能多有第三方插件提供.
 
@@ -235,32 +202,30 @@ d. Solr 在传统的搜索应用中表现好于 Elasticsearch,但在处理实时
 
 **Solr 是传统搜索应用的有力解决方案,Elasticsearch 更适用于新兴的实时搜索应用.**
 
-因此,我们选用elasticsearch. :"}
+因此,我们选用 elasticsearch. :"}
 
-~~你以为我会说用过solr而选elasticsearch?不可能的,这辈子都不可能说的.~~
+~~你以为我会说用过 solr 而选 elasticsearch?不可能的,这辈子都不可能说的.~~
 
-
-
-### 2.2 安装elasticsearch
+### 2.2 安装 elasticsearch
 
 #### 2.2.1 创建用户
 
-因为elasticsearch出于某种考虑,不能使用root启动.所以要建立其他的普通用户.
+因为 elasticsearch 出于某种考虑,不能使用 root 启动.所以要建立其他的普通用户.
 
-创建: dev用户,密码: rojao123.
+创建: dev 用户,密码: rojao123.
 
 ```sh
 [root@dev-2 ~]# useradd dev
 [root@dev-2 ~]# passwd dev
 Changing password for user dev.
-New password: 
-Retype new password: 
+New password:
+Retype new password:
 passwd: all authentication tokens updated successfully.
 [root@dev-2 ~]# id dev
 uid=1000(dev) gid=1000(dev) groups=1000(dev)
 ```
 
-#### 2.2.2 下载elasticsearch
+#### 2.2.2 下载 elasticsearch
 
 ```sh
 [root@dev-2 elasticsearch]# wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.0.tar.gz
@@ -271,7 +236,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 91423553 (87M) [application/x-gzip]
 Saving to: ‘elasticsearch-6.3.0.tar.gz’
 
-100%[=====================================================================================================================================================>] 91,423,553   947KB/s   in 1m 55s 
+100%[=====================================================================================================================================================>] 91,423,553   947KB/s   in 1m 55s
 
 2018-07-04 09:48:29 (776 KB/s) - ‘elasticsearch-6.3.0.tar.gz’ saved [91423553/91423553]
 ```
@@ -281,7 +246,7 @@ Saving to: ‘elasticsearch-6.3.0.tar.gz’
 解压软件
 
 ```sh
-[root@dev-2 elasticsearch]# tar -xvf elasticsearch-6.3.0.tar.gz 
+[root@dev-2 elasticsearch]# tar -xvf elasticsearch-6.3.0.tar.gz
 [root@dev-2 elasticsearch]# ls
 elasticsearch-6.3.0  elasticsearch-6.3.0.tar.gz
 [root@dev-2 elasticsearch]# cd elasticsearch-6.3.0
@@ -302,30 +267,28 @@ export PATH=$PATH:$SEARCH_HOME/bin
 设置文件夹所有者为`dev`
 
 ```sh
-[root@dev-2 elasticsearch]# ll 
+[root@dev-2 elasticsearch]# ll
 total 89284
 drwxr-xr-x. 8 root root      143 Jun 11 19:43 elasticsearch-6.3.0
-[root@dev-2 elasticsearch]# chown -R dev:dev elasticsearch-6.3.0 
+[root@dev-2 elasticsearch]# chown -R dev:dev elasticsearch-6.3.0
 [root@dev-2 elasticsearch]# ll
 total 89284
 drwxr-xr-x. 8 dev  dev       143 Jun 11 19:43 elasticsearch-6.3.0
 ```
 
+#### 2.2.4 配置 ElasticSearch
 
+**修改 JVM 参数**
 
-#### 2.2.4 配置ElasticSearch
+因为在虚拟机上安装,内存分配了 1G,所以要修改 elasticsearch 的 jvm 启动参数.
 
-**修改JVM参数**
-
-因为在虚拟机上安装,内存分配了1G,所以要修改elasticsearch的jvm启动参数.
-
-注意: **-Xms和-Xmx的值要一致**.
+注意: **-Xms 和-Xmx 的值要一致**.
 
 ```sh
 [root@dev-2 elasticsearch-6.3.0]# cd config/
 [root@dev-2 config]# ls
 elasticsearch.yml  jvm.options  log4j2.properties  role_mapping.yml  roles.yml  users  users_roles
-[root@dev-2 config]# vim jvm.options 
+[root@dev-2 config]# vim jvm.options
 -Xms512m
 -Xmx512m
 ```
@@ -333,7 +296,7 @@ elasticsearch.yml  jvm.options  log4j2.properties  role_mapping.yml  roles.yml  
 **修改启动参数**
 
 ```sh
-[root@dev-2 config]# vim elasticsearch.yml 
+[root@dev-2 config]# vim elasticsearch.yml
 # Set the bind address to a specific IP (IPv4 or IPv6):
 #
 network.host: 10.33.1.111
@@ -343,21 +306,21 @@ network.host: 10.33.1.111
 http.port: 9200
 #
 # 开启跨域访问支持,默认为false
-# 
+#
 http.cors.enabled: true
-#  
+#
 # 跨域访问允许的域名地址,(允许所有域名)以上使用正则
-#   
+#
 http.cors.allow-origin: /.*/
 ```
 
-### 2.3 启动elasticsearch
+### 2.3 启动 elasticsearch
 
-切换到dev用户启动.
+切换到 dev 用户启动.
 
 ```sh
 [root@dev-2 elasticsearch-6.3.0]# su dev
-[dev@dev-2 elasticsearch-6.3.0]$ elasticsearch 
+[dev@dev-2 elasticsearch-6.3.0]$ elasticsearch
 [2018-07-04T10:00:17,771][INFO ][o.e.n.Node               ] [] initializing ...
 ```
 
@@ -378,10 +341,10 @@ ERROR: [4] bootstrap checks failed
 
 请按照如下修改
 
-切换到root,修改`/etc/security/limits.conf `文件
+切换到 root,修改`/etc/security/limits.conf `文件
 
 ```sh
-[root@dev-2 elasticsearch-6.3.0]#  vim /etc/security/limits.conf 
+[root@dev-2 elasticsearch-6.3.0]#  vim /etc/security/limits.conf
 * soft nofile 65536
 * hard nofile 131072
 * soft nproc 2048
@@ -391,16 +354,16 @@ ERROR: [4] bootstrap checks failed
 修改`/etc/sysctl.conf`文件
 
 ```sh
-[root@dev-2 etc]# vim /etc/sysctl.conf 
+[root@dev-2 etc]# vim /etc/sysctl.conf
 vm.max_map_count=655360
 [root@dev-2 etc]# sysctl -p
 vm.max_map_count = 655360
 ```
 
-然后再切换dev用户启动Elasticsearch.
+然后再切换 dev 用户启动 Elasticsearch.
 
 ```sh
-[dev@dev-2 elasticsearch-6.3.0]$ nohup elasticsearch  & 
+[dev@dev-2 elasticsearch-6.3.0]$ nohup elasticsearch  &
 [dev@dev-2 elasticsearch-6.3.0]$ curl 10.33.1.111:9200
 {
   "name" : "eme3ye6",
@@ -421,31 +384,28 @@ vm.max_map_count = 655360
 }
 ```
 
-
-
 ### 2.3 Hello elasticsearch
 
-为了更清楚的了解elasticsearch数据,我们这里对elasticsearch和关系型数据库数据结构进行对比.
+为了更清楚的了解 elasticsearch 数据,我们这里对 elasticsearch 和关系型数据库数据结构进行对比.
 
-| ElasticSearch  | RDBMS            |
-| -------------- | ---------------- |
-| 索引(index)    | 数据库(database) |
-| 类型(type)     | 表(table)        |
-| 文档(document) | 行(row)          |
-| 字段(field)    | 列(column)       |
-| 映射(mapping)  | 表结构(schema)   |
-| 全文索引       | 索引             |
-| 查询DSL        | SQL              |
-| GET            | select           |
-| PUT/POST       | update           |
-| DELETE         | delete           |
+| ElasticSearch  | RDBMS            | 备注                                                                            |
+| -------------- | ---------------- | ------------------------------------------------------------------------------- |
+| 索引(index)    | 数据库(database) |                                                                                 |
+| 类型(type)     | 表(table)        | v7.x 已弃用 [link](https://blog.csdn.net/zjx546391707/article/details/78631394) |
+| 文档(document) | 行(row)          |                                                                                 |
+| 字段(field)    | 列(column)       |                                                                                 |
+| 映射(mapping)  | 表结构(schema)   |                                                                                 |
+| 全文索引       | 索引             |                                                                                 |
+| 查询 DSL       | SQL              |                                                                                 |
+| GET            | select           |                                                                                 |
+| PUT/POST       | update           |                                                                                 |
+| DELETE         | delete           |                                                                                 |
 
-你看elaticsearch是不是和数据库很像呀? :"}
+你看 elaticsearch 是不是和数据库很像呀? :"}
 
+哔哔了那么多,我们现在来看看 elastic 有哪些数据类型,好不好?
 
-哔哔了那么多,我们现在来看看elastic有哪些数据类型,好不好?
-
-This way ,sir. elasticsearch的基本数据类型,官方网站页面,[请点击](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)
+This way ,sir. elasticsearch 的基本数据类型,官方网站页面,[请点击](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)
 
 | 类型      | 参数定义                         | 赋值                                  |
 | --------- | -------------------------------- | ------------------------------------- |
@@ -458,22 +418,17 @@ This way ,sir. elasticsearch的基本数据类型,官方网站页面,[请点击]
 | ip        | "ip_addr":{"type":"ip"}          | "ip_addr": "192.168.1.1"              |
 | geo_point | "location": {"type":"geo_point"} | "location":{"lat":40.12,"lon":-71.34} |
 
-
-
-elasticsearch使用RESTFul接口进行数据操作.Restful API `GET`,`POST`,`PUT`,`DELETE`,`HEAD`含义:
+elasticsearch 使用 RESTFul 接口进行数据操作.Restful API `GET`,`POST`,`PUT`,`DELETE`,`HEAD`含义:
 
 - GET: 获取请求对象的当前状态.
-- POST: 改变对象的当前状态. 
-- PUT: 创建一个对象 .
+- POST: 改变对象的当前状态.
+- PUT: 创建一个对象  .
 - DELETE: 销毁对象.
 - HEAD: 请求获取对象的基础信息.
 
-
-
-
 ### 2.4 简单增删改查
 
-增删改查走起,使用`Postman`或者`Fiddler`来推送,去他妈的head插件.
+增删改查走起,使用`Postman`或者`Fiddler`来推送,去他妈的 head 插件.
 
 #### 2.4.1 新增
 
@@ -570,12 +525,11 @@ elasticsearch使用RESTFul接口进行数据操作.Restful API `GET`,`POST`,`PUT
 
 ---
 
-
 ## 3. 中文分词
 
 不管是`Solr`还是`elasticsearch`自带的分词器对中文的分词支持都不好,那怎么办呢?
 
-当然是自己写一个啦!!!(这里的自己是指开发IK分词器的各位大牛 笑哭脸.jpg)
+当然是自己写一个啦!!!(这里的自己是指开发 IK 分词器的各位大牛 笑哭脸.jpg)
 
 ### 3.1 默认分词
 
@@ -631,13 +585,11 @@ elasticsearch使用RESTFul接口进行数据操作.Restful API `GET`,`POST`,`PUT
 }
 ```
 
-是时候召唤传说中的IK分词器了.
+是时候召唤传说中的 IK 分词器了.
 
+### 3.2 安装 IK 分词器
 
-
-### 3.2 安装IK分词器
-
-**Github下载和Elasticsearch相同版本的IK分词器**: [下载地址](https://github.com/medcl/elasticsearch-analysis-ik/releases)
+**Github 下载和 Elasticsearch 相同版本的 IK 分词器**: [下载地址](https://github.com/medcl/elasticsearch-analysis-ik/releases)
 
 在`plugins/`文件夹下建立`ik`文件夹,并把压缩包内容解压到`ik`文件夹.
 
@@ -652,10 +604,10 @@ commons-codec-1.9.jar    config                               httpclient-4.5.2.j
 commons-logging-1.2.jar  elasticsearch-analysis-ik-6.3.0.jar  httpcore-4.4.4.jar
 ```
 
-重新启动ElasticSearch
+重新启动 ElasticSearch
 
 ```sh
-[dev@dev-2 elasticsearch-6.3.0]$ nohup bin/elasticsearch & 
+[dev@dev-2 elasticsearch-6.3.0]$ nohup bin/elasticsearch &
 [1] 17149
 [dev@dev-2 elasticsearch-6.3.0]$ jps
 17236 Jps
@@ -664,14 +616,12 @@ commons-logging-1.2.jar  elasticsearch-analysis-ik-6.3.0.jar  httpcore-4.4.4.jar
 [2018-07-05T02:32:17,317][INFO ][o.e.p.PluginsService     ] [eme3ye6] loaded plugin [analysis-ik]
 [2018-07-05T02:32:29,379][INFO ][o.w.a.d.Monitor          ] try load config from /opt/soft/elasticsearch/elasticsearch-6.3.0/config/analysis-ik/IKAnalyzer.cfg.xml
 [2018-07-05T02:32:29,381][INFO ][o.w.a.d.Monitor          ] try load config from /opt/soft/elasticsearch/elasticsearch-6.3.0/plugins/ik/config/https://blog.csdn.net/z90818/article/details/78644293.cfg.xml
-[dev@dev-2 elasticsearch-6.3.0]$ 
+[dev@dev-2 elasticsearch-6.3.0]$
 ```
 
+### 3.3 IK 分词器分词
 
-
-### 3.3 IK分词器分词
-
-在安装好IK分词之后,就可以使用IK分词了.
+在安装好 IK 分词之后,就可以使用 IK 分词了.
 
 测试使用:**ik_smart**
 
@@ -716,7 +666,7 @@ commons-logging-1.2.jar  elasticsearch-analysis-ik-6.3.0.jar  httpcore-4.4.4.jar
     }
   ]
 }
-[dev@dev-2 elasticsearch-6.3.0]$ 
+[dev@dev-2 elasticsearch-6.3.0]$
 ```
 
 测试使用:**ik_max_word**
@@ -801,15 +751,13 @@ commons-logging-1.2.jar  elasticsearch-analysis-ik-6.3.0.jar  httpcore-4.4.4.jar
 
 结论:**ik_max_word**比**ik_smart**细分粒度更大.一般来说**ik_smart**就足够了.
 
-
-
 ### 3.4 具体使用
 
-Q: 怎么使用IK分词器对自己需要存放的数据进行分词和查询?
+Q: 怎么使用 IK 分词器对自己需要存放的数据进行分词和查询?
 
-A: **在创建index和type的时候,就指定type里面的字段是否需要分词.就像我们在mysql数据库先搭建表结构一样. :"}**
+A: **在创建 index 和 type 的时候,就指定 type 里面的字段是否需要分词.就像我们在 mysql 数据库先搭建表结构一样. :"}**
 
-举个栗子: 指定Index为`index`,type为`fulltext`里面的字段`content`使用`ik_max_word`分词存储和搜索.
+举个栗子: 指定 Index 为`index`,type 为`fulltext`里面的字段`content`使用`ik_max_word`分词存储和搜索.
 
 ```sh
 curl -XPOST http://localhost:9200/index/fulltext/_mapping -H 'Content-Type:application/json' -d'
@@ -825,69 +773,66 @@ curl -XPOST http://localhost:9200/index/fulltext/_mapping -H 'Content-Type:appli
 }'
 ```
 
-详细栗子: [IK github地址](https://github.com/medcl/elasticsearch-analysis-ik)
+详细栗子: [IK github 地址](https://github.com/medcl/elasticsearch-analysis-ik)
 
-
-
-Q: 要是动态搭建index和type呢?或者type里面的数据结构不定呢?
+Q: 要是动态搭建 index 和 type 呢?或者 type 里面的数据结构不定呢?
 
 A: **我拒绝回答这个问题!!!**
 
-----
+---
 
 ## 4. 应用场景
 
 ### 4.1 简单搜索引擎
 
-电影在elasticsearch里面进行索引,实现简单的Elasticsearch搜索.
+电影在 elasticsearch 里面进行索引,实现简单的 Elasticsearch 搜索.
 
 是不是自己都可以做一个类似磁力网站的东西了? :"}
 
 演示地址: [阿里云演示地址](http://47.98.104.252:8080/search-view/search.html)
 
-
 **movie_fields.json**文件内容如下
 
 ```json
 {
-    "mappings": {
-        "movies": {
-            "properties": {
-                "name":{
-                    "type":"keyword"
-                },
-                "searchName": {
-                    "type": "text",
-                    "analyzer": "ik_smart",
-                    "search_analyzer": "ik_smart"
-                },
-                "region": {
-                    "type": "keyword"
-                },
-                "score": {
-                    "type": "double"
-                },
-                "director": {
-                    "type": "keyword"
-                },
-                "actors": {
-                    "type": "keyword"
-                },
-                "tag": {
-                    "type": "keyword"
-                },
-                "summary": {
-                    "type": "text",
-                    "analyzer": "ik_smart",
-                    "search_analyzer": "ik_smart"
-                }
-            }
+  "mappings": {
+    "movies": {
+      "properties": {
+        "name": {
+          "type": "keyword"
+        },
+        "searchName": {
+          "type": "text",
+          "analyzer": "ik_smart",
+          "search_analyzer": "ik_smart"
+        },
+        "region": {
+          "type": "keyword"
+        },
+        "score": {
+          "type": "double"
+        },
+        "director": {
+          "type": "keyword"
+        },
+        "actors": {
+          "type": "keyword"
+        },
+        "tag": {
+          "type": "keyword"
+        },
+        "summary": {
+          "type": "text",
+          "analyzer": "ik_smart",
+          "search_analyzer": "ik_smart"
         }
+      }
     }
+  }
 }
 ```
 
-创建type
+创建 type
 
 ```sh
 curl -XPUT -H 'Content-type:application/json' 'http://10.33.1.111:9200/movie_lib?pretty' -d @movie_fields.json
@@ -903,66 +848,53 @@ curl -XGET 'http://10.33.1.111:9200/movie_lib/_mapping/movies?pretty'
 
 ![](img/tiny-search.png)
 
-
-
 ### 4.2 ELK
 
-ELK 是 elastic公司旗下三款产品 ElasticSearch ,Logstash ,Kibana的首字母组合.
+ELK 是 elastic 公司旗下三款产品 ElasticSearch ,Logstash ,Kibana 的首字母组合.
 
-- ElasticSearch是一个基于 Lucene 构建的开源,分布式,RESTful 搜索引擎.
-- Logstash传输和处理你的日志,事务或其他数据.
-- Kibana将Elasticsearch 的数据分析并渲染为可视化的报表.
+- ElasticSearch 是一个基于 Lucene 构建的开源,分布式,RESTful 搜索引擎.
+- Logstash 传输和处理你的日志,事务或其他数据.
+- Kibana 将 Elasticsearch 的数据分析并渲染为可视化的报表.
 
-
-**elk架构图如下所示**
+**elk 架构图如下所示**
 
 ![](img/elk-struct.png)
 
-
-
 ### 4.3 其他应用
 
-a. 维基百科使用Elasticsearch来进行全文搜做并高亮显示关键词,以及提供search-as-you-type,did-you-mean等搜索建议功能.
+a. 维基百科使用 Elasticsearch 来进行全文搜做并高亮显示关键词,以及提供 search-as-you-type,did-you-mean 等搜索建议功能.
 
-b. GitHub使用Elasticsearch来检索超过1300亿行代码.
+b. GitHub 使用 Elasticsearch 来检索超过 1300 亿行代码.
 
-c. [美团App异常监控平台](https://tech.meituan.com/spark_streaming_es.html)
+c. [美团 App 异常监控平台](https://tech.meituan.com/spark_streaming_es.html)
 
 ---
 
 ## 5. 常用命令
 
-构建type
+构建 type
 
 ```sh
 curl -XPUT -H 'Content-type:application/json' 'http://10.33.1.111:9200/movie_lib?pretty' -d @movie_fields.json
 ```
 
-
-
-获取所有的index
+获取所有的 index
 
 ```sh
 curl -XGET 'http://47.98.104.252:9200/_cat/indices?pretty'
 ```
 
-
-
-获取type的mapping结构
+获取 type 的 mapping 结构
 
 ```sh
 curl -XGET 'http://10.33.1.111:9200/movie_lib/_mapping/movies?pretty'
 ```
 
-
-
-删除index
+删除 index
 
 ```sh
 curl -XDELETE 'http://10.33.1.111:9200/movie_lib?pretty'
 ```
-
-
 
 删除某个`type`下的所有数据
 
@@ -978,18 +910,18 @@ curl -XPOST 'http://10.33.1.111:9200/movie_lib/movies/_delete_by_query?pretty' -
 
 ---
 
-## 6. 参考资料 
+## 6. 参考资料
 
 a. [全文检索原理优秀博客](https://blog.csdn.net/tomorrow_c/article/details/62240383)
 
-b. [solr与elasticsearch对比](https://blog.csdn.net/Aliloke/article/details/78244426)
+b. [solr 与 elasticsearch 对比](https://blog.csdn.net/Aliloke/article/details/78244426)
 
-c. [elasticsearch官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
+c. [elasticsearch 官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 
-d. [elasticsearch查询样例](https://www.coyee.com/article/10764-23-useful-elasticsearch-example-queries/)
+d. [elasticsearch 查询样例](https://www.coyee.com/article/10764-23-useful-elasticsearch-example-queries/)
 
-e. [ CSDN优秀博客](https://blog.csdn.net/forfuture1978/article/details/4711308/)
+e. [ CSDN 优秀博客](https://blog.csdn.net/forfuture1978/article/details/4711308/)
 
-f. [关于elasticsearch实时](http://blog.sina.com.cn/s/blog_140c4cf3d0102xdap.html)
+f. [关于 elasticsearch 实时](http://blog.sina.com.cn/s/blog_140c4cf3d0102xdap.html)
 
-g. [solr与elasticsearch性能比较](https://yq.aliyun.com/articles/588309)
+g. [solr 与 elasticsearch 性能比较](https://yq.aliyun.com/articles/588309)
