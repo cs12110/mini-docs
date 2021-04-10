@@ -1831,3 +1831,227 @@ public class ReflectApp {
   "name": "3306"
 }
 ```
+
+---
+
+## 18. 枚举工具类
+
+之前因为 element-ui 的影响,逐渐也开始把枚举定义成只有`value`,`label`两个属性了.
+
+举个例子:
+
+```java
+@AllArgsConstructor
+@Getter
+public enum SysEnvEnum {
+
+    /**
+     * dev: 开发环境
+     */
+    DEV("dev", "开发环境"),
+
+    /**
+     * test: 测试环境
+     */
+    TEST("test", "测试环境"),
+
+    /**
+     * prod: 生产环境
+     */
+    PROD("prod", "生产环境");
+
+    private final String value;
+    private final String label;
+
+    public static SysEnvEnum getByValue(String value) {
+        for (SysEnvEnum e : SysEnvEnum.values()) {
+            if (e.getValue().equals(value)) {
+                return e;
+            }
+        }
+        return null;
+    }
+}
+```
+
+上面这个:`SysEnvEnum#getByValue(String value)`几乎每一个枚举都差不多需要这个根据 value 来获取对应枚举的方法.
+
+Q: 那有没有一种方法可以提高这一块的重用性呀?
+
+A: 在同事的指导下,使用接口,枚举实现接口的方法实现.
+
+```java
+public interface ValueLabelFacade<K, V> {
+    /**
+     * 值字符串
+     *
+     * @return String
+     */
+    default String valueStr() {
+        return String.valueOf(value());
+    }
+
+    /**
+     * 值
+     *
+     * @return K
+     */
+    K value();
+
+    /**
+     * 描述
+     *
+     * @return V
+     */
+    V label();
+
+}
+```
+
+修改枚举
+
+```java
+@AllArgsConstructor
+@Getter
+public enum SysEnvEnum implements ValueLabelFacade<String, String> {
+
+    /**
+     * dev: 开发环境
+     */
+    DEV("dev", "开发环境"),
+
+    /**
+     * test: 测试环境
+     */
+    TEST("test", "测试环境"),
+
+    /**
+     * prod: 生产环境
+     */
+    PROD("prod", "生产环境");
+
+    private final String value;
+    private final String label;
+
+    public static SysEnvEnum getByValue(String value) {
+        for (SysEnvEnum e : SysEnvEnum.values()) {
+            if (e.getValue().equals(value)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String value() {
+        return value;
+    }
+
+    @Override
+    public String label() {
+        return this.label;
+    }
+}
+```
+
+工具类
+
+```java
+public class EnumFacadeUtils {
+
+    /**
+     * 将枚举转成map,如果<code>interfaces</code> == null,返回: <code>Collections.emptyMap()</code>
+     *
+     * @return Map
+     */
+    public static <P, V> Map<P, V> toMap(ValueLabelFacade<P, V>[] interfaces) {
+        if (Objects.isNull(interfaces) || interfaces.length == 0) {
+            return Collections.emptyMap();
+        }
+        HashMap<P, V> map = new HashMap<>(interfaces.length);
+        for (ValueLabelFacade<P, V> baseEnum : interfaces) {
+            map.put(baseEnum.value(), baseEnum.label());
+        }
+        return map;
+    }
+
+    /**
+     * 根据<code>value</code>获取枚举,需要向下转型
+     * <p>
+     * 实现接口枚举:
+     * <pre>
+     *     public enum IntStrEnum implements ValueLabelEnum<Integer, String>{
+     *         ....
+     *     }
+     * </pre>
+     * <p>
+     * 使用范例:
+     * <pre>
+     *     IntStrEnum integerStringValueLabelEnum = (IntStrEnum) get(values, 1);
+     * </pre>
+     *
+     * @return ValueLabelEnum
+     */
+    public static <K, V> ValueLabelFacade<K, V> get(ValueLabelFacade<K, V>[] interfaces, K value) {
+        if (Objects.isNull(interfaces) || interfaces.length == 0) {
+            return null;
+        }
+        for (ValueLabelFacade<K, V> baseEnum : interfaces) {
+            if (Objects.equals(baseEnum.value(), value)) {
+                return baseEnum;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 根据value获取对应的枚举label
+     *
+     * @return V
+     */
+    public static <K, V> V getLabel(ValueLabelFacade<K, V>[] interfaces, K value) {
+        if (Objects.isNull(interfaces) || interfaces.length == 0) {
+            return null;
+        }
+        for (ValueLabelFacade<K, V> baseEnum : interfaces) {
+            if (Objects.equals(baseEnum.value(), value)) {
+                return baseEnum.label();
+            }
+        }
+        return null;
+    }
+}
+```
+
+测试
+
+```java
+public class SysEnvEnumTest {
+    public static void main(String[] args) {
+        Map<String, String> map = EnumFacadeUtils.toMap(SysEnvEnum.values());
+        System.out.println(JSON.toJSONString(map, true));
+
+        SysEnvEnum test = (SysEnvEnum) EnumFacadeUtils.get(SysEnvEnum.values(), "test");
+        System.out.println(test);
+
+        SysEnvEnum none = (SysEnvEnum) EnumFacadeUtils.get(SysEnvEnum.values(), "none");
+        System.out.println(none);
+
+        String label = EnumFacadeUtils.getLabel(SysEnvEnum.values(), "test");
+        System.out.println(label);
+    }
+}
+```
+
+测试结果
+
+```java
+{
+	"dev":"开发环境",
+	"test":"测试环境",
+	"prod":"生产环境"
+}
+TEST
+null
+测试环境
+```
