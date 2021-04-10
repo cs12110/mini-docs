@@ -24,7 +24,7 @@
 
 如有任何疑问,请联系:`cs12110@163.com`.
 
-在线预览:[一点一世界 link](https://mr3306.top/docs/#/)
+在线预览:~~[一点一世界 link](https://mr3306.top/docs/#/)~~(因为没钱续费云服务器,2021-04-01即将过期,请知悉. 泪目)
 
 Gitbook 下载:[Gitbook 下载](https://legacy.gitbook.com/book/cs12110/mini-docs/details)
 
