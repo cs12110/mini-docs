@@ -497,6 +497,125 @@ $ curl --location --request DELETE 'http://118.89.113.147:9200/books/_doc/1' \
 {"_index":"books","_type":"_doc","_id":"1","_version":6,"result":"deleted","_shards":{"total":2,"successful":1,"failed":0},"_seq_no":5,"_primary_term":1}
 ```
 
+### 2.4 IK 远程扩展词
+
+关于远程扩展词,这样子就可以动态扩展了,贼好. [源码位置 link](https://gitee.com/mirrors/elasticsearch-analysis-ik/blob/master/src/main/java/org/wltea/analyzer/dic/Dictionary.java)
+
+```xml
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>IK Analyzer 扩展配置</comment>
+	<!--用户可以在这里配置自己的扩展字典 -->
+	<entry key="ext_dict">myext.dic</entry>
+	 <!--用户可以在这里配置自己的扩展停止词字典-->
+	<entry key="ext_stopwords">stopword.dic</entry>
+	<!--用户可以在这里配置远程扩展字典 -->
+	<entry key="remote_ext_dict">https://oss-universe.oss-cn-guangzhou.aliyuncs.com/ik-ext.dic</entry>
+	<!--用户可以在这里配置远程扩展停止词字典-->
+	<!-- <entry key="remote_ext_stopwords">words_location</entry> -->
+</properties>
+```
+
+配置远程扩展词的地址,ik 会自动扫描进去.`org.wltea.analyzer.dic.Dictionary`
+
+```java
+public static synchronized void initial(Configuration cfg) {
+  if (singleton == null) {
+    synchronized (Dictionary.class) {
+      if (singleton == null) {
+
+        singleton = new Dictionary(cfg);
+        singleton.loadMainDict();
+        singleton.loadSurnameDict();
+        singleton.loadQuantifierDict();
+        singleton.loadSuffixDict();
+        singleton.loadPrepDict();
+        singleton.loadStopWordDict();
+
+        if(cfg.isEnableRemoteDict()){
+          // 建立监控线程
+          for (String location : singleton.getRemoteExtDictionarys()) {
+            // 10 秒是初始延迟可以修改的 60是间隔时间 单位秒
+            // Monitor调用的是: Dictionary.getSingleton().reLoadMainDict();
+            pool.scheduleAtFixedRate(new Monitor(location), 10, 60, TimeUnit.SECONDS);
+          }
+          for (String location : singleton.getRemoteExtStopWordDictionarys()) {
+            pool.scheduleAtFixedRate(new Monitor(location), 10, 60, TimeUnit.SECONDS);
+          }
+        }
+
+      }
+    }
+  }
+}
+```
+
+```java
+void reLoadMainDict() {
+  logger.info("start to reload ik dict.");
+  // 新开一个实例加载词典，减少加载过程对当前词典使用的影响
+  Dictionary tmpDict = new Dictionary(configuration);
+  tmpDict.configuration = getSingleton().configuration;
+  tmpDict.loadMainDict();
+  tmpDict.loadStopWordDict();
+  _MainDict = tmpDict._MainDict;
+  _StopWords = tmpDict._StopWords;
+  logger.info("reload ik dict finished.");
+}
+```
+
+使用 http 请求远程地址,获取文件内容(<u>那样子,我们也可以扩展为根据restful接口使用呀</u>)
+
+```java
+/**
+  * 从远程服务器上下载自定义词条
+  */
+private static List<String> getRemoteWordsUnprivileged(String location) {
+
+  List<String> buffer = new ArrayList<String>();
+  RequestConfig rc = RequestConfig.custom().setConnectionRequestTimeout(10 * 1000).setConnectTimeout(10 * 1000)
+      .setSocketTimeout(60 * 1000).build();
+  CloseableHttpClient httpclient = HttpClients.createDefault();
+  CloseableHttpResponse response;
+  BufferedReader in;
+  HttpGet get = new HttpGet(location);
+  get.setConfig(rc);
+  try {
+    response = httpclient.execute(get);
+    if (response.getStatusLine().getStatusCode() == 200) {
+
+      String charset = "UTF-8";
+      // 获取编码，默认为utf-8
+      HttpEntity entity = response.getEntity();
+      if(entity!=null){
+        Header contentType = entity.getContentType();
+        if(contentType!=null&&contentType.getValue()!=null){
+          String typeValue = contentType.getValue();
+          if(typeValue!=null&&typeValue.contains("charset=")){
+            charset = typeValue.substring(typeValue.lastIndexOf("=") + 1);
+          }
+        }
+
+        if (entity.getContentLength() > 0 || entity.isChunked()) {
+          in = new BufferedReader(new InputStreamReader(entity.getContent(), charset));
+          String line;
+          while ((line = in.readLine()) != null) {
+            buffer.add(line);
+          }
+          in.close();
+          response.close();
+          return buffer;
+        }
+    }
+    }
+    response.close();
+  } catch (IllegalStateException | IOException e) {
+    logger.error("getRemoteWords {} error", e, location);
+  }
+  return buffer;
+}
+```
+
 ---
 
 ## 3. 参考文档

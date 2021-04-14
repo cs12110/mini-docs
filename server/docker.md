@@ -318,6 +318,17 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 [root@team3 soft]# curl  http://127.0.0.1:9500
 ```
 
+#### 查看容器日志
+
+```sh
+# root @ team3 in ~ [14:42:43]
+$ docker ps --all |grep elast
+02e04bcb0136        docker.elastic.co/elasticsearch/elasticsearch:7.12.0   "/bin/tini -- /usr..."   6 days ago          Up 4 days           0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp        relaxed_bassi
+
+# root @ team3 in ~ [14:43:05]
+$ docker logs 02e04bcb0136
+```
+
 ---
 
 ## 3. 安装 mysql 集群

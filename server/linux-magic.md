@@ -858,7 +858,7 @@ Q: 在 Tomcat 里面启动的项目,怎么使用域名访问,而不是每次都�
 
 A: 假设服务器的 tomcat 项目的访问地址为:`http://47.98.104.252:8080/schedule/views/Schedule.jsp`,那么我们需要在 nginx 加上这个项目的代理即可.
 
-注意: **location的路径最好和proxy_pass里面的那个一致**.
+注意: **location 的路径最好和 proxy_pass 里面的那个一致**.
 
 ```nginx
 location /schedule/ {
@@ -896,13 +896,14 @@ movies
 ```
 
 ---
+
 ## 19. 监控网络流量
 
 因为发现服务器的网速变慢了很多,需要监控一下是什么进程占用了大部分流量.
 
-Q: 那么使用什么软件在centos上监控流量比较好呀?
+Q: 那么使用什么软件在 centos 上监控流量比较好呀?
 
-A: 推荐使用`nethogs`,因为可以yum安装. 流下了没有技术的眼泪.
+A: 推荐使用`nethogs`,因为可以 yum 安装. 流下了没有技术的眼泪.
 
 ```sh
 [root@izwz9i5n2y2vnpulvrtfirz ~]# yum install -y nethogs
@@ -923,4 +924,17 @@ A: 推荐使用`nethogs`,因为可以yum安装. 流下了没有技术的眼泪.
   TOTAL                                                                     0.043       0.000 KB/sec
 ```
 
-可惜的是,上面的有一些pid都是?,惆怅.
+可惜的是,上面的有一些 pid 都是?,惆怅.
+
+---
+
+## 20. vi/vim 中文乱码
+
+Q: vi/vim 在编辑的时候会中文乱码,怎么办?
+
+A: 如果是 vi 的话,在`~/`创建`.virc`,如果是 vim 的话,在`~/`创建`.vimrc`填写下面的内容
+
+```sh
+set encoding=utf-8
+set fileencoding=utf-8
+```
