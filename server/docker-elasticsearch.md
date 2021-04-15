@@ -154,6 +154,42 @@ $ docker restart 0550ad4daba0
 
 ![](imgs/head-view.png)
 
+Q: 在服务器内存不足的时候,启动 docker 里面的 elasticsearch 容器会出现内存不足的情况,请问要怎么修改呀?
+
+A: 网上可以找到设置 elasticsearch 的 jvm 运行内存大小来控制
+
+```sh
+# root @ team3 in /opt/soft [17:10:26] C:130
+$ docker exec -it 02e04bcb0136 /bin/bash
+[root@02e04bcb0136 config]# pwd ;ls
+/usr/share/elasticsearch/config
+elasticsearch.keystore	elasticsearch.yml  jvm.options	jvm.options.d  log4j2.file.properties  log4j2.properties  role_mapping.yml  roles.yml  users  users_roles
+
+# 设置jvm.options
+[root@02e04bcb0136 config]# vi jvm.options
+################################################################
+## IMPORTANT: JVM heap size
+################################################################
+##
+## The heap size is automatically configured by Elasticsearch
+## based on the available memory in your system and the roles
+## each node is configured to fulfill. If specifying heap is
+## required, it should be done through a file in jvm.options.d,
+## and the min and max should be set to the same value. For
+## example, to set the heap to 4 GB, create a new file in the
+## jvm.options.d directory containing these lines:
+##
+## -Xms4g
+## -Xmx4g
+##
+## See https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html
+## for more information
+##
+################################################################
+-Xms512m
+-Xmx512m
+```
+
 ---
 
 ## 2. 整合使用
@@ -564,7 +600,7 @@ void reLoadMainDict() {
 }
 ```
 
-使用 http 请求远程地址,获取文件内容(<u>那样子,我们也可以扩展为根据restful接口使用呀</u>)
+使用 http 请求远程地址,获取文件内容(<u>那样子,我们也可以扩展为根据 restful 接口使用呀</u>)
 
 ```java
 /**
