@@ -652,6 +652,218 @@ private static List<String> getRemoteWordsUnprivileged(String location) {
 }
 ```
 
+### 2.5 嵌套对象
+
+Q: 这是一个挺不奇怪的问题,不是?
+
+A:
+
+`comments`: 默认为 object 类型
+
+```json
+{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text"
+      },
+      "comments": {
+        "properties": {
+          "userName": {
+            "type": "text"
+          },
+          "comment": {
+            "type": "text"
+          },
+          "age": {
+            "type": "long"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+新增数据:
+
+```json
+{
+  "name": "Harry Potter",
+  "comments": [
+    {
+      "userName": "Alice black",
+      "comment": "Great article",
+      "age": 10
+    },
+    {
+      "userName": "Smiley",
+      "comment": "Smiley",
+      "age": 15
+    }
+  ]
+}
+```
+
+执行查询:
+
+```json
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "comments.userName": "Alice"
+          }
+        },
+        {
+          "match": {
+            "comments.age": "15"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+查询结果
+
+```json
+{
+  "took": 2,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1.287682,
+    "hits": [
+      {
+        "_index": "movies",
+        "_type": "_doc",
+        "_id": "mZoK8ngBxNKGCX9ZpIaY",
+        "_score": 1.287682,
+        "_source": {
+          "name": "Harry Potter",
+          "comments": [
+            {
+              "userName": "Alice black",
+              "comment": "Great article",
+              "age": 10
+            },
+            {
+              "userName": "Smiley",
+              "comment": "Smiley",
+              "age": 15
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+Q: 这里面为什么会查询出来 Alice 和 age=15 的呀,明显 alice 的 age=10 呀.
+
+A: 这是因为存储结构导致数据关联性丢失而查询不正确.[详情博客 link](https://blog.csdn.net/donghaixiaolongwang/article/details/78973706)
+
+```json
+{
+  "comments.name": [alice, black, simley],
+  "comments.comment": [Smiley, great, article],
+  "comments.age": [10, 15]
+}
+```
+
+重新定义数据结构,定义 comments 为`nested`.
+
+```json
+{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text"
+      },
+      "comments": {
+        "type": "nested",
+        "properties": {
+          "userName": {
+            "type": "text"
+          },
+          "comment": {
+            "type": "text"
+          },
+          "age": {
+            "type": "long"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+查询语句:
+
+```json
+{
+  "query": {
+    "nested": {
+      "path": "comments",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match": {
+                "comments.userName": "Alice"
+              }
+            },
+            {
+              "match": {
+                "comments.age": "15"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+查询结果:
+
+```json
+{
+  "took": 2,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 0,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  }
+}
+```
+
 ---
 
 ## 3. 参考文档
