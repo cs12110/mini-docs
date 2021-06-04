@@ -2055,3 +2055,90 @@ TEST
 null
 测试环境
 ```
+
+---
+
+19. Builder 模式推演
+
+Q: 这个还有什么好说的呀?
+
+A: let me show you something.
+
+```java
+public class Funny<T> {
+
+    private Consumer<T> consumer;
+    private T value;
+
+    public static <T> Funny<T> getInstance() {
+        return new Funny<>();
+    }
+
+    public Funny<T> setValue(T val) {
+        this.value = val;
+        return this;
+    }
+
+    public Funny<T> consumer(Consumer<T> consumer) {
+        this.consumer = consumer;
+        return this;
+    }
+
+    public void exec() {
+        consumer.accept(value);
+    }
+
+    public static void main(String[] args) {
+        // 这里会出现类型异常
+        Funny.getInstance().consumer(Funny::display).setValue("1231231231").exec();
+    }
+
+    public static void display(String val) {
+        System.out.println(val);
+    }
+}
+```
+
+Q: 那么我们该怎么处理这种情况呀?
+
+A: 在咨询大佬的情况下,奇怪的知识又增长了.
+
+```java
+public class Funny<T> {
+
+    private Consumer<T> consumer;
+    private T value;
+
+    /**
+     * 指定类型
+     *
+     * @param clazz 类型class
+     * @return Funny
+     */
+    public static <T> Funny<T> getInstance(Class<T> clazz) {
+        return new Funny<>();
+    }
+
+    public Funny<T> setValue(T val) {
+        this.value = val;
+        return this;
+    }
+
+    public Funny<T> consumer(Consumer<T> consumer) {
+        this.consumer = consumer;
+        return this;
+    }
+
+    public void exec() {
+        consumer.accept(value);
+    }
+
+    public static void main(String[] args) {
+        Funny.getInstance(String.class).consumer(Funny::display).setValue("1231231231").exec();
+    }
+
+    public static void display(String val) {
+        System.out.println(val);
+    }
+}
+```

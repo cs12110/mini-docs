@@ -236,9 +236,66 @@ PS Old Generation
    34.0063970415424% used
 ```
 
+### 2.3 查看 thread
+
+```sh
+# 命令格式: jstack -l pid
+[root@health-evaluate-service-test-deployment-d7bcd9448-jp4cr data]# jstack -l 1
+
+# 查找qtp线程
+[root@health-evaluate-service-test-deployment-d7bcd9448-jp4cr data]# jstack -l 1 |grep qtp
+"qtp113676940-189" #189 prio=5 os_prio=0 tid=0x00007feba5390800 nid=0xc2 waiting on condition [0x00007feb55df3000]
+"qtp113676940-186" #186 prio=5 os_prio=0 tid=0x00007feb2c00c800 nid=0xbe runnable [0x00007feb55ff5000]
+"qtp113676940-177" #177 prio=5 os_prio=0 tid=0x00007feb20477000 nid=0xb6 waiting on condition [0x00007feaf6eaf000]
+"qtp113676940-60" #60 prio=5 os_prio=0 tid=0x00007fec2df1f000 nid=0x47 runnable [0x00007feb55bf1000]
+"qtp113676940-59" #59 prio=5 os_prio=0 tid=0x00007fec2df1c800 nid=0x46 runnable [0x00007feb55cf2000]
+"qtp113676940-57-acceptor-0@29f48544-ServerConnector@4b07cad0{HTTP/1.1, (http/1.1)}{0.0.0.0:2750}" #57 prio=3 os_prio=0 tid=0x00007fec2df19000 nid=0x44 runnable [0x00007feb55ef4000]
+"qtp113676940-54" #54 prio=5 os_prio=0 tid=0x00007fec2df13800 nid=0x41 waiting on condition [0x00007feb561f7000]
+"qtp113676940-53" #53 prio=5 os_prio=0 tid=0x00007fec2df11800 nid=0x40 runnable [0x00007feb562f8000]
+```
+
 ---
 
-## 3. 参考文档
+## 3. 回收算法
+
+该章节讲述回收相关的算法.
+
+### 3.1 回收判断
+
+判断对象是否存活[link](https://www.cnblogs.com/ityouknow/p/5614961.html):
+
+**引用计数**: 每个对象有一个引用计数属性,新增一个引用时计数+1,释放时计数减 -1,计数为 0 时可以回收.<u>此方法简单,无法解决对象相互循环引用的问题.</u>
+
+**可达性分析(Reachability Analysis)**: 从 GC Roots 向下搜索,搜索所走过的路径称为引用链,当一个对象到 GC Roots 没有任何引用链相连时,此对象为不可达对象.
+
+在 Java 语言中,GC Roots 包括:
+
+- 虚拟机栈中引用的对象
+- 方法区中类静态属性实体引用的对象
+- 方法区中常量引用的对象
+- 本地方法栈中 JNI 引用的对象
+
+### 3.2 回收算法
+
+---
+
+## 4. dump
+
+该章节主要是 dump 和 mat 的使用,[mat 使用教程 link](https://www.cnblogs.com/zh94/p/14051852.html)
+
+### 4.1 dump
+
+命令格式: `jmap -dump:file=${dumpFileName}.hprof,format=b ${pid}`
+
+```sh
+# 命令格式: jmap -dump:file=${dumpFileName}.hprof,format=b  ${pid}
+[root@health-evaluate-service-prod-deployment-89df4bbdb-89rsl data]# jmap -dump:file=health-eva-prd.hprof,format=b 1
+Dumping heap to /data/health-eva-prd.hprof ...
+```
+
+---
+
+## 5. 参考文档
 
 a. [jvm 相关参数配置 link](http://www.51gjie.com/java/551.html)
 
@@ -251,3 +308,5 @@ d. [主流 web 容器性能对比 link](https://www.cnblogs.com/maybo/p/7784687.
 e. [垃圾回收算法 link](https://www.cnblogs.com/ityouknow/p/5614961.html)
 
 f. [gc 优化 link](https://www.cnblogs.com/ityouknow/p/7653129.html)
+
+g. [MAT 分析 dump 文件 link](https://www.cnblogs.com/zh94/p/14051852.html)
