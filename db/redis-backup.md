@@ -9,7 +9,7 @@ Redis 数据库里面的数据有两种形式:
 Redis 数据持久化两种方式:
 
 - Redis Database: 简称 RDB, 快照
-- Append-only file: (简称 Aof,操作日志
+- Append-only file: (简称 Aof,操作日志)
 
 ---
 
