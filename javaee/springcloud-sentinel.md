@@ -1,10 +1,14 @@
 # Springcloud sentinel
 
-为了解决温饱,泪流满面.
+sentinel[ˈsentɪnl]: 哨兵,守卫系统的 bodyguard. 笑哭脸.jpg
 
 ---
 
 ## 1. sentinel 管理端
+
+如果部署在云服务器上,因为 sentinel 是连接回本地内网会出现问题,所以使用本地测试,请知悉.
+
+<u><span style="color:red">在使用默认的配置时,sentinel 不具备持久化</span></u>,当客户端重启的时候,配置的规则全部丢失. 摊手.jpg
 
 ### 1.1 安装部署
 
@@ -105,65 +109,17 @@ A: 对了,还有一些其他概念,可以顺便了解一下.
 | Warm Up  | 根据 codeFactor（冷加载因子,默认值为 3）的值,从阈值/codeFactor,经过预热时长,才达到设置的 QPS 阈值; |
 | 排队等待 | 匀速排队,让请求匀速通过,阈值类型必须设置为 QPS,否则无效                                            |
 
-### 2.2 项目配置
+### 2.2 项目使用
 
-**maven 依赖**
 
-```xml
-<parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.2.RELEASE</version>
-    <relativePath/>
-</parent>
 
-<dependencies>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
+### 2.3 总结
 
-    <dependency>
-        <groupId>com.alibaba.cloud</groupId>
-        <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        <version>2021.1</version>
-    </dependency>
-</dependencies>
-```
-
-**项目配置**
-
-```yml
-spring:
-  application:
-    name: springcloud-sentinel-project
-  cloud:
-    sentinel:
-      transport:
-        dashboard: 127.0.0.1:9090
-server:
-  servlet:
-    context-path: /api/
-  port: 8090
-```
-
-### 2.3 接口使用
-
-```java
-
-```
+很遗憾,没实现 sentinel 持久化,现在也只是测试阶段.
 
 ---
 
-## 3. sentinel 持久化
-
----
-
-## 4. 参考文档
+## 3. 参考文档
 
 a. [springcloud sentinel 官方文档](https://github.com/alibaba/Sentinel/wiki/%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97)
 
