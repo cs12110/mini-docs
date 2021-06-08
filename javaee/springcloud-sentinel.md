@@ -111,7 +111,130 @@ A: 对了,还有一些其他概念,可以顺便了解一下.
 
 ### 2.2 项目使用
 
+FBI Warning: 因为 sentinel 不会自动加载接口,所以要对资源首先请求一次.
 
+![img/springcloud-sentinel-dashboard.png](img/springcloud-sentinel-dashboard.png)
+
+#### maven 依赖
+
+```xml
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.2.RELEASE</version>
+    <relativePath/>
+</parent>
+
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        <version>2021.1</version>
+    </dependency>
+</dependencies>
+```
+
+#### 配置
+
+```yml
+spring:
+  application:
+    name: springcloud-sentinel-project
+  # 配置sentinel dashboard
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:9090
+
+# 配置项目请求url前缀
+server:
+  servlet:
+    context-path: /api/
+  port: 8090
+```
+
+项目启动类如下:
+
+```java
+@SpringBootApplication
+public class App {
+    public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
+    }
+}
+```
+
+```java
+@Controller
+@RequestMapping("/sys")
+public class SysController {
+    @Resource
+    private SysService sysService;
+
+    @RequestMapping("/fallback")
+    @ResponseBody
+    @SentinelResource(value = "fallback", fallback = "fallback", fallbackClass = FallbackHandler.class)
+    public String fallback(String arg) {
+        if ("err".equals(arg)) {
+            throw new RuntimeException("Full back");
+        }
+        return "success:" + arg;
+    }
+
+    @RequestMapping("/block")
+    @ResponseBody
+    @SentinelResource(value = "block", blockHandler = "block", blockHandlerClass = BlockHandler.class)
+    public String block(String arg) {
+        return "success:" + arg;
+    }
+
+}
+```
+
+#### blockHandler
+
+```java
+public class BlockHandler {
+    public static String block(String arg, BlockException throwable) {
+        return "[Block]系统繁忙,请稍后尝试:" + arg;
+    }
+}
+```
+
+在管理端配置`qps=1`
+
+![](img/springcloud-sentinel-block.png)
+
+![](img/springcloud-sentinel-stream-control.png)
+
+快速请求接口,可以看到触发 block
+
+![](img/springcloud-sentinel-block-event.png)
+
+#### fallback
+
+```java
+public class FallbackHandler {
+    public static String fallback(String arg, Throwable throwable) {
+        return "[Fallback]系统维护,请稍后尝试:" + arg;
+    }
+}
+```
+
+![](img/springcloud-sentinel-fallback.png)
+
+触发 fallback
+
+![](img/springcloud-sentinel-fallback-event.png)
 
 ### 2.3 总结
 
@@ -125,4 +248,4 @@ a. [springcloud sentinel 官方文档](https://github.com/alibaba/Sentinel/wiki/
 
 b. [springcloud sentinel 博客 link](https://mrbird.cc/Sentinel%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%AF%A6%E8%A7%A3.html)
 
-c. [fullback 和 block 的区别 link](https://blog.csdn.net/z69183787/article/details/109010369)
+c. [fallback 和 block 的区别 link](https://blog.csdn.net/z69183787/article/details/109010369)
