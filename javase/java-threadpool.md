@@ -4,7 +4,7 @@
 
 在 Jvm 里面创建过多的线程会对资源是一种很大的消耗,所以推荐使用线程池.
 
-使用常识:<span style="color:pink">**线程池在没有特殊的情况下并不手动关闭线程池.不是在每一次调用线程池的时候打开,使用完就关闭.**</span>
+使用常识:<span style="color:pink">**线程池在没有特殊的情况下并不手动关闭线程池.不是在每一次调用线程池的时候打开,使用完就关闭,除非自己手动关闭 :{.**</span>
 
 ---
 
@@ -488,6 +488,62 @@ private Runnable getTask() {
 
 ---
 
-## 8. 总结
+## 8. 扩展知识
+
+前提: 一个线程池可以容纳`最大的线程数=队列的容量 + maxSize`.
+
+```java
+public static void main(String[] args) {
+	ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 10, 10, TimeUnit.SECONDS,
+		new LinkedBlockingQueue<>(), new ThreadFactory() {
+		AtomicInteger atomicInteger = new AtomicInteger(1);
+
+		@Override
+		public Thread newThread(Runnable r) {
+			return new Thread(r, "dynamic-pool-" + atomicInteger.getAndIncrement());
+		}
+	});
+
+	threadPoolExecutor.execute(() -> {
+		System.out.println("");
+	});
+
+	System.out.println("线程池CoreSize: " + threadPoolExecutor.getCorePoolSize());
+	System.out.println("线程池MaxSize: " + threadPoolExecutor.getMaximumPoolSize());
+	System.out.println("正在运行线程数: " + threadPoolExecutor.getActiveCount());
+	System.out.println("已完成线程数: " + threadPoolExecutor.getCompletedTaskCount());
+	System.out.println("等待线程数: " + threadPoolExecutor.getQueue().size());
+}
+```
+
+打印日志
+
+```java
+线程池CoreSize: 1
+线程池MaxSize: 10
+正在运行线程数: 0
+已完成线程数: 1
+等待线程数: 0
+```
+
+Q: 那么我们可以动态修改线程池的 coreSize 和 maxSize 吗?
+
+A: 答案是肯定的,但是如果维护是一个难点,现在还没想到什么好一点的策略.
+
+```java
+/* 
+ * 把coreSize=1和maxSize=10的线程池调整为 coreSize=2和maxSize=20
+ */
+threadPoolExecutor.setCorePoolSize(2);
+threadPoolExecutor.setMaximumPoolSize(20);
+```
+
+Q: 如果现在问一句: 怎么动态削减线程数,会不会过分?
+
+A: 这其实是一个好问题. 如果削减数量<当前运行的线程数会不会出现异常,该怎么削减,怎么扩张,这些都是一个很好的问题.如果能回答的话,就可以解决动态维护线程池了.但我现在还做不到 ^_<
+
+---
+
+## 9. 总结
 
 感觉受到了欺骗,这就是`ThreadPoolExecutor`的事,所以掌握`ThreadPoolExecutor`至关重要.
