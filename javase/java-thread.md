@@ -933,3 +933,116 @@ public class SemaphoreApp {
 ```
 
 所以,信号灯,还是有点用的,我想.
+
+---
+
+## 8. interrupt
+
+Q: 这个是什么东西呀,怎么之前没听你提过?
+
+A: 我没提过是因为我不会,但这个东西是非常重要的一个东西呀. :{
+
+Q: 中断?是不是调用的时候,线程就会停止运行?
+
+A: 当年,我也是这么认为的,然后落到现在这个地步. [线程 interrupt link](https://www.cnblogs.com/hapjin/p/5450779.html)
+
+```java
+public class ThreadInterruptTest {
+
+    public static class MyThread extends Thread {
+        @Override
+        public void run() {
+            do {
+                if (this.isInterrupted()) {
+                    display("loop, interrupt:" + true);
+                    break;
+                }
+            } while (true);
+
+            display("after loop1");
+            display("after loop2");
+        }
+
+    }
+
+    public static void main(String[] args) {
+        MyThread thread = new MyThread();
+        thread.start();
+
+        display("before invoke interrupt" + thread.isInterrupted());
+        thread.interrupt();
+        display("after invoke interrupt:" + thread.isInterrupted());
+
+        sleepWith(1000 * 100);
+    }
+
+    private static void display(String log) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
+        System.out.println(sdf.format(new Date()) + "\t" + log);
+    }
+
+    private static void sleepWith(long mills) {
+        try {
+            Thread.sleep(mills);
+        } catch (Exception ignore) {
+            // do nothing
+        }
+    }
+}
+```
+
+测试结果:
+
+```java
+2021-06-19 11:26:23,694	before invoke interruptfalse
+2021-06-19 11:26:23,695	after invoke interrupt:true
+2021-06-19 11:26:23,695	loop, interrupt:true
+2021-06-19 11:26:23,695	after loop1
+2021-06-19 11:26:23,695	after loop2
+```
+
+上面可以看出来: 虽然线程 interrupt 了,但是并不代表线程退出运行.所以 interrupt 并不因为这线程立刻停止.<u><span style="color: pink">所谓“中断一个线程”,其实并不是让一个线程停止运行,仅仅是将线程的中断标志设为 true, 或者在某些特定情况下抛出一个 InterruptedException,它并不会直接将一个线程停掉,在被中断的线程的角度看来,仅仅是自己的中断标志位被设为 true 了,或者自己所执行的代码中抛出了一个 InterruptedException 异常,仅此而已.</span></u>[线程中断 interrupt link](https://segmentfault.com/a/1190000016083002)
+
+Q: 那么 interrupt 有什么作用呀?
+
+```java
+public static class MyThread extends Thread {
+    @Override
+    public void run() {
+        try {
+            do {
+                if (this.isInterrupted()) {
+                    display("loop index:" + ", interrupt:" + true);
+
+                    // 必须捕抓该异常,那么该怎么通知上层???
+                    throw new InterruptedException("make it worse");
+                }
+            } while (true);
+        } catch (Exception e) {
+            display(e.toString());
+
+            // 只能这样子通知上层了,上层监听线程的interrupt状态
+            Thread.currentThread().interrupt();
+        }
+    }
+}
+```
+
+测试结果
+
+```java
+2021-06-19 11:33:15,554	before invoke interruptfalse
+2021-06-19 11:33:15,555	after invoke interrupt:true
+2021-06-19 11:33:15,555	loop index:, interrupt:true
+2021-06-19 11:33:15,556	java.lang.InterruptedException: make it worse
+```
+
+---
+
+## 9. 参考资料
+
+a. [全面理解 Java 内存模型(JMM)及 volatile 关键字](https://blog.csdn.net/javazejian/article/details/72772461)
+
+b. [深入理解 Java 并发之 synchronized 实现原理](https://blog.csdn.net/javazejian/article/details/72828483)
+
+c. [线程的 interrupt link](https://www.cnblogs.com/hapjin/p/5450779.html)
