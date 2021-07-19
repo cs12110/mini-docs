@@ -247,6 +247,149 @@ PageEntity [url=www.zhihu.com, html=ok ,you can connection to db now, time=15455
 
 ---
 
-## 6.参考资料
+## 6. 打破双亲委托
+
+Q: 如果我想加载自己的String类该怎么办?因为双亲委托的关系,在父类里面已经加载了java的String类.
+
+A: 那么,我们毫无退路,只能打破classloder的双亲委托来加载这些奇葩的类了. 可参考:`java.net.URLClassLoader`
+
+```java
+import java.io.FileInputStream;
+
+/**
+ * @author cs12110
+ * @version V1.0
+ * @since 2021-07-19 09:49
+ */
+public class WeirdClassLoader extends ClassLoader {
+
+    /**
+     * 类的绝对路径前缀
+     */
+    private java.lang.String classPath;
+
+    /**
+     * 自定义处理类前缀
+     */
+    private java.lang.String packagePrefix;
+
+    public WeirdClassLoader(java.lang.String classPath, java.lang.String packagePrefix) {
+        this.classPath = classPath;
+        this.packagePrefix = packagePrefix;
+    }
+
+    /**
+     * 重写findClass方法
+     * <p>
+     * 如果不会写, 可以参考URLClassLoader中是如何加载AppClassLoader和ExtClassLoader的
+     *
+     * @param name className
+     * @return Class<?>
+     */
+    @Override
+    protected Class<?> findClass(java.lang.String name) {
+        try {
+            byte[] data = loadBytes(name);
+            return defineClass(name, data, 0, data.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private byte[] loadBytes(java.lang.String name) throws Exception {
+        // 读取类的路径
+        java.lang.String path = name.replace('.', '/').concat(".class");
+        // 根据绝对路径查找类
+        FileInputStream fileInputStream = new FileInputStream(classPath + "/" + path);
+        int len = fileInputStream.available();
+
+        // 加载byte值
+        byte[] data = new byte[len];
+        fileInputStream.read(data);
+        fileInputStream.close();
+
+        return data;
+    }
+
+    @Override
+    protected Class<?> loadClass(java.lang.String name, boolean resolve) throws ClassNotFoundException {
+        synchronized (getClassLoadingLock(name)) {
+            // First, check if the class has already been loaded
+            // 避免同一个class被多次加载
+            Class<?> c = findLoadedClass(name);
+            if (c == null) {
+                /*
+                 * 首先会使用自定义类加载器加载类, 不在向上委托, 直接自己执行
+                 *
+                 * 其他的类由引导类加载器自动加载
+                 */
+                boolean isCustomized = name.startsWith(packagePrefix);
+                if (isCustomized) {
+                    System.out.println("Loading customized class: " + name);
+                    c = findClass(name);
+                } else {
+                    c = this.getParent().loadClass(name);
+                }
+            }
+            if (resolve) {
+                resolveClass(c);
+            }
+            return c;
+        }
+    }
+
+}
+```
+
+```java
+public class String {
+
+    @Override
+    public java.lang.String toString() {
+        return "HOW_CAN_YOU_DO_THAT:" + hashCode();
+    }
+}
+
+```
+
+```java
+public static void main(java.lang.String[] args) {
+	try {
+		java.lang.String path = "/Users/mr3306/Box/projects/classloder-project/target/classes/";
+		java.lang.String className = "com.pkgs.classloader.common.utils.String";
+
+		WeirdClassLoader weirdClassLoader = new WeirdClassLoader(path, "com.pkgs.classloader");
+
+		Class<?> targetClass1 = weirdClassLoader.loadClass(className, false);
+		Object newInstance = targetClass1.newInstance();
+		System.out.println(newInstance.getClass().getName());
+		System.out.println(newInstance);
+
+		Class<?> targetClass2 = weirdClassLoader.loadClass(className, false);
+		Object newInstance2 = targetClass2.newInstance();
+		System.out.println(newInstance2.getClass().getName());
+		System.out.println(newInstance2);
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
+```
+
+测试结果:
+
+```java
+Loading customized class: com.pkgs.classloader.common.utils.String
+com.pkgs.classloader.common.utils.String
+HOW_CAN_YOU_DO_THAT:292938459
+
+com.pkgs.classloader.common.utils.String
+HOW_CAN_YOU_DO_THAT:917142466
+```
+
+---
+
+## 7.参考资料
 
 a. [classloader 原理](http://blog.csdn.net/xyang81/article/details/7292380)
