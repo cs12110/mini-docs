@@ -576,3 +576,241 @@ private MappedStatement resolveMappedStatement(Class<?> mapperInterface, String 
   return null;
 }
 ```
+
+---
+
+## 4. LambdaQueryWrapper
+
+一直很好奇`LambdaQueryWrapper.eq()`这种实现,觉得挺神奇的.
+
+主要代码上面的注释: `支持序列化的Function`.
+
+```java
+package com.baomidou.mybatisplus.core.toolkit.support;
+
+import java.io.Serializable;
+import java.util.function.Function;
+
+/**
+ * 支持序列化的 Function
+ *
+ * @author miemie
+ * @since 2018-05-12
+ */
+@FunctionalInterface
+public interface SFunction<T, R> extends Function<T, R>, Serializable {
+}
+```
+
+重要类:`com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper`
+
+```java
+protected String columnToString(SFunction<T, ?> column, boolean onlyColumn) {
+    return getColumn(LambdaUtils.resolve(column), onlyColumn);
+}
+
+/**
+  * 获取 SerializedLambda 对应的列信息，从 lambda 表达式中推测实体类
+  * <p>
+  * 如果获取不到列信息，那么本次条件组装将会失败
+  *
+  * @param lambda     lambda 表达式
+  * @param onlyColumn 如果是，结果: "name", 如果否： "name" as "name"
+  * @return 列
+  * @throws com.baomidou.mybatisplus.core.exceptions.MybatisPlusException 获取不到列信息时抛出异常
+  * @see SerializedLambda#getImplClass()
+  * @see SerializedLambda#getImplMethodName()
+  */
+private String getColumn(SerializedLambda lambda, boolean onlyColumn) throws MybatisPlusException {
+    String fieldName = PropertyNamer.methodToProperty(lambda.getImplMethodName());
+    Class aClass = lambda.getInstantiatedMethodType();
+    if (!initColumnMap) {
+        columnMap = LambdaUtils.getColumnMap(aClass);
+    }
+    Assert.notNull(columnMap, "can not find lambda cache for this entity [%s]", aClass.getName());
+    ColumnCache columnCache = columnMap.get(LambdaUtils.formatKey(fieldName));
+    Assert.notNull(columnCache, "can not find lambda cache for this property [%s] of entity [%s]",
+        fieldName, aClass.getName());
+    return onlyColumn ? columnCache.getColumn() : columnCache.getColumnSelect();
+}
+```
+
+工具类: `com.baomidou.mybatisplus.core.toolkit.LambdaUtils#resolve`
+
+```java
+/**
+  * 解析 lambda 表达式, 该方法只是调用了 {@link SerializedLambda#resolve(SFunction)} 中的方法，在此基础上加了缓存。
+  * 该缓存可能会在任意不定的时间被清除
+  *
+  * @param func 需要解析的 lambda 对象
+  * @param <T>  类型，被调用的 Function 对象的目标类型
+  * @return 返回解析后的结果
+  * @see SerializedLambda#resolve(SFunction)
+  */
+public static <T> SerializedLambda resolve(SFunction<T, ?> func) {
+    Class<?> clazz = func.getClass();
+    return Optional.ofNullable(FUNC_CACHE.get(clazz))
+        .map(WeakReference::get)
+        .orElseGet(() -> {
+            SerializedLambda lambda = SerializedLambda.resolve(func);
+            FUNC_CACHE.put(clazz, new WeakReference<>(lambda));
+            return lambda;
+        });
+}
+```
+
+转换类: `com.baomidou.mybatisplus.core.toolkit.support.SerializedLambda#resolve`
+
+```java
+/**
+  * 通过反序列化转换 lambda 表达式，该方法只能序列化 lambda 表达式，不能序列化接口实现或者正常非 lambda 写法的对象
+  *
+  * @param lambda lambda对象
+  * @return 返回解析后的 SerializedLambda
+  */
+public static SerializedLambda resolve(SFunction<?, ?> lambda) {
+    if (!lambda.getClass().isSynthetic()) {
+        throw ExceptionUtils.mpe("该方法仅能传入 lambda 表达式产生的合成类");
+    }
+    try (ObjectInputStream objIn = new ObjectInputStream(new ByteArrayInputStream(SerializationUtils.serialize(lambda))) {
+        @Override
+        protected Class<?> resolveClass(ObjectStreamClass objectStreamClass) throws IOException, ClassNotFoundException {
+            Class<?> clazz = super.resolveClass(objectStreamClass);
+            return clazz == java.lang.invoke.SerializedLambda.class ? SerializedLambda.class : clazz;
+        }
+    }) {
+        return (SerializedLambda) objIn.readObject();
+    } catch (ClassNotFoundException | IOException e) {
+        throw ExceptionUtils.mpe("This is impossible to happen", e);
+    }
+}
+```
+
+序列化类: `com.baomidou.mybatisplus.core.toolkit.SerializationUtils#serialize`,获取序列化数据.
+
+```java
+/**
+  * Serialize the given object to a byte array.
+  * @param object the object to serialize
+  * @return an array of bytes representing the object in a portable fashion
+  */
+public static byte[] serialize(Object object) {
+    if (object == null) {
+        return null;
+    }
+    ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
+    try {
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(object);
+        oos.flush();
+    } catch (IOException ex) {
+        throw new IllegalArgumentException("Failed to serialize object of type: " + object.getClass(), ex);
+    }
+    return baos.toByteArray();
+}
+```
+
+```json
+{
+  "capturedArgCount": 0,
+  "capturingClass": "cn/lambda/SerializationTest",
+  "functionalInterfaceClass": "cn/lambda/SerializationTest$MyGetter",
+  "functionalInterfaceMethodName": "apply",
+  "functionalInterfaceMethodSignature": "(Ljava/lang/Object;)Ljava/lang/Object;",
+  "implClass": "cn/lambda/SerializationTest$Item",
+  "implMethodKind": 5,
+  "implMethodName": "getValue",
+  "implMethodSignature": "()Ljava/lang/String;",
+  "instantiatedMethodType": "(Lcn/lambda/SerializationTest$Item;)Ljava/lang/String;"
+}
+```
+
+```java
+ClassLoader classLoader = SerializationTest.class.getClassLoader();
+Class<?> targetClass = classLoader.loadClass(implClass.replace("/", "."));
+```
+
+```java
+public class SerializationUtils {
+
+    /**
+     * 必须有: <code>@FunctionalInterface</code>注解和实现: <code>Serializable</code>
+     */
+    @FunctionalInterface
+    interface MyGetter<T, R> extends Function<T, R>, Serializable {
+    }
+
+    /**
+     * 获取field名称
+     *
+     * @param myGetter getter
+     * @return String
+     */
+    public static <T, R> String getFieldName(MyGetter<T, R> myGetter) {
+        try {
+            // 黑魔法,writeReplace要参考序列化内容
+            Method method = myGetter.getClass().getDeclaredMethod("writeReplace");
+            method.setAccessible(Boolean.TRUE);
+
+            SerializedLambda serializedLambda = (SerializedLambda) method.invoke(myGetter);
+
+            // 这里可以获取到重要的信息
+            // System.out.println(JSON.toJSONString(serializedLambda,true));
+
+            return transferGetter2FieldName(serializedLambda.getImplMethodName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 转换getter方法为属性
+     *
+     * @param getterName getter名称
+     * @return String
+     */
+    private static String transferGetter2FieldName(String getterName) {
+        if (null == getterName || "".equals(getterName.trim())) {
+            return null;
+        }
+
+        String excludePrefix;
+        if (getterName.startsWith("is")) {
+            // 布尔类型
+            excludePrefix = getterName.substring(2);
+        } else {
+            // 去除get
+            excludePrefix = getterName.substring(3);
+        }
+        return excludePrefix.substring(0, 1).toLowerCase() + excludePrefix.substring(1);
+    }
+}
+```
+
+Q: writeReplace 究竟是个啥?
+
+A: 请参考如下描述, [博客 link](https://blog.csdn.net/leisurelen/article/details/105980615),[博客 link](https://blog.csdn.net/u012503481/article/details/100896507)
+
+```java
+函数式接口如果继承了Serializable，使用Lambda表达式来传递函数式接口时，编译器会为Lambda表达式生成一个writeReplace方法，这个生成的writeReplace方法会返回java.lang.invoke.SerializedLambda；可以从反射Lambda表达式的Class证明writeReplace的存在（具体操作与截图在后面）；所以在序列化Lambda表达式时，实际上写入对象流中的是一个SerializedLambda对象，且这个对象包含了Lambda表达式的一些描述信息；
+```
+
+```java
+@Data
+public static class Item {
+    private String valueObject;
+    private String label;
+    private boolean ok;
+    private Boolean failure;
+    private String myCamelName;
+}
+
+public static void main(String[] args) {
+    System.out.println(getFieldName(Item::getValueObject));
+    System.out.println(getFieldName(Item::getLabel));
+    System.out.println(getFieldName(Item::isOk));
+    System.out.println(getFieldName(Item::getFailure));
+    System.out.println(getFieldName(Item::getMyCamelName));
+}
+```
