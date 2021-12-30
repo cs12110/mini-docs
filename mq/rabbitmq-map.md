@@ -75,7 +75,7 @@ import com.rabbitmq.client.ConnectionFactory;
  *
  * <p>
  *
- * @author huanghuapeng 2017年6月20日
+ * @author cs12110 2017年6月20日
  * @see
  * @since 1.0
  */

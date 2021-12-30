@@ -100,7 +100,7 @@ import org.slf4j.LoggerFactory;
  *
  * <p>
  *
- * @author huanghuapeng 2018年4月18日上午11:17:09
+ * @author cs12110 2018年4月18日上午11:17:09
  *
  */
 @Intercepts({ @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = { Statement.class }) })

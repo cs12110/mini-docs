@@ -48,7 +48,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author huapeng.huang
+ * @author cs12110
  * @version V1.0
  * @since 2020-11-09 16:25
  */
@@ -88,7 +88,7 @@ import lombok.extern.slf4j.Slf4j;
  * <p>
  * 发送给其他用户不在线时,怎么处理?
  *
- * @author huapeng.huang
+ * @author cs12110
  * @version V1.0
  * @since 2020-11-09 16:32
  */

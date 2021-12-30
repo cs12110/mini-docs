@@ -31,7 +31,7 @@ import org.apache.flume.Event;
  *
  *
  *
- * @author huanghuapeng 2017年11月10日
+ * @author cs12110 2017年11月10日
  * @see
  * @since 1.0
  */
