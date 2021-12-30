@@ -114,7 +114,7 @@ package com.mq;
  * 常用配置文件
  * <p>
  *
- * @author huanghuapeng 2017年11月8日
+ * @author cs12110 2017年11月8日
  * @see
  * @since 1.0
  */
