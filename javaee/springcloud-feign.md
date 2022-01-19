@@ -277,7 +277,7 @@ hystrix.threadpool.default.metrics.rollingStats.numBuckets
 
 [工作原理 link](https://blog.csdn.net/weixin_40663800/article/details/88117920)
 
-`通过@EnableFeignCleints注解开启FeignCleint` -> `根据Feign的规则实现接口,接口添加@FeignCleint注解` -> `程序启动进行包扫描,扫描所有的@ FeignCleint的注解的类注入到ioc容器中` -> `接口的方法被调用,通过jdk的代理生成具体的RequesTemplate` -> `RequesTemplate在生成Request` -> `Request交给Client去处理,其中Client可以是HttpUrlConnection,HttpClient也可以是Okhttp` -> `Client被封装到LoadBalanceClient类,结合Ribbon做负载均衡`.
+`通过@EnableFeignCleints注解开启FeignCleint` -> `根据Feign的规则实现接口,接口添加@FeignCleint注解` -> `程序启动进行包扫描,扫描所有的@ FeignCleint的注解的类注入到Ioc容器中` -> `接口的方法被调用,通过jdk的代理生成具体的RequesTemplate` -> `RequesTemplate在生成Request` -> `Request交给Client去处理,其中Client可以是HttpUrlConnection,HttpClient也可以是Okhttp` -> `Client被封装到LoadBalanceClient类,结合Ribbon做负载均衡`.
 
 ### 3.2 替换 http
 
