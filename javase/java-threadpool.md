@@ -488,7 +488,194 @@ private Runnable getTask() {
 
 ---
 
-## 8. 扩展知识
+## 8. cheater
+
+Q: 在`ThreadPoolExecutor`里面,如果 coresize 的线程已经在运行的话,都是先存放到 queue 里面,队列满了,再开启新的线程来消费. 那么可不可以先开启线程来处理,处理不过来的再放到 queue 里面?
+
+A: 这个也是可以的,在很多应用里面也开始使用这种方法来处理线程.主要逻辑是通过线程池的队列来作弊. :"}
+
+参考项目: [hippo4j github link](https://github.com/acmenlt/dynamic-threadpool)
+
+```java
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Task queue.
+ *
+ * @date 2021/7/5 21:00
+ */
+public class TaskQueue<R extends Runnable> extends LinkedBlockingQueue<Runnable> {
+
+    private static final long serialVersionUID = -2635853580887179627L;
+
+    private FastThreadPoolExecutor executor;
+
+    public TaskQueue(int capacity) {
+        super(capacity);
+    }
+
+    public void setExecutor(FastThreadPoolExecutor exec) {
+        executor = exec;
+    }
+
+    @Override
+    public boolean offer(Runnable runnable) {
+        int currentPoolThreadSize = executor.getPoolSize();
+        // 如果有核心线程正在空闲, 将任务加入阻塞队列, 由核心线程进行处理任务
+        if (executor.getSubmittedTaskCount() < currentPoolThreadSize) {
+            return super.offer(runnable);
+        }
+
+        // 当前线程池线程数量小于最大线程数, 返回false, 根据线程池源码, 会创建非核心线程
+        if (currentPoolThreadSize < executor.getMaximumPoolSize()) {
+            return false;
+        }
+
+        // 如果当前线程池数量大于最大线程数, 任务加入阻塞队列
+        return super.offer(runnable);
+    }
+
+    public boolean retryOffer(Runnable o, long timeout, TimeUnit unit) throws InterruptedException {
+        if (executor.isShutdown()) {
+            throw new RejectedExecutionException("Actuator closed!");
+        }
+        return super.offer(o, timeout, unit);
+    }
+}
+```
+
+```java
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+
+/**
+ * Fast threadPool executor.
+ *
+ * @date 2021/7/5 21:00
+ */
+@Slf4j
+public class FastThreadPoolExecutor extends ThreadPoolExecutorTemplate {
+
+    public FastThreadPoolExecutor(int corePoolSize,
+                                  int maximumPoolSize,
+                                  long keepAliveTime,
+                                  TimeUnit unit,
+                                  TaskQueue<Runnable> workQueue,
+                                  ThreadFactory threadFactory,
+                                  RejectedExecutionHandler handler) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
+    }
+
+    private final AtomicInteger submittedTaskCount = new AtomicInteger(0);
+
+    public int getSubmittedTaskCount() {
+        return submittedTaskCount.get();
+    }
+
+    @Override
+    protected void afterExecute(Runnable r, Throwable t) {
+        submittedTaskCount.decrementAndGet();
+    }
+
+    @Override
+    public void execute(Runnable command) {
+        submittedTaskCount.incrementAndGet();
+        try {
+            super.execute(command);
+        } catch (RejectedExecutionException rx) {
+            final TaskQueue queue = (TaskQueue) super.getQueue();
+            try {
+                if (!queue.retryOffer(command, 0, TimeUnit.MILLISECONDS)) {
+                    submittedTaskCount.decrementAndGet();
+                    throw new RejectedExecutionException("队列容量已满.", rx);
+                }
+            } catch (InterruptedException x) {
+                submittedTaskCount.decrementAndGet();
+                throw new RejectedExecutionException(x);
+            }
+        } catch (Exception t) {
+            submittedTaskCount.decrementAndGet();
+            throw t;
+        }
+    }
+
+}
+```
+
+```java
+import java.util.concurrent.*;
+
+/**
+ * ThreadPool executor template.
+ *
+ * @date 2021/7/5 21:59
+ */
+public class ThreadPoolExecutorTemplate extends ThreadPoolExecutor {
+
+    public ThreadPoolExecutorTemplate(int corePoolSize,
+                                      int maximumPoolSize,
+                                      long keepAliveTime,
+                                      TimeUnit unit,
+                                      BlockingQueue<Runnable> workQueue,
+                                      ThreadFactory threadFactory,
+                                      RejectedExecutionHandler handler) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
+    }
+
+    private Exception clientTrace() {
+        return new Exception("tread task root stack trace");
+    }
+
+    @Override
+    public void execute(final Runnable command) {
+        super.execute(wrap(command, clientTrace()));
+    }
+
+    @Override
+    public Future<?> submit(final Runnable task) {
+        return super.submit(wrap(task, clientTrace()));
+    }
+
+    @Override
+    public <T> Future<T> submit(final Callable<T> task) {
+        return super.submit(wrap(task, clientTrace()));
+    }
+
+    private Runnable wrap(final Runnable task, final Exception clientStack) {
+        return () -> {
+            try {
+                task.run();
+            } catch (Exception e) {
+                e.setStackTrace(ArrayUtil.addAll(clientStack.getStackTrace(), e.getStackTrace()));
+                throw e;
+            }
+        };
+    }
+
+    private <T> Callable<T> wrap(final Callable<T> task, final Exception clientStack) {
+        return () -> {
+            try {
+                return task.call();
+            } catch (Exception e) {
+                e.setStackTrace(ArrayUtil.addAll(clientStack.getStackTrace(), e.getStackTrace()));
+                throw e;
+            }
+        };
+    }
+
+}
+```
+
+---
+
+## 9. 扩展知识
 
 前提: 一个线程池可以容纳`最大的线程数=队列的容量 + maxSize`.
 
@@ -531,7 +718,7 @@ Q: 那么我们可以动态修改线程池的 coreSize 和 maxSize 吗?
 A: 答案是肯定的,但是如果维护是一个难点,现在还没想到什么好一点的策略.
 
 ```java
-/* 
+/*
  * 把coreSize=1和maxSize=10的线程池调整为 coreSize=2和maxSize=20
  */
 threadPoolExecutor.setCorePoolSize(2);
@@ -540,10 +727,50 @@ threadPoolExecutor.setMaximumPoolSize(20);
 
 Q: 如果现在问一句: 怎么动态削减线程数,会不会过分?
 
-A: 这其实是一个好问题. 如果削减数量<当前运行的线程数会不会出现异常,该怎么削减,怎么扩张,这些都是一个很好的问题.如果能回答的话,就可以解决动态维护线程池了.但我现在还做不到 ^_<
+A: 这其实是一个好问题. 如果削减数量<当前运行的线程数会不会出现异常,该怎么削减,怎么扩张,这些都是一个很好的问题.如果能回答的话,就可以解决动态维护线程池了.但我现在还做不到 ^\_<
+
+A: 现在我可以回答你了,其实调用线程池的 `java.util.concurrent.ThreadPoolExecutor#setCorePoolSize` 就可以做到缩减/扩充线程池的线程数
+
+```java
+/**
+	* Sets the core number of threads.  This overrides any value set
+	* in the constructor.  If the new value is smaller than the
+	* current value, excess existing threads will be terminated when
+	* they next become idle.  If larger, new threads will, if needed,
+	* be started to execute any queued tasks.
+	*
+	* @param corePoolSize the new core size
+	* @throws IllegalArgumentException if {@code corePoolSize < 0}
+	* @see #getCorePoolSize
+	*/
+public void setCorePoolSize(int corePoolSize) {
+	if (corePoolSize < 0)
+		throw new IllegalArgumentException();
+
+	//
+	int delta = corePoolSize - this.corePoolSize;
+	this.corePoolSize = corePoolSize;
+
+	// 如果是缩减线程数,先尝试中断正在运行的线程
+	if (workerCountOf(ctl.get()) > corePoolSize)
+		interruptIdleWorkers();
+	else if (delta > 0) {
+		// We don't really know how many new threads are "needed".
+		// As a heuristic, prestart enough new workers (up to new
+		// core size) to handle the current number of tasks in
+		// queue, but stop if queue becomes empty while doing so.
+		// 如果是扩充的话,直接新增新的线程
+		int k = Math.min(delta, workQueue.size());
+		while (k-- > 0 && addWorker(null, true)) {
+			if (workQueue.isEmpty())
+				break;
+		}
+	}
+}
+```
 
 ---
 
-## 9. 总结
+## 10. 总结
 
 感觉受到了欺骗,这就是`ThreadPoolExecutor`的事,所以掌握`ThreadPoolExecutor`至关重要.
