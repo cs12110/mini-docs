@@ -315,7 +315,335 @@ spring cloud 的框架如下
 
 ---
 
-## 5. 参考资料
+## 5. feign 常用案例
+
+### 5.1 feign 拦截器
+
+Q: 在微服务里面,比如全链路的 traceId 要怎么做到呀?
+
+A: 可以使用 feign 拦截器在请求前添加到请求头部.
+
+```java
+package cn.feignexample.hospital.doctor.admin.config.feign;
+
+import org.springframework.context.annotation.Configuration;
+
+import cn.feignexample.hospital.doctor.admin.config.interceptor.SysWatchdogInterceptor;
+import feign.RequestInterceptor;
+import feign.RequestTemplate;
+import feign.Target;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * feign拦截器
+ *
+ * @author cs12110
+ * @version V1.0
+ * @since 2021-07-19 13:57
+ */
+@Slf4j
+@Configuration
+public class FeignReqInterceptor implements RequestInterceptor {
+
+    @Override
+    public void apply(RequestTemplate requestTemplate) {
+        if (log.isDebugEnabled()) {
+            displayInfo(requestTemplate);
+        }
+
+        setGlobalTraceId(requestTemplate);
+    }
+
+    /**
+     * 设置全链路的traceId
+     *
+     * @param requestTemplate {@link RequestTemplate}
+     */
+    private void setGlobalTraceId(RequestTemplate requestTemplate) {
+        String traceId = SysWatchdogInterceptor.TraceUtils
+            .trace(SysWatchdogInterceptor.SystemEnum.HOSPITAL_DOCTOR_ADMIN.getSysName());
+
+        // 设置传递的traceId
+        requestTemplate.header("traceId", traceId);
+    }
+
+    private void displayInfo(RequestTemplate requestTemplate) {
+        Target<?> target = requestTemplate.feignTarget();
+
+        log.info("Function[GlobalTraceIdInterceptor] target url:{}", target.url());
+        log.info("Function[GlobalTraceIdInterceptor] path:{}", requestTemplate.path());
+        log.info("Function[GlobalTraceIdInterceptor] method:{}", requestTemplate.method());
+        log.info("Function[GlobalTraceIdInterceptor] metadata:{}", requestTemplate.methodMetadata());
+    }
+}
+```
+
+### 5.2 配置地址
+
+Q: 如果一个服务没注册在注册中心,只能通过 url 访问,而且在生产环境和测试环境是不一样的请求地址?
+
+A: 可以参考如下的案例:
+
+```yaml
+feign:
+  employee:
+    # 生产环境
+    #url: https://center.feignexample.cn/
+    # 测试环境
+    url: https://center.feignexample-test.com/
+```
+
+```java
+@FeignClient(name = "employee-service", url = "${feign.employee.url}")
+public interface EmployeeRpc {
+
+	@GetMapping("/employee")
+	SingleResponse<EmployeeResp> info(@RequestParam("employeeId") Long employeeId);
+}
+```
+
+### 5.3 超时设置
+
+Q: feign 里面要怎么设置超时?
+
+A: 在 feign 里面有两种设置方式,一个通过 ribbon,一个是通过 feign.
+
+```yaml
+#
+# 通过ribbon设置
+#
+# @see org.springframework.cloud.netflix.ribbon.RibbonProperties
+# @see com.netflix.client.config.DefaultClientConfigImpl
+# @see org.springframework.cloud.openfeign.ribbon.LoadBalancerFeignClient.FeignOptionsClientConfig
+ribbon:
+  # 连接超时时间,单位:毫秒
+  ConnectTimeout: 30001
+  # 读取超时时间,单位:毫秒
+  ReadTimeout: 30002
+```
+
+```yaml
+#
+# 通过feign设置
+#
+# @see org.springframework.cloud.openfeign.FeignClientProperties
+# @see org.springframework.cloud.openfeign.FeignClientFactoryBean.getObject
+# @see org.springframework.cloud.openfeign.FeignClientFactoryBean.feign
+# @see org.springframework.cloud.openfeign.FeignClientFactoryBean.configureFeign
+feign:
+  client:
+    config:
+      # 如果不特定设置,默认都使用default配置
+      default:
+        # 连接超时时间,单位:毫秒
+        connectTimeout: 5000
+        # 读取超时时间,单位:毫秒
+        readTimeout: 6000
+```
+
+Q: 如果上面两个配置都配置了,哪个优先级比较高呀?
+
+A: 具体代码可以参考`org.springframework.cloud.openfeign.ribbon.RetryableFeignLoadBalancer#execute`.
+
+```java
+final Request.Options options;
+// 进入!=null的逻辑
+if (configOverride != null) {
+    // configOverride为从feign配置里面获取超时参数,如果获取不到使用ribbon,如果ribbon都没配置,使用默认配置值
+    RibbonProperties ribbon = RibbonProperties.from(configOverride);
+
+    // 设置超时时间
+    options = new Request.Options(ribbon.connectTimeout(this.connectTimeout),
+                                  ribbon.readTimeout(this.readTimeout));
+}
+else {
+    options = new Request.Options(this.connectTimeout, this.readTimeout);
+}
+```
+
+### 5.4 本地代理
+
+Q: 在微服务里面,因为其他依赖服务都部署在服务器上,在开发里面经常遇到需要 debug 的场景,那么可不可以把某一个服务代理到本地环境,其他服务还是使用服务器上面的接口呀?
+
+A: 之前被这个问题纠结需求,然后用一种别扭的方式解决了.通过 ribbon 的复写负载均衡策略,如果属于某个服务,则代理到本地.
+
+通过配置来设置是否打开本地配置,这样子多环境在线上就不用调整了.
+
+```yaml
+# 配置feign是否代理到本地
+feign-local-proxy:
+  # 是否开启本地代理
+  enabled: true
+  # 代理到本地的服务端口列表, 多个feign服务用,隔开, exp: health-evaluate-service,health-evaluate-service
+  feign-names: health-evaluate-service
+```
+
+```java
+package cn.feignexample.hospital.doctor.admin.config.feign;
+
+import com.netflix.client.config.IClientConfig;
+import com.netflix.loadbalancer.AbstractLoadBalancerRule;
+import com.netflix.loadbalancer.DynamicServerListLoadBalancer;
+import com.netflix.loadbalancer.IRule;
+import com.netflix.loadbalancer.Server;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cloud.netflix.ribbon.RibbonClients;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
+
+import cn.feignexample.hospital.doctor.admin.common.utils.ListUtils;
+import cn.feignexample.sharpen.framework.base.core.exception.BizException;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * @author cs12110
+ * @version V1.0
+ * @since 2021-07-29 11:22
+ * <p>
+ * About <code>Ribbon 自定义负载均衡</code>, pls check: https://www.cnblogs.com/guanyuehao0107/p/11831814.html
+ * <p>
+ * About <code>RibbonClients</code>, pls check: https://www.cnblogs.com/cjsblog/p/7986628.html
+ */
+@Configuration
+@ConditionalOnProperty(prefix = "feign-local-proxy", value = "enabled")
+@RibbonClients(defaultConfiguration = { FeignLocalProxyConfig.class })
+public class FeignLocalProxyConfig {
+
+    private static final Random RANDOM = new Random();
+
+    @Resource
+    private FeignProxyConfig feignProxyConfig;
+
+    /**
+     * 实现负载均衡策略
+     * <p>
+     * 必须要有无参构造方法: {@link com.netflix.client.ClientFactory#instantiateInstanceWithClientConfig}
+     *
+     * <pre>
+     *     if (IClientConfigAware.class.isAssignableFrom(clazz)) {
+     *     		IClientConfigAware obj = (IClientConfigAware) clazz.newInstance();
+     *     		obj.initWithNiwsConfig(clientConfig);
+     *    		return obj;
+     *     }
+     * </pre>
+     */
+    @Slf4j
+    public static class MyLoadBalance extends AbstractLoadBalancerRule {
+
+        private FeignProxyConfig feignProxyConfig;
+
+        /**
+         * important:
+         * <p>
+         * 必须要有无参构造方法 {@link com.netflix.client.ClientFactory#instantiateInstanceWithClientConfig}
+         * <p>
+         * 不然构建自定义负载均衡策略会初始化异常
+         * 不然构建自定义负载均衡策略会初始化异常
+         * 不然构建自定义负载均衡策略会初始化异常
+         */
+        @SuppressWarnings("unused")
+        public MyLoadBalance() {
+        }
+
+        public MyLoadBalance(FeignProxyConfig config) {
+            this.feignProxyConfig = config;
+        }
+
+        @Override
+        public void initWithNiwsConfig(IClientConfig clientConfig) {
+
+        }
+
+        @Override
+        public Server choose(Object key) {
+            // warning: 可能会存在异常,因为有其他类型的load balance
+            DynamicServerListLoadBalancer<?> loadBalancer = (DynamicServerListLoadBalancer<?>) this.getLoadBalancer();
+            List<Server> reachableServers = loadBalancer.getReachableServers();
+            // 服务名称
+            final String serviceName = loadBalancer.getName();
+
+            if (log.isDebugEnabled()) {
+                log.info("Function[choose] service name: {}, reachable servers: {}", serviceName, reachableServers);
+            }
+            Server target = random(reachableServers);
+            if (Objects.isNull(target)) {
+                throw new BizException(serviceName + "无可用服务");
+            }
+
+            // 代理到本地的服务
+            if (isProxy2Local(serviceName)) {
+                Server localServer = new Server("127.0.0.1", target.getPort());
+                log.info("Function[choose] force: {}[{}] to local: {}", serviceName, target, localServer);
+                return localServer;
+            }
+
+            return target;
+        }
+
+        /**
+         * 使用随机策略
+         *
+         * @param servers 服务器
+         * @return {@link Server}
+         */
+        private Server random(List<Server> servers) {
+            if (null == servers || servers.isEmpty()) {
+                return null;
+            }
+            int index = RANDOM.nextInt(servers.size());
+            return servers.get(index);
+        }
+
+        /**
+         * 判断当前服务是否要代理到本地
+         *
+         * @param serviceName 服务名称
+         * @return boolean
+         */
+        private boolean isProxy2Local(String serviceName) {
+            // 没有指定代理feign时, 不做代理
+            if (ListUtils.isEmpty(feignProxyConfig.getFeignNames())) {
+                return false;
+            }
+            return feignProxyConfig.getFeignNames().contains(serviceName);
+        }
+    }
+
+    /**
+     * 自定义负载策略,需要设置为:<code>@Primary</code>
+     * <p>
+     * 通过<code>@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)</code>解决场景如下:
+     * <p>
+     * 同一个调用链路有需要调用到本地,和不需要调用本地的服务的情况会出现出问题,如果添加注解<code>@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)</code>
+     * <p>
+     * serviceA -> serviceB(代理到本地)
+     * <p>
+     * serviceA -> serviceC(不代理本地)
+     *
+     * @return IRule
+     */
+    @Bean
+    @Primary
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public IRule iRule() {
+        return new MyLoadBalance(feignProxyConfig);
+    }
+}
+```
+
+---
+
+## 6. 参考资料
 
 a. [feign 官方文档](https://cloud.spring.io/spring-cloud-static/spring-cloud-openfeign/2.0.4.RELEASE/single/spring-cloud-openfeign.html)
 

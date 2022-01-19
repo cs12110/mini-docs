@@ -2,6 +2,8 @@
 
 sentinel[ˈsentɪnl]: 哨兵,守卫系统的 bodyguard. 笑哭脸.jpg
 
+sentinel 主要用在熔断降级,流量控制等场景. 流量控制要熟悉一下各种流量控制方案如: 漏桶,令牌,固定窗口,滑动窗口等算法.
+
 ---
 
 ## 1. sentinel 管理端
@@ -55,6 +57,12 @@ $ chmod +x start-sentinel-dashboard.sh
 ---
 
 ## 2. 项目使用
+
+| 策略                            | 说明                                                                                                                           | 备注                                                                                                                                                                                                                                                                                         |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 慢调用比例 (SLOW_REQUEST_RATIO) | 选择以慢调用比例作为阈值，需要设置允许的慢调用 RT（即最大的响应时间），请求的响应时间大于该值则统计为慢调用                    | 当单位统计时长（statIntervalMs）内请求数目大于设置的最小请求数目，并且慢调用的比例大于阈值，则接下来的熔断时长内请求会自动被熔断。经过熔断时长后熔断器会进入探测恢复状态（HALF-OPEN 状态），若接下来的一个请求响应时间小于设置的慢调用 RT 则结束熔断，若大于设置的慢调用 RT 则会再次被熔断。 |
+| 异常比例 (ERROR_RATIO)          | 当单位统计时长（statIntervalMs）内请求数目大于设置的最小请求数目，并且异常的比例大于阈值，则接下来的熔断时长内请求会自动被熔断 | 经过熔断时长后熔断器会进入探测恢复状态（HALF-OPEN 状态），若接下来的一个请求成功完成（没有错误）则结束熔断，否则会再次被熔断。异常比率的阈值范围是 [0.0, 1.0]，代表 0% - 100%。                                                                                                              |
+| 异常数 (ERROR_COUNT)            | 当单位统计时长内的异常数目超过阈值之后会自动进行熔断                                                                           | 经过熔断时长后熔断器会进入探测恢复状态（HALF-OPEN 状态），若接下来的一个请求成功完成（没有错误）则结束熔断，否则会再次被熔断。                                                                                                                                                               |
 
 ### 2.1 基础知识
 
@@ -239,6 +247,95 @@ public class FallbackHandler {
 ### 2.3 总结
 
 很遗憾,没实现 sentinel 持久化,现在也只是测试阶段.
+
+样例:
+
+```java
+package cn.example.hospital.doctor.admin.controller;
+
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import cn.example.sharpen.framework.base.common.dto.SingleResponse;
+import io.swagger.annotations.Api;
+
+/**
+ * @author cs12110
+ * @version V1.0
+ * @since 2022-01-07 09:15
+ */
+@RestController
+@RequestMapping("/v1/sentinel-example")
+@Api(tags = "sentinel example")
+public class BizSentinelExampleController {
+
+    /**
+     * 测试接口
+     * <p>
+     * blockHandler: 同一个类里面,方法为public
+     * fallbackHandler: 同一个类里面,方法为public
+     * <p>
+     * 测试设置规则:
+     * <p>
+     * block: QPS阈值1req/s
+     *
+     * @param sleep 休眠时间(用来测试fallback)
+     * @return SingleResponse
+     * @link https://github.com/alibaba/Sentinel/wiki/%E6%B3%A8%E8%A7%A3%E6%94%AF%E6%8C%81
+     */
+    @RequestMapping("/going-through")
+    @SentinelResource(value = "going-through", blockHandler = "blockHandler", fallback = "fallbackHandler")
+    public SingleResponse<?> goingThrough(long sleep) {
+        if (sleep > 0) {
+            // 模拟服务异常
+            throw new RuntimeException("service timeout");
+        }
+        return SingleResponse.of(sleep);
+    }
+
+    /**
+     * blockHandler: 用于流量超出阈值,进行限流
+     * <p>
+     * 入参也要going-through方法一致,可以多一个<code>BlockException</code>
+     *
+     * @param sleep    休眠时间
+     * @param blockExp {@link com.alibaba.csp.sentinel.slots.block.BlockException},还有一个贼像的<code>BlockedException</code>,注意区分
+     * @return SingleResponse 返回参数格式要和going-through一致
+     */
+    public SingleResponse<?> blockHandler(long sleep, BlockException blockExp) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("sleep", sleep);
+        map.put("message", blockExp.getMessage());
+        map.put("cause", "限制访问");
+
+        return SingleResponse.of(map);
+    }
+
+    /**
+     * Fallback: 处理服务异常,用于服务降级/熔断
+     * <p>
+     * 函数，函数签名与原函数一致或加一个 Throwable 类型的参数.
+     *
+     * @param sleep     休眠时间
+     * @param throwable 异常
+     * @return SingleResponse
+     */
+    public SingleResponse<?> fallbackHandler(long sleep, Throwable throwable) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("sleep", sleep);
+        map.put("message", throwable.getMessage());
+        map.put("cause", "服务异常,熔断");
+
+        return SingleResponse.of(map);
+    }
+}
+```
 
 ---
 

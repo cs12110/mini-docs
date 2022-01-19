@@ -2327,3 +2327,86 @@ public class OrderMockServiceConfig implements CommandLineRunner {
 ```
 
 ---
+
+### condition
+
+Q: 在 spring 里面经常会看到一个配置上面有`@ConditionalOn***`来规定该配置加载的条件,那么可不可以自己定义一些条件来处理这个呀?
+
+A: 请参考如下的例子:
+
+```java
+package cn.example.hospital.doctor.admin.config.feign;
+
+import java.util.Objects;
+
+import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.env.Environment;
+import org.springframework.core.type.AnnotatedTypeMetadata;
+
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * environment 有点特殊 orz
+ *
+ * @author cs12110
+ * @version V1.0
+ * @since 2022-01-13 17:24
+ */
+@Slf4j
+public class MyCondition implements Condition {
+
+    @Override
+    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+        Environment environment = context.getEnvironment();
+
+        // 获取配置文件配置参数
+        String openMyConditionConfInit = environment.getProperty("open.my-condition-config-init");
+
+        // 判断是否初始化配置类
+        boolean isOpen = Objects.equals(String.valueOf(true), openMyConditionConfInit);
+
+        log.info("Function[matches] setting:{}, open:{}", openMyConditionConfInit, isOpen);
+
+        return isOpen;
+    }
+}
+```
+
+```java
+package cn.example.hospital.doctor.admin.config.feign;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Configuration;
+
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * 如果{@link cn.example.hospital.doctor.admin.config.feign.MyCondition#matches}返回true,这个配置类才会初始化
+ *
+ * @author cs12110
+ * @version V1.0
+ * @since 2022-01-13 17:24
+ */
+@Slf4j
+@Configuration
+@Conditional(MyCondition.class)
+public class DepsOnMyConditionConfig {
+
+    @Bean(value = "whateverBean")
+    public Object createWhateverBean() {
+        log.info("Function[createWhateverBean] create whatever bean");
+
+        return new Object();
+    }
+}
+```
+
+```yaml
+#
+# 设置配置类是否初始化,默认为不初始化
+#
+open:
+  my-condition-config-init: false
+```

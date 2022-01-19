@@ -39,13 +39,10 @@
   - [Spring Seata 分布式事务](javaee/spring-seata.md)
   - [Spring Zipkin链路调用](javaee/springboot-zipkin.md)
   - [SpringBoot 基础配置项](javaee/springboot-properties.md)
-  - [SpringCloud 基础教程](javaee/springcloud-backup.md)
-  <!-- 
+  - [SpringCloud-Basic](javaee/springcloud-backup.md)
   - [SpringCloud-Feign](javaee/springcloud-feign.md) 
-  -->
-  <!-- 
   - [SpringCloud-Sentinel](javaee/springcloud-sentinel.md)
-  -->
+  - [SpringCloud-Gateway](javaee/springcloud-gateway.md)
   - [Rpc 之 Thrift](javaee/rpc-thrift.md)
   - [Rpc 之 Dubbo](javaee/rpc-dubbo.md)
   - [Redis 之 分布式锁](javaee/redis-lock.md)
