@@ -1338,6 +1338,8 @@ public class FilterConf {
 
 借助自定义注解和拦截器防止重复提交.
 
+<span style="color:red">FBI warning: 该功能在并发时,并不能代替分布式锁,请知悉.生产环境建议使用自定义注解+分布式锁实现.</span>
+
 ### 10.1 自定义注解
 
 ```java
@@ -2328,7 +2330,7 @@ public class OrderMockServiceConfig implements CommandLineRunner {
 
 ---
 
-### condition
+## 19. condition
 
 Q: 在 spring 里面经常会看到一个配置上面有`@ConditionalOn***`来规定该配置加载的条件,那么可不可以自己定义一些条件来处理这个呀?
 
