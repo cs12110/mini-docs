@@ -11,12 +11,12 @@
 ### 1.1 项目配置参数
 
 ```sh
-# mr3306 @ mr3306 in ~/Box/projects/medbank/codes/hospital-doctor-admin on git:feature-1006432 x [23:17:40]
-$  mvn clean package -s /Users/mr3306/Box/soft/maven/conf/medbank-settings.xml
+# mr3306 @ mr3306 in ~/Box/projects/secret/codes/secret-admin on git:feature-1006432 x [23:17:40]
+$  mvn clean package -s /Users/mr3306/Box/soft/maven/conf/secret-settings.xml
 
 
-# mr3306 @ mr3306 in ~/Box/projects/medbank/codes/hospital-doctor-admin/hospital-doctor-admin-controller/target on git:feature-1006432 x [13:47:01] C:137
-$ java -jar -Xmx1024m -Xms512m -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/Users/mr3306/Box/soft/eclipse-mat/oom hospital-doctor-admin-controller.jar
+# mr3306 @ mr3306 in ~/Box/projects/secret/codes/secret-admin/secret-admin-controller/target on git:feature-1006432 x [13:47:01] C:137
+$ java -jar -Xmx1024m -Xms512m -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/Users/mr3306/Box/soft/eclipse-mat/oom secret-admin-controller.jar
 ```
 
 Q: 怎么判断配置是否生效?
@@ -110,8 +110,8 @@ java -jar -Xargs -XX:args yourJar.jar
 启动范例:
 
 ```sh
-# mr3306 @ mr3306 in ~/Box/projects/medbank/codes/hospital-doctor-admin/hospital-doctor-admin-controller/target on git:feature-1006432 x [13:47:01] C:137
-$ java -jar -Xmx1024m -Xms512m -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/Users/mr3306/Box/soft/eclipse-mat/oom hospital-doctor-admin-controller.jar
+# mr3306 @ mr3306 in ~/Box/projects/secret/codes/secret-admin/secret-admin-controller/target on git:feature-1006432 x [13:47:01] C:137
+$ java -jar -Xmx1024m -Xms512m -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/Users/mr3306/Box/soft/eclipse-mat/oom secret-admin-controller.jar
 ```
 
 ---
@@ -156,7 +156,7 @@ GC (Allocation Failure) [PSYoungGen: 524800K①->12561K②(611840K③)] 524800K�
 在服务器上可以使用`jstat`来查看 gc 情况
 
 ```sh
-[root@hospital-doctor-admin-test-deployment-f64dfb5cb-fs28g data]# jstat -gc 1  60s
+[root@secret-admin-test-deployment-f64dfb5cb-fs28g data]# jstat -gc 1  60s
  S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU    CCSC   CCSU   YGC     YGCT    FGC    FGCT     GCT
 2048.0 2048.0  0.0   1472.1 170496.0 77056.2   616960.0   209981.9  189784.0 174229.4 23168.0 20738.9    549    8.013   5      1.746    9.759
 2048.0 2048.0 1088.1  0.0   170496.0 12832.5   616960.0   210013.9  189784.0 174229.9 23168.0 20738.9    550    8.028   5      1.746    9.775
@@ -189,7 +189,7 @@ Full GC没有频繁执行(大约10min执行一次)
 
 ```sh
 # 命令格式: jmap -heap pid
-[root@hospital-doctor-admin-test-deployment-f64dfb5cb-fs28g data]# jmap -heap 1
+[root@secret-admin-test-deployment-f64dfb5cb-fs28g data]# jmap -heap 1
 Attaching to process ID 1, please wait...
 Debugger attached successfully.
 Server compiler detected.
