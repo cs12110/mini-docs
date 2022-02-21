@@ -277,6 +277,48 @@ PS Old Generation
 
 ### 3.2 回收算法
 
+Q: 怎么知道系统里面用的 gc 算法是啥?
+
+A: 可以说使用`jinfo -flags pid`命令来查看.
+
+```shell
+# root @ team3 in ~ [14:39:48]
+$ jinfo -flags 534
+Attaching to process ID 534, please wait...
+Debugger attached successfully.
+Server compiler detected.
+JVM version is 25.144-b01
+Non-default VM flags: -XX:CICompilerCount=2 -XX:InitialHeapSize=62914560 -XX:MaxHeapSize=994050048 -XX:MaxNewSize=331350016 -XX:MinHeapDeltaBytes=524288 -XX:NewSize=20971520 -XX:OldSize=41943040 -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC
+Command line:  -Djava.util.logging.config.file=/opt/soft/tomcat9/apache-tomcat-9.0.27/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -Dcatalina.base=/opt/soft/tomcat9/apache-tomcat-9.0.27 -Dcatalina.home=/opt/soft/tomcat9/apache-tomcat-9.0.27 -Djava.io.tmpdir=/opt/soft/tomcat9/apache-tomcat-9.0.27/temp
+```
+
+从上面的命令可以看出,使用的 gc 回收器是:`-XX:+UseParallelGC`.
+
+| 参数                    | 回收器                           | 备注                                              |
+| ----------------------- | -------------------------------- | ------------------------------------------------- |
+| -XX:-UseSerialGC        | Serial + Serial Old              | Serial: 复制算法,Serial Old:标记整理算法          |
+| -XX:-UseParNewGC        | ParNew + Serial Old              | parnew: 复制算法                                  |
+| -XX:-UseParallelGC      | Parallel Scavenge + Serial Old   | Serial Old:标记整理算法                           |
+| -XX:-UseParallelOldGC   | Parallel Scavenge + Parallel Old | Parallel Scavenge:复制算法,Parallel Old: 标志整理 |
+| -XX:-UseConcMarkSweepGC | CMS + ParNew                     | cms: 标记清理                                     |
+| -Xx:-UseG1GC            | G1                               | G1: 标记整理                                      |
+
+Q: 那么上面这种`Serial`,`Parallel`,`CMS`什么,有啥区别,分别用的是什么样的算法来回收呀?
+
+A: 先了解一下一些概念. [美团博客 link](https://tech.meituan.com/2020/11/12/java-9-cms-gc.html)
+
+- Mark-Sweep（标记-清除）： 回收过程主要分为两个阶段，第一阶段为追踪（Tracing）阶段，即从 GC Root 开始遍历对象图，并标记（Mark）所遇到的每个对象，第二阶段为清除（Sweep）阶段，即回收器检查堆中每一个对象，并将所有未被标记的对象进行回收，整个过程不会发生对象移动。整个算法在不同的实现中会使用三色抽象（Tricolour Abstraction）、位图标记（BitMap）等技术来提高算法的效率，存活对象较多时较高效。
+
+- Mark-Compact （标记-整理）： 这个算法的主要目的就是解决在非移动式回收器中都会存在的碎片化问题，也分为两个阶段，第一阶段与 Mark-Sweep 类似，第二阶段则会对存活对象按照整理顺序（Compaction Order）进行整理。主要实现有双指针（Two-Finger）回收算法、滑动回收（Lisp2）算法和引线整理（Threaded Compaction）算法等。
+
+- Copying（复制）： 将空间分为两个大小相同的 From 和 To 两个半区，同一时间只会使用其中一个，每次进行回收时将一个半区的存活对象通过复制的方式转移到另一个半区。有递归（Robert R. Fenichel 和 Jerome C. Yochelson 提出）和迭代（Cheney 提出）算法，以及解决了前两者递归栈、缓存行等问题的近似优先搜索算法。复制算法可以通过碰撞指针的方式进行快速地分配内存，但是也存在着空间利用率不高的缺点，另外就是存活对象比较大时复制的成本比较高。
+
+Q: 那么新生代和老年代分别能用什么算法?
+
+A: 请参考[各种 gc 回收器详情 link](https://blog.csdn.net/zhou920786312/article/details/84276583)
+
+![](imgs/gc-collector.png)
+
 ---
 
 ## 4. dump
@@ -310,3 +352,5 @@ e. [垃圾回收算法 link](https://www.cnblogs.com/ityouknow/p/5614961.html)
 f. [gc 优化 link](https://www.cnblogs.com/ityouknow/p/7653129.html)
 
 g. [MAT 分析 dump 文件 link](https://www.cnblogs.com/zh94/p/14051852.html)
+
+h. [美团技术博客 link](https://tech.meituan.com/2020/11/12/java-9-cms-gc.html)
