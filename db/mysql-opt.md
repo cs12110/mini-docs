@@ -94,10 +94,10 @@ mysql> show index from top_answer_t \G;
   Cardinality: 8951
      Sub_part: NULL
        Packed: NULL
-         Null: 
+         Null:
    Index_type: BTREE
-      Comment: 
-Index_comment: 
+      Comment:
+Index_comment:
 1 row in set (0.00 sec)
 ```
 
@@ -128,25 +128,25 @@ possible_keys: NULL
         Extra: NULL
 1 row in set, 1 warning (0.00 sec)
 ```
+
 ### 3.2 结果说明
 
 | 参数名称      | 参数含义                                                                                                       | 备注                                                                 |
 | ------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | id            | SELECT 识别符.这是 SELECT 查询序列号.                                                                          | -                                                                    |
-| select_type   | 表示查询中每个 select 子句的类型(简单 OR 复杂).                                                                | 参考select_type说明                                                  |
+| select_type   | 表示查询中每个 select 子句的类型(简单 OR 复杂).                                                                | 参考 select_type 说明                                                |
 | table         | 表示查询的表.                                                                                                  | -                                                                    |
-| type          | 表示表的连接类型.                                                                                              | 参考type说明                                                         |
+| type          | 表示表的连接类型.                                                                                              | 参考 type 说明                                                       |
 | possible_keys | 指出 MySQL 能使用哪个索引在该表中找到行.<br>如果该列为 NULL,说明没有使用索引,可以对该列创建索引来提高性能.     | -                                                                    |
 | key           | 显示 MySQL 实际决定使用的键(索引).如果没有选择索引,键是 NULL.                                                  | 强制使用索引:`USE INDEX(列名)`<br> 忽略使用索引:`IGNORE INDEX(列名)` |
 | key_len       | 显示 MySQL 决定使用的键长度.如果键是 NULL,则长度为 NULL.<br>注意：key_len 是确定了 MySQL 将实际使用的索引长度. | -                                                                    |
 | ref           | 显示使用哪个列或常数与 key 一起从表中选择行.                                                                   | -                                                                    |
 | rows          | 显示 MySQL 认为它执行查询时必须检查的行数.                                                                     | -                                                                    |
-| Extra         | 该列包含 MySQL 解决查询的详细信息                                                                              | 参考Extra说明                                                        |
+| Extra         | 该列包含 MySQL 解决查询的详细信息                                                                              | 参考 Extra 说明                                                      |
 
+#### 3.2.1 select_type 说明
 
-#### 3.2.1 select_type说明
-
-| select_type值   | 说明                                                       |
+| select_type 值  | 说明                                                       |
 | --------------- | ---------------------------------------------------------- |
 | SIMPLE          | 查询中不包含子查询或者 UNION                               |
 | PRIMARY         | 查询中若包含任何复杂的子部分,最外层查询则被标记为:PRIMARY. |
@@ -156,7 +156,7 @@ possible_keys: NULL
 | SUBQUERY        | 子查询中的第 1 个 SELECT 语句.                             |
 | DERIVED         | SELECT(FROM 子句的子查询).                                 |
 
-#### 3.2.2  type
+#### 3.2.2 type
 
 ##### 3.2.2.1 理想类型
 
@@ -171,6 +171,7 @@ possible_keys: NULL
 | `ref_or_null` | 该联接类型如同 ref,但是添加了 MySQL 可以专门搜索包含 NULL 值的行.在解决子查询中经常使用该联接类型的优化.                                                                                                             |
 
 ###### const
+
 ```sql
 mysql> explain select * from top_answer_t where id =1\G;
 *************************** 1. row ***************************
@@ -253,7 +254,6 @@ possible_keys: answerIdIndex
         Extra: NULL
 ```
 
-
 ##### 3.2.2.2 泪崩查询
 
 | 参数名称          | 说明                                                                                                                                                                      |
@@ -284,7 +284,6 @@ possible_keys: PRIMARY
         Extra: Using where
 1 row in set, 1 warning (0.02 sec)
 ```
-
 
 #### 3.2.3 Extra
 
@@ -340,7 +339,6 @@ possible_keys: NULL
 1 row in set, 1 warning (0.00 sec)
 ```
 
-
 ```sql
 mysql> explain select * from top_answer_t where link like '123%' \G;
 *************************** 1. row ***************************
@@ -361,14 +359,11 @@ possible_keys: linkIndex
 
 #### 3.3.2 使用联合索引的查询
 
-
 最左原则: MySQL 可以为多个字段创建索引,一个索引可以包括 16 个字段.对于联合索引,只有查询条件中使用了这些字段中第一个字段时,索引才会生效.
-
 
 #### 3.3.3 使用 OR 关键字的查询
 
 查询语句的查询条件中只有 OR 关键字,且 OR 前后的两个条件中的列都是索引时,索引才会生效,否则,索引不生效.
-
 
 #### 3.3.4 子查询优化
 
@@ -439,25 +434,25 @@ CREATE TABLE `tb_cart` (
 
 Q: 为什么索引会影响插入速度呢?
 
-A: ​索引越多,当你写入数据的时候就会越慢,因为我们在插入数据的时候不只是把数据写入文件,而且还要把这个数据写到索引中,索引索引越多插入越慢
+A: ​ 索引越多,当你写入数据的时候就会越慢,因为我们在插入数据的时候不只是把数据写入文件,而且还要把这个数据写到索引中,索引索引越多插入越慢
 
 数据库引擎如下:
 
-- MyISAM适合:做很多count 的计算;插入不频繁,查询非常频繁;没有事务.
+- MyISAM 适合:做很多 count 的计算;插入不频繁,查询非常频繁;没有事务.
 
-- InnoDB适合:可靠性要求比较高,或者要求事务;表更新和查询都相当的频繁,并且表锁定的机会比较大的情况.
+- InnoDB 适合:可靠性要求比较高,或者要求事务;表更新和查询都相当的频繁,并且表锁定的机会比较大的情况.
 
-| 属性              | MyISAM   | Heap   | BDB             | InnoDB |
-| ----------------- | -------- | ------ | --------------- | ------ |
-| 事务              | 不支持   | 不支持 | 支持            | 支持   |
-| 锁粒度            | 表锁     | 表锁   | 页锁(page, 8KB) | 行锁   |
-| 存储              | 拆分文件 | 内存中 | 每个表一个文件  | 表空间 |
-| 隔离等级          | 无       | 无     | 读已提交        | 所有   |
-| 可移植格式        | 是       | N/A    | 否              | 是     |
-| 引用完整性        | 否       | 否     | 否              | 是     |
-| 数据主键          | 否       | 否     | 是              | 是     |
-| MySQL缓存数据记录 | 无       | 有     | 有              | 有     |
-| 可用性            | 全版本   | 全版本 | MySQL－Max      | 全版本 |
+| 属性               | MyISAM   | Heap   | BDB             | InnoDB |
+| ------------------ | -------- | ------ | --------------- | ------ |
+| 事务               | 不支持   | 不支持 | 支持            | 支持   |
+| 锁粒度             | 表锁     | 表锁   | 页锁(page, 8KB) | 行锁   |
+| 存储               | 拆分文件 | 内存中 | 每个表一个文件  | 表空间 |
+| 隔离等级           | 无       | 无     | 读已提交        | 所有   |
+| 可移植格式         | 是       | N/A    | 否              | 是     |
+| 引用完整性         | 否       | 否     | 否              | 是     |
+| 数据主键           | 否       | 否     | 是              | 是     |
+| MySQL 缓存数据记录 | 无       | 有     | 有              | 有     |
+| 可用性             | 全版本   | 全版本 | MySQL－Max      | 全版本 |
 
 ### 5.1 MyISAM
 
@@ -510,10 +505,9 @@ VALUES
 	("haiyan", "只有意志...");
 ```
 
-
 Q: 为什么第二种方式的插入速度比第一种方式快?
 
-A: 我们第一个语句发送到 sql 后要解析两次, 第二个SQL只需要解析一次.
+A: 我们第一个语句发送到 sql 后要解析两次, 第二个 SQL 只需要解析一次.
 
 #### 5.1.4 使用 LOAD DATA INFILE
 
@@ -561,49 +555,102 @@ A: 我们第一个语句发送到 sql 后要解析两次, 第二个SQL只需要�
 
 - 配置多核处理器,MySQL 是多线程的数据库,多处理器可以提高同时执行多个线程的能力.
 
-### 6.2  优化 MySQL 的参数
+### 6.2 优化 MySQL 的参数
 
 通过优化 MySQL 的参数可以提高资源利用率,配置参数都在 my.conf 或者 my.ini 文件的[mysqld]组中,常用的参数如下:
 
-| 属性名称                       | 含义                                                         |
-| ------------------------------ | ------------------------------------------------------------ |
-| key_buffer_size                | 表示索引缓冲区的大小.索弓I缓冲区所有的线程共享.增加索列缓冲区可以得到更好处理的索引(对所有读和多写).当然,这个值也不是越大越好,它的大小取决于内存的大小.如果这个值太大,导致操作系统频繁换页,也会降低系统性能. |
-| table_cache                    | 表示同时打开的表的个数.这个值越大,能够同吋打开的表的个数越多,这个值不是越大越好,因为同时打开的表太多会彭响操作系统的性能. |
-| query_cache_size               | 表示查询缓冲区的大小.该参数需要和query_cache_type配合使用.当query_cache_type值是0时,所有的查询都不使用查询缓冲区.但是query_cache_type=0 不会导致MySQL释放query_cache_size所配置的缓冲区内存.当query_cache_type=l时,所有的查询都将用查询缓冲区,除非在查询语句中指定SQL_NO_CACHE,如SELECT, SQL_NO_CACHE * FROM tb_name.当 query_cache_type=2 时.只有在查询语句中使用SQL_CACHE关键字,查询才会使用查询缓冲区.使用查询缓冲区可以提高查询的速度,这种方式只适用于修改操作少且经常执行相同的查询操作的情况. |
-| sort_buffer_size               | 表示排序缓存区的大小.这个值越大,进行排序的速度越快.          |
-| read_buffer_size               | 表示每个线程连续扫描时为扫描的每个表分配的缓冲区的大小(字节).当线程从表中连续读取记录时需要用到这个缓冲区.SET SESSION read_buffer_size=n可以临时设置该参数的值. |
-| read_rnd_buffer_size           | 表示为毎个线程保留的缓冲区的大小,与read_buffer_size相似.但主要用于存储按特定顺序读取出来的记录.也可以用SET SESSION read_rnd_buffer_size=n 來临时设置该歩数的值.如果频繁进行多次连续扫描,可以增加该值. |
-| innodb_buffer_pool_size        | 表示InnoDR类型的表和索引的最大缓存.这个值越大,查询的速度就会越快.但是这个值太大会影响操作系统的性能. |
-| max_connections                | 表示数据库的最大连接数.这个连接数不是越大越好,因为这重连接会浪费内存的资源.过多的连接可能会导致MySQL服务器僵死. |
-| innodb_flush_log_at_trx_commit | 表示何时将缓冲区的数据写入日志丈件,并且将日志文  件写入磁盘中.该券数对于innoDR 51擎非常重要.该泰数有3个值,分别为0,1和2. 值为0时表示每隔1秒将数据写入日志文件并将日志文件写入磁盘c值为1时表示每次提交事务时将数据写入日志文件并将日志文件写入磁盘;值为2时表示每次提交事务时将数据写入日志文件,每隔1秒将日志丈伴写入磁盘.该参数的默认值为1.默认值1安全性最高,但是每次事务提交或事务外的指令都需要把日志写入(flush)硬盘,是比较费时的:0值更快一点,但安全方面比较差;2值日志仍然会每秒写入到硬盘,所以即使出现故障, 一般也不会丢失超过 1-2秒的更新. |
-| back_log                       | 表示在mysql暂时停止回答新请求之前的短时间内,多少个请求可以被存在堆栈中.换句话说,该值表示对到来的Tcpflp连接的侦听队列的大小.只有期望在一个短时间内有很多连接,才需要增加该参数的值.操作系统在这个队列大小上也有限制.设定back_log高于操作系统的限制将是无效的. |
-| interactive_timeout            | 表示服务器在关闭连按前等待行动的秒数                         |
-| sort_buffer_size               | 表示每个需要进行排序的线程分配的缓冲区的大小.增加这个参数的值可以捉高ORDERBY或GROUP BY操作的速度.默认数值是2 097 144 (2MB). |
-| thread_cache_size              | 表示可以复用的线程的数量.如果有很多新的线程,为了提高性能可增大该参数的值. |
-| wait_timeout                   | 表示服务器在关闭一个连按时等待行动的秒数.默认数值是28800.    |
+| 属性名称                       | 含义                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| key_buffer_size                | 表示索引缓冲区的大小.索弓 I 缓冲区所有的线程共享.增加索列缓冲区可以得到更好处理的索引(对所有读和多写).当然,这个值也不是越大越好,它的大小取决于内存的大小.如果这个值太大,导致操作系统频繁换页,也会降低系统性能.                                                                                                                                                                                                                                                                                                                                                       |
+| table_cache                    | 表示同时打开的表的个数.这个值越大,能够同吋打开的表的个数越多,这个值不是越大越好,因为同时打开的表太多会彭响操作系统的性能.                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| query_cache_size               | 表示查询缓冲区的大小.该参数需要和 query_cache_type 配合使用.当 query_cache_type 值是 0 时,所有的查询都不使用查询缓冲区.但是 query_cache_type=0 不会导致 MySQL 释放 query_cache_size 所配置的缓冲区内存.当 query_cache_type=l 时,所有的查询都将用查询缓冲区,除非在查询语句中指定 SQL_NO_CACHE,如 SELECT, SQL_NO_CACHE \* FROM tb_name.当 query_cache_type=2 时.只有在查询语句中使用 SQL_CACHE 关键字,查询才会使用查询缓冲区.使用查询缓冲区可以提高查询的速度,这种方式只适用于修改操作少且经常执行相同的查询操作的情况.                                                |
+| sort_buffer_size               | 表示排序缓存区的大小.这个值越大,进行排序的速度越快.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| read_buffer_size               | 表示每个线程连续扫描时为扫描的每个表分配的缓冲区的大小(字节).当线程从表中连续读取记录时需要用到这个缓冲区.SET SESSION read_buffer_size=n 可以临时设置该参数的值.                                                                                                                                                                                                                                                                                                                                                                                                     |
+| read_rnd_buffer_size           | 表示为毎个线程保留的缓冲区的大小,与 read_buffer_size 相似.但主要用于存储按特定顺序读取出来的记录.也可以用 SET SESSION read_rnd_buffer_size=n 來临时设置该歩数的值.如果频繁进行多次连续扫描,可以增加该值.                                                                                                                                                                                                                                                                                                                                                             |
+| innodb_buffer_pool_size        | 表示 InnoDR 类型的表和索引的最大缓存.这个值越大,查询的速度就会越快.但是这个值太大会影响操作系统的性能.                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| max_connections                | 表示数据库的最大连接数.这个连接数不是越大越好,因为这重连接会浪费内存的资源.过多的连接可能会导致 MySQL 服务器僵死.                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| innodb_flush_log_at_trx_commit | 表示何时将缓冲区的数据写入日志丈件,并且将日志文 件写入磁盘中.该券数对于 innoDR 51 擎非常重要.该泰数有 3 个值,分别为 0,1 和 2. 值为 0 时表示每隔 1 秒将数据写入日志文件并将日志文件写入磁盘 c 值为 1 时表示每次提交事务时将数据写入日志文件并将日志文件写入磁盘;值为 2 时表示每次提交事务时将数据写入日志文件,每隔 1 秒将日志丈伴写入磁盘.该参数的默认值为 1.默认值 1 安全性最高,但是每次事务提交或事务外的指令都需要把日志写入(flush)硬盘,是比较费时的:0 值更快一点,但安全方面比较差;2 值日志仍然会每秒写入到硬盘,所以即使出现故障, 一般也不会丢失超过 1-2 秒的更新. |
+| back_log                       | 表示在 mysql 暂时停止回答新请求之前的短时间内,多少个请求可以被存在堆栈中.换句话说,该值表示对到来的 Tcpflp 连接的侦听队列的大小.只有期望在一个短时间内有很多连接,才需要增加该参数的值.操作系统在这个队列大小上也有限制.设定 back_log 高于操作系统的限制将是无效的.                                                                                                                                                                                                                                                                                                    |
+| interactive_timeout            | 表示服务器在关闭连按前等待行动的秒数                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| sort_buffer_size               | 表示每个需要进行排序的线程分配的缓冲区的大小.增加这个参数的值可以捉高 ORDERBY 或 GROUP BY 操作的速度.默认数值是 2 097 144 (2MB).                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| thread_cache_size              | 表示可以复用的线程的数量.如果有很多新的线程,为了提高性能可增大该参数的值.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| wait_timeout                   | 表示服务器在关闭一个连按时等待行动的秒数.默认数值是 28800.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 
 ---
 
 7. 使用示例
 
-| **禁止使用 SELECT \*，只获取必要的字段，需要显示说明列属性**解读：读取不需要的列会增加 CPU、IO、内存、网络带宽消耗；不能有效的利用覆盖索引；使用 SELECT * 容易在增加或者删除字段后出现程序 BUG； |
-| ------------------------------------------------------------ |
-| **禁止使用 INSERT INTO t_xxx VALUES(xxx)，必须显示指定插入的列属性**解读：容易在增加或者删除字段后出现程序BUG。 |
-| **禁止使用属性隐式转换**解读：WHERE 子句中出现 COLUMN 字段的类型和传入的参数类型不一致的时候发生的类型转换，建议先确定 WHERE 中的参数类型。SELECT uid FROM t_user WHERE phone=13812345678 会导致全表扫描，而不能命中 phone 索引。 |
-| **禁止在 WHERE 条件的属性上使用函数或者表达式**解读：SELECT uid FROM t_user WHERE from_unixtime(day)>='2017-02-15' 会导致全表扫描。正确的写法是：SELECT uid FROM t_user WHERE day>= unix_timestamp('2017-02-15 00:00:00')。 |
-| **禁止负向查询，以及%开头的模糊查询**解读：负向查询条件：NOT、!=、<>、!<、!>、NOT IN、NOT LIKE 等，会导致全表扫描；%开头的模糊查询，会导致全表扫描； |
-| **禁止大表使用 JOIN 查询，禁止大表使用子查询**解读：会产生临时表，消耗较多内存与 CPU，极大影响数据库性能。 |
-| **禁止使用 OR 条件，必须改为 IN 查询或者** **UNION** **查询，IN** **的值必须少于****50个**解读：旧版本 MySQL 的 OR 查询是不能命中索引的，即使能命中索引，为何要让数据库耗费更多的 CPU 帮助实施查询优化呢。 |
-| **尽量使用 UNION ALL 替代 UNION，UNION 有去重开销**解读：UNION 和 UNION ALL 的差异主要是前者需要将结果集合并后再进行唯一性过滤操作，这就会涉及到排序，增加大量的 CPU 运算，加大资源消耗及延迟。当然，使用 UNION ALL 的前提条件是两个结果集没有重复数据。 |
-| **LIMIT 高效分页（可选）**解读：LIMIE 越大，效率越低，SELECT id FROM t LIMIE 10000, 10; 改为 SELECT id FROM t WHERE id > 10000 LIMIT 10;。 |
-| **SQL WHERE 条件的顺序不一定需要按照索引的顺序**解读：比如一个联合索引是 name, age，查询的时候 WHERE 条件可以写成 age=10 and name='张三'。 |
-| **当只需要处理一条数据的时候，****请使用 LIMIT 1**解读：这是为了使 EXPLAIN 中 type 列达到 const 类型；SELECT、UPDATE、DELETE 操作在只需要处理一条数据的时候都可以加上 LIMIT 1； |
-| **区分 IN 和 EXISTS 的使用场景**解读：SELECT * FROM table_a WHERE id IN (SELECT id FROM table_b)上面 SQL 语句相当于：SELECT * FROM table_a WHERE EXISTS (SELECT * FROM table_b WHERE table_b.id = table_a.id)  区分 IN 和 EXISTS 的使用场景，主要参考两者的驱动顺序（这时性能变化的关键）。如果是 IN，会以内层表为驱动表，先执行子查询，所以 IN 适合外表大而内表小的情况；如果是 EXISTS，会以外层表为驱动表，先执行外表，所以 EXISTS 适合外表小而内表大的情况。 |
-| **区分 NOT IN 和 NOT** **EXISTS 的使用场景**解读：关于 NOT IN 和 NOT EXISTS，推荐使用 NOT EXISTS，不仅仅是效率问题，NOT IN 可能存在逻辑问题。 |
-| **使用左关联的写法代替 NOT EXISTS**解读：原 SQL 语句：SELECT * FROM table_a WHERE NOT EXISTS (SELECT * FROM table_b WHERE table_b.id = table_a.id)高效的 SQL 语句：SELECT * FROM table_a LEFT JOIN table_b ON table_a.id = table_b.id WHERE table_b.id IS NULL |
-| **避免在 WHERE 子句中对字段进行 NULL 值判断**解读：对于 NULL 的判断会导致引擎放弃使用索引而进行全表扫描。 |
-| **对于组合索引来说，WHERE 条件要遵守最左前缀法则**解读：例如索引含有字段 id、name、school，可以使用 id 字段查询，也可以使用 id、name 字段查询，但是使用 name 和 school 都无法命中这个索引。 |
-| **必要时可以使用 FORCE INDEX 来强制查询走某个索引（谨慎使用）**解读：有的时候 MySQL 优化器采取它认为合适的索引来检索 SQL 语句，但是可能它所采用的索引并不是我们想要的。这时就可以采用 FORCE INDEX 来强制优化器使用我们制定的索引。 |
-| **关于 JOIN 的优化**解读：LEFT JOIN：左表是驱动表，右表是被驱动表RIGHT JOIN：右表时驱动表，左表是驱动表INNER JOIN：MySQL 会选择数据量比较小的表作为驱动表，大表作为被驱动表优化原则：尽量使用 INNER JOIN ，避免 LEFT JOIN & RIGHT JOIN被驱动表的索引字段作为 ON 的限制字段利用小表去驱动大表 |
-| **巧用 STRAIGHT_JOIN（谨慎使用）**解读：INNER JOIN 是由 MySQL 选择驱动表，但是有些特殊情况需要选择另个表作为驱动表，比如有 GROUP BY、ORDER BY 等 Using filesort、Using temporary时。STRAIGHT_JOIN 来强制连接顺序，在 STRAIGHT_JOIN 左边的表名就是驱动表，右边则是被驱动表。在使用 STRAIGHT_JOIN 有个前提条件是该查询是内连接，也就是 INNER JOIN。其他链接不推荐使用 STRAIGHT_JOIN，否则可能造成查询结果不准确。 |
-| **应用程序必须捕获 SQL 异常，并有相应处理**                  |
+| **禁止使用 SELECT \*，只获取必要的字段，需要显示说明列属性**解读：读取不需要的列会增加 CPU、IO、内存、网络带宽消耗；不能有效的利用覆盖索引；使用 SELECT \* 容易在增加或者删除字段后出现程序 BUG；                                                                                                                                                                                                                                                               |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **禁止使用 INSERT INTO t_xxx VALUES(xxx)，必须显示指定插入的列属性**解读：容易在增加或者删除字段后出现程序 BUG。                                                                                                                                                                                                                                                                                                                                                |
+| **禁止使用属性隐式转换**解读：WHERE 子句中出现 COLUMN 字段的类型和传入的参数类型不一致的时候发生的类型转换，建议先确定 WHERE 中的参数类型。SELECT uid FROM t_user WHERE phone=13812345678 会导致全表扫描，而不能命中 phone 索引。                                                                                                                                                                                                                               |
+| **禁止在 WHERE 条件的属性上使用函数或者表达式**解读：SELECT uid FROM t_user WHERE from_unixtime(day)>='2017-02-15' 会导致全表扫描。正确的写法是：SELECT uid FROM t_user WHERE day>= unix_timestamp('2017-02-15 00:00:00')。                                                                                                                                                                                                                                     |
+| **禁止负向查询，以及%开头的模糊查询**解读：负向查询条件：NOT、!=、<>、!<、!>、NOT IN、NOT LIKE 等，会导致全表扫描；%开头的模糊查询，会导致全表扫描；                                                                                                                                                                                                                                                                                                            |
+| **禁止大表使用 JOIN 查询，禁止大表使用子查询**解读：会产生临时表，消耗较多内存与 CPU，极大影响数据库性能。                                                                                                                                                                                                                                                                                                                                                      |
+| **禁止使用 OR 条件，必须改为 IN 查询或者** **UNION** **查询，IN** **的值必须少于\*\***50 个\*\*解读：旧版本 MySQL 的 OR 查询是不能命中索引的，即使能命中索引，为何要让数据库耗费更多的 CPU 帮助实施查询优化呢。                                                                                                                                                                                                                                                 |
+| **尽量使用 UNION ALL 替代 UNION，UNION 有去重开销**解读：UNION 和 UNION ALL 的差异主要是前者需要将结果集合并后再进行唯一性过滤操作，这就会涉及到排序，增加大量的 CPU 运算，加大资源消耗及延迟。当然，使用 UNION ALL 的前提条件是两个结果集没有重复数据。                                                                                                                                                                                                        |
+| **LIMIT 高效分页（可选）**解读：LIMIE 越大，效率越低，SELECT id FROM t LIMIE 10000, 10; 改为 SELECT id FROM t WHERE id > 10000 LIMIT 10;。                                                                                                                                                                                                                                                                                                                      |
+| **SQL WHERE 条件的顺序不一定需要按照索引的顺序**解读：比如一个联合索引是 name, age，查询的时候 WHERE 条件可以写成 age=10 and name='张三'。                                                                                                                                                                                                                                                                                                                      |
+| **当只需要处理一条数据的时候，\*\***请使用 LIMIT 1\*\*解读：这是为了使 EXPLAIN 中 type 列达到 const 类型；SELECT、UPDATE、DELETE 操作在只需要处理一条数据的时候都可以加上 LIMIT 1；                                                                                                                                                                                                                                                                             |
+| **区分 IN 和 EXISTS 的使用场景**解读：SELECT _ FROM table_a WHERE id IN (SELECT id FROM table_b)上面 SQL 语句相当于：SELECT _ FROM table_a WHERE EXISTS (SELECT \* FROM table_b WHERE table_b.id = table_a.id) 区分 IN 和 EXISTS 的使用场景，主要参考两者的驱动顺序（这时性能变化的关键）。如果是 IN，会以内层表为驱动表，先执行子查询，所以 IN 适合外表大而内表小的情况；如果是 EXISTS，会以外层表为驱动表，先执行外表，所以 EXISTS 适合外表小而内表大的情况。 |
+| **区分 NOT IN 和 NOT** **EXISTS 的使用场景**解读：关于 NOT IN 和 NOT EXISTS，推荐使用 NOT EXISTS，不仅仅是效率问题，NOT IN 可能存在逻辑问题。                                                                                                                                                                                                                                                                                                                   |
+| **使用左关联的写法代替 NOT EXISTS**解读：原 SQL 语句：SELECT _ FROM table_a WHERE NOT EXISTS (SELECT _ FROM table_b WHERE table_b.id = table_a.id)高效的 SQL 语句：SELECT \* FROM table_a LEFT JOIN table_b ON table_a.id = table_b.id WHERE table_b.id IS NULL                                                                                                                                                                                                 |
+| **避免在 WHERE 子句中对字段进行 NULL 值判断**解读：对于 NULL 的判断会导致引擎放弃使用索引而进行全表扫描。                                                                                                                                                                                                                                                                                                                                                       |
+| **对于组合索引来说，WHERE 条件要遵守最左前缀法则**解读：例如索引含有字段 id、name、school，可以使用 id 字段查询，也可以使用 id、name 字段查询，但是使用 name 和 school 都无法命中这个索引。                                                                                                                                                                                                                                                                     |
+| **必要时可以使用 FORCE INDEX 来强制查询走某个索引（谨慎使用）**解读：有的时候 MySQL 优化器采取它认为合适的索引来检索 SQL 语句，但是可能它所采用的索引并不是我们想要的。这时就可以采用 FORCE INDEX 来强制优化器使用我们制定的索引。                                                                                                                                                                                                                              |
+| **关于 JOIN 的优化**解读：LEFT JOIN：左表是驱动表，右表是被驱动表 RIGHT JOIN：右表时驱动表，左表是驱动表 INNER JOIN：MySQL 会选择数据量比较小的表作为驱动表，大表作为被驱动表优化原则：尽量使用 INNER JOIN ，避免 LEFT JOIN & RIGHT JOIN 被驱动表的索引字段作为 ON 的限制字段利用小表去驱动大表                                                                                                                                                                 |
+| **巧用 STRAIGHT_JOIN（谨慎使用）**解读：INNER JOIN 是由 MySQL 选择驱动表，但是有些特殊情况需要选择另个表作为驱动表，比如有 GROUP BY、ORDER BY 等 Using filesort、Using temporary 时。STRAIGHT_JOIN 来强制连接顺序，在 STRAIGHT_JOIN 左边的表名就是驱动表，右边则是被驱动表。在使用 STRAIGHT_JOIN 有个前提条件是该查询是内连接，也就是 INNER JOIN。其他链接不推荐使用 STRAIGHT_JOIN，否则可能造成查询结果不准确。                                                |
+| **应用程序必须捕获 SQL 异常，并有相应处理**                                                                                                                                                                                                                                                                                                                                                                                                                     |
+
+---
+
+## 7. FAQ
+
+Q: 大表 ddl 要怎么处理?
+
+A: 这个在面试的时候别虐惨了,其实可以在执行 ddl 的时候指定算法,或者使用第三方软件处理.[大表 ddl link](https://www.51cto.com/article/634050.html) 泪流满面.jpg
+
+mysql 的 alter 命令格式可参考[mysql 官网 link](https://dev.mysql.com/doc/refman/5.7/en/alter-table.html).
+
+| 算法名称 | 描述                                                                                                                                                                                        |
+| :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| COPY     | MySQL 早期的变更方式，需要创建修改后的临时表，然后按数据行拷贝原表数据到临时表，做 rename 重命名来完成创建，在此期间不允许并发 DML 操作，原表是可读的，不可写，同时需要额外一倍的磁盘空间。 |
+| INPLACE  | 直接在原表上进行修改，不需创建临时表拷贝数据及重命名，原表会持有 Exclusive Metadata Lock，通常是允许并发 DML 操作。                                                                         |
+| INSTANT  | MySQL 5.8 开始支持，只修改数据字典中的元数据，表数据不受影响，执行期间没有 Exclusive Metadata Lock，允许并发的 DML 操作。                                                                   |
+
+LOCK 选项
+
+| LOCK OPTiON | DESCRIPTION                                                                                                              |
+| :---------- | :----------------------------------------------------------------------------------------------------------------------- |
+| DEFAULT     | 默认模式：MySQL 根据运行情况，在尽量不锁表的情况下自动选择 LOCK 模式。                                                   |
+| NONE        | 无锁：允许 Online DDL 期间进行并发读写操作，如果 Online DDL 操作不支持对表并发 DML 操作，则 DDL 操作失败，对表修改无效。 |
+| SHARED      | 共享锁：Online DDL 操作期间不影响读取，阻塞写入。                                                                        |
+| EXCLUSIVE   | 排它锁：Online DDL 操作期间不允许对锁表进行任何操作。                                                                    |
+
+执行例子:
+
+```sql
+ALTER TABLE new_book ADD COLUMN book_price INT ( 11 ) DEFAULT 0 COMMENT '价钱',
+algorithm = instant;
+```
+
+Q: 那么什么时候用 INSTANT,什么时候用 INPLACE?
+
+A: 请参考如下操作限制:
+
+| Operations                           | Instant | In Place | Copy | Rebuilds Table | Permits Concurrent DML | Only Modifies Metadata |
+| :----------------------------------- | :------ | :------- | :--- | :------------- | :--------------------- | :--------------------- |
+| Adding a column                      | Yes     | Yes\*    | Yes  | No\*           | Yes\*                  | Yes                    |
+| Dropping a column                    | No      | Yes      | Yes  | Yes            | Yes                    | No                     |
+| Renaming a column                    | No      | Yes      | Yes  | No             | Yes                    | Yes                    |
+| Setting a column default value       | Yes     | Yes      | Yes  | No             | Yes                    | Yes                    |
+| Dropping the column default value    | Yes     | Yes      | Yes  | No             | Yes                    | Yes                    |
+| Changing the auto-increment value    | No      | Yes      | Yes  | No             | Yes                    | No                     |
+| Making a column NULL                 | No      | Yes      | Yes  | Yes\*          | Yes                    | No                     |
+| Making a column NOT NULL             | No      | Yes      | Yes  | Yes\*          | Yes                    | No                     |
+| Adding a primary key                 | No      | Yes\*    | Yes  | Yes\*          | Yes                    | No                     |
+| Dropping a primary key               | No      | No       | Yes  | Yes            | No                     | No                     |
+| Creating or adding a secondary index | No      | Yes      | Yes  | No             | Yes                    | No                     |
+| Dropping an index                    | No      | Yes      | Yes  | No             | Yes                    | Yes                    |
+| Renaming an index                    | No      | Yes      | Yes  | No             | No                     | No                     |
+| Adding a `FULLTEXT` index            | No      | Yes\*    | Yes  | No\*           | No                     | No                     |

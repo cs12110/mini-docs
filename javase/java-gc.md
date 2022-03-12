@@ -300,7 +300,7 @@ Command line:  -Djava.util.logging.config.file=/opt/soft/tomcat9/apache-tomcat-9
 | -XX:-UseParNewGC        | ParNew + Serial Old              | parnew: 复制算法                                  |
 | -XX:-UseParallelGC      | Parallel Scavenge + Serial Old   | Serial Old:标记整理算法                           |
 | -XX:-UseParallelOldGC   | Parallel Scavenge + Parallel Old | Parallel Scavenge:复制算法,Parallel Old: 标志整理 |
-| -XX:-UseConcMarkSweepGC | CMS + ParNew                     | cms: 标记清理                                     |
+| -XX:-UseConcMarkSweepGC | CMS + ParNew                     | CMS: 标记清理                                     |
 | -Xx:-UseG1GC            | G1                               | G1: 标记整理                                      |
 
 Q: 那么上面这种`Serial`,`Parallel`,`CMS`什么,有啥区别,分别用的是什么样的算法来回收呀?

@@ -2412,3 +2412,98 @@ public class DepsOnMyConditionConfig {
 open:
   my-condition-config-init: false
 ```
+
+---
+
+## 20. BeanPostProcessor
+
+Q: 这个东西有啥用呀?
+
+A: 在 spring 加载 bean 的时候,会经过这个处理器,你想弄啥,就弄啥.
+
+```java
+package com.weiqicha.wxapp.aop;
+
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * @author cs12110
+ * @version V1.0
+ * @since 2022-03-03 10:54
+ */
+@Slf4j
+@Component
+public class MyBeanPostProcessor implements BeanPostProcessor {
+
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        //  if (MyBeanComponent.class == bean.getClass()) {
+        log.info("Function[postProcessBeforeInitialization] beanName:{}, bean:{}", beanName, bean.getClass());
+        // }
+        return bean;
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        //if (MyBeanComponent.class == bean.getClass()) {
+        log.info("Function[postProcessAfterInitialization] beanName:{}, bean:{}", beanName, bean.getClass());
+        //}
+        return bean;
+    }
+}
+```
+
+---
+
+## 21. BeanFactoryAware
+
+```java
+package com.weiqicha.wxapp.aop;
+
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * @author cs12110
+ * @version V1.0
+ * @since 2022-03-10 13:54
+ */
+@Slf4j
+@Component
+public class MyBeanFactoryAware implements BeanFactoryAware {
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+
+        // sysWatchdogInterceptor 是存在的bean
+        String beanName = "sysWatchdogInterceptor";
+        // 给ta起另外一个别名 :"}
+        String alias = "my" + beanName;
+
+        // 按照正常的获取,能获取出来
+        Object bean = beanFactory.getBean(beanName);
+        // 按照尚未定义的获取,出现异常
+        // Object aliasBean = beanFactory.getBean(alias);
+
+        DefaultListableBeanFactory bf = (DefaultListableBeanFactory) beanFactory;
+
+        // 注册新的别名
+        bf.registerAlias(beanName, alias);
+
+        // 重新获取出来正常
+        Object aliasBean = beanFactory.getBean(alias);
+
+        log.info("Function[setBeanFactory] {}", aliasBean);
+
+    }
+}
+```

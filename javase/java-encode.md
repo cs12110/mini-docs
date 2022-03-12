@@ -82,6 +82,8 @@ public class Md5Util {
 
 ### 2. AES
 
+#### 2.1 AES-SHA1PRNG
+
 AES: 一种双向加密的算法,我加密,你解密.
 
 ```java
@@ -192,4 +194,86 @@ public static void main(String[] args) {
 待加密字符串:橄榄球: 2nd & 11
 加密后字符串:GUdQOBcmNV4NP+fH9dB23nmBoyuToA6j+Is8T3ih89A=
 解密后字符串:橄榄球: 2nd & 11
+```
+
+#### 2.2 AES-PKCS5Padding
+
+```java
+
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * @author cs12110
+ * @version V1.0
+ * @since 2022-01-20 09:59
+ */
+@Slf4j
+public class AesUtils {
+
+    private static final String AES_ALGORITHM = "AES";
+    private static final String AES_MODE = "AES/CBC/PKCS5Padding";
+    private static final Charset DEF_CHARSET = StandardCharsets.UTF_8;
+
+    /**
+     * 加密数据
+     *
+     * @param aesKey    aesKey
+     * @param aesVector 偏移量
+     * @param text      加密数据
+     * @return String
+     * @throws java.lang.RuntimeException 如果加密出现任何异常
+     */
+    public static String encrypt(String aesKey, String aesVector, String text) {
+        try {
+            Cipher cipher = Cipher.getInstance(AES_MODE);
+
+            IvParameterSpec parameterSpec = new IvParameterSpec(aesVector.getBytes(DEF_CHARSET));
+            SecretKeySpec secretKeySpec = new SecretKeySpec(aesKey.getBytes(DEF_CHARSET), AES_ALGORITHM);
+
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, parameterSpec);
+
+            byte[] valueArr = cipher.doFinal(text.getBytes(DEF_CHARSET));
+
+            return Base64.getEncoder().encodeToString(valueArr);
+        } catch (Exception e) {
+            log.error("Function[encrypt]aesKey: " + aesKey + ", aesVector: " + aesVector + ", text: " + text, e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 解密数据
+     *
+     * @param aesKey    aesKey
+     * @param aesVector aesVector
+     * @param text      text
+     * @return String
+     * @throws java.lang.RuntimeException 如果解密出现任何异常
+     */
+    public static String decrypt(String aesKey, String aesVector, String text) {
+        try {
+            Cipher cipher = Cipher.getInstance(AES_MODE);
+
+            IvParameterSpec parameterSpec = new IvParameterSpec(aesVector.getBytes(DEF_CHARSET));
+            SecretKeySpec secretKeySpec = new SecretKeySpec(aesKey.getBytes(), AES_ALGORITHM);
+
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, parameterSpec);
+
+            byte[] valueArr = cipher.doFinal(Base64.getDecoder().decode(text.getBytes(DEF_CHARSET)));
+
+            return new String(valueArr);
+        } catch (Exception e) {
+            log.error("Function[decrypt]aesKey: " + aesKey + ", aesVector: " + aesVector + ", text: " + text, e);
+            throw new RuntimeException(e);
+        }
+    }
+}
 ```
