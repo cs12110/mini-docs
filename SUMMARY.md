@@ -33,6 +33,7 @@
   - [代码生成器之 Velocity ](javaee/cg-velocity.md)
   - [Api 组件](javaee/apis.md)
   - [分库分表 之 Sharding-JDBC](javaee/sharding-jdbc.md)
+  - [分库分表 之 Sharding-JDBC-V2](javaee/sharding-jdbc-v2.md)
   - [分布式任务调度器 xxl-job](javaee/xxl-job.md)
   - [Spring 常用代码段](javaee/spring-segment.md)
   - [Spring 与 SqlSession](javaee/spring-sqlsession.md)
@@ -83,7 +84,7 @@
   - [RabbitMq 与 Springboot](mq/rabbitmq-ee.md)
   - [Redis 发布/订阅模式](mq/redis-pubsub.md)
   - [RocketMq 安装指南](mq/rocketmq.md)
-  - [RocketMq 使用指南](mq/rocketmq-ee.md)
+  - [RocketMq 使用指南](mq/rocketmq-base.md)
   - [RocketMq 常用例子](mq/rocketmq-pro.md)
 
 ---
