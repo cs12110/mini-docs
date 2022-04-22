@@ -102,6 +102,7 @@
   - [Maven 设置](server/mvn.md)
   - [Maven Nexus](server/mvn-nexus.md)
   - [Docker 入门指南](server/docker.md)
+  - [Arthas 指南](server/arthas-guide.md)
 
 ---
 
