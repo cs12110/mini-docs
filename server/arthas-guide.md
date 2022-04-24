@@ -276,6 +276,28 @@ ts=2022-04-22 21:53:46; [cost=294.679299ms] result=@ArrayList[
 [arthas@56415]$ watch com.weiqicha.wxapp.controller.UserController comment '{params,returnObj}' -x 4
 ```
 
+当然也可以监听异常啦
+
+```shell
+[arthas@56415]$ watch com.weiqicha.wxapp.controller.UserController comment '{params,returnObj,throwExp}' -x 4 -e
+```
+
+Q: 为啥监控进过 skyworking 代理的东西会出现如下问题?
+
+```java
+[arthas@8]$ watch com.arthasproject.controller.LoginController login '{params,returnObj}' -x 4
+Error during processing the command: class redefinition failed: attempted to change the schema (add/remove fields)
+[arthas@8]$ watch com.arthasproject.controller.LoginController login '{params}' -x 4
+Error during processing the command: class redefinition failed: attempted to change the schema (add/remove fields)
+[arthas@8]$ [dslyun@caiwu-uat ~]$
+```
+
+A: 好像经过 skywalking 这种代理之后需要设置 skywalking 一下下.[github link](https://github.com/apache/skywalking/blob/master/docs/en/FAQ/Compatible-with-other-javaagent-bytecode-processing.md)
+
+```java
+-Dskywalking.agent.is_cache_enhanced_class=true -Dskywalking.agent.class_cache_mode=MEMORY
+```
+
 ### 2.4 monitor
 
 用于监测方法执行相关统计.
