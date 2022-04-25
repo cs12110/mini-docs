@@ -388,6 +388,123 @@ A: 可以使用`sysenv`来查看.
 ...
 ```
 
+### 2.8 redefine
+
+Q: 上面提到使用 watch 来追踪数据,但如果里面的逻辑很复杂,需要日志来追踪咋办?
+
+A: 这时候就可以使用 redefine 了.
+
+Q: 那这个有什么限制呀?
+
+A: 重启之后热加载的代码会失效,不能改变方法的接收参数,不能改变方法的返回参数.
+
+最开始简单的接口
+
+```java
+package com.queen.ctrl;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/west-world")
+public class WestWorldController {
+
+    @RequestMapping("/portal")
+    public Map<String, Object> portal() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("portal", "cs12110");
+
+        return map;
+    }
+}
+```
+
+修改后代码
+
+```java
+package com.queen.ctrl;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/west-world")
+public class WestWorldController {
+
+    @RequestMapping("/portal")
+    public Map<String, Object> portal() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("portal", "cs12110");
+
+        // 添加日志打印
+        // 注意: 这个不能变成 private static Logger logger = LoggerFactory.getLogger(WestWorldController.class)作为类属性,因为改变了这个类的field从而导致加载失败.
+        Logger logger = LoggerFactory.getLogger(WestWorldController.class);
+        logger.info("Function[portal] map:{}", map);
+
+        return map;
+    }
+}
+```
+
+进行热加载
+
+```shell
+[arthas@36632]$ redefine /project/live/queen-project/target/classes/com/queen/ctrl/WestWorldController.class
+/ctrl/WestWorldController.classproject/target/classes/com/queen
+redefine success, size: 1, classes:
+com.queen.ctrl.WestWorldController
+```
+
+加载完重新请求接口
+
+```text
+2022-04-25 11:15:34.625  INFO 36632 --- [nio-6336-exec-6] com.queen.ctrl.WestWorldController       : Function[portal] map:{portal=cs12110}
+```
+
+### 2.9 类的详细信息
+
+```shell
+[arthas@36632]$ sc -d com.queen.ctrl.WestWorldController
+sc -d com.queen.ctrl.WestWorldController
+ class-info        com.queen.ctrl.WestWorldController
+ code-source       file:/project/live/queen-project/queen-project.jar!/BOOT
+                   -INF/classes!/
+ name              com.queen.ctrl.WestWorldController
+ isInterface       false
+ isAnnotation      false
+ isEnum            false
+ isAnonymousClass  false
+ isArray           false
+ isLocalClass      false
+ isMemberClass     false
+ isPrimitive       false
+ isSynthetic       false
+ simple-name       WestWorldController
+ modifier          public
+ annotation        org.springframework.web.bind.annotation.RestController,org.
+                   springframework.web.bind.annotation.RequestMapping
+ interfaces
+ super-class       +-java.lang.Object
+ class-loader      +-org.springframework.boot.loader.LaunchedURLClassLoader@7d
+                     af6ecc
+                     +-sun.misc.Launcher$AppClassLoader@5c647e05
+                       +-sun.misc.Launcher$ExtClassLoader@5c29bfd
+ classLoaderHash   7daf6ecc
+
+Affect(row-cnt:1) cost in 22 ms.
+```
+
 ---
 
 ## 3. 参考文档
