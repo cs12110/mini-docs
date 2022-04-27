@@ -204,8 +204,6 @@ A: as you wish.
 
 ### 2.3 监测参数
 
-可以使用`watch`来监测返回参数啥的,不过看起来没啥作用.可以看看是不是返回 null 啥的. orz
-
 Q: 如果想知道执行方法的传递参数和返回参数是啥,但是因为线上没日志,该咋办?
 
 A: 这里可以使用 arthas 的 `watch` 来做监听. 各种黑魔法就对了.
@@ -292,10 +290,20 @@ Error during processing the command: class redefinition failed: attempted to cha
 [arthas@8]$ [dslyun@caiwu-uat ~]$
 ```
 
-A: 好像经过 skywalking 这种代理之后需要设置 skywalking 一下下.[github link](https://github.com/apache/skywalking/blob/master/docs/en/FAQ/Compatible-with-other-javaagent-bytecode-processing.md)
+A: 好像经过 skywalking 这种代理之后需要特殊配置.[github link](https://github.com/apache/skywalking/blob/master/docs/en/FAQ/Compatible-with-other-javaagent-bytecode-processing.md)
 
 ```java
 -Dskywalking.agent.is_cache_enhanced_class=true -Dskywalking.agent.class_cache_mode=MEMORY
+```
+
+经过测试,按照上述配置可以解决问题,参考配置如下:
+
+```shell
+-javaagent:/Users/mr3306/Box/soft/idea/skywalking/skywalking-agent/skywalking-agent.jar
+-Dskywalking.agent.service_name=${appName}
+-Dskywalking.collector.backend_service=${skywalkingIp}:${skywalkingPort}
+-Dskywalking.agent.is_cache_enhanced_class=true
+-Dskywalking.agent.class_cache_mode=MEMORY
 ```
 
 ### 2.4 monitor
