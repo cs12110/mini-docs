@@ -130,7 +130,7 @@ $ source /etc/profile
 
 Q: 在线上环境出现慢接口,但是之前没有相关切面或日志来监控执行耗时,请问有啥方法呀?
 
-A: 这里刚好是 `trace` 的经典使用场景.
+A: 这里刚好是 `trace` 的经典使用场景. 还有一个要注意的点就是:监测的方法/类必须在 jvm 里面存在.
 
 ```shell
 # 注意命令格式 trace className methodName
@@ -154,6 +154,30 @@ Affect(class count: 2 , method count: 2) cost in 254 ms, listenerId: 4
 ```
 
 A: 从上面的监测可以看到是`com.arthasproject.service.feign.DataSyncFeignService:listDepts() #175`执行耗时是最高的.如果需要优化,就要重点关注这一个接口.
+
+Q: 那么怎么确定类或者方法是否在 jvm 里面存在呀?
+
+A: 可以使用`sm(Search-Method)`方法来看一下
+
+```shell
+# sm可以看到现在有哪些类
+[arthas@47954]$ sm com.arthasproject.
+com.arthasproject.config.     com.arthasproject.controller. com.arthasproject.model.      com.arthasproject.mapper.
+com.arthasproject.enums.      com.arthasproject.common.     com.arthasproject.service.    com.arthasproject.utils.
+com.arthasproject.job.        com.arthasproject.api.        com.arthasproject.entity.
+
+#
+[arthas@47954]$ sm com.arthasproject.controller.LoanController
+detailByBarcode     lambda$list$0       importLoanInfo      balance             del
+draft               approval            list                $deserializeLambda$ reject
+detail              submit
+
+# 比如listener需要在某些方法执行完之后new出来,在没执行那些方法前就没办法被监听.
+[arthas@47954]$ sm com.arthasproject.controller.LoanController balance
+com.arthasproject.controller.LoanController$$EnhancerBySpringCGLIB$$1 balance(Ljava/lang/String;)Lcom/dslyy/fd/model/Result;
+com.arthasproject.controller.LoanController balance(Ljava/lang/String;)Lcom/dslyy/fd/model/Result;
+Affect(row-cnt:2) cost in 28 ms.
+```
 
 ### 2.2 调用栈
 
