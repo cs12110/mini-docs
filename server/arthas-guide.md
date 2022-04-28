@@ -435,6 +435,10 @@ jad com.arthasproject.service.impl.UserInfoServiceImpl
 
 Q: 上面是可以输出源码,如果源码很大,一大堆打印到界面上,体验真不好.
 
+A: 也可以指定反编译某一个方法的.可以使用命令:`jad ${className} ${methodName}`.
+
+Q: 如果方法都有几千行代码呢? `:(`
+
 A: 那样子可以输出到文件里面,再使用 `vim` 来进行查看等操作.
 
 ```shell
