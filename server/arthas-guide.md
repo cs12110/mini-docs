@@ -181,7 +181,7 @@ Affect(row-cnt:2) cost in 28 ms.
 
 Q: 如果监听那些执行很多次的方法,那岂不是一直在输出?
 
-A: 使用使用 `-n {times}`来指定监听次数,如: `trace com.arthasproject.service.impl.UserInfoServiceImpl listDepts -n 2`.
+A: 使用 `-n {times}`来指定监听次数,如: `trace com.arthasproject.service.impl.UserInfoServiceImpl listDepts -n 2`.
 
 Q: 那怎么追踪 `lambda 表达式`里面的执行呀? 如下所示的追踪完全没看见 lambda 的踪影.
 
