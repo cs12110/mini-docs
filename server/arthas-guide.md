@@ -111,16 +111,16 @@ $ source /etc/profile
 
 [arthas 常用命令 link](https://arthas.aliyun.com/doc/advanced-use.html)
 
-| 命令      | 说明                                              | 使用案例                     | 备注                          |
-| --------- | ------------------------------------------------- | ---------------------------- | ----------------------------- |
-| dashboard | 进程资源看板                                      | dashboard                    |                               |
-| monitor   | 方法执行监控                                      | monitor className methodName |                               |
-| watch     | 方法执行数据观测                                  | watch className methodName   |                               |
-| trace     | 方法内部调用路径,并输出方法路径上的每个节点上耗时 | trace className methodName   |                               |
-| stack     | 输出当前方法被调用的调用路径                      | stack className methodName   |                               |
-| sysenv    | 系统环境                                          | sysenv                       |                               |
-| jvm       | jvm 运行环境                                      | jvm                          |                               |
-| thread    | 线程监控                                          | thread -b                    | thread -b 查找被 block 的线程 |
+| 命令      | 说明                                              | 使用案例                             | 备注                          |
+| --------- | ------------------------------------------------- | ------------------------------------ | ----------------------------- |
+| dashboard | 进程资源看板                                      | dashboard                            |                               |
+| monitor   | 方法执行监控                                      | `monitor ${className} ${methodName}` |                               |
+| watch     | 方法执行数据观测                                  | `watch ${className} ${methodName}`   |                               |
+| trace     | 方法内部调用路径,并输出方法路径上的每个节点上耗时 | `trace ${className} ${methodName}`   |                               |
+| stack     | 输出当前方法被调用的调用路径                      | `stack ${className} ${methodName}`   |                               |
+| sysenv    | 系统环境                                          | sysenv                               |                               |
+| jvm       | jvm 运行环境                                      | jvm                                  |                               |
+| thread    | 线程监控                                          | thread -b                            | thread -b 查找被 block 的线程 |
 
 ---
 
