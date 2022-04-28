@@ -72,7 +72,7 @@ $ java -jar arthas-boot.jar
 [INFO] arthas-boot version: 3.5.4
 [INFO] Found existing java process, please choose one and input the serial number of the process, eg : 1. Then hit ENTER.
 * [1]: 55354 org.jetbrains.kotlin.daemon.KotlinCompileDaemon
-  [2]: 56202 com.weiqicha.WxappApplication
+  [2]: 56202 com.arthasprojectApplication
   [3]: 55276
   [4]: 56204 org.jetbrains.jps.cmdline.Launcher
 2
@@ -179,6 +179,73 @@ com.arthasproject.controller.LoanController balance(Ljava/lang/String;)Lcom/dsly
 Affect(row-cnt:2) cost in 28 ms.
 ```
 
+Q: 如果监听那些执行很多次的方法,那岂不是一直在输出?
+
+A: 使用使用 `-n {times}`来指定监听次数,如: `trace com.arthasproject.service.impl.UserInfoServiceImpl listDepts -n 2`.
+
+Q: 那怎么追踪 `lambda 表达式`里面的执行呀? 如下所示的追踪完全没看见 lambda 的踪影.
+
+```java
+@GetMapping("/lambda-exp")
+public SingleResponse<List<String>> lambdaExp() {
+
+    List<String> list = new ArrayList<>();
+    list.add("1");
+    list.add("2");
+    list.add("3");
+
+    List<String> values = list.stream().map((e) -> {
+        try {
+            Thread.sleep(1000);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return e;
+    }).collect(Collectors.toList());
+
+    return SingleResponse.of(values);
+}
+```
+
+```shell
+[arthas@50861]$ trace com.arthasproject.controller.ContactBookController lambdaExp
+Press Q or Ctrl+C to abort.
+Affect(class count: 2 , method count: 2) cost in 271 ms, listenerId: 1
+`---ts=2022-04-28 21:47:09;thread_name=http-nio-0.0.0.0-8019-exec-1;id=7b;is_daemon=true;priority=5;TCCL=org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedWebappClassLoader@29436cb2
+    `---[3098.66037ms] com.arthasproject.controller.ContactBookController$$EnhancerBySpringCGLIB$$1:lambdaExp()
+        `---[3097.878743ms] org.springframework.cglib.proxy.MethodInterceptor:intercept()
+            `---[3026.676764ms] com.arthasproject.controller.ContactBookController:lambdaExp()
+                `---[5.281318ms] com.arthasproject.dto.resp.SingleResponse:of() #82
+```
+
+A: 怎么那么狗呀.先`trace`整一个类.
+
+```java
+[arthas@50861]$ trace com.arthasproject.controller.ContactBookController *
+Press Q or Ctrl+C to abort.
+Affect(class count: 2 , method count: 59) cost in 289 ms, listenerId: 2
+`---ts=2022-04-28 21:48:04;thread_name=http-nio-0.0.0.0-8019-exec-2;id=7c;is_daemon=true;priority=5;TCCL=org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedWebappClassLoader@29436cb2
+    `---[3020.168684ms] com.arthasproject.controller.ContactBookController$$EnhancerBySpringCGLIB$$1:lambdaExp()
+        `---[3020.060573ms] org.springframework.cglib.proxy.MethodInterceptor:intercept()
+            `---[3017.951143ms] com.arthasproject.controller.ContactBookController:lambdaExp()
+                +---[min=1003.874864ms,max=1005.177331ms,total=3013.368565ms,count=3] com.arthasproject.controller.ContactBookController:lambda$lambdaExp$0()
+                `---[0.037015ms] com.arthasproject.dto.resp.SingleResponse:of() #82
+```
+
+从上面可以看出来 lambda 表达式是:`lambda$lambdaExp$0()`,那我们切换一下监听: `trace ${class} *${methodName}*`.
+
+```shell
+[arthas@50861]$ trace com.arthasproject.controller.ContactBookController *lambdaExp*
+Press Q or Ctrl+C to abort.
+Affect(class count: 2 , method count: 4) cost in 161 ms, listenerId: 3
+`---ts=2022-04-28 21:49:31;thread_name=http-nio-0.0.0.0-8019-exec-4;id=7e;is_daemon=true;priority=5;TCCL=org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedWebappClassLoader@29436cb2
+    `---[3013.243714ms] com.arthasproject.controller.ContactBookController$$EnhancerBySpringCGLIB$$1:lambdaExp()
+        `---[3013.132309ms] org.springframework.cglib.proxy.MethodInterceptor:intercept()
+            `---[3010.29154ms] com.arthasproject.controller.ContactBookController:lambdaExp()
+                +---[min=1000.431794ms,max=1004.208051ms,total=3005.817471ms,count=3] com.arthasproject.controller.ContactBookController:lambda$lambdaExp$0()
+                `---[0.028095ms] com.arthasproject.dto.resp.SingleResponse:of() #82
+```
+
 ### 2.2 调用栈
 
 ```shell
@@ -235,10 +302,10 @@ A: 这里可以使用 arthas 的 `watch` 来做监听. 各种黑魔法就对了.
 监听返回参数
 
 ```shell
-[arthas@56415]$ watch com.weiqicha.wxapp.controller.UserController comment '{returnObj}' -x 3
+[arthas@56415]$ watch com.arthasproject.controller.UserController comment '{returnObj}' -x 3
 Press Q or Ctrl+C to abort.
 Affect(class count: 2 , method count: 2) cost in 384 ms, listenerId: 1
-method=com.weiqicha.wxapp.controller.UserController.comment location=AtExit
+method=com.arthasproject.controller.UserController.comment location=AtExit
 ts=2022-04-22 21:49:18; [cost=253.667698ms] result=@ArrayList[
     @SingleResponse[
         code=@Integer[0],
@@ -246,7 +313,7 @@ ts=2022-04-22 21:49:18; [cost=253.667698ms] result=@ArrayList[
         data=@Boolean[true],
     ],
 ]
-method=com.weiqicha.wxapp.controller.UserController$$EnhancerBySpringCGLIB$$1.comment location=AtExit
+method=com.arthasproject.controller.UserController$$EnhancerBySpringCGLIB$$1.comment location=AtExit
 ts=2022-04-22 21:49:18; [cost=478.877372ms] result=@ArrayList[
     @SingleResponse[
         code=@Integer[0],
@@ -259,10 +326,10 @@ ts=2022-04-22 21:49:18; [cost=478.877372ms] result=@ArrayList[
 监听请求参数
 
 ```shell
-[arthas@56415]$ watch com.weiqicha.wxapp.controller.UserController comment '{params}' -x 4
+[arthas@56415]$ watch com.arthasproject.controller.UserController comment '{params}' -x 4
 Press Q or Ctrl+C to abort.
 Affect(class count: 2 , method count: 2) cost in 159 ms, listenerId: 5
-method=com.weiqicha.wxapp.controller.UserController.comment location=AtExit
+method=com.arthasproject.controller.UserController.comment location=AtExit
 ts=2022-04-22 21:53:46; [cost=291.735941ms] result=@ArrayList[
     @Object[][
         @UserCommentReq[
@@ -276,7 +343,7 @@ ts=2022-04-22 21:53:46; [cost=291.735941ms] result=@ArrayList[
         ],
     ],
 ]
-method=com.weiqicha.wxapp.controller.UserController$$EnhancerBySpringCGLIB$$1.comment location=AtExit
+method=com.arthasproject.controller.UserController$$EnhancerBySpringCGLIB$$1.comment location=AtExit
 ts=2022-04-22 21:53:46; [cost=294.679299ms] result=@ArrayList[
     @Object[][
         @UserCommentReq[
@@ -295,13 +362,13 @@ ts=2022-04-22 21:53:46; [cost=294.679299ms] result=@ArrayList[
 监听请求/返回参数
 
 ```shell
-[arthas@56415]$ watch com.weiqicha.wxapp.controller.UserController comment '{params,returnObj}' -x 4
+[arthas@56415]$ watch com.arthasproject.controller.UserController comment '{params,returnObj}' -x 4
 ```
 
 当然也可以监听异常啦
 
 ```shell
-[arthas@56415]$ watch com.weiqicha.wxapp.controller.UserController comment '{params,returnObj,throwExp}' -x 4 -e
+[arthas@56415]$ watch com.arthasproject.controller.UserController comment '{params,returnObj,throwExp}' -x 4 -e
 ```
 
 Q: 为啥监控进过 skyworking 代理的东西会出现如下问题?
