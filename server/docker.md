@@ -12,12 +12,15 @@ docker 基础知识,安装和常用命令.
 
 名词解释
 
-| 名词         | 备注                         |
-| ------------ | ---------------------------- |
-| image        | 镜像,相当于 iso 文件         |
-| container    | 容器, 相当于安装好的操作系统 |
-| docker run   | 创建容器,每次都重新创建      |
-| docker start | 开启已经存在的容器           |
+| 名词         | 说明                         | 备注                       |
+| ------------ | ---------------------------- | -------------------------- |
+| image        | 镜像,相当于 iso 文件         |                            |
+| container    | 容器, 相当于安装好的操作系统 |                            |
+| docker run   | 创建容器,每次都重新创建      |                            |
+| docker start | 开启已经存在的容器           | docker start {containerId} |
+| docker stop  | 停止已经存在的容器           | docker start {containerId} |
+| docker ps    | 查看运行容器进程             | docker ps \| grep {name}   |
+| docker stats | 查看容器资源占用             | docker stats               |
 
 ### 1.2 big bang
 
