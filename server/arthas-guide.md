@@ -608,6 +608,141 @@ sc -d com.queen.ctrl.WestWorldController
 Affect(row-cnt:1) cost in 22 ms.
 ```
 
+### 2.10 执行 bean 方法
+
+Q: 如果要执行 spring 里面的某个 bean 的方法要怎么操作呀?
+
+```java
+@RestController
+@RequestMapping("/web/my")
+@Slf4j
+public class MyController {
+
+    @ApiOperation(value = "arthas")
+    @PostMapping("/arthas")
+    public Result<Map<String, String>> arthas(String userId, String userName) {
+        Map<String, String> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("userName", userName);
+        return Result.success(map);
+    }
+}
+```
+
+A: 可以使用`tt`命令来执行.
+
+```shell
+# 需要postman请求一次,获取上下文的index数据,如下所示为: 1002
+[arthas@52242]$ tt -t org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter invokeHandlerMethod -n 3
+Press Q or Ctrl+C to abort.
+Affect(class count: 1 , method count: 1) cost in 125 ms, listenerId: 3
+ INDEX    TIMESTAMP            COST(ms)   IS-RET   IS-EXP  OBJECT          CLASS                            METHOD
+-------------------------------------------------------------------------------------------------------------------------------------------
+ 1002     2022-05-09 13:24:24  180.35802  true     false   0x2ea9683a      RequestMappingHandlerAdapter     invokeHandlerMethod
+                               3
+
+# 使用 tt -i ${indexNo} 来指定上下文下标
+[arthas@52242]$ tt -i 1002 -w 'target.getApplicationContext().getBean("myController").arthas("userId123","userNameAbc")' -x 4
+@Result[
+    SUCCESSFUL_MESG=@String[处理成功],
+    code=@String[0000],
+    msg=@String[处理成功],
+    now=@Date[2022-05-09 13:25:35,914],
+    data=@HashMap[
+        @String[userName]:@String[userNameAbc],
+        @String[userId]:@String[userId123],
+    ],
+]
+Affect(row-cnt:1) cost in 7 ms.
+```
+
+A: 也可以使用`ognl`来获取执行.
+
+```shell
+# 获取项目内部获取bean的工具
+[arthas@52242]$ sc *ApplicationContextUtil
+com.arthasproject.utils.ApplicationContextUtil
+Affect(row-cnt:1) cost in 95 ms.
+# 获取classLoaderHash数据
+[arthas@52242]$ sc -d *ApplicationContextUtil |grep classLoaderHash
+ classLoaderHash   18b4aac2
+
+# 使用ognl执行hash来执行相关方法
+[arthas@52242]$ ognl -c 18b4aac2 '@com.arthasproject.utils.ApplicationContextUtil@getBean("myController").arthas("1","haiyan")' -x 4
+@Result[
+    SUCCESSFUL_MESG=@String[处理成功],
+    code=@String[0000],
+    msg=@String[处理成功],
+    now=@Date[2022-05-09 13:40:49,002],
+    data=@HashMap[
+        @String[userName]:@String[haiyan],
+        @String[userId]:@String[1],
+    ],
+]
+```
+
+Q: 那么复杂的一些参数该怎么传递呀?比如方法参数是对象的那种呢?
+
+```java
+@RestController
+@RequestMapping("/web/my")
+@Slf4j
+public class MyController {
+
+    @ApiOperation(value = "arthas-obj")
+    @PostMapping("/arthas-obj")
+    public Result<JSONObject> arthasObj(JSONObject value) {
+        return Result.success(value);
+    }
+}
+```
+
+A: 可以参考如下请求:
+
+```shell
+# 注意context和data的构建,基于使用ApplicationContextUtil(自己实现的获取bean相关的工具类)来获取bean
+[arthas@53148]$ ognl -c 18b4aac2 '#context=@com.arthasproject.utils.ApplicationContextUtil@getBean("myController"),#data=new com.alibaba.fastjson.JSONObject(),#data.put("userId","123"),#data.put("userName","haiyan"),#context.arthasObj(#data)' -x 4
+@Result[
+    SUCCESSFUL_MESG=@String[处理成功],
+    code=@String[0000],
+    msg=@String[处理成功],
+    now=@Date[2022-05-09 13:57:16,942],
+    data=@JSONObject[
+        @String[userName]:@String[haiyan],
+        @String[userId]:@String[123],
+    ],
+]
+```
+
+Q: 如果项目中没有相关的 bean 工具呢?
+
+A: 可以参考如下例子:
+
+```shell
+# 首先获取index参数
+[arthas@52242]$ tt -t org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter invokeHandlerMethod -n 3
+Press Q or Ctrl+C to abort.
+Affect(class count: 1 , method count: 1) cost in 125 ms, listenerId: 3
+ INDEX    TIMESTAMP            COST(ms)   IS-RET   IS-EXP  OBJECT          CLASS                            METHOD
+-------------------------------------------------------------------------------------------------------------------------------------------
+ 1002     2022-05-09 13:24:24  180.35802  true     false   0x2ea9683a      RequestMappingHandlerAdapter     invokeHandlerMethod
+                               3
+# 注意构建data和使用data的格式
+[arthas@53148]$ tt -i 1000 -w '#data=new com.alibaba.fastjson.JSONObject(),#data.put("userId","123"),#data.put("userName","haiyan"),target.getApplicationContext().getBean("myController").arthasObj(#data)' -x 4
+@Result[
+    SUCCESSFUL_MESG=@String[处理成功],
+    code=@String[0000],
+    msg=@String[处理成功],
+    now=@Date[2022-05-09 14:13:10,619],
+    data=@JSONObject[
+        @String[userName]:@String[haiyan],
+        @String[userId]:@String[123],
+    ],
+]
+Affect(row-cnt:1) cost in 5 ms.
+[arthas@53148]$
+```
+
 ---
 
 ## 3. 参考文档
