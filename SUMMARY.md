@@ -33,6 +33,7 @@
   - [代码生成器 Velocity ](javaee/cg-velocity.md)
   - [Api 文档插件](javaee/apis.md)
   - [分库分表 Sharding-JDBC](javaee/sharding-jdbc-v2.md)
+  - [Mybatis plus常用代码段](javaee/mybatis-plus.md)
   - [分布式任务调度器 xxl-job](javaee/xxl-job.md)
   - [Spring 常用代码段](javaee/spring-segment.md)
   - [Spring 与 SqlSession](javaee/spring-sqlsession.md)
