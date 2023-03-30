@@ -24,7 +24,7 @@ fastjson 操作起来超简单的.
 </dependency>
 ```
 
-#### 1.2 案例
+#### 1.2 工具类
 
 ```java
 import com.alibaba.fastjson.JSON;
@@ -87,9 +87,70 @@ public class FastJsonUtil {
 }
 ```
 
-#### 1.3 坑
+#### 1.3 特殊字段
 
-Issue: [fastjson 的 Long 类型数据精度丢失](https://my.oschina.net/simpleton/blog/4257114)
+Q: 在系列化 Long 的数据会出现精度丢失要怎么处理呀? [link](https://my.oschina.net/simpleton/blog/4257114)
+
+A: 可以使用`@JsonFormat(shape = JsonFormat.Shape.STRING)`来处理.
+
+```java
+@ApiModelProperty(value = "ID")
+@JsonFormat(shape = JsonFormat.Shape.STRING)
+private Long id;
+```
+
+Q: 还有啥,时间格式啥的,要怎么处理?
+
+A: 也可以使用相关的数据格式处理.
+
+```java
+@ApiModelProperty(value = "计划付款日期")
+@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+private LocalDate prepareDate;
+```
+
+#### 1.4 泛型序列化
+
+Q: 在常用的序列化里面,会经常遇到泛型,这个要怎么处理呀?
+
+A: 可以使用`new TypeReference<T>() {}`来解决.
+
+```java
+public class TypeRef {
+
+    @Data
+    public static class MapItem {
+        private String no;
+        private String name;
+    }
+
+    public static void main(String[] args) {
+
+        String jsonStr = getMapItemJsonStr();
+
+        Map<String, MapItem> valueMap = JSON.parseObject(
+                jsonStr,
+                new TypeReference<Map<String, MapItem>>() {
+                }
+        );
+
+        System.out.println(JSON.toJSONString(valueMap, Boolean.TRUE));
+    }
+
+
+    private static String getMapItemJsonStr() {
+        MapItem mapItem = new MapItem();
+        mapItem.setNo("3306");
+        mapItem.setName("酸菜鱼");
+
+        Map<String, MapItem> map = new HashMap<>();
+        map.put(mapItem.getNo(), mapItem);
+
+
+        return JSON.toJSONString(map);
+    }
+}
+```
 
 ---
 
