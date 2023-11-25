@@ -38,6 +38,7 @@
   - [Spring 常用代码段](javaee/spring-segment.md)
   - [Spring 与 SqlSession](javaee/spring-sqlsession.md)
   - [Spring 多数据源](javaee/spring-datasources.md)
+  - [Spring Drools规则引擎](javaee/springboot-drools.md)
   - [Spring Seata 分布式事务](javaee/spring-seata.md)
   - [Spring Zipkin 链路调用](javaee/springboot-zipkin.md)
   - [SpringBoot 基础配置项](javaee/springboot-properties.md)
