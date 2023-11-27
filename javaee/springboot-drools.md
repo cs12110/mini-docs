@@ -158,20 +158,16 @@ package org.ruleengine.service;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
-import org.kie.api.io.Resource;
 import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.StatelessKieSession;
-import org.kie.internal.builder.KnowledgeBuilder;
-import org.kie.internal.builder.KnowledgeBuilderFactory;
-import org.kie.internal.io.ResourceFactory;
 import org.kie.internal.utils.KieHelper;
+import org.ruleengine.model.entity.BillInfo;
+import org.ruleengine.model.entity.ComplexInfo;
 import org.ruleengine.model.entity.SettInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author cs12110
@@ -189,24 +185,13 @@ public class RuleEngineService {
     private SettInfoService settInfoService;
 
 
-    public void execute(SettInfo settInfo) {
+    public SettInfo executeSett(SettInfo settInfo) {
         try {
-            log.info("Function[execute] drools script: \n{}", getDroolsScript());
-
-            Resource scriptResource = ResourceFactory.newByteArrayResource(
-                    getDroolsScript().getBytes(StandardCharsets.UTF_8)
-            );
-
-            KnowledgeBuilder knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
-            knowledgeBuilder.add(scriptResource, ResourceType.DRL);
-
-            if (knowledgeBuilder.hasErrors()) {
-                throw new RuntimeException(knowledgeBuilder.getErrors().toString());
-            }
+            log.info("Function[execute] drools script: \n{}", getSettDroolsScript());
 
             // 构建KieContainer
             KieHelper kieHelper = new KieHelper();
-            kieHelper.addContent(getDroolsScript(), ResourceType.DRL);
+            kieHelper.addContent(getSettDroolsScript(), ResourceType.DRL);
             KieContainer kieContainer = kieHelper.getKieContainer();
 
             // 执行规则
@@ -224,6 +209,8 @@ public class RuleEngineService {
             log.info("Function[execute] error: " + JSON.toJSONString(settInfo), e);
             throw new RuntimeException(e);
         }
+
+        return settInfo;
     }
 
     /**
@@ -267,7 +254,7 @@ public class RuleEngineService {
      *
      * @return String
      */
-    private String getDroolsScript() {
+    private String getSettDroolsScript() {
         StringBuilder script = new StringBuilder();
         // 设置包名
         script.append("package sett").append(System.lineSeparator());
@@ -312,6 +299,211 @@ public class RuleEngineService {
 
         return script.toString();
     }
+
+
+    public ComplexInfo executeBill(BillInfo billInfo) {
+        ComplexInfo complexInfo = new ComplexInfo();
+        complexInfo.setBillInfo(billInfo);
+
+        try {
+            log.info("Function[executeBill] drools script: \n{}", getComplexDroolsScript());
+
+
+            // 构建KieContainer
+            KieHelper kieHelper = new KieHelper();
+            kieHelper.addContent(getComplexDroolsScript(), ResourceType.DRL);
+            KieContainer kieContainer = kieHelper.getKieContainer();
+
+            // 执行规则
+            StatelessKieSession statelessKieSession = kieContainer.newStatelessKieSession();
+
+            // 执行规则
+            statelessKieSession.execute(complexInfo);
+
+            // 关闭kieContainer
+            kieContainer.dispose();
+
+            log.info("Function[executeBill] decision result: " + JSON.toJSONString(complexInfo));
+        } catch (Exception e) {
+            log.info("Function[executeBill] error: " + JSON.toJSONString(complexInfo), e);
+            throw new RuntimeException(e);
+        }
+
+        return complexInfo;
+    }
+
+    /**
+     * 假设 billInfo有字段a,b,c,d,e,首先要满足 a=1, b=2的前提
+     * 然后 c!= 3, 则提示c!=3
+     * 然后 d!= 4, 则提示d!=4
+     * 然后 e!= 5, 则提示e!=5
+     * 如果符合 a=1,b=2,c=3,d=4,e=5则通过
+     *
+     * <pre>
+     * package drools.bill
+     * import org.ruleengine.model.entity.ComplexInfo
+     * rule "bill-prefix"
+     *     salience 1
+     *     no-loop true
+     *     when
+     *     // 匹配满足条件的 ComplexInfo 对象
+     *     complexInfo: ComplexInfo(
+     *      billInfo != null,
+     *      billInfo.a != 1 || billInfo.b !=2
+     *      )
+     *     then
+     *     complexInfo.setValid(false);
+     *     complexInfo.getErrorList().add("a != 1 || b != 2");
+     *     drools.halt();
+     * end
+     * rule "bill-rule-c"
+     *     salience 1
+     *     no-loop true
+     *     when
+     *     // 匹配满足条件的 ComplexInfo 对象
+     *     complexInfo: ComplexInfo(
+     *      billInfo != null,
+     *      billInfo.c != 3
+     *      )
+     *     then
+     *     complexInfo.setValid(false);
+     *     complexInfo.getErrorList().add("c!=3");
+     * end
+     * rule "bill-rule-d"
+     *     salience 1
+     *     no-loop true
+     *     when
+     *     // 匹配满足条件的 ComplexInfo 对象
+     *     complexInfo: ComplexInfo(
+     *      billInfo != null,
+     *      billInfo.d != 4
+     *      )
+     *     then
+     *     complexInfo.setValid(false);
+     *     complexInfo.getErrorList().add("d!=4");
+     * end
+     * rule "bill-rule-e"
+     *     salience 1
+     *     no-loop true
+     *     when
+     *     // 匹配满足条件的 ComplexInfo 对象
+     *     complexInfo: ComplexInfo(
+     *      billInfo != null,
+     *      billInfo.e != 5
+     *      )
+     *     then
+     *     complexInfo.setValid(false);
+     *     complexInfo.getErrorList().add("e!=5");
+     * end
+     * rule "bill-rule-success"
+     *     salience 1
+     *     no-loop true
+     *     when
+     *     // 匹配满足条件的 ComplexInfo 对象
+     *     complexInfo: ComplexInfo(
+     *      billInfo != null,
+     *      billInfo.a == 1,
+     *      billInfo.b == 2,
+     *      billInfo.c == 3,
+     *      billInfo.d == 4,
+     *      billInfo.e == 5
+     *      )
+     *     then
+     *     complexInfo.setValid(true);
+     *     complexInfo.setErrorList(null);
+     * end
+     * </pre>
+     *
+     * @return String
+     */
+    private String getComplexDroolsScript() {
+        StringBuilder script = new StringBuilder();
+        script.append("package drools.bill").append(System.lineSeparator());
+
+        //script.append("import org.ruleengine.model.entity.BillInfo").append(System.lineSeparator());
+        script.append("import org.ruleengine.model.entity.ComplexInfo").append(System.lineSeparator());
+
+        script.append("rule \"bill-prefix\"").append(System.lineSeparator());
+        script.append("    salience 1").append(System.lineSeparator());
+        script.append("    no-loop true").append(System.lineSeparator());
+        script.append("    when").append(System.lineSeparator());
+        script.append("    // 匹配满足条件的 ComplexInfo 对象").append(System.lineSeparator());
+        script.append("    complexInfo: ComplexInfo(").append(System.lineSeparator());
+        script.append("     billInfo != null,").append(System.lineSeparator());
+        script.append("     billInfo.a != 1 || billInfo.b !=2").append(System.lineSeparator());
+        script.append("     )").append(System.lineSeparator());
+        script.append("    then").append(System.lineSeparator());
+        script.append("    complexInfo.setValid(false);").append(System.lineSeparator());
+        script.append("    complexInfo.getErrorList().add(\"a != 1 || b != 2\");").append(System.lineSeparator());
+        script.append("    drools.halt();").append(System.lineSeparator());
+        script.append("end").append(System.lineSeparator());
+
+        script.append("rule \"bill-rule-c\"").append(System.lineSeparator());
+        script.append("    salience 1").append(System.lineSeparator());
+        script.append("    no-loop true").append(System.lineSeparator());
+        script.append("    when").append(System.lineSeparator());
+        script.append("    // 匹配满足条件的 ComplexInfo 对象").append(System.lineSeparator());
+        script.append("    complexInfo: ComplexInfo(").append(System.lineSeparator());
+        script.append("     billInfo != null,").append(System.lineSeparator());
+        script.append("     billInfo.c != 3").append(System.lineSeparator());
+        script.append("     )").append(System.lineSeparator());
+        script.append("    then").append(System.lineSeparator());
+        script.append("    complexInfo.setValid(false);").append(System.lineSeparator());
+        script.append("    complexInfo.getErrorList().add(\"c!=3\");").append(System.lineSeparator());
+        //script.append("    drools.halt();").append(System.lineSeparator());
+        script.append("end").append(System.lineSeparator());
+
+        script.append("rule \"bill-rule-d\"").append(System.lineSeparator());
+        script.append("    salience 1").append(System.lineSeparator());
+        script.append("    no-loop true").append(System.lineSeparator());
+        script.append("    when").append(System.lineSeparator());
+        script.append("    // 匹配满足条件的 ComplexInfo 对象").append(System.lineSeparator());
+        script.append("    complexInfo: ComplexInfo(").append(System.lineSeparator());
+        script.append("     billInfo != null,").append(System.lineSeparator());
+        script.append("     billInfo.d != 4").append(System.lineSeparator());
+        script.append("     )").append(System.lineSeparator());
+        script.append("    then").append(System.lineSeparator());
+        script.append("    complexInfo.setValid(false);").append(System.lineSeparator());
+        script.append("    complexInfo.getErrorList().add(\"d!=4\");").append(System.lineSeparator());
+        //script.append("    drools.halt();").append(System.lineSeparator());
+        script.append("end").append(System.lineSeparator());
+
+        script.append("rule \"bill-rule-e\"").append(System.lineSeparator());
+        script.append("    salience 1").append(System.lineSeparator());
+        script.append("    no-loop true").append(System.lineSeparator());
+        script.append("    when").append(System.lineSeparator());
+        script.append("    // 匹配满足条件的 ComplexInfo 对象").append(System.lineSeparator());
+        script.append("    complexInfo: ComplexInfo(").append(System.lineSeparator());
+        script.append("     billInfo != null,").append(System.lineSeparator());
+        script.append("     billInfo.e != 5").append(System.lineSeparator());
+        script.append("     )").append(System.lineSeparator());
+        script.append("    then").append(System.lineSeparator());
+        script.append("    complexInfo.setValid(false);").append(System.lineSeparator());
+        script.append("    complexInfo.getErrorList().add(\"e!=5\");").append(System.lineSeparator());
+        //script.append("    drools.halt();").append(System.lineSeparator());
+        script.append("end").append(System.lineSeparator());
+
+        script.append("rule \"bill-rule-success\"").append(System.lineSeparator());
+        script.append("    salience 1").append(System.lineSeparator());
+        script.append("    no-loop true").append(System.lineSeparator());
+        script.append("    when").append(System.lineSeparator());
+        script.append("    // 匹配满足条件的 ComplexInfo 对象").append(System.lineSeparator());
+        script.append("    complexInfo: ComplexInfo(").append(System.lineSeparator());
+        script.append("     billInfo != null,").append(System.lineSeparator());
+        script.append("     billInfo.a == 1,").append(System.lineSeparator());
+        script.append("     billInfo.b == 2,").append(System.lineSeparator());
+        script.append("     billInfo.c == 3,").append(System.lineSeparator());
+        script.append("     billInfo.d == 4,").append(System.lineSeparator());
+        script.append("     billInfo.e == 5").append(System.lineSeparator());
+        script.append("     )").append(System.lineSeparator());
+        script.append("    then").append(System.lineSeparator());
+        script.append("    complexInfo.setValid(true);").append(System.lineSeparator());
+        script.append("    complexInfo.setErrorList(null);").append(System.lineSeparator());
+        script.append("end").append(System.lineSeparator());
+
+
+        return script.toString();
+    }
 }
 ```
 
@@ -352,6 +544,83 @@ rule "sett-amount-lt-1000"
         System.out.println("amount < 1000: "+JSON.toJSONString(settInfo));
         settInfo.setTips("规则2");
         settInfoService.autoAudit(settInfo);
+end
+```
+
+复杂对象脚本如下:
+
+```shell
+package drools.bill
+import org.ruleengine.model.entity.ComplexInfo
+rule "bill-prefix"
+    salience 1
+    no-loop true
+    when
+    // 匹配满足条件的 ComplexInfo 对象
+    complexInfo: ComplexInfo(
+     billInfo != null,
+     billInfo.a != 1 || billInfo.b !=2
+     )
+    then
+    complexInfo.setValid(false);
+    complexInfo.getErrorList().add("a != 1 || b != 2");
+    drools.halt();
+end
+rule "bill-rule-c"
+    salience 1
+    no-loop true
+    when
+    // 匹配满足条件的 ComplexInfo 对象
+    complexInfo: ComplexInfo(
+     billInfo != null,
+     billInfo.c != 3
+     )
+    then
+    complexInfo.setValid(false);
+    complexInfo.getErrorList().add("c!=3");
+end
+rule "bill-rule-d"
+    salience 1
+    no-loop true
+    when
+    // 匹配满足条件的 ComplexInfo 对象
+    complexInfo: ComplexInfo(
+     billInfo != null,
+     billInfo.d != 4
+     )
+    then
+    complexInfo.setValid(false);
+    complexInfo.getErrorList().add("d!=4");
+end
+rule "bill-rule-e"
+    salience 1
+    no-loop true
+    when
+    // 匹配满足条件的 ComplexInfo 对象
+    complexInfo: ComplexInfo(
+     billInfo != null,
+     billInfo.e != 5
+     )
+    then
+    complexInfo.setValid(false);
+    complexInfo.getErrorList().add("e!=5");
+end
+rule "bill-rule-success"
+    salience 1
+    no-loop true
+    when
+    // 匹配满足条件的 ComplexInfo 对象
+    complexInfo: ComplexInfo(
+     billInfo != null,
+     billInfo.a == 1,
+     billInfo.b == 2,
+     billInfo.c == 3,
+     billInfo.d == 4,
+     billInfo.e == 5
+     )
+    then
+    complexInfo.setValid(true);
+    complexInfo.setErrorList(null);
 end
 
 ```
@@ -416,24 +685,61 @@ public class UserInfo {
 ```
 
 ```java
-package org.ruleengine.controler;
+package org.ruleengine.model.entity;
 
-import org.ruleengine.model.entity.SettInfo;
-import org.ruleengine.model.resp.RespResult;
-import org.ruleengine.service.RuleEngineService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
+import lombok.Data;
 
 /**
  * @author cs12110
  * @version V1.0
- * @since 2023-11-25 14:13
+ * @since 2023-11-27 22:13
  */
+@Data
+public class BillInfo {
+
+    private Integer a;
+    private Integer b;
+    private Integer c;
+    private Integer d;
+    private Integer e;
+}
+```
+
+```java
+package org.ruleengine.model.entity;
+
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author cs12110
+ * @version V1.0
+ * @since 2023-11-27 22:11
+ */
+@Data
+public class ComplexInfo {
+
+
+    /**
+     * 校验状态
+     */
+    private boolean valid;
+
+    /**
+     * 错误信息
+     */
+    private List<String> errorList= new ArrayList<>();
+
+    /**
+     * 单据信息
+     */
+    private BillInfo billInfo;
+}
+```
+
+```java
 @RestController
 @RequestMapping("/rule-engine")
 public class RuleEngineController {
@@ -441,20 +747,27 @@ public class RuleEngineController {
     private RuleEngineService ruleEngineService;
 
     @ResponseBody
-    @PostMapping("/lift")
-    public RespResult<?> lift(@RequestBody SettInfo settInfo) {
+    @PostMapping("/sett")
+    public RespResult<?> sett(@RequestBody SettInfo settInfo) {
+        SettInfo result = ruleEngineService.executeSett(settInfo);
+        return RespResult.success(result);
+    }
 
-        ruleEngineService.execute(settInfo);
-
-        return RespResult.success(null);
+    @ResponseBody
+    @PostMapping("/bill")
+    public RespResult<?> bill(@RequestBody BillInfo billInfo) {
+        ComplexInfo complexInfo = ruleEngineService.executeBill(billInfo);
+        return RespResult.success(complexInfo);
     }
 }
 ```
 
 #### 2.2 测试
 
+##### 2.2.1 sett
+
 ```sh
-curl --location 'http://127.0.0.1:8080/api/rule-engine/lift' \
+curl --location 'http://127.0.0.1:8080/api/rule-engine/sett' \
 --header 'Content-Type: application/json' \
 --data '{
     "settNo":"JS0001",
@@ -471,7 +784,7 @@ amount > 1000: {"id":1,"level":1,"name":"test"}
 ```
 
 ```sh
-curl --location 'http://127.0.0.1:8080/api/rule-engine/lift' \
+curl --location 'http://127.0.0.1:8080/api/rule-engine/sett' \
 --header 'Content-Type: application/json' \
 --data '{
     "settNo":"JS0001",
@@ -484,6 +797,101 @@ curl --location 'http://127.0.0.1:8080/api/rule-engine/lift' \
 2023-11-25 23:15:59.557  INFO 14904 --- [io-8080-exec-10] o.d.c.k.builder.impl.KieRepositoryImpl   : KieModule was added: MemoryKieModule[releaseId=org.default:artifact:1.0.0]
 amount < 1000: {"amount":800,"settNo":"JS0001","type":1}
 2023-11-25 23:15:59.568  INFO 14904 --- [io-8080-exec-10] org.ruleengine.service.SettInfoService   : Function[autoAudit] sett:{"amount":800,"settNo":"JS0001","tips":"规则2","type":1}
+```
+
+##### 2.2.2 bill
+
+```shell
+curl --location 'http://127.0.0.1:8080/api/rule-engine/bill' \
+--header 'Content-Type: application/json' \
+--data '{
+    "a":"1",
+    "b":"2",
+    "c":"4",
+    "d":"5",
+    "e":"5"
+}'
+```
+
+```json
+{
+  "code": 200,
+  "tips": "success",
+  "timestamp": "2023-11-27 23:19:59",
+  "data": {
+    "valid": false,
+    "errorList": ["c!=3", "d!=4"],
+    "billInfo": {
+      "a": 1,
+      "b": 2,
+      "c": 4,
+      "d": 5,
+      "e": 5
+    }
+  }
+}
+```
+
+```shell
+curl --location 'http://127.0.0.1:8080/api/rule-engine/bill' \
+--header 'Content-Type: application/json' \
+--data '{
+    "a":"1",
+    "b":"1",
+    "c":"4",
+    "d":"5",
+    "e":"5"
+}'
+```
+
+```json
+{
+  "code": 200,
+  "tips": "success",
+  "timestamp": "2023-11-27 23:20:47",
+  "data": {
+    "valid": false,
+    "errorList": ["a != 1 || b != 2"],
+    "billInfo": {
+      "a": 1,
+      "b": 1,
+      "c": 4,
+      "d": 5,
+      "e": 5
+    }
+  }
+}
+```
+
+```shell
+curl --location 'http://127.0.0.1:8080/api/rule-engine/bill' \
+--header 'Content-Type: application/json' \
+--data '{
+    "a":"1",
+    "b":"2",
+    "c":"3",
+    "d":"4",
+    "e":"5"
+}'
+```
+
+```json
+{
+  "code": 200,
+  "tips": "success",
+  "timestamp": "2023-11-27 23:21:25",
+  "data": {
+    "valid": true,
+    "errorList": null,
+    "billInfo": {
+      "a": 1,
+      "b": 2,
+      "c": 3,
+      "d": 4,
+      "e": 5
+    }
+  }
+}
 ```
 
 ---
