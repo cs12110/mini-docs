@@ -899,7 +899,11 @@ curl --location 'http://127.0.0.1:8080/api/rule-engine/bill' \
 ### 3. 参考资料
 
 a. [drools 官网 link](https://www.drools.org/)
+
 b. [Drools 规则引擎应用 看这一篇就够了 link](https://www.cnblogs.com/ityml/p/15993391.html)
+
 c. [Drools 使用总结和踩坑 link](https://juejin.cn/post/6969879653209079845)
+
 c. [打工人学习 Drools 高级语法 link](https://cloud.tencent.com/developer/article/1751900)
+
 c. [Spring Boot 整合 Drools 规则引擎 link](https://zhuanlan.zhihu.com/p/326419830)

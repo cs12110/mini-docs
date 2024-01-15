@@ -72,6 +72,7 @@
   - [Mysql 事务隔离](db/mysql-tx.md)
   - [Mysql 备份与恢复](db/mysql-backup-recover.md)
   - [Mysql 读写分离](db/mysql-read-write.md)
+  - [Mysql 数据分区](db/mysql-partition.md)
   - [Redis 集群安装](db/redis-install.md)
   - [Redis 数据备份](db/redis-backup.md)
   - [Redis 事务管理](db/redis-tx.md)
