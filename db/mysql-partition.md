@@ -182,6 +182,47 @@ select * from t_partition_info partition(p1)  where id =1;
 select * from t_partition_info partition(p3)  where id =1;
 ```
 
+#### 1.4 设计案例
+
+Q: 如果最近一个月的数据放在一个分区,其他日期都放在其他分期要怎么处理?
+
+A: 可以在分区表达式里面进行相关动态计算划分.
+
+```sql
+CREATE TABLE your_table (
+    id INT,
+    name VARCHAR(50),
+    create_time TIMESTAMP,
+    value INT
+) PARTITION BY RANGE (TO_DAYS(create_time)) (
+    PARTITION p_past VALUES LESS THAN (TO_DAYS(CURDATE() - INTERVAL 1 MONTH)),
+    PARTITION p_recent VALUES LESS THAN (MAXVALUE)
+);
+```
+
+我以为可以按照上面这种建分区的,然而,然而:
+
+```
+SQL Error [1064] [42000]: Constant, random or timezone-dependent expressions in (sub)partitioning function are not allowed near '),
+    PARTITION p_recent VALUES LESS THAN (MAXVALUE)
+)' at line 7
+```
+
+说明: TO_DAYS 是 MySQL 中的一个日期函数,它的功能是将日期转换为对应的天数.具体而言,TO_DAYS 返回一个日期的天数表示,从公元 0000-00-00 开始算起,直到指定的日期.
+
+```sql
+select
+	DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s') AS current_datetime,
+	TO_DAYS(CURDATE() - INTERVAL 1 MONTH) as last_of_day,
+	TO_DAYS(CURDATE()) current_of_day
+from
+	dual
+
+current_datetime   |last_of_day|current_of_day|
+-------------------+-----------+--------------+
+2024-01-16 08:57:57|     739235|        739266|
+```
+
 ---
 
 ### 2. 分区策略
