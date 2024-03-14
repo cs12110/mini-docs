@@ -95,10 +95,32 @@ A: 我们现在来看看具体怎么定位.
 
 关于上面不同的选项里面的作用是啥,现在我也不太清楚. orz
 
-| 选项                 | 说明                              |
-| -------------------- | --------------------------------- |
-| incoming references  | 入引用,显示这个对象被谁引用       |
-| outcoming references | 出引用,显示这个对象引用的其他对象 |
+| 选项                | 说明                              |
+| ------------------- | --------------------------------- |
+| incoming references | 入引用,显示这个对象被谁引用       |
+| outgoing references | 出引用,显示这个对象引用的其他对象 |
+
+举个栗子,数据结构如下所示:
+
+```java
+public static class ItemA{
+    private ItemB itemB;
+}
+
+public static class ItemB{
+
+}
+
+public static class ItemC{
+    private ItemB itemA;
+}
+```
+
+以 ItemA 的对象为例,拥有对象 ItemA 的引用的所有对象都称为 `Incoming references`,对象 ItemA 引用的所有对象都称为 `Outgoing References`.
+
+那么 ItemA 的 `incoming references`应该是: `ItemC`.
+
+那么 ItemA 的 `outgoing references`应该是: `ItemB`.
 
 ![](imgs/java-oom-06.png)
 
