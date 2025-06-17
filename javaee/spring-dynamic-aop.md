@@ -162,19 +162,26 @@ public class DynamicAopUtil {
             OperationType operationType
     ) {
         AspectJExpressionPointcut pointcut = (AspectJExpressionPointcut) advisor.getPointcut();
+        Set<String> uniqueClassSet = new HashSet<>();
         for (String beanDefinitionName : beanFactory.getBeanDefinitionNames()) {
             Object bean = beanFactory.getBean(beanDefinitionName);
+            // 处理同一个bean多次加载扫描的情况
+            if (!uniqueClassSet.add(bean.getClass().getName())) {
+                continue;
+            }
+
+            // 如果切面表达式和bean不匹配
+            if (!findMatchAdvised(bean.getClass(), pointcut)) {
+                continue;
+            }
+
             if (!(bean instanceof Advised)) {
                 if (OperationType.ADD_AOP.equals(operationType)) {
                     buildCandidateAdvised(beanFactory, advisor, bean, beanDefinitionName);
                     log.info("Function[handleAdvise] add advise:{} for bean:{}", advisor.getAdvice().getClass().getName(), bean.getClass().getName());
                 }
-                continue;
-            }
-            Advised advisedBean = (Advised) bean;
-
-            boolean isFindMatchAdvised = findMatchAdvised(advisedBean.getClass(), pointcut);
-            if (isFindMatchAdvised) {
+            } else {
+                Advised advisedBean = (Advised) bean;
                 if (OperationType.ADD_AOP.equals(operationType)) {
                     advisedBean.addAdvice(advisor.getAdvice());
                     log.info("Function[handleAdvise] add advise:{} for bean:{}", advisor.getAdvice().getClass().getName(), bean.getClass().getName());
@@ -193,16 +200,12 @@ public class DynamicAopUtil {
             Object bean,
             String beanDefinitionName
     ) {
-        AspectJExpressionPointcut pointcut = (AspectJExpressionPointcut) advisor.getPointcut();
-        boolean isFindMatchCandidateAdvised = findMatchCandidateAdvised(bean.getClass(), pointcut);
-        if (isFindMatchCandidateAdvised) {
-            ProxyFactory proxyFactory = new ProxyFactory();
-            proxyFactory.setTarget(bean);
-            proxyFactory.setProxyTargetClass(true);
-            proxyFactory.addAdvisor(advisor);
-            beanFactory.destroySingleton(beanDefinitionName);
-            beanFactory.registerSingleton(beanDefinitionName, proxyFactory.getProxy());
-        }
+        ProxyFactory proxyFactory = new ProxyFactory();
+        proxyFactory.setTarget(bean);
+        proxyFactory.setProxyTargetClass(true);
+        proxyFactory.addAdvisor(advisor);
+        beanFactory.destroySingleton(beanDefinitionName);
+        beanFactory.registerSingleton(beanDefinitionName, proxyFactory.getProxy());
     }
 
 
@@ -213,10 +216,6 @@ public class DynamicAopUtil {
             }
         }
         return false;
-    }
-
-    private static Boolean findMatchCandidateAdvised(Class<?> targetClass, Pointcut pointcut) {
-        return findMatchAdvised(targetClass, pointcut);
     }
 }
 ```
