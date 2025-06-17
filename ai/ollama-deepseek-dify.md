@@ -93,6 +93,8 @@ $ curl http://localhost:11434/api/generate -d '{
 | --nowrap             | 禁用输出自动换行                       | ollama run mistral --nowrap        |
 | --insecure           | 允许非安全连接（如自签名证书）         | ollama serve --insecure            |
 
+---
+
 ### 2. dify 安装与使用
 
 Q: dify 咋读的呀?
@@ -277,3 +279,13 @@ A: 好像和主流的 ai 请求/返回数据格式不一样,应该需要转换.�
     ]
 }'
 ```
+
+---
+
+### 3. 参考资料
+
+a. [DeepSeek + Dify ：零成本搭建企业级本地私有化知识库保姆级教程 link](https://juejin.cn/post/7468566313339453480)
+
+b. [Deepseek+Dify+Chatbox 应用及 Dify 配置 link](https://www.yorickbao.cn/index.php/archives/1922/)
+
+c. [Dify+Chatflow】手把手教你 Dify+Chatflow 快速搭建医学问答系统 link](https://www.bilibili.com/video/BV192NizsEit)
