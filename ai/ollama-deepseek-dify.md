@@ -139,6 +139,32 @@ semitechnologies/weaviate       1.19.0        8ec9f084ab23   2 years ago     52.
 $ docker ps
 ```
 
+在国内下载镜像比较慢的情况,建议替换 docker 的镜像源
+
+```json
+{
+  "builder": {
+    "gc": {
+      "defaultKeepStorage": "20GB",
+      "enabled": true
+    }
+  },
+  "experimental": false,
+  "registry-mirrors": [
+    "https://docker.hpcloud.cloud",
+    "https://docker.m.daocloud.io",
+    "https://docker.unsee.tech",
+    "https://docker.1panel.live",
+    "http://mirrors.ustc.edu.cn",
+    "https://docker.chenby.cn",
+    "http://mirror.azure.cn",
+    "https://dockerpull.org",
+    "https://dockerhub.icu",
+    "https://hub.rat.dev"
+  ]
+}
+```
+
 开启/关闭 dify 容器命令如下:
 
 ```shell
@@ -278,6 +304,54 @@ A: 好像和主流的 ai 请求/返回数据格式不一样,应该需要转换.�
       }
     ]
 }'
+```
+
+#### 2.6 扩展
+
+Q: 好了,现在我知道咋使用知识库了,但是有啥办法可以外部调用 api 动态更新知识库里面的内容呀?
+
+A: 可以通过知识库相关的 api 进行文档创建和删除之类的操作.
+
+首先申请知识库的`api key`
+
+![account-model](images/kw-db-apikey.png)
+
+创建知识库文档:
+
+```shell
+curl --location 'http://10.122.25.118/v1/datasets/08d5b30e-459c-417e-8f7b-f776fa083829/document/create-by-text' \
+--header 'Authorization: Bearer dataset-aOCaDJTbQ4egh6lnOjsLEc5l' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "my-text-file",
+    "text": "1234567890",
+    "indexing_technique": "high_quality",
+    "process_rule": {
+        "mode": "automatic"
+    }
+}'
+```
+
+返回数据:
+
+```json
+{
+  "document": {
+    // id最重要
+    "id": "79ef496b-16b6-4062-b9d0-fa783aea7108"
+    // 忽略其他字段...
+  },
+  "batch": "20250618020514581192"
+}
+```
+
+![account-model](images/kw-db-create-file.png)
+
+删除知识库文档(使用创建文档接口返回的文档 Id):
+
+```shell
+curl --location --request DELETE 'http://10.122.25.118/v1/datasets/08d5b30e-459c-417e-8f7b-f776fa083829/documents/79ef496b-16b6-4062-b9d0-fa783aea7108' \
+--header 'Authorization: Bearer dataset-aOCaDJTbQ4egh6lnOjsLEc5l'
 ```
 
 ---
